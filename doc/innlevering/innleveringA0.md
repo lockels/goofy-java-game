@@ -6,7 +6,7 @@ Spill: Binding of Isaac
 Kompetanse til medlemmer:
 Sara - Jeg går andre året på Datateknologi, har blant annet hatt INF100,101 og 102. Ellers hadde vi Haskell forrige semester. Jeg startet å kode når jeg begynte på studiet, så det er den eneste erfaringen jeg har. Jeg har spilt Binding of Isaac. 
 Idris - God i java
-Fredric - INF100
+Fredric - INF100, INF101, INF115, INF122, INF102
 Fredrik - 
 Spilt mye "TBOI" (The binding of Isaac) som spillet tar mye inspirasjon fra
 Erfaring med roguelites (Bra for gamefeel)

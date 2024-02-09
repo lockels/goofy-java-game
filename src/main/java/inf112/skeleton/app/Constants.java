@@ -1,5 +1,10 @@
 package inf112.skeleton.app;
 
+/**
+ * Interface which stores all constants used in-game.
+ *
+ * @author Fredric Hegland
+ */
 public interface Constants {
     // App
     int WINDOW_HEIGHT = 800;

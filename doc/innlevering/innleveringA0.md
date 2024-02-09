@@ -8,7 +8,7 @@ Sara - Jeg går andre året på Datateknologi, har blant annet hatt INF100,101 o
 Idris - 
 Fredric - 
 Fredrik - 
-Ella - 
+Ella - Jeg går første året på Datascience, har hatt blant annet INF100, INF101, INF170.
 Kenan - 
 
 

@@ -35,7 +35,7 @@ public class MovementTest extends ApplicationAdapter {
         cam.setToOrtho(false, 800, 800);
 
         //player
-        player = new Rectangle(800/2 - 64/2, 20, 64, 64);
+        player = new Rectangle(Constants.WINDOW_WIDTH/2 - 64/2, 20, 64, 64);
         playerImg = new Texture(Gdx.files.internal("playerSprite.png"));
 
         //Font
@@ -67,9 +67,9 @@ public class MovementTest extends ApplicationAdapter {
     }
 
     private void updateVelocity (boolean moveLeft, boolean moveRight, boolean moveUp, boolean moveDown) {
-        float velocity = 100;
-        float maxVelocity = 500;
-        float friction = 25;
+        float velocity = Constants.PLAYER_VELOCITY;
+        float maxVelocity = Constants.MAX_PLAYER_VELOCITY;
+        float friction = Constants.PLAYER_FRICTION;
         //Friction
         if (moveLeft == moveRight) {
             velocityX = applyFriction(velocityX, friction);
@@ -110,10 +110,12 @@ public class MovementTest extends ApplicationAdapter {
     }
 
     private void bounds (){
+        int playerPosWidth = Constants.WINDOW_WIDTH-Constants.PLAYER_WIDTH;
+        int playerPosHeight = Constants.WINDOW_HEIGHT-Constants.PLAYER_HEIGHT;
         if (player.x < 0) player.x = 0;
         if (player.y < 0) player.y = 0;
-        if (player.x > 800-64) player.x = 800-64;
-        if (player.y > 800-64) player.y = 800-64;
+        if (player.x > playerPosWidth) player.x = playerPosWidth;
+        if (player.y > playerPosHeight) player.y = playerPosHeight;
     }
 
     @Override

@@ -21,6 +21,6 @@ public interface Constants {
     // Grid
     int NUM_ROWS = 10;
     int NUM_COLS = 10;
-    int CELL_WIDTH = WINDOW_WIDTH / numCols;
-    int CELL_HEIGHT = WINDOW_HEIGHT / numRows;
+    int CELL_WIDTH = WINDOW_WIDTH / NUM_COLS;
+    int CELL_HEIGHT = WINDOW_HEIGHT / NUM_ROWS;
 }

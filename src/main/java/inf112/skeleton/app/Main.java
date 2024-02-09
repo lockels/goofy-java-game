@@ -5,10 +5,11 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 public class Main {
     public static void main(String[] args) {
-        Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
-        cfg.setTitle("hello-world");
-        cfg.setWindowedMode(480, 320);
-
-        new Lwjgl3Application(new HelloWorld(), cfg);
+        Lwjgl3ApplicationConfiguration gameWindow = new Lwjgl3ApplicationConfiguration();
+        gameWindow.setForegroundFPS(60);
+        gameWindow.useVsync(true);
+        gameWindow.setTitle("MovementTest");
+        gameWindow.setWindowedMode(800,800);
+        new Lwjgl3Application(new MovementTest(), gameWindow);
     }
 }

@@ -4,7 +4,7 @@ Gruppenavn: Codemasters
 Spill: Binding of Isaac
 
 Kompetanse til medlemmer:
-Sara - 
+Sara - Jeg går andre året på Datateknologi, har blant annet hatt INF100,101 og 102. Ellers hadde vi Haskell forrige semester. Jeg startet å kode når jeg begynte på studiet, så det er den eneste erfaringen jeg har. 
 Idris - 
 Fredric - 
 Fredrik - 

@@ -14,7 +14,7 @@ Erfaring med pixel sprites
 Erfaring i java
 Erfaring i game dev (Solo og flere)
 Ella - Jeg går første året på Datascience, har hatt blant annet INF100, INF101, INF170.
-Kenan - 
+Kenan - går andre året på Datasikkerhet. jeg har emner inf100, inf101, inf102. har litt erfaring java og sluttet å spille en stund siden
 
 
 

@@ -17,4 +17,10 @@ public interface Constants {
     int PLAYER_VELOCITY = 100;
     int MAX_PLAYER_VELOCITY = 500;
     int PLAYER_FRICTION = 25;
+
+    // Grid
+    int NUM_ROWS = 10;
+    int NUM_COLS = 10;
+    int CELL_WIDTH = WINDOW_WIDTH / numCols;
+    int CELL_HEIGHT = WINDOW_HEIGHT / numRows;
 }

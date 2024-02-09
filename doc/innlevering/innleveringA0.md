@@ -8,6 +8,11 @@ Sara - Jeg går andre året på Datateknologi, har blant annet hatt INF100,101 o
 Idris - 
 Fredric - 
 Fredrik - 
+Spilt mye "TBOI" (The binding of Isaac) som spillet tar mye inspirasjon fra
+Erfaring med roguelites (Bra for gamefeel)
+Erfaring med pixel sprites
+Erfaring i java
+Erfaring i game dev (Solo og flere)
 Ella - Jeg går første året på Datascience, har hatt blant annet INF100, INF101, INF170.
 Kenan - 
 

@@ -8,19 +8,19 @@ Kompetanse til medlemmer:
 
 * Fredric - INF100, INF101, INF102. 
 
-* Fredrik: Spilt mye "TBOI" (The binding of Isaac) som spillet tar mye inspirasjon fra, erfaring med roguelites (Bra for gamefeel), erfaring med pixel sprites, erfaring i java, erfaring i game dev (Solo og flere)
+* Fredrik - Spilt mye "TBOI" (The binding of Isaac) som spillet tar mye inspirasjon fra, erfaring med roguelites (Bra for gamefeel), erfaring med pixel sprites, erfaring i java, erfaring i game dev (Solo og flere)
 
 * Ella - Jeg går første året på Datascience, har hatt blant annet INF100, INF101, INF170.
 
 * Kenan - går andre året på Datasikkerhet. jeg har emner inf100, inf101, inf102. har litt erfaring java og sluttet å spille en stund siden
 
 
-## INNLEVERIN A1 - Team organisering
+## INNLEVERING A1 - Team organisering
 
-- Project manager: 
+- Project manager: Ella
 - Lead game designer: Fredrik
 - Lead artist: Sara
-- Lead UI/UX designer: 
+- Lead UI/UX designer: Kenan
 - Lead leveldesigner: Fredric
 - Lead programmer: Idris
 
@@ -46,6 +46,25 @@ Kompetanse til medlemmer:
 
 ## INNLEVERING A3 - Prosjekt organisering
 
+**Organisering**
+Gruppen vil følge en smidig tilnærming, med hovedvekt på Agile- og scrum-metoden. Vi planlegger å møtes minst en gang i uken for å opprettholde regelmessig kontakt og oppdatere hverandre om prosjektets fremdrift.
+
+### Møter og Hyppighet:
+Ukentlige møter(gruppetime) for planlegging, oppdatering og evaluering av prosjektet. Hvis det er behov vil vi møtes flere ganger. 
+
+### Kommunikasjon Mellom Møter:
+Kommunikasjon gjennom Discord og Messenger.
+
+### Arbeidsfordeling:
+Gruppen har en løs organisering av arbeidsfordeling for å sikre at alle har muligheten til å bidra på tvers av oppgaver og lære forskjellige ferdigheter. Trello brukes som et verktøy for å opprettholde oversikt over oppgaver og prosjektfremdrift. Målet er å skape en fri og naturlig arbeidsflyt som bidrar til fleksibilitet og kompetansedeling i gruppen.
+
+### Oppfølging av Arbeid:
+Regelmessige oppdateringer i Git commits og på Trello-kort, det vil også bli snakket om når vi møtes.
+
+### Deling og Oppbevaring av Dokumenter, Diagram og Kodebase:
+Git for versjonskontroll og deling av kode. 
+
+**Forventet produkt**
 1. Vise et spillebrett
 2. Vise spiller på spillebrett
 3. Flytte spiller (med piltaster)
@@ -53,11 +72,19 @@ Kompetanse til medlemmer:
 5. Spiller har *liv* og *evner* som kan forbedres med gjenstander i spillet(hjerter og våpen) 
 6. Vise fiender/monstre; de skal interagere med terreng og spiller
 7. Spiller interagerer med fiender (slåss med fiender, miste liv, tårer for å bekjempe fiender)
-8. Mål for spillbrett (enten et sted, en mengde poeng, drepe alle fiender e.l.) ?????
+8. Mål for spillet er å fullføre alle rom.
 9. Game over (når spiller har mistet alle liv)
 10. Start-skjerm ved oppstart / game over
 
-* Brukerhistorie: 
+**Brukerhistorie**
+
+- Som Isaac, den spillbare karakteren, ønsker jeg å utforske todimensjonale rom fylt med fiender, gjenstander og skjulte skatter for å styrke mine evner og overvinne utfordringer.
+
+1. Når jeg navigerer gjennom rommene, forventer jeg å kunne bevege meg smidig i alle retninger for å unngå fiender og angrep, og ha mulighet til å finne gjenstader som forbedrer mine evner eller gir meg liv.
+2. Oppdager jeg en låst dør i et rom, vil jeg se det som en mulighet for å finne en skatt/nøkkel.
+3. Når jeg nærmer meg en låst dør, vil jeg delta i en interaktiv handling, ved å finne nøkler eller løse gåter, for å låse opp det neste rommet.
+4. Hvis jeg møter en fiende, vil jeg kunne nedkjempe fienden ved hjelp power-ups jeg har fått i løpet av spillet. 
+5. For å øke utfordringen vil jeg at skattene skal variere avhengig av rommets vanskelighetsgrad. Noen ganger kan det være skjulte rom med ekstra utfordringer eller gåter for å finne unike power-ups som endrer Isaacs utseende og spillestil drastisk, og dermed gi en følelse av progresjon og belønning.
 
 
 

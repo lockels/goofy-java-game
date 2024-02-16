@@ -78,7 +78,7 @@ Git for versjonskontroll og deling av kode.
 
 **Brukerhistorie**
 
-- Som Isaac, den spillbare karakteren, ønsker jeg å utforske todimensjonale rom fylt med fiender, gjenstander og skjulte skatter for å styrke mine evner og overvinne utfordringer.
+- Som Isaac, den spillbare karakteren, ønsker jeg å utforske todimensjonale rom fylt med fiender, gjenstander og skjulte skatter for å styrke mine evner og overvinne fiender.
 
 1. Når jeg navigerer gjennom rommene, forventer jeg å kunne bevege meg smidig i alle retninger for å unngå fiender og angrep, og ha mulighet til å finne gjenstader som forbedrer mine evner eller gir meg liv.
 2. Oppdager jeg en låst dør i et rom, vil jeg se det som en mulighet for å finne en skatt/nøkkel.

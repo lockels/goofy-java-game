@@ -1,11 +1,13 @@
 # INF112 Project - *Zelda RougeLite*
-## Team: *Codemasters* (Gruppe 2)
-* Fredrik Grahm-Haga
-* Fredric Hegland
-* Kenan Inci
-* Idiris Elmi
-* Ella Solberg
-* Sara Stavang
+## META
+* [Trello](https://trello.com/b/Xchy9euA/inf112-gruppeprosjekt)
+* Team: *Codemasters* (Gruppe 2)
+  * Fredrik Grahm-Haga (Lead game designer)
+  * Fredric Hegland (Lead level designer)
+  * Kenan Inci (Lead sound designer)
+  * Idiris Elmi (Lead game programmer)
+  * Ella Solberg (Project Lead)
+  * Sara Stavang (Lead game artist)
 
 ## Om spillet:
 Zelda rougelite inspirert av *the binding of isaac*

@@ -116,7 +116,3 @@ Lead Programmer: Håndterer all spillrelatert programmering.
 Tidsstyringsverktøy: Vi vurderer å ta i bruk nye verktøy for tidsstyring for bedre å holde oversikt over frister og forpliktelser.
 Vurdering og justering for neste iterasjon:
 Selv om vi generelt traff godt på våre mål for denne oppgaven, anerkjenner vi behovet for bedre tidsplanlegging og klarere arbeidsfordeling. Disse områdene vil bli fokusert på i planleggingen av vår neste iterasjon. Basert på erfaringene fra denne oppgaven, vil vi justere vår tilnærming til tidsbruk og oppgavevanskelighet for å sikre en mer realistisk og oppnåelig arbeidsmengde i neste iterasjon.
-
-
-
-

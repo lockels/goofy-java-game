@@ -2,8 +2,9 @@ package inf112.skeleton.app.myInput;
 
 import com.badlogic.gdx.Input.Keys;
 import inf112.skeleton.app.Player;
+import inf112.skeleton.app.Direction;
 
-public class MyInputAdapter extends MyInputProcessor{
+public class MyInputAdapter extends MyInputProcessor {
     Player player;
 
     public MyInputAdapter(Player player) {
@@ -14,34 +15,35 @@ public class MyInputAdapter extends MyInputProcessor{
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Keys.LEFT:
-                player.setLeftMove(true);
+                player.setMovement(Direction.LEFT, true);
                 break;
             case Keys.RIGHT:
-                player.setRightMove(true);
+                player.setMovement(Direction.RIGHT, true);
                 break;
             case Keys.UP:
-                player.setUpMove(true);
+                player.setMovement(Direction.UP, true);
                 break;
             case Keys.DOWN:
-                player.setDownMove(true);
+                player.setMovement(Direction.DOWN, true);
                 break;
         }
         return true;
     }
+
     @Override
     public boolean keyUp(int keycode) {
         switch (keycode) {
             case Keys.LEFT:
-                player.setLeftMove(false);
+                player.setMovement(Direction.LEFT, false);
                 break;
             case Keys.RIGHT:
-                player.setRightMove(false);
+                player.setMovement(Direction.RIGHT, false);
                 break;
             case Keys.UP:
-                player.setUpMove(false);
+                player.setMovement(Direction.UP, false);
                 break;
             case Keys.DOWN:
-                player.setDownMove(false);
+                player.setMovement(Direction.DOWN, false);
                 break;
         }
         return true;

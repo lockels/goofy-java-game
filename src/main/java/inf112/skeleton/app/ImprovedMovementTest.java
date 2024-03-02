@@ -30,7 +30,8 @@ public class ImprovedMovementTest extends ApplicationAdapter {
         cam.setToOrtho(false, 800, 800);
 
         //Player
-        playerSprite = new Texture(Gdx.files.internal(player.spriteStr));
+        playerSprite = new Texture(Gdx.files.internal(player.getSprite()));
+
 
         //Input
         Gdx.input.setInputProcessor(inputAdapter);
@@ -43,7 +44,8 @@ public class ImprovedMovementTest extends ApplicationAdapter {
         cam.update();
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
-        batch.draw(playerSprite, player.x, player.y, 64, 64);
+        batch.draw(playerSprite, player.getX(), player.getY(), 64, 64);
+
         batch.end();
     }
 

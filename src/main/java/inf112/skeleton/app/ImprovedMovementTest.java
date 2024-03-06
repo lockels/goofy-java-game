@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import inf112.skeleton.app.myInput.MyInputAdapter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class ImprovedMovementTest extends ApplicationAdapter {
     private SpriteBatch batch;
@@ -14,6 +15,7 @@ public class ImprovedMovementTest extends ApplicationAdapter {
     private Player player;
     private Texture playerSprite;
     private MyInputAdapter inputAdapter;
+    private BitmapFont font;
 
     public ImprovedMovementTest() {
         player = new Player();
@@ -32,6 +34,8 @@ public class ImprovedMovementTest extends ApplicationAdapter {
         //Player
         playerSprite = new Texture(Gdx.files.internal(player.getSprite()));
 
+        //Font
+        font = new BitmapFont();
 
         //Input
         Gdx.input.setInputProcessor(inputAdapter);
@@ -40,16 +44,16 @@ public class ImprovedMovementTest extends ApplicationAdapter {
     @Override
     public void render () {
         ScreenUtils.clear(0, 1, 0, 1);
-        updateMove();
+        tick();
         cam.update();
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
         batch.draw(playerSprite, player.getX(), player.getY(), 64, 64);
-
+        font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 10, 20);
         batch.end();
     }
 
-    private void updateMove () {
+    private void tick() {
         player.move();
     }
 }

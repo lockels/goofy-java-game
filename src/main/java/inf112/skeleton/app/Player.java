@@ -47,8 +47,8 @@ public class Player {
     }
 
     public void move() {
-        velocity.x += PLAYER_ACCELERATION * direction.x * Gdx.graphics.getDeltaTime();
-        velocity.y += PLAYER_ACCELERATION * direction.y * Gdx.graphics.getDeltaTime();
+        velocity.x += PLAYER_ACCELERATION * direction.x;
+        velocity.y += PLAYER_ACCELERATION * direction.y;
 
         velocity.x = MathUtils.clamp(velocity.x, -MAX_PLAYER_VELOCITY, MAX_PLAYER_VELOCITY);
         velocity.y = MathUtils.clamp(velocity.y, -MAX_PLAYER_VELOCITY, MAX_PLAYER_VELOCITY);
@@ -65,10 +65,10 @@ public class Player {
 
     private void applyFriction() {
           if (direction.x == 0) {
-              velocity.x = approachZero(velocity.x, PLAYER_FRICTION * Gdx.graphics.getDeltaTime());
+              velocity.x = approachZero(velocity.x, PLAYER_FRICTION);
           }
           if (direction.y == 0) {
-              velocity.y = approachZero(velocity.y, PLAYER_FRICTION * Gdx.graphics.getDeltaTime());
+              velocity.y = approachZero(velocity.y, PLAYER_FRICTION);
           }
     }
 

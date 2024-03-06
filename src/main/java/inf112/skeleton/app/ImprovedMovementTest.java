@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import inf112.skeleton.app.myInput.MyInputAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+import java.util.Map;
+
 public class ImprovedMovementTest extends ApplicationAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
@@ -49,8 +51,19 @@ public class ImprovedMovementTest extends ApplicationAdapter {
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
         batch.draw(playerSprite, player.getX(), player.getY(), 64, 64);
+        //Debug
         font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 10, 20);
+        font.draw(batch, activePlayerDirections(), 10, 40);
         batch.end();
+    }
+
+    private String activePlayerDirections () {
+        StringBuilder result = new StringBuilder();
+        Map<Direction, Boolean> dict = player.getMovementDirections();
+        for (Direction dir : player.getMovementDirections().keySet()){
+            if (dict.get(dir)){ result.append(dir.name()).append("/"); }
+        }
+        return result.toString();
     }
 
     private void tick() {

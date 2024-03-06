@@ -3,8 +3,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import java.util.Dictionary;
-import java.util.Hashtable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static inf112.skeleton.app.Constants.*;
 
@@ -15,7 +16,7 @@ public class Player {
     private Vector2 direction;
     private Rectangle hitbox;
     private String spriteStr;
-    private Dictionary<Direction, Boolean> moveDirections;
+    private Map<Direction, Boolean> moveDirections;
 
     public Player() {
         pos = new Vector2(WINDOW_WIDTH / 2f - PLAYER_WIDTH / 2f, 20);
@@ -24,7 +25,7 @@ public class Player {
         hitbox = new Rectangle(pos.x, pos.y, PLAYER_WIDTH, PLAYER_HEIGHT);
         spriteStr = "playerSprite.png";
         //Movement Directions
-        moveDirections = new Hashtable<>();
+        moveDirections = new HashMap<>();
         moveDirections.put(Direction.UP, false);
         moveDirections.put(Direction.DOWN, false);
         moveDirections.put(Direction.LEFT, false);
@@ -34,8 +35,10 @@ public class Player {
     public float getX() { return this.pos.x; }
 
     public float getY() { return this.pos.y; }
-    
+
     public String getSprite() { return this.spriteStr; }
+
+    public Map<Direction, Boolean> getMovementDirections() { return moveDirections; }
 
 
     public void setMovement(Direction direction, boolean isActive) {
@@ -71,22 +74,22 @@ public class Player {
         velocity.y = MathUtils.clamp(velocity.y, -MAX_PLAYER_VELOCITY, MAX_PLAYER_VELOCITY);
 
         applyFriction();
-      
+
         // Update the position based on the velocity
         pos.mulAdd(velocity, Gdx.graphics.getDeltaTime());
         hitbox.setPosition(pos);
-        
+
         // Keep player within the bounds of the screen
         bounds();
     }
 
     private void applyFriction() {
-          if (direction.x == 0) {
-              velocity.x = approachZero(velocity.x);
-          }
-          if (direction.y == 0) {
-              velocity.y = approachZero(velocity.y);
-          }
+        if (direction.x == 0) {
+            velocity.x = approachZero(velocity.x);
+        }
+        if (direction.y == 0) {
+            velocity.y = approachZero(velocity.y);
+        }
     }
 
     private float approachZero(float value) {

@@ -1,11 +1,12 @@
 package inf112.skeleton.app.myInput;
 
 import com.badlogic.gdx.Input.Keys;
-import inf112.skeleton.app.Player;
+import com.badlogic.gdx.InputAdapter;
 import inf112.skeleton.app.Direction;
+import inf112.skeleton.app.Player;
 
-public class MyInputAdapter extends MyInputProcessor {
-    Player player;
+public class MyInputAdapter extends InputAdapter {
+    private final Player player;
 
     public MyInputAdapter(Player player) {
         this.player = player;
@@ -13,39 +14,31 @@ public class MyInputAdapter extends MyInputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        switch (keycode) {
-            case Keys.LEFT:
-                player.setMovement(Direction.LEFT, true);
-                break;
-            case Keys.RIGHT:
-                player.setMovement(Direction.RIGHT, true);
-                break;
-            case Keys.UP:
-                player.setMovement(Direction.UP, true);
-                break;
-            case Keys.DOWN:
-                player.setMovement(Direction.DOWN, true);
-                break;
+        Direction direction = getKeyDirection(keycode);
+        if (direction != null) {
+            player.setMovement(direction, true);
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        switch (keycode) {
-            case Keys.LEFT:
-                player.setMovement(Direction.LEFT, false);
-                break;
-            case Keys.RIGHT:
-                player.setMovement(Direction.RIGHT, false);
-                break;
-            case Keys.UP:
-                player.setMovement(Direction.UP, false);
-                break;
-            case Keys.DOWN:
-                player.setMovement(Direction.DOWN, false);
-                break;
+        Direction direction = getKeyDirection(keycode);
+        if (direction != null) {
+            player.setMovement(direction, false);
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    private Direction getKeyDirection(int keycode) {
+        return switch (keycode) {
+            case Keys.LEFT  -> Direction.LEFT;
+            case Keys.RIGHT -> Direction.RIGHT;
+            case Keys.UP    -> Direction.UP;
+            case Keys.DOWN  -> Direction.DOWN;
+            default         -> null;
+        };
     }
 }

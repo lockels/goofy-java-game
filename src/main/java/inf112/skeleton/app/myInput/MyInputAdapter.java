@@ -3,7 +3,7 @@ package inf112.skeleton.app.myInput;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import inf112.skeleton.app.Direction;
-import inf112.skeleton.app.Player;
+import inf112.skeleton.app.entities.Player;
 
 public class MyInputAdapter extends InputAdapter {
     private final Player player;

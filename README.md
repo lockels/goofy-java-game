@@ -19,7 +19,11 @@ Zelda rougelite inspirert av *the binding of isaac*
 * Krever *Java 17* eller senere
 
 ## Bugs
-* Janky movement (Mulig maskinvare dependent)
+* Janky movement (Maskinvare dependent)
+* Wall collision
+
+## TODO
+* Fix enemies
 
 ## Credits
 * `dungeon_sheet.png` from https://opengameart.org/content/a-blocky-dungeon (credit: http://blog-buch.rhcloud.com)

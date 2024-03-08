@@ -12,11 +12,11 @@ public interface Constants {
     int GAME_FPS = 60;
 
     // Player
-    int PLAYER_WIDTH = 64;
+    int PLAYER_WIDTH = 48;
     int PLAYER_HEIGHT = 64;
-    int PLAYER_ACCELERATION = 100;
+    int PLAYER_ACCELERATION = 1000;
     int MAX_PLAYER_VELOCITY = 500;
-    int PLAYER_FRICTION = 25;
+    int PLAYER_FRICTION = 2000;
 
     // Grid
     int NUM_ROWS = 10;

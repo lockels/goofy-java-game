@@ -2,55 +2,58 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.ScreenUtils;
-import inf112.skeleton.app.entities.*;
+import inf112.skeleton.app.entities.Entity;
+import inf112.skeleton.app.entities.Enemy;
+import inf112.skeleton.app.entities.Player;
+import inf112.skeleton.app.grid.Grid;
 import inf112.skeleton.app.myInput.MyInputAdapter;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import inf112.skeleton.app.Constants;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ImprovedMovementTest extends ApplicationAdapter {
+public class GameRenderer extends ApplicationAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
     private Player player;
     private ArrayList<Entity> entities = new ArrayList<>();
     private ArrayList<TextureRegion> entitySprites = new ArrayList<>();
     private Texture spriteSheet;
-    private TextureRegion playerSprite;
-    private TextureRegion enemySprite;
     private MyInputAdapter inputAdapter;
     private BitmapFont font;
     private TiledMap map;
     private OrthogonalTiledMapRenderer mapRenderer;
+    private Grid grid;
 
-    public ImprovedMovementTest() {
+    public GameRenderer() {
         player = new Player(
-                new Rectangle(400,20,Constants.PLAYER_WIDTH,Constants.PLAYER_HEIGHT),
+                new Rectangle(400, 20, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT),
                 "dungeon_sheet.png",
                 306,
                 112,
                 16,
                 12
-                );
+        );
         Enemy enemy1 = new Enemy(
-                new Rectangle(400,400,Constants.PLAYER_WIDTH,Constants.PLAYER_HEIGHT),
+                new Rectangle(400, 400, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT),
                 "dungeon_sheet.png",
                 322,
                 112,
                 16,
                 12
-                );
+        );
         Enemy enemy2 = new Enemy(
-                new Rectangle(300,500,Constants.PLAYER_WIDTH,Constants.PLAYER_HEIGHT),
+                new Rectangle(300, 500, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT),
                 "dungeon_sheet.png",
                 322,
                 112,
@@ -58,7 +61,7 @@ public class ImprovedMovementTest extends ApplicationAdapter {
                 12
         );
         Enemy enemy3 = new Enemy(
-                new Rectangle(500,500,Constants.PLAYER_WIDTH,Constants.PLAYER_HEIGHT),
+                new Rectangle(500, 500, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT),
                 "dungeon_sheet.png",
                 322,
                 112,
@@ -73,90 +76,110 @@ public class ImprovedMovementTest extends ApplicationAdapter {
     }
 
     @Override
-    public void create () {
-        //Batch
+    public void create() {
+        // Batch
         batch = new SpriteBatch();
 
-        //Camera
+        // Camera
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 800, 800);
 
-        //Sprites
+        // Sprites
         spriteSheet = getSpriteSheet(player.getSpriteSheetPath());
-        for (Entity entity : entities){
+        for (Entity entity : entities) {
             entitySprites.add(getSpriteFromSheet(spriteSheet, entity.getSpriteSheetX(), entity.getSpriteSheetY(), entity.getSpriteWidth(), entity.getSpriteHeight()));
         }
 
+        // Grid
+        grid = new Grid(10, 10, 800, 800);
+        // Set entities for each cell in the grid
+        grid.setEntity(1, 1, entities.get(0)); // For example, set player at (1, 1)
+        grid.setEntity(2, 2, entities.get(1)); // For example, set enemy1 at (2, 2)
+        grid.setEntity(3, 3, entities.get(2)); // For example, set enemy2 at (3, 3)
+        grid.setEntity(4, 4, entities.get(3)); // For example, set enemy3 at (4, 4)
 
-        //Font
+        // Font
         font = new BitmapFont();
 
-        //Input
+        // Input
         Gdx.input.setInputProcessor(inputAdapter);
 
-        show();
-    }
-
-    @Override
-    public void render () {
-        ScreenUtils.clear(0, 1, 0, 1);
-        tick();
-        cam.update();
-        batch.setProjectionMatrix(cam.combined);
-        batch.begin();
-        mapRenderer.setView(cam);
-        mapRenderer.render();
-        for (Entity entity : entities){
-            TextureRegion entitySprite = entitySprites.get(entities.indexOf(entity));
-            batch.draw(entitySprite, entity.getX(), entity.getY(), Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT);
-        }
-        //Debug
-        font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 10, 20);
-        font.draw(batch, activePlayerDirections(), 10, 40);
-        
-        batch.end();
-    
-    }
-
-    private String activePlayerDirections () {
-        StringBuilder result = new StringBuilder();
-        Map<Direction, Boolean> dict = player.getMovementDirections();
-        for (Direction dir : player.getMovementDirections().keySet()){
-            if (dict.get(dir)){ result.append(dir.name()).append("/"); }
-        }
-        return result.toString();
-    }
-
-    private void tick() {
-        player.move();
-        for (Entity entity : entities.subList(1,entities.size())){
-            entity.moveTowards(player.getX(), player.getY(), 1000);
-        }
-    }
-
-    public void resize(int height, int width){
-        cam.viewportHeight = height;
-        cam.viewportWidth = width;
-        cam.update();
-    }
-
-    private void show(){
+        // Load the TiledMap
         TmxMapLoader loader = new TmxMapLoader();
         map = loader.load("maps/map1.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
     }
 
-    public void dispose(){
-        map.dispose();
-        mapRenderer.dispose();
+    @Override
+    public void render() {
+        // Clear screen
+        Gdx.gl.glClearColor(0, 1, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // Draw map
+        mapRenderer.setView(cam);
+        mapRenderer.render();
+
+        // Draw grid
+        batch.setProjectionMatrix(cam.combined);
+        batch.begin();
+        grid.draw(batch);
+
+        // Draw entities
+        for (Entity entity : entities) {
+            TextureRegion entitySprite = entitySprites.get(entities.indexOf(entity));
+            batch.draw(entitySprite, entity.getX(), entity.getY(), Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT);
+        }
+
+        // Debug
+        font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 10, 20);
+        font.draw(batch, activePlayerDirections(), 10, 40);
+
+        batch.end();
+
+        // Update player position
+        player.move();
+        for (Entity entity : entities.subList(1, entities.size())) {
+            entity.moveTowards(player.getX(), player.getY(), 1000);
+        }
     }
 
-    private TextureRegion getSpriteFromSheet(Texture spriteSheet, int x, int y, int width, int height){
+    private String activePlayerDirections() {
+        StringBuilder result = new StringBuilder();
+        Map<Direction, Boolean> dict = player.getMovementDirections();
+        for (Direction dir : player.getMovementDirections().keySet()) {
+            if (dict.get(dir)) {
+                result.append(dir.name()).append("/");
+            }
+        }
+        return result.toString();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        cam.viewportHeight = height;
+        cam.viewportWidth = width;
+        cam.update();
+    }
+
+    private TextureRegion getSpriteFromSheet(Texture spriteSheet, int x, int y, int width, int height) {
         return new TextureRegion(spriteSheet, x, y, width, height);
     }
 
-    private Texture getSpriteSheet(String spriteSheet){
+    private Texture getSpriteSheet(String spriteSheet) {
         return new Texture(Gdx.files.internal(spriteSheet));
     }
 
+    @Override
+    public void dispose() {
+        batch.dispose();
+        spriteSheet.dispose();
+        for (TextureRegion textureRegion : entitySprites) {
+            textureRegion.getTexture().dispose();
+        }
+        font.dispose();
+        map.dispose();
+        mapRenderer.dispose();
+//        grid.dispose();
+    }
 }

@@ -1,5 +1,6 @@
 package inf112.skeleton.app.entities;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -43,5 +44,10 @@ public class Entity {
         float diffY = tY - hitbox.y;
         hitbox.x += diffX / 100;
         hitbox.y += diffY / 100;
+    }
+
+    public Texture getTexture() {
+        Texture spriteSheet = new Texture(spriteSheetPath);
+        return new TextureRegion(spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight).getTexture();
     }
 }

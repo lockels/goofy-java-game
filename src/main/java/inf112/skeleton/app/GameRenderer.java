@@ -152,7 +152,9 @@ public class GameRenderer extends ApplicationAdapter {
         font.draw(batch, activePlayerDirections(), 10, 40);
 
         if (playerHealth <= 0) {
-            font.draw(batch, "Game Over", 400, 400);
+            //Draw a rectangle with a picture
+            Rectangle rectangle = new Rectangle(0, 0, 800, 800);
+            batch.draw(new Texture("src/main/resources/gameOver.png"), rectangle.x, rectangle.y, rectangle.width, rectangle.height);
             gameState = GameStates.GAME_OVER;
         }
 

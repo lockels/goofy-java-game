@@ -11,6 +11,12 @@ public class HUD {
     private Texture heartTexture;
     private int maxHearts;
 
+    private int heartWidth = 20;
+    private int heartHeight = heartWidth;
+    private int heartPadding = 25;
+    private int heartX = 30;
+    private int heartY = 800 - heartHeight - heartX;
+
     public HUD(Texture heartTexture, int maxHearts) {
         this.heartTexture = heartTexture;
         this.maxHearts = maxHearts;
@@ -20,9 +26,9 @@ public class HUD {
     private void createHearts() {
         hearts = new ArrayList<>();
         for (int i = 0; i < maxHearts; i++) {
-            float heartX = 20 + i * 40;
-            float heartY = 20;
-            hearts.add(new Heart(heartTexture, heartX, heartY, 32, 32, true));
+            float x = heartX + i * heartPadding;
+            float y = heartY;
+            hearts.add(new Heart(heartTexture, x, y, heartWidth, heartHeight, true));
         }
     }
 

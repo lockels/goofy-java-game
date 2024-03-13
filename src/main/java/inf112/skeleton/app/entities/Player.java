@@ -18,14 +18,14 @@ public class Player extends Entity{
     private Vector2 pos;
     private Map<Direction, Boolean> moveDirections;
 
-    public Player(Rectangle hitBox, String spriteSheetPath, int spriteSheetX, int spriteSheetY, int spriteHeight, int spriteWidth) {
+    public Player(Rectangle hitBox, String dungeon_sheet, int spriteSheetX, int spriteSheetY, int spriteHeight, int spriteWidth) {
         this.hitbox = hitBox;
         pos = new Vector2(hitBox.x, hitBox.y);
         velocity = new Vector2();
         direction = new Vector2();
 
         //Sprite
-        this.spriteSheetPath = spriteSheetPath;
+        this.spriteSheetPath = dungeon_sheet;
         this.spriteSheetX = spriteSheetX;
         this.spriteSheetY = spriteSheetY;
         this.spriteHeight = spriteHeight;

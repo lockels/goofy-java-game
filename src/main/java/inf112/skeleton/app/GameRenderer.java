@@ -21,6 +21,7 @@ import inf112.skeleton.app.grid.Grid;
 import inf112.skeleton.app.myInput.MyInputAdapter;
 import inf112.skeleton.app.Constants;
 import inf112.skeleton.app.HUD.HUD;
+import inf112.skeleton.app.GameStates;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -38,14 +39,16 @@ public class GameRenderer extends ApplicationAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Grid grid;
     private HUD hud;
-    private int playerHealth = 10;
+    private int playerHealth = 10; // 10 hearts
     private long lastHitTime;
     private final long hitCooldown = 1000; // 1 second in milliseconds
+    private GameStates gameState;
 
     // Preloading files:
     private String dungeon_sheet = "dungeon_sheet.png";
 
     public GameRenderer() {
+        gameState = GameStates.GAME_ACTIVE;
         player = new Player(
                 new Rectangle(400, 20, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT),
                 dungeon_sheet, 306, 112, 16, 12);
@@ -82,7 +85,7 @@ public class GameRenderer extends ApplicationAdapter {
         }
 
         // Grid
-        grid = new Grid(10, 10, 800, 800);
+        grid = new Grid(50, 50, 800, 800);
         // Set entities for each cell in the grid
 
         // Font
@@ -98,7 +101,7 @@ public class GameRenderer extends ApplicationAdapter {
 
         // Initialize HUD
         Texture heartTexture = new Texture("src/main/resources/HUD/heart16x16.png");
-        hud = new HUD(heartTexture, 10); // Example: 10 hearts
+        hud = new HUD(heartTexture, playerHealth);
     }
 
     @Override
@@ -148,13 +151,16 @@ public class GameRenderer extends ApplicationAdapter {
         font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 10, 20);
         font.draw(batch, activePlayerDirections(), 10, 40);
 
+        if (playerHealth <= 0) {
+            font.draw(batch, "Game Over", 400, 400);
+            gameState = GameStates.GAME_OVER;
+        }
+
         // Render HUD
         hud.draw(batch);
 
         batch.end();
     }
-
-    /////////////////////////////////////////////////
 
     private String activePlayerDirections() {
         StringBuilder result = new StringBuilder();

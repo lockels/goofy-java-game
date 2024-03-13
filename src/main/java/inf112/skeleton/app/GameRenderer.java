@@ -177,7 +177,7 @@ public class GameRenderer extends ApplicationAdapter {
     }
 
     private void drawHitWarning() {
-        batch.draw(new Texture("src/main/resources/red2.png"), 0, 0, 800, 800);
+        batch.draw(new Texture("src/main/resources/hitWarning.png"), 0, 0, 800, 800);
     }
 
     private String activePlayerDirections() {

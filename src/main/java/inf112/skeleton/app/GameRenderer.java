@@ -34,7 +34,6 @@ public class GameRenderer extends ApplicationAdapter {
     private Texture spriteSheet;
     private MyInputAdapter inputAdapter;
     private BitmapFont font;
-    private TiledMap map;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Grid grid;
     private HUD hud;
@@ -42,35 +41,25 @@ public class GameRenderer extends ApplicationAdapter {
     private long lastHitTime;
     private final long hitCooldown = 1000; // 1 second in milliseconds
 
+    // Preloading files:
+    private String dungeon_sheet = "dungeon_sheet.png";
+    private TmxMapLoader mapLoader = new TmxMapLoader();
+    private TiledMap map = mapLoader.load("src/main/resources/maps/map1.tmx");
+    private Texture heartTexture = new Texture("src/main/resources/HUD/heart16x16.png");
+
     public GameRenderer() {
         player = new Player(
                 new Rectangle(400, 20, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT),
-                "dungeon_sheet.png",
-                306,
-                112,
-                16,
-                12);
+                dungeon_sheet, 306, 112, 16, 12);
         Enemy enemy1 = new Enemy(
                 new Rectangle(400, 400, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT),
-                "dungeon_sheet.png",
-                322,
-                112,
-                16,
-                12);
+                dungeon_sheet, 322, 112, 16, 12);
         Enemy enemy2 = new Enemy(
                 new Rectangle(300, 500, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT),
-                "dungeon_sheet.png",
-                322,
-                112,
-                16,
-                12);
+                dungeon_sheet, 322, 112, 16, 12);
         Enemy enemy3 = new Enemy(
                 new Rectangle(500, 500, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT),
-                "dungeon_sheet.png",
-                322,
-                112,
-                16,
-                12);
+                dungeon_sheet, 322, 112, 16, 12);
         entities.add(player);
         entities.add(enemy1);
         entities.add(enemy2);
@@ -109,12 +98,9 @@ public class GameRenderer extends ApplicationAdapter {
         Gdx.input.setInputProcessor(inputAdapter);
 
         // Load the TiledMap
-        TmxMapLoader loader = new TmxMapLoader();
-        map = loader.load("maps/map1.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
         // Initialize HUD
-        Texture heartTexture = new Texture("src/main/resources/HUD/heart16x16.png");
         hud = new HUD(heartTexture, 10); // Example: 10 hearts
     }
 

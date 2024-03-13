@@ -48,8 +48,8 @@ public class GameRenderer extends ApplicationAdapter {
     // Preloading files:
     private String dungeon_sheet = "dungeon_sheet.png";
 
-    public GameRenderer() {
-        gameState = GameStates.GAME_ACTIVE;
+    public GameRenderer(GameStates gameState) {
+        this.gameState = gameState;
         player = new Player(
                 new Rectangle(400, 20, Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT),
                 dungeon_sheet, 306, 112, 16, 12);
@@ -87,7 +87,6 @@ public class GameRenderer extends ApplicationAdapter {
 
         // Grid
         grid = new Grid(50, 50, 800, 800);
-        // Set entities for each cell in the grid
 
         // Font
         font = new BitmapFont();

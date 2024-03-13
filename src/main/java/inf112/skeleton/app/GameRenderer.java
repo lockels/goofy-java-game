@@ -34,6 +34,7 @@ public class GameRenderer extends ApplicationAdapter {
     private Texture spriteSheet;
     private MyInputAdapter inputAdapter;
     private BitmapFont font;
+    private TiledMap map;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Grid grid;
     private HUD hud;
@@ -43,9 +44,6 @@ public class GameRenderer extends ApplicationAdapter {
 
     // Preloading files:
     private String dungeon_sheet = "dungeon_sheet.png";
-    private TmxMapLoader mapLoader = new TmxMapLoader();
-    private TiledMap map = mapLoader.load("src/main/resources/maps/map1.tmx");
-    private Texture heartTexture = new Texture("src/main/resources/HUD/heart16x16.png");
 
     public GameRenderer() {
         player = new Player(
@@ -98,9 +96,12 @@ public class GameRenderer extends ApplicationAdapter {
         Gdx.input.setInputProcessor(inputAdapter);
 
         // Load the TiledMap
+        TmxMapLoader loader = new TmxMapLoader();
+        map = loader.load("maps/CODEMASTERS_SARA_MAP.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
         // Initialize HUD
+        Texture heartTexture = new Texture("src/main/resources/HUD/heart16x16.png");
         hud = new HUD(heartTexture, 10); // Example: 10 hearts
     }
 

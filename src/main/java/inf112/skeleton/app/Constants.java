@@ -12,8 +12,8 @@ public interface Constants {
     int GAME_FPS = 60;
 
     // Player
-    int PLAYER_WIDTH = 48;
-    int PLAYER_HEIGHT = 64;
+    int PLAYER_WIDTH = 24;
+    int PLAYER_HEIGHT = 32;
     int PLAYER_ACCELERATION = 1000;
     int MAX_PLAYER_VELOCITY = 500;
     int PLAYER_FRICTION = 2000;

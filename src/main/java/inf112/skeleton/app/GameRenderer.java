@@ -19,8 +19,8 @@ import inf112.skeleton.app.entities.Enemy;
 import inf112.skeleton.app.entities.Player;
 import inf112.skeleton.app.grid.Grid;
 import inf112.skeleton.app.myInput.MyInputAdapter;
-import inf112.HUD.HUD;
 import inf112.skeleton.app.Constants;
+import inf112.skeleton.app.HUD.HUD;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -95,13 +95,12 @@ public class GameRenderer extends ApplicationAdapter {
         }
 
         // Grid
-        grid = new Grid(8, 8, 800, 800);
+        grid = new Grid(10, 10, 800, 800);
         // Set entities for each cell in the grid
         grid.setEntity(1, 1, entities.get(0)); // For example, set player at (1, 1)
         grid.setEntity(2, 2, entities.get(1)); // For example, set enemy1 at (2, 2)
-        grid.setEntity(4, 3, entities.get(2)); // For example, set enemy2 at (3, 3)
+        grid.setEntity(3, 3, entities.get(2)); // For example, set enemy2 at (3, 3)
         grid.setEntity(4, 4, entities.get(3)); // For example, set enemy3 at (4, 4)
-        grid.setEntity(4, 5, entities.get(0));
 
         // Font
         font = new BitmapFont();
@@ -141,8 +140,6 @@ public class GameRenderer extends ApplicationAdapter {
                     // Collision detected, remove one heart
                     playerHealth--;
                     lastHitTime = currentTime;
-                    // You might want to add more logic here, like resetting player position,
-                    // handling game over, etc.
                 }
             }
         }
@@ -154,7 +151,6 @@ public class GameRenderer extends ApplicationAdapter {
 
         // Update HUD hearts
         hud.updateHearts(playerHealth);
-        System.out.println(playerHealth);
 
         // Draw grid, entities, and HUD
         batch.setProjectionMatrix(cam.combined);

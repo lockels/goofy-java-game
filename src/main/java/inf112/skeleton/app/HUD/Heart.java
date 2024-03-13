@@ -1,4 +1,4 @@
-package inf112.HUD;
+package inf112.skeleton.app.HUD;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

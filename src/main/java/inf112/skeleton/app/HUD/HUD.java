@@ -1,4 +1,4 @@
-package inf112.HUD;
+package inf112.skeleton.app.HUD;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -38,10 +38,8 @@ public class HUD {
         for (int i = 0; i < hearts.size(); i++) {
             if (i < currentHealth) {
                 hearts.get(i).setFilled(true);
-                System.out.println("Heart " + i + " is filled");
             } else {
                 hearts.get(i).setFilled(false);
-                System.out.println("Heart " + i + " is empty");
             }
         }
     }

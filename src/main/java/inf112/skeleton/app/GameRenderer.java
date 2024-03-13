@@ -43,6 +43,7 @@ public class GameRenderer extends ApplicationAdapter {
     private long lastHitTime;
     private final long hitCooldown = 1000; // 1 second in milliseconds
     private GameStates gameState;
+    private int hitWarningDuration = 150; // x ms
 
     // Preloading files:
     private String dungeon_sheet = "dungeon_sheet.png";
@@ -117,8 +118,18 @@ public class GameRenderer extends ApplicationAdapter {
         // Update player position
         player.move();
 
+        // Begin batch rendering
+        batch.begin();
+
         // Check collision with enemies if hit cooldown has elapsed
         long currentTime = TimeUtils.millis();
+
+        if (currentTime - lastHitTime < hitWarningDuration) {
+            batch.setColor(1, 0, 0, 0.5f);
+            drawHitWarning();
+            batch.setColor(1, 1, 1, 1);
+        }
+
         if (currentTime - lastHitTime > hitCooldown) {
             for (int i = 1; i < entities.size(); i++) {
                 Entity entity = entities.get(i);
@@ -140,7 +151,6 @@ public class GameRenderer extends ApplicationAdapter {
 
         // Draw grid, entities, and HUD
         batch.setProjectionMatrix(cam.combined);
-        batch.begin();
         grid.draw(batch);
         for (Entity entity : entities) {
             TextureRegion entitySprite = entitySprites.get(entities.indexOf(entity));
@@ -152,16 +162,22 @@ public class GameRenderer extends ApplicationAdapter {
         font.draw(batch, activePlayerDirections(), 10, 40);
 
         if (playerHealth <= 0) {
-            //Draw a rectangle with a picture
+            // Draw a rectangle with a picture
             Rectangle rectangle = new Rectangle(0, 0, 800, 800);
-            batch.draw(new Texture("src/main/resources/gameOver.png"), rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+            batch.draw(new Texture("src/main/resources/gameOver.png"), rectangle.x, rectangle.y, rectangle.width,
+                    rectangle.height);
             gameState = GameStates.GAME_OVER;
         }
 
         // Render HUD
         hud.draw(batch);
 
+        // End batch rendering
         batch.end();
+    }
+
+    private void drawHitWarning() {
+        batch.draw(new Texture("src/main/resources/red2.png"), 0, 0, 800, 800);
     }
 
     private String activePlayerDirections() {

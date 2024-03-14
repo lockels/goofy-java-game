@@ -128,7 +128,7 @@ public class GameRenderer extends ApplicationAdapter {
         long currentTime = TimeUtils.millis();
 
         if (currentTime - lastHitTime < hitWarningDuration) {
-            batch.setColor(1, 0, 0, 0.5f);
+            batch.setColor(1, 0, 0, 0.9f);
             drawHitWarning();
             batch.setColor(1, 1, 1, 1);
         }

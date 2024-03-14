@@ -1,4 +1,5 @@
 package inf112.skeleton.app.entities;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,45 +11,46 @@ import inf112.skeleton.app.Direction;
 import java.util.HashMap;
 import java.util.Map;
 
-import static inf112.skeleton.app.Constants.*;
+import static inf112.skeleton.app.C.*;
 
-public class Player extends Entity{
+public class Player extends Entity {
     private Vector2 velocity;
     private Vector2 direction;
     private Vector2 pos;
     private Map<Direction, Boolean> moveDirections;
 
-    public Player(Rectangle hitBox, String dungeon_sheet, int spriteSheetX, int spriteSheetY, int spriteHeight, int spriteWidth) {
+    public Player(Rectangle hitBox, String dungeon_sheet, int spriteSheetX, int spriteSheetY, int spriteHeight,
+            int spriteWidth) {
         this.hitbox = hitBox;
         pos = new Vector2(hitBox.x, hitBox.y);
         velocity = new Vector2();
         direction = new Vector2();
 
-        //Sprite
+        // Sprite
         this.spriteSheetPath = dungeon_sheet;
         this.spriteSheetX = spriteSheetX;
         this.spriteSheetY = spriteSheetY;
         this.spriteHeight = spriteHeight;
         this.spriteWidth = spriteWidth;
 
-        //Movement Directions
+        // Movement Directions
         moveDirections = new HashMap<>();
-        for (Direction dir : Direction.values()){
+        for (Direction dir : Direction.values()) {
             moveDirections.put(dir, false);
         }
     }
 
-
-    public Map<Direction, Boolean> getMovementDirections() { return moveDirections; }
-
+    public Map<Direction, Boolean> getMovementDirections() {
+        return moveDirections;
+    }
 
     public void setMovement(Direction direction, boolean isActive) {
         moveDirections.put(direction, isActive);
     }
 
-    private void calculateMovementDirection(){
-        //Vertical
-        if ((moveDirections.get(Direction.UP)) == (moveDirections.get(Direction.DOWN))){
+    private void calculateMovementDirection() {
+        // Vertical
+        if ((moveDirections.get(Direction.UP)) == (moveDirections.get(Direction.DOWN))) {
             direction.y = 0;
         } else if (moveDirections.get(Direction.UP)) {
             direction.y = 1;
@@ -56,8 +58,8 @@ public class Player extends Entity{
             direction.y = -1;
         }
 
-        //Horizontal
-        if ((moveDirections.get(Direction.LEFT)) == (moveDirections.get(Direction.RIGHT))){
+        // Horizontal
+        if ((moveDirections.get(Direction.LEFT)) == (moveDirections.get(Direction.RIGHT))) {
             direction.x = 0;
         } else if (moveDirections.get(Direction.LEFT)) {
             direction.x = -1;
@@ -65,7 +67,6 @@ public class Player extends Entity{
             direction.x = 1;
         }
     }
-
 
     public void move() {
         calculateMovementDirection();

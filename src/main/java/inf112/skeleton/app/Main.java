@@ -13,6 +13,7 @@ public class Main {
         gameWindow.setWindowedMode(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
         // Run
-        new Lwjgl3Application(new GameRenderer(GameStates.GAME_ACTIVE), gameWindow);
+       GameLogic gameLogic = new GameLogic(GameState.GAME_ACTIVE);
+        new Lwjgl3Application(new GameRenderer(gameLogic), gameWindow);
     }
 }

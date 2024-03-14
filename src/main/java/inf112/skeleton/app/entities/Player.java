@@ -1,8 +1,6 @@
 package inf112.skeleton.app.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -19,19 +17,12 @@ public class Player extends Entity {
     private Vector2 pos;
     private Map<Direction, Boolean> moveDirections;
 
-    public Player(Rectangle hitBox, String dungeon_sheet, int spriteSheetX, int spriteSheetY, int spriteHeight,
+    public Player(Rectangle hitBox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteHeight,
             int spriteWidth) {
-        this.hitbox = hitBox;
+        super(hitBox, spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight);
         pos = new Vector2(hitBox.x, hitBox.y);
         velocity = new Vector2();
         direction = new Vector2();
-
-        // Sprite
-        this.spriteSheetPath = dungeon_sheet;
-        this.spriteSheetX = spriteSheetX;
-        this.spriteSheetY = spriteSheetY;
-        this.spriteHeight = spriteHeight;
-        this.spriteWidth = spriteWidth;
 
         // Movement Directions
         moveDirections = new HashMap<>();
@@ -83,7 +74,7 @@ public class Player extends Entity {
 
         // Update the position based on the velocity
         pos.mulAdd(velocity, Gdx.graphics.getDeltaTime());
-        hitbox.setPosition(pos);
+        getHitbox().setPosition(pos);
     }
 
     private void applyFriction() {
@@ -100,7 +91,7 @@ public class Player extends Entity {
     }
 
     private void bounds() {
-        pos.x = Math.max(0, Math.min(pos.x, WINDOW_WIDTH - PLAYER_WIDTH));
-        pos.y = Math.max(0, Math.min(pos.y, WINDOW_HEIGHT - PLAYER_HEIGHT));
+        pos.x = Math.max(0, Math.min(pos.x, WINDOW_WIDTH - getHitbox().width));
+        pos.y = Math.max(0, Math.min(pos.y, WINDOW_HEIGHT - getHitbox().height));
     }
 }

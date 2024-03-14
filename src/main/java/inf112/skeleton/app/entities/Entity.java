@@ -3,10 +3,6 @@ package inf112.skeleton.app.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-
-import static inf112.skeleton.app.Constants.PLAYER_WIDTH;
-import static inf112.skeleton.app.Constants.WINDOW_WIDTH;
 
 public class Entity {
     // Field vars
@@ -16,6 +12,16 @@ public class Entity {
     protected int spriteSheetY;
     protected int spriteHeight;
     protected int spriteWidth;
+
+    public Entity(Rectangle hitbox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteWidth,
+            int spriteHeight) {
+        this.hitbox = hitbox;
+        this.spriteSheetPath = spriteSheet;
+        this.spriteSheetX = spriteSheetX;
+        this.spriteSheetY = spriteSheetY;
+        this.spriteHeight = spriteHeight;
+        this.spriteWidth = spriteWidth;
+    }
 
     // Methods
     public float getX() {
@@ -55,9 +61,9 @@ public class Entity {
         hitbox.y = y;
     }
 
-    public void moveTowards(float tX, float tY) {
-        float diffX = tX - hitbox.x;
-        float diffY = tY - hitbox.y;
+    public void moveTowards(float targetX, float targetY) {
+        float diffX = targetX - hitbox.x;
+        float diffY = targetY - hitbox.y;
         hitbox.x += diffX / 100;
         hitbox.y += diffY / 100;
     }

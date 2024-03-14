@@ -12,6 +12,8 @@ public class Constants {
     public final static int GAME_FPS = 60;
 
     // Player
+    public final static int PLAYER_SPAWN_X = 400;
+    public final static int PLAYER_SPAWN_Y = 20;
     public final static int PLAYER_WIDTH = 24;
     public final static int PLAYER_HEIGHT = 32;
     public final static int PLAYER_ACCELERATION = 1000;
@@ -24,6 +26,8 @@ public class Constants {
     public final static int PLAYER_SPRITESHEET_HEIGHT = 12;
 
     // Enemies
+    public final static int NUM_ENEMIES = 3;
+    public final static int ENEMY_SPEED = 100;
     public final static int ENEMY_WIDTH = 24;
     public final static int ENEMY_HEIGHT = 32;
     public final static int ENEMY_ACCELERATION = 1000;

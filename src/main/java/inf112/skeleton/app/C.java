@@ -54,9 +54,11 @@ public class C {
     public final static int HIT_WARNING_DURATION = 150;
 
     // Files
-    public final static String DUNGEON_SHEET = "dungeon_sheet.png";
-    public final static String FONT = "font.fnt";
-    public final static String MAP = "maps/map2.tmx";
-    public final static String HEART = "src/main/resources/HUD/heart16x16.png";
+    public final static String DUNGEON_SHEET_IMG = "dungeon_sheet.png";
+    public final static String FONT_IMG = "font.fnt";
+    public final static String MAP_IMG = "maps/map2.tmx";
+    public final static String HEART_IMG = "src/main/resources/HUD/heart16x16.png";
+    public final static String HIT_WARNING_IMG = "src/main/resources/hitWarning.png";
+    public final static String GAME_OVER_IMG = "src/main/resources/gameOver.png";
 
 }

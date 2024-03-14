@@ -21,6 +21,7 @@ import inf112.skeleton.app.grid.Grid;
 import inf112.skeleton.app.myInput.MyInputAdapter;
 import inf112.skeleton.app.HUD.HUD;
 
+import static inf112.skeleton.app.C.ENEMY_SPRITESHEET_HEIGHT;
 import static inf112.skeleton.app.C.ENEMY_SPRITESHEET_Y;
 
 import java.util.ArrayList;
@@ -46,26 +47,26 @@ public class GameRenderer extends ApplicationAdapter {
     private int hitWarningDuration = C.HIT_WARNING_DURATION; // x ms
 
     // Preloading files:
-    private String dungeon_sheet = C.DUNGEON_SHEET;
+    private String dungeon_sheet = C.DUNGEON_SHEET_IMG;
 
     public GameRenderer(GameStates gameState) {
         this.gameState = gameState;
         player = new Player(
                 new Rectangle(400, 20, C.PLAYER_WIDTH, C.PLAYER_HEIGHT),
-                dungeon_sheet, C.PLAYER_SPRITESHEET_X, C.PLAYER_SPRITESHEET_Y, C.PLAYER_SPRITESHEET_HEIGHT,
-                C.PLAYER_SPRITESHEET_WIDTH);
+                dungeon_sheet, C.PLAYER_SPRITESHEET_X, C.PLAYER_SPRITESHEET_Y, C.PLAYER_SPRITESHEET_WIDTH,
+                C.PLAYER_SPRITESHEET_HEIGHT);
         Enemy enemy1 = new Enemy(
                 new Rectangle(400, 400, C.ENEMY_WIDTH, C.ENEMY_HEIGHT),
                 dungeon_sheet, C.ENEMY_SPRITESHEET_X, C.ENEMY_SPRITESHEET_Y, C.ENEMY_SPRITESHEET_WIDTH,
-                ENEMY_SPRITESHEET_Y);
+                ENEMY_SPRITESHEET_HEIGHT);
         Enemy enemy2 = new Enemy(
                 new Rectangle(300, 500, C.ENEMY_WIDTH, C.ENEMY_HEIGHT),
                 dungeon_sheet, C.ENEMY_SPRITESHEET_X, C.ENEMY_SPRITESHEET_Y, C.ENEMY_SPRITESHEET_WIDTH,
-                ENEMY_SPRITESHEET_Y);
+                ENEMY_SPRITESHEET_HEIGHT);
         Enemy enemy3 = new Enemy(
                 new Rectangle(500, 500, C.ENEMY_WIDTH, C.ENEMY_HEIGHT),
                 dungeon_sheet, C.ENEMY_SPRITESHEET_X, C.ENEMY_SPRITESHEET_Y, C.ENEMY_SPRITESHEET_WIDTH,
-                ENEMY_SPRITESHEET_Y);
+                ENEMY_SPRITESHEET_HEIGHT);
         entities.add(player);
         entities.add(enemy1);
         entities.add(enemy2);
@@ -100,11 +101,11 @@ public class GameRenderer extends ApplicationAdapter {
 
         // Load the TiledMap
         TmxMapLoader loader = new TmxMapLoader();
-        map = loader.load(C.MAP);
+        map = loader.load(C.MAP_IMG);
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
         // Initialize HUD
-        Texture heartTexture = new Texture(C.HEART);
+        Texture heartTexture = new Texture(C.HEART_IMG);
         hud = new HUD(heartTexture, playerHealth);
     }
 
@@ -166,8 +167,8 @@ public class GameRenderer extends ApplicationAdapter {
 
         if (playerHealth <= 0) {
             // Draw a rectangle with a picture
-            Rectangle rectangle = new Rectangle(0, 0, 800, 800);
-            batch.draw(new Texture("src/main/resources/gameOver.png"), rectangle.x, rectangle.y, rectangle.width,
+            Rectangle rectangle = new Rectangle(0, 0, C.WINDOW_WIDTH, C.WINDOW_HEIGHT);
+            batch.draw(new Texture(C.GAME_OVER_IMG), rectangle.x, rectangle.y, rectangle.width,
                     rectangle.height);
             gameState = GameStates.GAME_OVER;
         }
@@ -180,7 +181,7 @@ public class GameRenderer extends ApplicationAdapter {
     }
 
     private void drawHitWarning() {
-        batch.draw(new Texture("src/main/resources/hitWarning.png"), 0, 0, 800, 800);
+        batch.draw(new Texture(C.HIT_WARNING_IMG), 0, 0, C.WINDOW_WIDTH, C.WINDOW_HEIGHT);
     }
 
     private String activePlayerDirections() {

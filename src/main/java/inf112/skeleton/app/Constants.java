@@ -12,13 +12,13 @@ public class Constants {
     public final static int GAME_FPS = 60;
 
     // Player
-    public final static int PLAYER_SPAWN_X = 400;
-    public final static int PLAYER_SPAWN_Y = 20;
+    public final static int PLAYER_SPAWN_X = 40;
+    public final static int PLAYER_SPAWN_Y = 150;
     public final static int PLAYER_WIDTH = 24;
     public final static int PLAYER_HEIGHT = 32;
-    public final static int PLAYER_ACCELERATION = 1000;
-    public final static int MAX_PLAYER_VELOCITY = 500;
-    public final static int PLAYER_FRICTION = 2000;
+    public final static int PLAYER_ACCELERATION = 700;
+    public final static int MAX_PLAYER_VELOCITY = 200;
+    public final static int PLAYER_FRICTION = 1000;
     public final static int PLAYER_HEALTH = 10;
     public final static int PLAYER_SPRITESHEET_X = 306;
     public final static int PLAYER_SPRITESHEET_Y = 112;
@@ -26,12 +26,14 @@ public class Constants {
     public final static int PLAYER_SPRITESHEET_HEIGHT = 12;
 
     // Enemies
-    public final static int NUM_ENEMIES = 3;
+    public final static float ENEMY_SPEED_MAX = 1.2f;
+    public final static float ENEMY_SPEED_MIN = 0.8f;
+    public final static int NUM_ENEMIES = 5;
     public final static int ENEMY_SPEED = 100;
     public final static int ENEMY_WIDTH = 24;
     public final static int ENEMY_HEIGHT = 32;
-    public final static int ENEMY_ACCELERATION = 1000;
-    public final static int MAX_ENEMY_VELOCITY = 500;
+    public final static int ENEMY_ACCELERATION = 400;
+    public final static int MAX_ENEMY_VELOCITY = 200;
     public final static int ENEMY_FRICTION = 2000;
     public final static int ENEMY_HEALTH = 10;
     public final static int ENEMY_SPRITESHEET_X = 322;
@@ -50,7 +52,7 @@ public class Constants {
     public final static int HEART_HEIGHT = HEART_WIDTH;
     public final static int HEART_PADDING = 25;
     public final static int HEART_X = 30;
-    public final static int HEART_Y = 800 - HEART_HEIGHT - HEART_X;
+    public final static int HEART_Y = WINDOW_HEIGHT - HEART_HEIGHT - HEART_X;
 
     // Game
     public final static int HIT_DAMAGE = 1;

@@ -53,8 +53,8 @@ public class GameLogic {
 
     // Create enemies with random speeds
     for (int i = 0; i < NUM_ENEMIES; i++) {
-        float randomSpeed = MathUtils.random(0.8f, 1.2f) * ENEMY_SPEED;
-        Enemy enemy = new Enemy(new Rectangle(MathUtils.random(100, 700), MathUtils.random(100, 500), ENEMY_WIDTH, ENEMY_HEIGHT),
+        float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
+        Enemy enemy = new Enemy(new Rectangle(MathUtils.random(0, WINDOW_WIDTH), MathUtils.random(0, WINDOW_HEIGHT), ENEMY_WIDTH, ENEMY_HEIGHT),
                 DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X, ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
                 ENEMY_SPRITESHEET_WIDTH, randomSpeed);
         entities.add(enemy);

@@ -36,7 +36,6 @@ public class GameRenderer extends ApplicationAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Grid grid;
     private HUD hud;
-    private boolean hitWarning = false;
 
     public GameRenderer(GameLogic gameLogic) {
         this.gameLogic = gameLogic;

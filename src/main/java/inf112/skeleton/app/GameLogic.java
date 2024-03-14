@@ -3,25 +3,13 @@ package inf112.skeleton.app;
 import inf112.skeleton.app.entities.Enemy;
 import inf112.skeleton.app.entities.Entity;
 import inf112.skeleton.app.entities.Player;
-import inf112.skeleton.app.grid.Grid;
-import inf112.skeleton.app.myInput.MyInputAdapter;
 
 import static inf112.skeleton.app.Constants.*;
 
 import java.util.ArrayList;
-import java.util.Map;
-
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
-import inf112.skeleton.app.HUD.HUD;
 
 /**
  * GameLogic is the class that handles the game logic.

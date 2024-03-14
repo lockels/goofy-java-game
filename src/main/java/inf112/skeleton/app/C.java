@@ -2,6 +2,9 @@ package inf112.skeleton.app;
 
 /**
  * Class which stores all constants used in-game.
+ * 
+ * 'Classname is C because it is short for Constants which 
+ * allows for shorter and more readable code.'
  *
  * @author Fredric Hegland
  */
@@ -35,7 +38,7 @@ public class C {
     public final static int ENEMY_SPRITESHEET_WIDTH = 16;
     public final static int ENEMY_SPRITESHEET_HEIGHT = 12;
 
-    // Grid
+    // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;
     public final static int NUM_COLS = 50;
     public final static int CELL_WIDTH = WINDOW_WIDTH / NUM_COLS;
@@ -55,7 +58,6 @@ public class C {
 
     // Files
     public final static String DUNGEON_SHEET_IMG = "dungeon_sheet.png";
-    public final static String FONT_IMG = "font.fnt";
     public final static String MAP_IMG = "maps/map2.tmx";
     public final static String HEART_IMG = "src/main/resources/HUD/heart16x16.png";
     public final static String HIT_WARNING_IMG = "src/main/resources/hitWarning.png";

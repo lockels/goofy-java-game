@@ -55,7 +55,7 @@ public class Entity {
         hitbox.y = y;
     }
 
-    public void moveTowards(float tX, float tY, float speed) {
+    public void moveTowards(float tX, float tY) {
         float diffX = tX - hitbox.x;
         float diffY = tY - hitbox.y;
         hitbox.x += diffX / 100;

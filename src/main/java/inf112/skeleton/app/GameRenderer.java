@@ -22,7 +22,6 @@ import inf112.skeleton.app.myInput.MyInputAdapter;
 import inf112.skeleton.app.HUD.HUD;
 
 import static inf112.skeleton.app.C.ENEMY_SPRITESHEET_HEIGHT;
-import static inf112.skeleton.app.C.ENEMY_SPRITESHEET_Y;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -147,7 +146,7 @@ public class GameRenderer extends ApplicationAdapter {
 
         // Update entities' positions
         for (Entity entity : entities.subList(1, entities.size())) {
-            entity.moveTowards(player.getX(), player.getY(), 1000);
+            entity.moveTowards(player.getX(), player.getY());
         }
 
         // Update HUD hearts

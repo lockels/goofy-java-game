@@ -3,6 +3,8 @@ package inf112.skeleton.app.HUD;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import inf112.skeleton.app.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +13,11 @@ public class HUD {
     private Texture heartTexture;
     private int maxHearts;
 
-    private int heartWidth = 20;
-    private int heartHeight = heartWidth;
-    private int heartPadding = 25;
-    private int heartX = 30;
-    private int heartY = 800 - heartHeight - heartX;
+    private int heartWidth = Constants.HEART_WIDTH;
+    private int heartHeight = Constants.HEART_HEIGHT;
+    private int heartPadding = Constants.HEART_PADDING;
+    private int heartX = Constants.HEART_X;
+    private int heartY = Constants.HEART_Y;
 
     public HUD(Texture heartTexture, int maxHearts) {
         this.heartTexture = heartTexture;

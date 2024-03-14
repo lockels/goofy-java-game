@@ -19,9 +19,7 @@ import inf112.skeleton.app.entities.Enemy;
 import inf112.skeleton.app.entities.Player;
 import inf112.skeleton.app.grid.Grid;
 import inf112.skeleton.app.myInput.MyInputAdapter;
-import inf112.skeleton.app.Constants;
 import inf112.skeleton.app.HUD.HUD;
-import inf112.skeleton.app.GameStates;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -39,11 +37,11 @@ public class GameRenderer extends ApplicationAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Grid grid;
     private HUD hud;
-    private int playerHealth = 10; // 10 hearts
+    private int playerHealth = Constants.PLAYER_HEALTH;
     private long lastHitTime;
-    private final long hitCooldown = 1000; // 1 second in milliseconds
+    private final long hitCooldown = Constants.HIT_COOLDOWN; // 1 second in milliseconds
     private GameStates gameState;
-    private int hitWarningDuration = 150; // x ms
+    private int hitWarningDuration = Constants.HIT_WARNING_DURATION; // x ms
 
     // Preloading files:
     private String dungeon_sheet = "dungeon_sheet.png";

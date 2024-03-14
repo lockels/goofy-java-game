@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import static inf112.skeleton.app.C.PLAYER_WIDTH;
-import static inf112.skeleton.app.C.WINDOW_WIDTH;
+import static inf112.skeleton.app.Constants.PLAYER_WIDTH;
+import static inf112.skeleton.app.Constants.WINDOW_WIDTH;
 
 public class Entity {
     // Field vars

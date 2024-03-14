@@ -2,13 +2,10 @@ package inf112.skeleton.app;
 
 /**
  * Class which stores all constants used in-game.
- * 
- * 'Classname is C because it is short for Constants which 
- * allows for shorter and more readable code.'
  *
  * @author Fredric Hegland
  */
-public class C {
+public class Constants {
     // App
     public final static int WINDOW_HEIGHT = 800;
     public final static int WINDOW_WIDTH = 800;

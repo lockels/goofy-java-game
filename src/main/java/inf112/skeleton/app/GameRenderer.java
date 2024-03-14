@@ -1,5 +1,17 @@
 package inf112.skeleton.app;
 
+import inf112.skeleton.app.entities.Entity;
+import inf112.skeleton.app.entities.Enemy;
+import inf112.skeleton.app.entities.Player;
+import inf112.skeleton.app.grid.Grid;
+import inf112.skeleton.app.myInput.MyInputAdapter;
+import inf112.skeleton.app.HUD.HUD;
+
+import static inf112.skeleton.app.Constants.*;
+
+import java.util.ArrayList;
+import java.util.Map;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,18 +26,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import inf112.skeleton.app.entities.Entity;
-import inf112.skeleton.app.entities.Enemy;
-import inf112.skeleton.app.entities.Player;
-import inf112.skeleton.app.grid.Grid;
-import inf112.skeleton.app.myInput.MyInputAdapter;
-import inf112.skeleton.app.HUD.HUD;
-
-import static inf112.skeleton.app.C.ENEMY_SPRITESHEET_HEIGHT;
-
-import java.util.ArrayList;
-import java.util.Map;
-
 public class GameRenderer extends ApplicationAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
@@ -39,32 +39,32 @@ public class GameRenderer extends ApplicationAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Grid grid;
     private HUD hud;
-    private int playerHealth = C.PLAYER_HEALTH;
+    private int playerHealth = PLAYER_HEALTH;
     private long lastHitTime;
-    private final long hitCooldown = C.HIT_COOLDOWN; // 1 second in milliseconds
+    private final long hitCooldown = HIT_COOLDOWN;
     private GameStates gameState;
-    private int hitWarningDuration = C.HIT_WARNING_DURATION; // x ms
+    private int hitWarningDuration = HIT_WARNING_DURATION;
 
     // Preloading files:
-    private String dungeon_sheet = C.DUNGEON_SHEET_IMG;
+    private String dungeon_sheet = DUNGEON_SHEET_IMG;
 
     public GameRenderer(GameStates gameState) {
         this.gameState = gameState;
         player = new Player(
-                new Rectangle(400, 20, C.PLAYER_WIDTH, C.PLAYER_HEIGHT),
-                dungeon_sheet, C.PLAYER_SPRITESHEET_X, C.PLAYER_SPRITESHEET_Y, C.PLAYER_SPRITESHEET_WIDTH,
-                C.PLAYER_SPRITESHEET_HEIGHT);
+                new Rectangle(400, 20, PLAYER_WIDTH, PLAYER_HEIGHT),
+                dungeon_sheet, PLAYER_SPRITESHEET_X, PLAYER_SPRITESHEET_Y, PLAYER_SPRITESHEET_WIDTH,
+                PLAYER_SPRITESHEET_HEIGHT);
         Enemy enemy1 = new Enemy(
-                new Rectangle(400, 400, C.ENEMY_WIDTH, C.ENEMY_HEIGHT),
-                dungeon_sheet, C.ENEMY_SPRITESHEET_X, C.ENEMY_SPRITESHEET_Y, C.ENEMY_SPRITESHEET_WIDTH,
+                new Rectangle(400, 400, ENEMY_WIDTH, ENEMY_HEIGHT),
+                dungeon_sheet, ENEMY_SPRITESHEET_X, ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_WIDTH,
                 ENEMY_SPRITESHEET_HEIGHT);
         Enemy enemy2 = new Enemy(
-                new Rectangle(300, 500, C.ENEMY_WIDTH, C.ENEMY_HEIGHT),
-                dungeon_sheet, C.ENEMY_SPRITESHEET_X, C.ENEMY_SPRITESHEET_Y, C.ENEMY_SPRITESHEET_WIDTH,
+                new Rectangle(300, 500, ENEMY_WIDTH, ENEMY_HEIGHT),
+                dungeon_sheet, ENEMY_SPRITESHEET_X, ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_WIDTH,
                 ENEMY_SPRITESHEET_HEIGHT);
         Enemy enemy3 = new Enemy(
-                new Rectangle(500, 500, C.ENEMY_WIDTH, C.ENEMY_HEIGHT),
-                dungeon_sheet, C.ENEMY_SPRITESHEET_X, C.ENEMY_SPRITESHEET_Y, C.ENEMY_SPRITESHEET_WIDTH,
+                new Rectangle(500, 500, ENEMY_WIDTH, ENEMY_HEIGHT),
+                dungeon_sheet, ENEMY_SPRITESHEET_X, ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_WIDTH,
                 ENEMY_SPRITESHEET_HEIGHT);
         entities.add(player);
         entities.add(enemy1);
@@ -80,7 +80,7 @@ public class GameRenderer extends ApplicationAdapter {
 
         // Camera
         cam = new OrthographicCamera();
-        cam.setToOrtho(false, 800, 800);
+        cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         // Sprites
         spriteSheet = getSpriteSheet(player.getSpriteSheetPath());
@@ -90,7 +90,7 @@ public class GameRenderer extends ApplicationAdapter {
         }
 
         // Grid
-        grid = new Grid(C.NUM_ROWS, C.NUM_COLS, C.WINDOW_WIDTH, C.WINDOW_HEIGHT);
+        grid = new Grid(NUM_ROWS, NUM_COLS, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         // Font
         font = new BitmapFont();
@@ -100,11 +100,11 @@ public class GameRenderer extends ApplicationAdapter {
 
         // Load the TiledMap
         TmxMapLoader loader = new TmxMapLoader();
-        map = loader.load(C.MAP_IMG);
+        map = loader.load(MAP_IMG);
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
         // Initialize HUD
-        Texture heartTexture = new Texture(C.HEART_IMG);
+        Texture heartTexture = new Texture(HEART_IMG);
         hud = new HUD(heartTexture, playerHealth);
     }
 
@@ -138,7 +138,7 @@ public class GameRenderer extends ApplicationAdapter {
                 Entity entity = entities.get(i);
                 if (player.getHitbox().overlaps(entity.getHitbox()) && playerHealth > 0) {
                     // Collision detected, remove one heart
-                    playerHealth = playerHealth - C.HIT_DAMAGE;
+                    playerHealth = playerHealth - HIT_DAMAGE;
                     lastHitTime = currentTime;
                 }
             }
@@ -157,7 +157,7 @@ public class GameRenderer extends ApplicationAdapter {
         grid.draw(batch);
         for (Entity entity : entities) {
             TextureRegion entitySprite = entitySprites.get(entities.indexOf(entity));
-            batch.draw(entitySprite, entity.getX(), entity.getY(), C.PLAYER_WIDTH, C.PLAYER_HEIGHT);
+            batch.draw(entitySprite, entity.getX(), entity.getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
         }
 
         // Debug
@@ -166,8 +166,8 @@ public class GameRenderer extends ApplicationAdapter {
 
         if (playerHealth <= 0) {
             // Draw a rectangle with a picture
-            Rectangle rectangle = new Rectangle(0, 0, C.WINDOW_WIDTH, C.WINDOW_HEIGHT);
-            batch.draw(new Texture(C.GAME_OVER_IMG), rectangle.x, rectangle.y, rectangle.width,
+            Rectangle rectangle = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+            batch.draw(new Texture(GAME_OVER_IMG), rectangle.x, rectangle.y, rectangle.width,
                     rectangle.height);
             gameState = GameStates.GAME_OVER;
         }
@@ -180,7 +180,7 @@ public class GameRenderer extends ApplicationAdapter {
     }
 
     private void drawHitWarning() {
-        batch.draw(new Texture(C.HIT_WARNING_IMG), 0, 0, C.WINDOW_WIDTH, C.WINDOW_HEIGHT);
+        batch.draw(new Texture(HIT_WARNING_IMG), 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     }
 
     private String activePlayerDirections() {

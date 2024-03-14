@@ -11,7 +11,7 @@ import inf112.skeleton.app.Direction;
 import java.util.HashMap;
 import java.util.Map;
 
-import static inf112.skeleton.app.C.*;
+import static inf112.skeleton.app.Constants.*;
 
 public class Player extends Entity {
     private Vector2 velocity;

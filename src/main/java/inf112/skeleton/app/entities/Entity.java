@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Entity {
+public abstract class Entity {
     // Field vars
     Rectangle hitbox;
     String spriteSheetPath;
@@ -54,11 +54,6 @@ public class Entity {
 
     public String getSpriteSheetPath() {
         return this.spriteSheetPath;
-    }
-
-    public void setPos(float x, float y) {
-        hitbox.x = x;
-        hitbox.y = y;
     }
 
     public void moveTowards(float targetX, float targetY) {

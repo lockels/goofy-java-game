@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Rectangle;
  * GameLogic is the class that handles the game logic.
  * 
  * @author Fredric Hegland
- */
+ */ 
 
 public class GameLogic {
     private Player player;

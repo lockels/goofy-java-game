@@ -55,7 +55,6 @@ public abstract class Entity {
         return this.spriteSheetPath;
     }
 
-<<<<<<< HEAD
     public void moveTowards(float targetX, float targetY) {
         float diffX = targetX - hitbox.x;
         float diffY = targetY - hitbox.y;
@@ -66,13 +65,13 @@ public abstract class Entity {
     public Texture getTexture() {
         Texture spriteSheet = new Texture(spriteSheetPath);
         return new TextureRegion(spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight).getTexture();
-=======
+    }
+
     public boolean collidesWith(Entity other) {
         return hitbox.overlaps(other.getHitbox());
     }
 
     public void move(float x, float y) {
         hitbox.setPosition(x, y);
->>>>>>> enemyDev
     }
 }

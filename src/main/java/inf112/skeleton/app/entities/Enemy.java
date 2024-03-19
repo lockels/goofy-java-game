@@ -20,9 +20,9 @@ public class Enemy extends Entity {
         direction = new Vector2();
     }
 
-    public void moveTowards(float tX, float tY) {
-        float diffX = tX - hitbox.x;
-        float diffY = tY - hitbox.y;
+    public void moveTowards(float targetX, float targetY) {
+        float diffX = targetX - hitbox.x;
+        float diffY = targetY - hitbox.y;
         float angle = MathUtils.atan2(diffY, diffX);
         velocity.set(MathUtils.cos(angle) * speed, MathUtils.sin(angle) * speed);
 

@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Rectangle;
 /**
  * GameLogic is the class that handles the game logic.
  * 
- * @author Fredric Hegland
  */
 
 public class GameLogic {
@@ -32,6 +31,27 @@ public class GameLogic {
         this.gameState = gameState;
         initializeEntities();
     }
+    
+    public ArrayList<Entity> getEntities() {
+        return entities;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public boolean isShowHitWarning() {
+        return showHitWarning;
+    }
+
+    public void setShowHitWarning(boolean showHitWarning) {
+        this.showHitWarning = showHitWarning;
+    }
+
 
     private void initializeEntities() {
     player = new Player(new Rectangle(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, PLAYER_WIDTH, PLAYER_HEIGHT),
@@ -42,17 +62,19 @@ public class GameLogic {
     // Create enemies with random speeds
     for (int i = 0; i < NUM_ENEMIES; i++) {
         float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
-        Enemy enemy = new Enemy(new Rectangle(MathUtils.random(0, WINDOW_WIDTH), MathUtils.random(0, WINDOW_HEIGHT), ENEMY_WIDTH, ENEMY_HEIGHT),
-                DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X, ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
-                ENEMY_SPRITESHEET_WIDTH, randomSpeed);
+        Enemy enemy = new Enemy(new Rectangle(MathUtils.random(0, WINDOW_WIDTH),
+                                              MathUtils.random(0, WINDOW_HEIGHT),
+                                              ENEMY_WIDTH, ENEMY_HEIGHT),
+                                              DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X,
+                                              ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
+                                              ENEMY_SPRITESHEET_WIDTH, randomSpeed);
         entities.add(enemy);
+        }
     }
-}
-
 
     public void update() {
         updatePlayerPosition();
-        checkCollisions();
+        checkPlayerHit();
         checkGameOver();
         updateHitWarning();
         updateEnemyPositions();
@@ -62,33 +84,21 @@ public class GameLogic {
         player.move();
     }
 
-    private void checkCollisions() {
-        int numOverlappingEnemies = 0;
+    private void checkPlayerHit() {
         for (Entity entity : entities) {
-            if (entity instanceof Enemy) {
-                if (player.getHitbox().overlaps(entity.getHitbox()) && playerHealth > 0) {
-                    if (System.currentTimeMillis() - lastHitTime > hitCooldown) {
-                        numOverlappingEnemies++;
-                    }
+            if (entity instanceof Enemy && player.getHitbox().overlaps(entity.getHitbox())) {
+                if (System.currentTimeMillis() - lastHitTime > hitCooldown) { // apply hit cooldown
+                    player.takeDamage(HIT_DAMAGE);
+                    lastHitTime = System.currentTimeMillis();
+                    showHitWarning = true;
+                    hitWarningStartTime = System.currentTimeMillis();
                 }
             }
         }
-
-        if (numOverlappingEnemies > 0) {
-            int healthLost = HIT_DAMAGE * numOverlappingEnemies;
-            updatePlayerHealth(healthLost);
-            lastHitTime = System.currentTimeMillis();
-            showHitWarning = true;
-            hitWarningStartTime = System.currentTimeMillis();
-        }
-    }
-
-    private void updatePlayerHealth(int healthLost) {
-        playerHealth -= healthLost;
     }
 
     private void checkGameOver() {
-        if (playerHealth <= 0) {
+        if (player.getHealth() <= 0) {
             gameState = GameState.GAME_OVER;
         }
     }
@@ -105,33 +115,5 @@ public class GameLogic {
                 ((Enemy) entity).moveTowards(player.getX(), player.getY());
             }
         }
-    }
-
-    public ArrayList<Entity> getEntities() {
-        return entities;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public GameState getGameState() {
-        return gameState;
-    }
-
-    public int getPlayerHealth() {
-        return playerHealth;
-    }
-
-    public void setPlayerHealth(int health) {
-        this.playerHealth = health;
-    }
-
-    public boolean isShowHitWarning() {
-        return showHitWarning;
-    }
-
-    public void setShowHitWarning(boolean showHitWarning) {
-        this.showHitWarning = showHitWarning;
     }
 }

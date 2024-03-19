@@ -5,7 +5,7 @@ import inf112.skeleton.app.grid.Grid;
 import inf112.skeleton.app.myInput.MyInputAdapter;
 import inf112.skeleton.app.HUD.HUD;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -25,7 +25,7 @@ import static inf112.skeleton.app.Constants.*;
 /**
  * GameRenderer is the main class for rendering the game.
  */
-public class GameRenderer extends ApplicationAdapter {
+public class GameRenderer extends Game {
     private SpriteBatch batch;
     private OrthographicCamera cam;
     private GameLogic gameLogic;
@@ -49,15 +49,14 @@ public class GameRenderer extends ApplicationAdapter {
         spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
         for (Entity entity : gameLogic.getEntities()) {
             entitySprites.add(getSpriteFromSheet(spriteSheet, entity.getSpriteSheetX(), entity.getSpriteSheetY(),
-                    entity.getSpriteWidth(), entity.getSpriteHeight()));
+                                                 entity.getSpriteWidth(), entity.getSpriteHeight()));
         }
-        grid = new Grid(NUM_ROWS, NUM_COLS, WINDOW_WIDTH, WINDOW_HEIGHT);
         font = new BitmapFont();
         Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
         map = new TmxMapLoader().load(MAP_IMG);
         mapRenderer = new OrthogonalTiledMapRenderer(map);
         Texture heartTexture = new Texture(HEART_IMG);
-        hud = new HUD(heartTexture, gameLogic.getPlayerHealth());
+        hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth());
     }
 
     @Override
@@ -88,7 +87,7 @@ public class GameRenderer extends ApplicationAdapter {
     }
 
     private void drawHUD() {
-        hud.updateHearts(gameLogic.getPlayerHealth());
+        hud.updateHearts(gameLogic.getPlayer().getHealth());
         hud.draw(batch);
     }
 

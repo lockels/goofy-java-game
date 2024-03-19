@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.Direction;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 import static inf112.skeleton.app.Constants.*;
@@ -16,20 +16,30 @@ public class Player extends Entity {
     private Vector2 direction;
     private Vector2 pos;
     private Map<Direction, Boolean> moveDirections;
+    private int health;
 
-    public Player(Rectangle hitBox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteHeight,
-            int spriteWidth) {
+    public Player(Rectangle hitBox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteHeight, int spriteWidth) {
         super(hitBox, spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight);
         pos = new Vector2(hitBox.x, hitBox.y);
         velocity = new Vector2();
         direction = new Vector2();
+        health = PLAYER_HEALTH;
 
         // Movement Directions
-        moveDirections = new HashMap<>();
+        moveDirections = new EnumMap<>(Direction.class);
         for (Direction dir : Direction.values()) {
             moveDirections.put(dir, false);
         }
     }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void takeDamage(int damage) {
+        this.health -= damage;
+    }
+
 
     public Map<Direction, Boolean> getMovementDirections() {
         return moveDirections;
@@ -67,10 +77,10 @@ public class Player extends Entity {
         velocity.x = MathUtils.clamp(velocity.x, -MAX_PLAYER_VELOCITY, MAX_PLAYER_VELOCITY);
         velocity.y = MathUtils.clamp(velocity.y, -MAX_PLAYER_VELOCITY, MAX_PLAYER_VELOCITY);
 
-        applyFriction();
+        this.applyFriction();
 
         // Keep player within the bounds of the screen
-        bounds();
+        this.bounds();
 
         // Update the position based on the velocity
         pos.mulAdd(velocity, Gdx.graphics.getDeltaTime());

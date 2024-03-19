@@ -22,16 +22,16 @@ public class Grid {
         cells[row][col] = entity;
     }
 
-    public void draw(SpriteBatch batch) {
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                Entity entity = cells[row][col];
-                if (entity != null) {
-                    batch.draw(entity.getTexture(), col * cellWidth, row * cellHeight, cellWidth, cellHeight);
-                }
-            }
-        }
-    }
+//    public void draw(SpriteBatch batch) {
+//        for (int row = 0; row < rows; row++) {
+//            for (int col = 0; col < cols; col++) {
+//                Entity entity = cells[row][col];
+//                if (entity != null) {
+//                    batch.draw(entity.getTexture(), col * cellWidth, row * cellHeight, cellWidth, cellHeight);
+//                }
+//            }
+//        }
+//    }
 
     public int getRows() {
         return rows;

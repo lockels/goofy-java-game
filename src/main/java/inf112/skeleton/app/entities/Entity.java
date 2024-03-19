@@ -59,4 +59,8 @@ public abstract class Entity {
     public boolean collidesWith(Entity other) {
         return hitbox.overlaps(other.getHitbox());
     }
+
+    public void move(float x, float y) {
+        hitbox.setPosition(x, y);
+    }
 }

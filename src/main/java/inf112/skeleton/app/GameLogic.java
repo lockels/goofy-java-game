@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 /**
  * GameLogic is the class that handles the game logic.
- * 
  */
 
 public class GameLogic {
@@ -85,6 +84,7 @@ public class GameLogic {
     public void update() {
         updatePlayerPosition();
         checkPlayerHit();
+        checkEnemyCollisions();
         checkGameOver();
         updateHitWarning();
         updateEnemyPositions();
@@ -94,8 +94,34 @@ public class GameLogic {
         player.move();
     }
 
-    private void checkEnemyCollsion() {
+    private void checkEnemyCollisions() {
+        for (Enemy enemy : enemies) {
+            for (Enemy other : enemies) {
+                if (enemy != other && enemy.collidesWith(other)) {
+                    separateEntities(enemy, other);
+                }
+            }
+        }
+    }
 
+    private void separateEntities(Entity entityA, Entity entityB) {
+        float distanceX = entityB.getX() - entityA.getX();
+        float distanceY = entityB.getY() - entityA.getY();
+        float distance = (float) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        float overlap = (entityA.getHitbox().width + entityB.getHitbox().width) / 2 - distance; // Determine the amount of overlap
+
+        if (distance > 0) {
+            distanceX /= distance;
+            distanceY /= distance;
+        }
+
+        // Calculate the separation distance based on the overlap and direction
+        float separationX = overlap * distanceX / 2;
+        float separationY = overlap * distanceY / 2;
+
+        // Move entities along the separation vector to ensure they don't overlap
+        entityA.move(separationX, separationY);
+        entityB.move(-separationX, -separationY);
     }
 
     private void checkPlayerHit() {

@@ -40,7 +40,6 @@ public class Player extends Entity {
         this.health -= damage;
     }
 
-
     public Map<Direction, Boolean> getMovementDirections() {
         return moveDirections;
     }

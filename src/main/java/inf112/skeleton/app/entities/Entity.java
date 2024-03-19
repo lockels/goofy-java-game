@@ -3,6 +3,8 @@ package inf112.skeleton.app.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+
 
 public abstract class Entity {
     // Field vars
@@ -22,7 +24,6 @@ public abstract class Entity {
         this.spriteWidth = spriteWidth;
     }
 
-    // Methods
     public float getX() {
         return hitbox.x;
     }
@@ -55,8 +56,7 @@ public abstract class Entity {
         return this.spriteSheetPath;
     }
 
-    public void setPos(float x, float y) {
-        hitbox.x = x;
-        hitbox.y = y;
+    public boolean collidesWith(Entity other) {
+        return hitbox.overlaps(other.getHitbox());
     }
 }

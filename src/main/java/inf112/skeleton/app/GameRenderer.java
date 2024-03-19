@@ -34,7 +34,6 @@ public class GameRenderer extends Game {
     private BitmapFont font;
     private TiledMap map;
     private OrthogonalTiledMapRenderer mapRenderer;
-    private Grid grid;
     private HUD hud;
 
     public GameRenderer(GameLogic gameLogic) {

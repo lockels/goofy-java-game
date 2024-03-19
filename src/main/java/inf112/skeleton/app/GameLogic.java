@@ -6,6 +6,7 @@ import inf112.skeleton.app.entities.Player;
 
 import static inf112.skeleton.app.Constants.*;
 
+import java.util.List;
 import java.util.ArrayList;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -17,12 +18,15 @@ import com.badlogic.gdx.math.Rectangle;
  */
 
 public class GameLogic {
+    // State
+    private GameState gameState;
+    // Entites
     private Player player;
-    private ArrayList<Entity> entities = new ArrayList<>();
-    private int playerHealth = PLAYER_HEALTH;
+    private List<Enemy> enemies = new ArrayList<>();
+    private List<Entity> entities = new ArrayList<>();
+    // Time
     private long lastHitTime;
     private final long hitCooldown = HIT_COOLDOWN;
-    private GameState gameState;
     private final int hitWarningDuration = HIT_WARNING_DURATION;
     private boolean showHitWarning = false;
     private long hitWarningStartTime = 0;
@@ -32,7 +36,7 @@ public class GameLogic {
         initializeEntities();
     }
     
-    public ArrayList<Entity> getEntities() {
+    public List<Entity> getEntities() {
         return entities;
     }
 
@@ -52,24 +56,30 @@ public class GameLogic {
         this.showHitWarning = showHitWarning;
     }
 
-
     private void initializeEntities() {
-    player = new Player(new Rectangle(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, PLAYER_WIDTH, PLAYER_HEIGHT),
-            DUNGEON_SHEET_IMG, PLAYER_SPRITESHEET_X, PLAYER_SPRITESHEET_Y, PLAYER_SPRITESHEET_WIDTH,
-            PLAYER_SPRITESHEET_HEIGHT);
-    entities.add(player);
+        initializePlayer();
+        entities.add(player);
+        initializeEnemies();
+        entities.addAll(enemies);
+    }
 
-    // Create enemies with random speeds
-    for (int i = 0; i < NUM_ENEMIES; i++) {
-        float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
-        Enemy enemy = new Enemy(new Rectangle(MathUtils.random(0, WINDOW_WIDTH),
-                                              MathUtils.random(0, WINDOW_HEIGHT),
-                                              ENEMY_WIDTH, ENEMY_HEIGHT),
-                                              DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X,
-                                              ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
-                                              ENEMY_SPRITESHEET_WIDTH, randomSpeed);
-        entities.add(enemy);
-        }
+    private void initializePlayer() {
+        this.player = new Player(new Rectangle(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, PLAYER_WIDTH, PLAYER_HEIGHT),
+                DUNGEON_SHEET_IMG, PLAYER_SPRITESHEET_X, PLAYER_SPRITESHEET_Y, PLAYER_SPRITESHEET_WIDTH,
+                PLAYER_SPRITESHEET_HEIGHT);
+    }
+
+    private void initializeEnemies() {
+        for (int i = 0; i < NUM_ENEMIES; i++) {
+            float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
+            Enemy enemy = new Enemy(new Rectangle(MathUtils.random(0, WINDOW_WIDTH),
+                                                  MathUtils.random(0, WINDOW_HEIGHT),
+                                                  ENEMY_WIDTH, ENEMY_HEIGHT),
+                                                  DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X,
+                                                  ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
+                                                  ENEMY_SPRITESHEET_WIDTH, randomSpeed);
+            enemies.add(enemy);
+            }
     }
 
     public void update() {
@@ -84,16 +94,24 @@ public class GameLogic {
         player.move();
     }
 
+    private void checkEnemyCollsion() {
+
+    }
+
     private void checkPlayerHit() {
-        for (Entity entity : entities) {
-            if (entity instanceof Enemy && player.getHitbox().overlaps(entity.getHitbox())) {
-                if (System.currentTimeMillis() - lastHitTime > hitCooldown) { // apply hit cooldown
-                    player.takeDamage(HIT_DAMAGE);
-                    lastHitTime = System.currentTimeMillis();
-                    showHitWarning = true;
-                    hitWarningStartTime = System.currentTimeMillis();
-                }
+        for (Enemy enemy : enemies) {
+            if (player.collidesWith(enemy)) {
+                applyHitToPlayer(enemy);
             }
+        }
+    }
+    
+    private void applyHitToPlayer(Enemy enemy) {
+        if (System.currentTimeMillis() - lastHitTime > hitCooldown) {
+            player.takeDamage(HIT_DAMAGE);
+            lastHitTime = System.currentTimeMillis(); // Needed so that the enemies don't instantly drain the player's health
+            showHitWarning = true;
+            hitWarningStartTime = System.currentTimeMillis();
         }
     }
 
@@ -110,10 +128,8 @@ public class GameLogic {
     }
 
     private void updateEnemyPositions() {
-        for (Entity entity : entities) {
-            if (entity instanceof Enemy) {
-                ((Enemy) entity).moveTowards(player.getX(), player.getY());
-            }
+        for (Enemy enemy : enemies) {
+            enemy.moveTowards(player.getX(), player.getY());
         }
     }
 }

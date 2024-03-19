@@ -1,6 +1,7 @@
 package inf112.skeleton.app.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -18,7 +19,8 @@ public class Player extends Entity {
     private Map<Direction, Boolean> moveDirections;
 
     public Player(Rectangle hitBox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteHeight,
-            int spriteWidth) {
+            int spriteWidth
+            ) {
         super(hitBox, spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight);
         pos = new Vector2(hitBox.x, hitBox.y);
         velocity = new Vector2();
@@ -40,6 +42,8 @@ public class Player extends Entity {
     }
 
     private void calculateMovementDirection() {
+        
+
         // Vertical
         if ((moveDirections.get(Direction.UP)) == (moveDirections.get(Direction.DOWN))) {
             direction.y = 0;
@@ -66,6 +70,7 @@ public class Player extends Entity {
 
         velocity.x = MathUtils.clamp(velocity.x, -MAX_PLAYER_VELOCITY, MAX_PLAYER_VELOCITY);
         velocity.y = MathUtils.clamp(velocity.y, -MAX_PLAYER_VELOCITY, MAX_PLAYER_VELOCITY);
+
 
         applyFriction();
 

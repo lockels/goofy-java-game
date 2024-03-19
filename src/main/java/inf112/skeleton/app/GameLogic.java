@@ -7,6 +7,13 @@ import inf112.skeleton.app.entities.Player;
 import static inf112.skeleton.app.Constants.*;
 
 import java.util.ArrayList;
+
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -27,10 +34,16 @@ public class GameLogic {
     private final int hitWarningDuration = HIT_WARNING_DURATION;
     private boolean showHitWarning = false;
     private long hitWarningStartTime = 0;
+    private TiledMap map; // Add this variable to hold the Tiled map
+
+    
+
 
     public GameLogic(GameState gameState) {
         this.gameState = gameState;
         initializeEntities();
+        this.map = new TmxMapLoader().load("maps/map2.tmx"); // Load the map here
+
     }
 
     private void initializeEntities() {
@@ -83,6 +96,18 @@ public class GameLogic {
         }
     }
 
+    private void checkCollisonWall() {
+        MapLayer collisionLayer = map.getLayers().get("Vegger");
+        MapObjects wallObjects = collisionLayer.getObjects();
+
+        for (MapObjects object : wallObjects) {
+            if (object instanceof RectangleMapObject) {
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+                // check collision with player or other entities 
+            }
+        }
+    }
+
     private void updatePlayerHealth(int healthLost) {
         playerHealth -= healthLost;
     }
@@ -106,6 +131,9 @@ public class GameLogic {
             }
         }
     }
+
+
+    
 
     public ArrayList<Entity> getEntities() {
         return entities;

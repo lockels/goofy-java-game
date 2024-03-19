@@ -3,7 +3,12 @@ package inf112.skeleton.app.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> enemyDev
 public abstract class Entity {
     // Field vars
     Rectangle hitbox;
@@ -13,8 +18,7 @@ public abstract class Entity {
     protected int spriteHeight;
     protected int spriteWidth;
 
-    public Entity(Rectangle hitbox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteWidth,
-            int spriteHeight) {
+    public Entity(Rectangle hitbox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteWidth, int spriteHeight) {
         this.hitbox = hitbox;
         this.spriteSheetPath = spriteSheet;
         this.spriteSheetX = spriteSheetX;
@@ -23,7 +27,6 @@ public abstract class Entity {
         this.spriteWidth = spriteWidth;
     }
 
-    // Methods
     public float getX() {
         return hitbox.x;
     }
@@ -56,6 +59,7 @@ public abstract class Entity {
         return this.spriteSheetPath;
     }
 
+<<<<<<< HEAD
     public void moveTowards(float targetX, float targetY) {
         float diffX = targetX - hitbox.x;
         float diffY = targetY - hitbox.y;
@@ -66,5 +70,13 @@ public abstract class Entity {
     public Texture getTexture() {
         Texture spriteSheet = new Texture(spriteSheetPath);
         return new TextureRegion(spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight).getTexture();
+=======
+    public boolean collidesWith(Entity other) {
+        return hitbox.overlaps(other.getHitbox());
+    }
+
+    public void move(float x, float y) {
+        hitbox.setPosition(x, y);
+>>>>>>> enemyDev
     }
 }

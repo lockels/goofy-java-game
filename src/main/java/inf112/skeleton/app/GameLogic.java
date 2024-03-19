@@ -6,24 +6,28 @@ import inf112.skeleton.app.entities.Player;
 
 import static inf112.skeleton.app.Constants.*;
 
+import java.util.List;
 import java.util.ArrayList;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
-
 /**
  * GameLogic is the class that handles the game logic.
+<<<<<<< HEAD
  * 
  * @author Fredric Hegland
  */ 
 
 public class GameLogic {
+    // State
+    private GameState gameState;
+    // Entites
     private Player player;
-    private ArrayList<Entity> entities = new ArrayList<>();
-    private int playerHealth = PLAYER_HEALTH;
+    private List<Enemy> enemies = new ArrayList<>();
+    private List<Entity> entities = new ArrayList<>();
+    // Time
     private long lastHitTime;
     private final long hitCooldown = HIT_COOLDOWN;
-    private GameState gameState;
     private final int hitWarningDuration = HIT_WARNING_DURATION;
     private boolean showHitWarning = false;
     private long hitWarningStartTime = 0;
@@ -32,82 +36,8 @@ public class GameLogic {
         this.gameState = gameState;
         initializeEntities();
     }
-
-    private void initializeEntities() {
-    player = new Player(new Rectangle(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, PLAYER_WIDTH, PLAYER_HEIGHT),
-            DUNGEON_SHEET_IMG, PLAYER_SPRITESHEET_X, PLAYER_SPRITESHEET_Y, PLAYER_SPRITESHEET_WIDTH,
-            PLAYER_SPRITESHEET_HEIGHT);
-    entities.add(player);
-
-    // Create enemies with random speeds
-    for (int i = 0; i < NUM_ENEMIES; i++) {
-        float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
-        Enemy enemy = new Enemy(new Rectangle(MathUtils.random(0, WINDOW_WIDTH), MathUtils.random(0, WINDOW_HEIGHT), ENEMY_WIDTH, ENEMY_HEIGHT),
-                DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X, ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
-                ENEMY_SPRITESHEET_WIDTH, randomSpeed);
-        entities.add(enemy);
-    }
-}
-
-
-    public void update() {
-        updatePlayerPosition();
-        checkCollisions();
-        checkGameOver();
-        updateHitWarning();
-        updateEnemyPositions();
-    }
-
-    private void updatePlayerPosition() {
-        player.move();
-    }
-
-    private void checkCollisions() {
-        int numOverlappingEnemies = 0;
-        for (Entity entity : entities) {
-            if (entity instanceof Enemy) {
-                if (player.getHitbox().overlaps(entity.getHitbox()) && playerHealth > 0) {
-                    if (System.currentTimeMillis() - lastHitTime > hitCooldown) {
-                        numOverlappingEnemies++;
-                    }
-                }
-            }
-        }
-
-        if (numOverlappingEnemies > 0) {
-            int healthLost = HIT_DAMAGE * numOverlappingEnemies;
-            updatePlayerHealth(healthLost);
-            lastHitTime = System.currentTimeMillis();
-            showHitWarning = true;
-            hitWarningStartTime = System.currentTimeMillis();
-        }
-    }
-
-    private void updatePlayerHealth(int healthLost) {
-        playerHealth -= healthLost;
-    }
-
-    private void checkGameOver() {
-        if (playerHealth <= 0) {
-            gameState = GameState.GAME_OVER;
-        }
-    }
-
-    private void updateHitWarning() {
-        if (showHitWarning && System.currentTimeMillis() - hitWarningStartTime > hitWarningDuration) {
-            showHitWarning = false;
-        }
-    }
-
-    private void updateEnemyPositions() {
-        for (Entity entity : entities) {
-            if (entity instanceof Enemy) {
-                ((Enemy) entity).moveTowards(player.getX(), player.getY());
-            }
-        }
-    }
-
-    public ArrayList<Entity> getEntities() {
+    
+    public List<Entity> getEntities() {
         return entities;
     }
 
@@ -119,19 +49,113 @@ public class GameLogic {
         return gameState;
     }
 
-    public int getPlayerHealth() {
-        return playerHealth;
-    }
-
-    public void setPlayerHealth(int health) {
-        this.playerHealth = health;
-    }
-
     public boolean isShowHitWarning() {
         return showHitWarning;
     }
 
     public void setShowHitWarning(boolean showHitWarning) {
         this.showHitWarning = showHitWarning;
+    }
+
+    private void initializeEntities() {
+        initializePlayer();
+        entities.add(player);
+        initializeEnemies();
+        entities.addAll(enemies);
+    }
+
+    private void initializePlayer() {
+        this.player = new Player(new Rectangle(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, PLAYER_WIDTH, PLAYER_HEIGHT),
+                DUNGEON_SHEET_IMG, PLAYER_SPRITESHEET_X, PLAYER_SPRITESHEET_Y, PLAYER_SPRITESHEET_WIDTH,
+                PLAYER_SPRITESHEET_HEIGHT);
+    }
+
+    private void initializeEnemies() {
+        for (int i = 0; i < NUM_ENEMIES; i++) {
+            float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
+            Enemy enemy = new Enemy(new Rectangle(MathUtils.random(0, WINDOW_WIDTH),
+                                                  MathUtils.random(0, WINDOW_HEIGHT),
+                                                  ENEMY_WIDTH, ENEMY_HEIGHT),
+                                                  DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X,
+                                                  ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
+                                                  ENEMY_SPRITESHEET_WIDTH, randomSpeed);
+            enemies.add(enemy);
+            }
+    }
+
+    public void update() {
+        updatePlayerPosition();
+        checkPlayerHit();
+        checkEnemyCollisions();
+        checkGameOver();
+        updateHitWarning();
+        updateEnemyPositions();
+    }
+
+    private void updatePlayerPosition() {
+        player.move();
+    }
+
+    private void checkEnemyCollisions() {
+        for (Enemy enemy : enemies) {
+            for (Enemy other : enemies) {
+                if (enemy != other && enemy.collidesWith(other)) {
+                    separateEntities(enemy, other);
+                }
+            }
+        }
+    }
+
+    private void separateEntities(Entity entityA, Entity entityB) {
+        float distanceX = entityB.getX() - entityA.getX();
+        float distanceY = entityB.getY() - entityA.getY();
+        float distance = (float) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        float overlap = (entityA.getHitbox().width + entityB.getHitbox().width) / 2 - distance; // Determine the amount of overlap
+
+        if (distance > 0) {
+            distanceX /= distance;
+            distanceY /= distance;
+        }
+
+        // Calculate the separation distance based on the overlap and direction
+        float separationX = overlap * distanceX / 2;
+        float separationY = overlap * distanceY / 2;
+
+        entityA.move(separationX, separationY);
+    }
+
+    private void checkPlayerHit() {
+        for (Enemy enemy : enemies) {
+            if (player.collidesWith(enemy)) {
+                applyHitToPlayer(enemy);
+            }
+        }
+    }
+    
+    private void applyHitToPlayer(Enemy enemy) {
+        if (System.currentTimeMillis() - lastHitTime > hitCooldown) {
+            player.takeDamage(HIT_DAMAGE);
+            lastHitTime = System.currentTimeMillis(); // Needed so that the enemies don't instantly drain the player's health
+            showHitWarning = true;
+            hitWarningStartTime = System.currentTimeMillis();
+        }
+    }
+
+    private void checkGameOver() {
+        if (player.getHealth() <= 0) {
+            gameState = GameState.GAME_OVER;
+        }
+    }
+
+    private void updateHitWarning() {
+        if (showHitWarning && System.currentTimeMillis() - hitWarningStartTime > hitWarningDuration) {
+            showHitWarning = false;
+        }
+    }
+
+    private void updateEnemyPositions() {
+        for (Enemy enemy : enemies) {
+            enemy.moveTowards(player.getX(), player.getY());
+        }
     }
 }

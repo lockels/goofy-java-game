@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
-
 /**
  * GameLogic is the class that handles the game logic.
  */
@@ -119,9 +118,7 @@ public class GameLogic {
         float separationX = overlap * distanceX / 2;
         float separationY = overlap * distanceY / 2;
 
-        // Move entities along the separation vector to ensure they don't overlap
         entityA.move(separationX, separationY);
-        entityB.move(-separationX, -separationY);
     }
 
     private void checkPlayerHit() {

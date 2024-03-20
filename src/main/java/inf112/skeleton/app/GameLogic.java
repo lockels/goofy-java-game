@@ -25,7 +25,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * GameLogic is the class that handles the game logic.
  * 
- * @author Fredric Hegland
+ * @author 
  */
 
 public class GameLogic {

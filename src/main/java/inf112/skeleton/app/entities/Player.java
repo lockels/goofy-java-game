@@ -19,8 +19,7 @@ public class Player extends Entity {
     private Map<Direction, Boolean> moveDirections;
 
     public Player(Rectangle hitBox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteHeight,
-            int spriteWidth
-            ) {
+            int spriteWidth) {
         super(hitBox, spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight);
         pos = new Vector2(hitBox.x, hitBox.y);
         velocity = new Vector2();
@@ -42,7 +41,6 @@ public class Player extends Entity {
     }
 
     private void calculateMovementDirection() {
-        
 
         // Vertical
         if ((moveDirections.get(Direction.UP)) == (moveDirections.get(Direction.DOWN))) {
@@ -70,7 +68,6 @@ public class Player extends Entity {
 
         velocity.x = MathUtils.clamp(velocity.x, -MAX_PLAYER_VELOCITY, MAX_PLAYER_VELOCITY);
         velocity.y = MathUtils.clamp(velocity.y, -MAX_PLAYER_VELOCITY, MAX_PLAYER_VELOCITY);
-
 
         applyFriction();
 

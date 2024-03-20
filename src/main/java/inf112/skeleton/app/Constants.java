@@ -19,7 +19,7 @@ public class Constants {
     public final static int PLAYER_ACCELERATION = 700;
     public final static int MAX_PLAYER_VELOCITY = 200;
     public final static int PLAYER_FRICTION = 1000;
-    public final static int PLAYER_HEALTH = 10;     // Player health
+    public final static int PLAYER_HEALTH = 10; // Player health
     public final static int PLAYER_SPRITESHEET_X = 306;
     public final static int PLAYER_SPRITESHEET_Y = 112;
     public final static int PLAYER_SPRITESHEET_WIDTH = 16;
@@ -28,7 +28,7 @@ public class Constants {
     // Enemies
     public final static float ENEMY_SPEED_MAX = 1.2f;
     public final static float ENEMY_SPEED_MIN = 0.8f;
-    public final static int NUM_ENEMIES = 3;   // Number of enemies
+    public final static int NUM_ENEMIES = 3; // Number of enemies
     public final static int ENEMY_SPEED = 100;
     public final static int ENEMY_WIDTH = 24;
     public final static int ENEMY_HEIGHT = 32;

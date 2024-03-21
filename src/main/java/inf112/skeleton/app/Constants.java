@@ -3,7 +3,6 @@ package inf112.skeleton.app;
 /**
  * Class which stores all constants used in-game.
  *
- * @author Fredric Hegland
  */
 public class Constants {
     // App
@@ -65,5 +64,4 @@ public class Constants {
     public final static String HEART_IMG = "src/main/resources/HUD/heart16x16.png";
     public final static String HIT_WARNING_IMG = "src/main/resources/hitWarning.png";
     public final static String GAME_OVER_IMG = "src/main/resources/gameOver.png";
-
 }

@@ -1,7 +1,6 @@
 package inf112.skeleton.app;
 
 import inf112.skeleton.app.entities.Entity;
-import inf112.skeleton.app.grid.Grid;
 import inf112.skeleton.app.myInput.MyInputAdapter;
 import inf112.skeleton.app.HUD.HUD;
 
@@ -25,11 +24,13 @@ import static inf112.skeleton.app.Constants.*;
 /**
  * GameRenderer is the main class for rendering the game.
  */
+
 public class GameRenderer extends Game {
     private SpriteBatch batch;
     private OrthographicCamera cam;
     private GameLogic gameLogic;
     private ArrayList<TextureRegion> entitySprites = new ArrayList<>();
+
     private Texture spriteSheet;
     private BitmapFont font;
     private TiledMap map;
@@ -60,8 +61,8 @@ public class GameRenderer extends Game {
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(0, 1, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        clearScreen();
+        updateCamera();
         mapRenderer.setView(cam);
         mapRenderer.render();
         gameLogic.update();
@@ -69,13 +70,20 @@ public class GameRenderer extends Game {
         batch.setProjectionMatrix(cam.combined);
         drawEntities();
         drawHUD();
-        if (gameLogic.isShowHitWarning()) {
-            drawHitWarning();
-        }
-        if (gameLogic.getGameState() == GameState.GAME_OVER) {
-            drawGameOver();
-        }
+        drawGameUI();
         batch.end();
+    }
+
+    private void clearScreen() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    private void updateCamera() {
+        cam.position.set(gameLogic.getPlayer().getX() + PLAYER_WIDTH / 2, gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
+        cam.update();
+        float zoomLevel = 0.7f;
+        cam.zoom = zoomLevel;
     }
 
     private void drawEntities() {
@@ -88,6 +96,16 @@ public class GameRenderer extends Game {
     private void drawHUD() {
         hud.updateHearts(gameLogic.getPlayer().getHealth());
         hud.draw(batch);
+    }
+
+    private void drawGameUI() {
+
+        if (gameLogic.isShowHitWarning()) {
+            drawHitWarning();
+        }
+        if (gameLogic.getGameState() == GameState.GAME_OVER) {
+            drawGameOver();
+        }
     }
 
     private void drawGameOver() {

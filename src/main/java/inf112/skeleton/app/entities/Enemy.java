@@ -30,22 +30,4 @@ public class Enemy extends Entity {
         pos.mulAdd(velocity, Gdx.graphics.getDeltaTime());
         hitbox.setPosition(pos);
     }
-
-    public void moveAway(float targetX, float targetY) {
-        float diffX = hitbox.x - targetX;  
-        float diffY = hitbox.y - targetY; 
-        float distance = (float) Math.sqrt(diffX * diffX + diffY * diffY);  // Calculate the distance between the target and the entity
-
-        // Normalize the difference and multiply by the desired speed to move away
-        if (distance > 0) {
-            diffX /= distance;
-            diffY /= distance;
-        }
-
-        // Calculate the new position away from the target
-        float newX = hitbox.x + diffX * speed * Gdx.graphics.getDeltaTime();
-        float newY = hitbox.y + diffY * speed * Gdx.graphics.getDeltaTime();
-
-        hitbox.setPosition(newX, newY);  // Update the position to move away from the target
-    }
 }

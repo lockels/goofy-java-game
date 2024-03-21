@@ -7,9 +7,9 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class Enemy extends Entity {
     private Vector2 velocity;
-    private Vector2 direction;
     private Vector2 pos;
     private float speed;
+    private Vector2 direction;
 
     public Enemy(Rectangle hitBox, String dungeon_sheet, int spriteSheetX, int spriteSheetY,
             int spriteWidth, int spriteHeight, float speed) {
@@ -20,9 +20,9 @@ public class Enemy extends Entity {
         direction = new Vector2();
     }
 
-    public void moveTowards(float tX, float tY) {
-        float diffX = tX - hitbox.x;
-        float diffY = tY - hitbox.y;
+    public void moveTowards(float targetX, float targetY) {
+        float diffX = targetX - hitbox.x;
+        float diffY = targetY - hitbox.y;
         float angle = MathUtils.atan2(diffY, diffX);
         velocity.set(MathUtils.cos(angle) * speed, MathUtils.sin(angle) * speed);
 

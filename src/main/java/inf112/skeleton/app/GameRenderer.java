@@ -4,6 +4,7 @@ import inf112.skeleton.app.entities.Entity;
 import inf112.skeleton.app.grid.Grid;
 import inf112.skeleton.app.myInput.MyInputAdapter;
 import inf112.skeleton.app.HUD.HUD;
+import inf112.skeleton.app.box2Dworld.Box2DWorld;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -13,10 +14,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
@@ -36,9 +40,13 @@ public class GameRenderer extends ApplicationAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Grid grid;
     private HUD hud;
+    // private Box2DWorld box2D;
 
+    
     public GameRenderer(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
+        //map = new TmxMapLoader().load(MAP_IMG);
+        // box2D = new Box2DWorld();
     }
 
     @Override
@@ -51,6 +59,7 @@ public class GameRenderer extends ApplicationAdapter {
             entitySprites.add(getSpriteFromSheet(spriteSheet, entity.getSpriteSheetX(), entity.getSpriteSheetY(),
                     entity.getSpriteWidth(), entity.getSpriteHeight()));
         }
+        //box2D = new Box2DWorld();
         grid = new Grid(NUM_ROWS, NUM_COLS, WINDOW_WIDTH, WINDOW_HEIGHT);
         font = new BitmapFont();
         Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
@@ -64,8 +73,16 @@ public class GameRenderer extends ApplicationAdapter {
     public void render() {
         Gdx.gl.glClearColor(0, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+    
         mapRenderer.setView(cam);
+
+        // renedrer our game map
         mapRenderer.render();
+
+        //renderer our box2DdebigLines
+        // b2Ddr.render(world, cam.combined);
+
         gameLogic.update();
         batch.begin();
         batch.setProjectionMatrix(cam.combined);
@@ -78,6 +95,8 @@ public class GameRenderer extends ApplicationAdapter {
             drawGameOver();
         }
         batch.end();
+
+        //box2D.tick(cam);
     }
 
     private void drawEntities() {
@@ -114,6 +133,7 @@ public class GameRenderer extends ApplicationAdapter {
         font.dispose();
         map.dispose();
         mapRenderer.dispose();
+        // box2D.dispose();
     }
 
     private TextureRegion getSpriteFromSheet(Texture spriteSheet, int x, int y, int width, int height) {

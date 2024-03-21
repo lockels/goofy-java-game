@@ -38,19 +38,14 @@ public class GameLogic {
     private final int hitWarningDuration = HIT_WARNING_DURATION;
     private boolean showHitWarning = false;
     private long hitWarningStartTime = 0;
-    private TiledMap map; // Add this variable to hold the Tiled map
-
-
-    //box2D variables
-    private World world;
-    private Box2DDebugRenderer Box2DDebugRendderer;
-    private 
+    
 
     public GameLogic(GameState gameState) {
         this.gameState = gameState;
         initializeEntities();
-        this.map = new TmxMapLoader().load("maps/map2.tmx"); // Load the map here
+        
     }
+    
 
     private void initializeEntities() {
         player = new Player(new Rectangle(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, PLAYER_WIDTH, PLAYER_HEIGHT),

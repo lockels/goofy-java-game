@@ -1,15 +1,15 @@
-package inf112.skeleton.app.entities;
+package inf112.skeleton.app.model.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.Direction;
+import inf112.skeleton.app.model.Direction;
 
 import java.util.EnumMap;
 import java.util.Map;
 
-import static inf112.skeleton.app.Constants.*;
+import static inf112.skeleton.app.model.Constants.*;
 
 public class Player extends Entity {
     private Vector2 velocity;
@@ -103,4 +103,6 @@ public class Player extends Entity {
         pos.x = Math.max(0, Math.min(pos.x, WINDOW_WIDTH - getHitbox().width));
         pos.y = Math.max(0, Math.min(pos.y, WINDOW_HEIGHT - getHitbox().height));
     }
+
+    
 }

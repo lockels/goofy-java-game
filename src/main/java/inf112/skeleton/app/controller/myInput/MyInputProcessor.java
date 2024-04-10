@@ -1,4 +1,4 @@
-package inf112.skeleton.app.myInput;
+package inf112.skeleton.app.controller.myInput;
 
 import com.badlogic.gdx.InputProcessor;
 

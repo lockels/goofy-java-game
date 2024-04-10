@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.model;
 
 /**
  * Class which stores all constants used in-game.

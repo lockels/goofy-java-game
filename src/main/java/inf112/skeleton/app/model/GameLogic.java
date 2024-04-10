@@ -1,15 +1,23 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.model;
 
-import inf112.skeleton.app.entities.Enemy;
-import inf112.skeleton.app.entities.Entity;
-import inf112.skeleton.app.entities.Player;
+import inf112.skeleton.app.model.entities.Enemy;
+import inf112.skeleton.app.model.entities.Entity;
+import inf112.skeleton.app.model.entities.Player;
 
-import static inf112.skeleton.app.Constants.*;
+import static inf112.skeleton.app.model.Constants.*;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * GameLogic is the class that handles the game logic.
@@ -29,11 +37,24 @@ public class GameLogic {
     private final int hitWarningDuration = HIT_WARNING_DURATION;
     private boolean showHitWarning = false;
     private long hitWarningStartTime = 0;
+    private TiledMap map; 
+    private World world;
+    //private Sound collisionSound; 
+
+
 
     public GameLogic(GameState gameState) {
         this.gameState = gameState;
+        //this.map = map; 
+        world = new World(new Vector2(0, -9.8f), true);
+        //loadSounds();
+
+
         initializeEntities();
     }
+    // void loadSounds() {
+    //     collisionSound = Gdx.audio.newSound(Gdx.files.internal("resources/weapload.wav"));
+    // }
     
     public List<Entity> getEntities() {
         return entities;
@@ -81,6 +102,9 @@ public class GameLogic {
             }
     }
 
+
+
+
     public void update() {
         updatePlayerPosition();
         checkPlayerHit();
@@ -104,6 +128,9 @@ public class GameLogic {
         }
     }
 
+   
+    
+
     private void separateEntities(Entity entityA, Entity entityB) {
         float distanceX = entityB.getX() - entityA.getX();
         float distanceY = entityB.getY() - entityA.getY();
@@ -126,6 +153,7 @@ public class GameLogic {
         for (Enemy enemy : enemies) {
             if (player.collidesWith(enemy)) {
                 applyHitToPlayer(enemy);
+                //collisionSound.play();
             }
         }
     }
@@ -138,6 +166,7 @@ public class GameLogic {
             hitWarningStartTime = System.currentTimeMillis();
         }
     }
+
 
     private void checkGameOver() {
         if (player.getHealth() <= 0) {
@@ -156,4 +185,25 @@ public class GameLogic {
             enemy.moveTowards(player.getX(), player.getY());
         }
     }
+
+ 
+    private void checkTileCollisions() {
+        // for (Entity entity : entities){
+        //     Rectangle entityBounds = entity.getHitbox();
+
+            for (MapLayer layer: map.getLayers() ){
+                
+                if(layer.getName().equals("collision")){
+
+                }
+            }
+
+    }
+
+
+    //lyd
+
+    
 }
+        
+

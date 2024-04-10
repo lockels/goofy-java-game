@@ -1,7 +1,7 @@
 package inf112.skeleton.app.grid;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import inf112.skeleton.app.entities.Entity;
+import inf112.skeleton.app.model.entities.Entity;
 
 public class Grid {
     private int rows;
@@ -21,17 +21,6 @@ public class Grid {
     public void setEntity(int row, int col, Entity entity) {
         cells[row][col] = entity;
     }
-
-//    public void draw(SpriteBatch batch) {
-//        for (int row = 0; row < rows; row++) {
-//            for (int col = 0; col < cols; col++) {
-//                Entity entity = cells[row][col];
-//                if (entity != null) {
-//                    batch.draw(entity.getTexture(), col * cellWidth, row * cellHeight, cellWidth, cellHeight);
-//                }
-//            }
-//        }
-//    }
 
     public int getRows() {
         return rows;

@@ -1,9 +1,9 @@
-package inf112.skeleton.app.HUD;
+package inf112.skeleton.app.view.HUD;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import inf112.skeleton.app.Constants;
+import inf112.skeleton.app.model.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,9 @@
-package inf112.skeleton.app.myInput;
+package inf112.skeleton.app.controller.myInput;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import inf112.skeleton.app.Direction;
-import inf112.skeleton.app.entities.Player;
+import inf112.skeleton.app.model.Direction;
+import inf112.skeleton.app.model.entities.Player;
 
 public class MyInputAdapter extends InputAdapter {
     private final Player player;

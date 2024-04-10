@@ -1,4 +1,4 @@
-package inf112.skeleton.app.entities;
+package inf112.skeleton.app.model.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;

@@ -1,4 +1,4 @@
-package inf112.skeleton.app.HUD;
+package inf112.skeleton.app.view.HUD;
 
 import com.badlogic.gdx.math.Rectangle;
 

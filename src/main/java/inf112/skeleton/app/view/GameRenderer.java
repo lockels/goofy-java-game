@@ -1,8 +1,10 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.view;
 
-import inf112.skeleton.app.entities.Entity;
-import inf112.skeleton.app.myInput.MyInputAdapter;
-import inf112.skeleton.app.HUD.HUD;
+import inf112.skeleton.app.controller.myInput.MyInputAdapter;
+import inf112.skeleton.app.model.GameLogic;
+import inf112.skeleton.app.model.GameState;
+import inf112.skeleton.app.model.entities.Entity;
+import inf112.skeleton.app.view.HUD.HUD;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -19,7 +21,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
 
-import static inf112.skeleton.app.Constants.*;
+import static inf112.skeleton.app.model.Constants.*;
 
 /**
  * GameRenderer is the main class for rendering the game.
@@ -49,7 +51,7 @@ public class GameRenderer extends Game {
         spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
         for (Entity entity : gameLogic.getEntities()) {
             entitySprites.add(getSpriteFromSheet(spriteSheet, entity.getSpriteSheetX(), entity.getSpriteSheetY(),
-                                                 entity.getSpriteWidth(), entity.getSpriteHeight()));
+                                                entity.getSpriteWidth(), entity.getSpriteHeight()));
         }
         font = new BitmapFont();
         Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));

@@ -24,9 +24,9 @@ import java.util.ArrayList;
 import static inf112.skeleton.app.model.Constants.*;
 
 /**
- * GameRenderer is the main class for rendering the game.
+ * The GameRenderer class is responsible for rendering the game.
+ * It manages the rendering of entities, HUD, and game UI elements.
  */
-
 public class GameRenderer extends Game {
     private SpriteBatch batch;
     private OrthographicCamera cam;
@@ -39,6 +39,11 @@ public class GameRenderer extends Game {
     private OrthogonalTiledMapRenderer mapRenderer;
     private HUD hud;
 
+    /**
+     * Constructs a GameRenderer with the specified GameLogic.
+     *
+     * @param gameLogic the GameLogic instance to render
+     */
     public GameRenderer(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
     }
@@ -51,7 +56,7 @@ public class GameRenderer extends Game {
         spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
         for (Entity entity : gameLogic.getEntities()) {
             entitySprites.add(getSpriteFromSheet(spriteSheet, entity.getSpriteSheetX(), entity.getSpriteSheetY(),
-                                                entity.getSpriteWidth(), entity.getSpriteHeight()));
+                    entity.getSpriteWidth(), entity.getSpriteHeight()));
         }
         font = new BitmapFont();
         Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
@@ -82,7 +87,8 @@ public class GameRenderer extends Game {
     }
 
     private void updateCamera() {
-        cam.position.set(gameLogic.getPlayer().getX() + PLAYER_WIDTH / 2, gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
+        cam.position.set(gameLogic.getPlayer().getX() + PLAYER_WIDTH / 2,
+                gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
         cam.update();
         float zoomLevel = 0.7f;
         cam.zoom = zoomLevel;
@@ -101,7 +107,6 @@ public class GameRenderer extends Game {
     }
 
     private void drawGameUI() {
-
         if (gameLogic.isShowHitWarning()) {
             drawHitWarning();
         }
@@ -113,7 +118,13 @@ public class GameRenderer extends Game {
     private void drawGameOver() {
         // Draw a rectangle with a picture
         Rectangle rectangle = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-        batch.draw(new Texture(GAME_OVER_IMG), rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        Texture gameOverTexture = new Texture(GAME_OVER_IMG);
+
+        // Debug information
+        System.out.println("Rectangle dimensions: " + rectangle.width + "x" + rectangle.height);
+        System.out.println("Texture dimensions: " + gameOverTexture.getWidth() + "x" + gameOverTexture.getHeight());
+
+        batch.draw(gameOverTexture, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
     }
 
     private void drawHitWarning() {

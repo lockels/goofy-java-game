@@ -29,6 +29,4 @@ public class Box2DHelper {
         return body;
     }
 
-    // Method to create a dynamic body for the player can be added here
 }
-

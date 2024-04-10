@@ -12,6 +12,7 @@ public class MyInputAdapter extends InputAdapter {
         this.player = player;
     }
 
+    
     @Override
     public boolean keyDown(int keycode) {
         Direction direction = getKeyDirection(keycode);
@@ -22,6 +23,7 @@ public class MyInputAdapter extends InputAdapter {
         return false;
     }
 
+    
     @Override
     public boolean keyUp(int keycode) {
         Direction direction = getKeyDirection(keycode);

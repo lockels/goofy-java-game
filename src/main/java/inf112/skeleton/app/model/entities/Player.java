@@ -11,6 +11,9 @@ import java.util.Map;
 
 import static inf112.skeleton.app.model.Constants.*;
 
+/**
+ * Represents a player entity in the game.
+ */
 public class Player extends Entity {
     private Vector2 velocity;
     private Vector2 direction;
@@ -18,6 +21,16 @@ public class Player extends Entity {
     private Map<Direction, Boolean> moveDirections;
     private int health;
 
+    /**
+     * Constructs a new Player with the specified parameters.
+     *
+     * @param hitBox       the hitbox rectangle defining the bounds of the player
+     * @param spriteSheet  the file path to the sprite sheet for the player's appearance
+     * @param spriteSheetX the x-coordinate of the sprite on the sprite sheet
+     * @param spriteSheetY the y-coordinate of the sprite on the sprite sheet
+     * @param spriteHeight the height of the sprite
+     * @param spriteWidth  the width of the sprite
+     */
     public Player(Rectangle hitBox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteHeight, int spriteWidth) {
         super(hitBox, spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight);
         pos = new Vector2(hitBox.x, hitBox.y);
@@ -32,18 +45,39 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Gets the health of the player.
+     *
+     * @return the player's health
+     */
     public int getHealth() {
         return health;
     }
 
+    /**
+     * Reduces the player's health by the specified amount.
+     *
+     * @param damage the amount of damage to take
+     */
     public void takeDamage(int damage) {
         this.health -= damage;
     }
 
+    /**
+     * Gets the map of movement directions for the player.
+     *
+     * @return the map of movement directions
+     */
     public Map<Direction, Boolean> getMovementDirections() {
         return moveDirections;
     }
 
+    /**
+     * Sets the movement state for the specified direction.
+     *
+     * @param direction the direction to set movement for
+     * @param isActive  true if the movement is active, false otherwise
+     */
     public void setMovement(Direction direction, boolean isActive) {
         moveDirections.put(direction, isActive);
     }
@@ -68,6 +102,9 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Moves the player based on current movement direction and velocity.
+     */
     public void move() {
         calculateMovementDirection();
         velocity.x += PLAYER_ACCELERATION * direction.x;
@@ -103,6 +140,4 @@ public class Player extends Entity {
         pos.x = Math.max(0, Math.min(pos.x, WINDOW_WIDTH - getHitbox().width));
         pos.y = Math.max(0, Math.min(pos.y, WINDOW_HEIGHT - getHitbox().height));
     }
-
-    
 }

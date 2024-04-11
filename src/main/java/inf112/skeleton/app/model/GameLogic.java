@@ -1,27 +1,31 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.model;
 
-import inf112.skeleton.app.entities.Enemy;
-import inf112.skeleton.app.entities.Entity;
-import inf112.skeleton.app.entities.Player;
+import inf112.skeleton.app.model.entities.Enemy;
+import inf112.skeleton.app.model.entities.Entity;
+import inf112.skeleton.app.model.entities.Player;
 
-import static inf112.skeleton.app.Constants.*;
+import static inf112.skeleton.app.model.Constants.*;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * GameLogic is the class that handles the game logic.
-<<<<<<< HEAD
- * 
- * @author Fredric Hegland
- */ 
-
+* GameLogic handles the game logic including player and enemy interactions.
+*/
 public class GameLogic {
     // State
     private GameState gameState;
-    // Entites
+    // Entities
     private Player player;
     private List<Enemy> enemies = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
@@ -31,29 +35,60 @@ public class GameLogic {
     private final int hitWarningDuration = HIT_WARNING_DURATION;
     private boolean showHitWarning = false;
     private long hitWarningStartTime = 0;
+    private TiledMap map;
+    private World world;
+    // private Sound collisionSound;
 
+    /**
+     * Constructs a new GameLogic instance with the given game state.
+     *
+     * @param gameState the initial game state
+     */
     public GameLogic(GameState gameState) {
         this.gameState = gameState;
+        world = new World(new Vector2(0, -9.8f), true);
+        // loadSounds();
         initializeEntities();
     }
-    
+
+    /**
+     * Gets the list of entities in the game.
+     *
+     * @return the list of entities
+     */
     public List<Entity> getEntities() {
         return entities;
     }
 
+    /**
+     * Gets the player entity.
+     *
+     * @return the player entity
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Gets the current game state.
+     *
+     * @return the current game state
+     */
     public GameState getGameState() {
         return gameState;
     }
 
+    /**
+     * Checks if the hit warning should be displayed.
+     *
+     * @return true if the hit warning should be displayed, false otherwise
+     */
     public boolean isShowHitWarning() {
         return showHitWarning;
     }
 
-    public void setShowHitWarning(boolean showHitWarning) {
+    // ER DENNE BRUKT NOE STED??
+    private void setShowHitWarning(boolean showHitWarning) {
         this.showHitWarning = showHitWarning;
     }
 
@@ -74,15 +109,18 @@ public class GameLogic {
         for (int i = 0; i < NUM_ENEMIES; i++) {
             float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
             Enemy enemy = new Enemy(new Rectangle(MathUtils.random(0, WINDOW_WIDTH),
-                                                  MathUtils.random(0, WINDOW_HEIGHT),
-                                                  ENEMY_WIDTH, ENEMY_HEIGHT),
-                                                  DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X,
-                                                  ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
-                                                  ENEMY_SPRITESHEET_WIDTH, randomSpeed);
+                    MathUtils.random(0, WINDOW_HEIGHT),
+                    ENEMY_WIDTH, ENEMY_HEIGHT),
+                    DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X,
+                    ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
+                    ENEMY_SPRITESHEET_WIDTH, randomSpeed);
             enemies.add(enemy);
-            }
+        }
     }
 
+    /**
+     * Updates the game logic.
+     */
     public void update() {
         updatePlayerPosition();
         checkPlayerHit();
@@ -110,14 +148,13 @@ public class GameLogic {
         float distanceX = entityB.getX() - entityA.getX();
         float distanceY = entityB.getY() - entityA.getY();
         float distance = (float) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-        float overlap = (entityA.getHitbox().width + entityB.getHitbox().width) / 2 - distance; // Determine the amount of overlap
+        float overlap = (entityA.getHitbox().width + entityB.getHitbox().width) / 2 - distance;
 
         if (distance > 0) {
             distanceX /= distance;
             distanceY /= distance;
         }
 
-        // Calculate the separation distance based on the overlap and direction
         float separationX = overlap * distanceX / 2;
         float separationY = overlap * distanceY / 2;
 
@@ -128,14 +165,15 @@ public class GameLogic {
         for (Enemy enemy : enemies) {
             if (player.collidesWith(enemy)) {
                 applyHitToPlayer(enemy);
+                // collisionSound.play();
             }
         }
     }
-    
+
     private void applyHitToPlayer(Enemy enemy) {
         if (System.currentTimeMillis() - lastHitTime > hitCooldown) {
             player.takeDamage(HIT_DAMAGE);
-            lastHitTime = System.currentTimeMillis(); // Needed so that the enemies don't instantly drain the player's health
+            lastHitTime = System.currentTimeMillis();
             showHitWarning = true;
             hitWarningStartTime = System.currentTimeMillis();
         }
@@ -158,4 +196,18 @@ public class GameLogic {
             enemy.moveTowards(player.getX(), player.getY());
         }
     }
+
+    private void checkTileCollisions() {
+        // for (Entity entity : entities){
+        // Rectangle entityBounds = entity.getHitbox();
+
+        for (MapLayer layer : map.getLayers()) {
+
+            if (layer.getName().equals("collision")) {
+
+            }
+        }
+
+    }
+
 }

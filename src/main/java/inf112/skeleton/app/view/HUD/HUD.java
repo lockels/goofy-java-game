@@ -1,13 +1,15 @@
-package inf112.skeleton.app.HUD;
+package inf112.skeleton.app.view.HUD;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import inf112.skeleton.app.Constants;
+import inf112.skeleton.app.model.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The HUD class represents the Heads-Up Display in the game.
+ */
 public class HUD {
     private List<Heart> hearts;
     private Texture heartTexture;
@@ -19,6 +21,12 @@ public class HUD {
     private int heartX = Constants.HEART_X;
     private int heartY = Constants.HEART_Y;
 
+    /**
+     * Constructs a HUD with the specified heart texture and maximum number of hearts.
+     *
+     * @param heartTexture the texture representing a heart icon
+     * @param maxHearts    the maximum number of hearts to be displayed
+     */
     public HUD(Texture heartTexture, int maxHearts) {
         this.heartTexture = heartTexture;
         this.maxHearts = maxHearts;
@@ -34,6 +42,11 @@ public class HUD {
         }
     }
 
+    /**
+     * Draws the filled hearts representing player health.
+     *
+     * @param batch the SpriteBatch used for rendering
+     */
     public void draw(SpriteBatch batch) {
         for (Heart heart : hearts) {
             if (heart.isFilled()) {
@@ -42,6 +55,11 @@ public class HUD {
         }
     }
 
+    /**
+     * Updates the hearts based on the current player health.
+     *
+     * @param currentHealth the current health of the player
+     */
     public void updateHearts(int currentHealth) {
         for (int i = 0; i < hearts.size(); i++) {
             if (i < currentHealth) {
@@ -51,5 +69,4 @@ public class HUD {
             }
         }
     }
-
 }

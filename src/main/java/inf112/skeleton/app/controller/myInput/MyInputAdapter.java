@@ -1,9 +1,9 @@
-package inf112.skeleton.app.myInput;
+package inf112.skeleton.app.controller.myInput;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import inf112.skeleton.app.Direction;
-import inf112.skeleton.app.entities.Player;
+import inf112.skeleton.app.model.Direction;
+import inf112.skeleton.app.model.entities.Player;
 
 public class MyInputAdapter extends InputAdapter {
     private final Player player;
@@ -12,6 +12,7 @@ public class MyInputAdapter extends InputAdapter {
         this.player = player;
     }
 
+    
     @Override
     public boolean keyDown(int keycode) {
         Direction direction = getKeyDirection(keycode);
@@ -22,6 +23,7 @@ public class MyInputAdapter extends InputAdapter {
         return false;
     }
 
+    
     @Override
     public boolean keyUp(int keycode) {
         Direction direction = getKeyDirection(keycode);
@@ -34,11 +36,11 @@ public class MyInputAdapter extends InputAdapter {
 
     private Direction getKeyDirection(int keycode) {
         return switch (keycode) {
-            case Keys.LEFT  -> Direction.LEFT;
+            case Keys.LEFT -> Direction.LEFT;
             case Keys.RIGHT -> Direction.RIGHT;
-            case Keys.UP    -> Direction.UP;
-            case Keys.DOWN  -> Direction.DOWN;
-            default         -> null;
+            case Keys.UP -> Direction.UP;
+            case Keys.DOWN -> Direction.DOWN;
+            default -> null;
         };
     }
 }

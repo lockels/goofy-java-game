@@ -22,9 +22,5 @@ public class EnemyTest {
         //Act
         enemy.moveTowards(100, 100);
 
-        // Assert
-        // You can add assertions based on the expected behavior of moveTowards method
-        // For example, you can check if the enemy's hitbox has moved towards the target
-        // You can also check if the enemy's position is updated correctly after the movement
     }
 }

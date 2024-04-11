@@ -113,6 +113,9 @@ public class GameRenderer extends Game {
         if (gameLogic.getGameState() == GameState.GAME_OVER) {
             drawGameOver();
         }
+        if (gameLogic.getGameState() == GameState.MENU){
+            drawMenu();
+        }
     }
 
     private void drawGameOver() {
@@ -152,4 +155,9 @@ public class GameRenderer extends Game {
     private Texture getSpriteSheet(String spriteSheet) {
         return new Texture(Gdx.files.internal(spriteSheet));
     }
+
+    private void drawMenu(){
+        
+    }
+
 }

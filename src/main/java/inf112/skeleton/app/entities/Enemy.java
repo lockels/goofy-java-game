@@ -12,8 +12,8 @@ public class Enemy extends Entity {
     private Vector2 direction;
 
     public Enemy(Rectangle hitBox, String dungeon_sheet, int spriteSheetX, int spriteSheetY,
-            int spriteWidth, int spriteHeight, float speed) {
-        super(hitBox, dungeon_sheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight);
+            int spriteWidth, int spriteHeight, float baseAngle, int originX, int originY, String type, float speed) {
+        super(hitBox, dungeon_sheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight, originX, originY, baseAngle, type);
         this.speed = speed;
         pos = new Vector2(hitBox.x, hitBox.y);
         velocity = new Vector2();

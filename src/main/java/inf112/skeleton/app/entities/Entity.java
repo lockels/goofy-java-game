@@ -6,23 +6,38 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
-    // Field vars
+    // Field
     Rectangle hitbox;
+    float baseAngle;
+    float angle;
     String spriteSheetPath;
     protected int spriteSheetX;
     protected int spriteSheetY;
     protected int spriteHeight;
     protected int spriteWidth;
+    int originX;
+    int originY;
+    String type;
 
-    public Entity(Rectangle hitbox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteWidth, int spriteHeight) {
+    public Entity(Rectangle hitbox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteWidth, int spriteHeight, int originX, int originY, float baseAngle, String type) {
         this.hitbox = hitbox;
         this.spriteSheetPath = spriteSheet;
         this.spriteSheetX = spriteSheetX;
         this.spriteSheetY = spriteSheetY;
         this.spriteHeight = spriteHeight;
         this.spriteWidth = spriteWidth;
+        this.originX = originX;
+        this.originY = originY;
+        this.baseAngle = baseAngle;
+        this.angle = baseAngle;
+        this.type = type;
     }
 
+    public int getOriginX() { return originX; }
+    public int getOriginY() { return originY; }
+    public float getAngle() { return angle; }
+    public void setAngle(float angle) { this.angle = angle + baseAngle; }
+    public String getType() { return this.type; }
     public float getX() {
         return hitbox.x;
     }

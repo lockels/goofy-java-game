@@ -1,8 +1,7 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.entities.Enemy;
-import inf112.skeleton.app.entities.Entity;
-import inf112.skeleton.app.entities.Player;
+import com.badlogic.gdx.Gdx;
+import inf112.skeleton.app.entities.*;
 
 import static inf112.skeleton.app.Constants.*;
 
@@ -21,8 +20,9 @@ import com.badlogic.gdx.math.Rectangle;
 public class GameLogic {
     // State
     private GameState gameState;
-    // Entites
+    // Entities
     private Player player;
+    private Sword sword;
     private List<Enemy> enemies = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     // Time
@@ -58,16 +58,20 @@ public class GameLogic {
     }
 
     private void initializeEntities() {
+        //Sword
+        initializeSword();
+        entities.add(sword);
+        //Characters
         initializePlayer();
         entities.add(player);
         initializeEnemies();
         entities.addAll(enemies);
-    }
 
+    }
     private void initializePlayer() {
         this.player = new Player(new Rectangle(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, PLAYER_WIDTH, PLAYER_HEIGHT),
-                DUNGEON_SHEET_IMG, PLAYER_SPRITESHEET_X, PLAYER_SPRITESHEET_Y, PLAYER_SPRITESHEET_WIDTH,
-                PLAYER_SPRITESHEET_HEIGHT);
+                DUNGEON_SHEET_IMG, PLAYER_SPRITESHEET_X, PLAYER_SPRITESHEET_Y, PLAYER_SPRITESHEET_HEIGHT,
+                PLAYER_SPRITESHEET_WIDTH, 0, 0, 0, "Player");
     }
 
     private void initializeEnemies() {
@@ -77,14 +81,20 @@ public class GameLogic {
                                                   MathUtils.random(0, WINDOW_HEIGHT),
                                                   ENEMY_WIDTH, ENEMY_HEIGHT),
                                                   DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X,
-                                                  ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
-                                                  ENEMY_SPRITESHEET_WIDTH, randomSpeed);
+                                                  ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_WIDTH,
+                                                  ENEMY_SPRITESHEET_HEIGHT, 0, 0, 0, "Enemy" , randomSpeed);
             enemies.add(enemy);
             }
     }
 
+    private void initializeSword() {
+        this.sword = new Sword(new Rectangle(0, 0, SWORD_WIDTH, SWORD_HEIGHT),
+                SWORD_SPRITE, 0, 0, SWORD_WIDTH, SWORD_HEIGHT, SWORD_WIDTH/2, -SWORD_OFFSET, -90,"Sword");
+    }
+
     public void update() {
         updatePlayerPosition();
+        updateSword();
         checkPlayerHit();
         checkEnemyCollisions();
         checkGameOver();
@@ -96,6 +106,18 @@ public class GameLogic {
         player.move();
     }
 
+    //Sword
+    private void updateSword() {
+        updateSwordPosition();
+        updateSwordAngle();
+    }
+    private void updateSwordPosition() { sword.move(player.getX() + player.getSpriteWidth()/2, player.getY() + player.getSpriteHeight()/2 + SWORD_OFFSET); }
+    private void updateSwordAngle() {
+        float toMouseX = Gdx.input.getX() - sword.getX();
+        float toMouseY = Gdx.graphics.getHeight() - Gdx.input.getY() - sword.getY();
+        float angle = MathUtils.radiansToDegrees * MathUtils.atan2(toMouseY, toMouseX);
+        sword.setAngle(angle);
+    }
     private void checkEnemyCollisions() {
         for (Enemy enemy : enemies) {
             for (Enemy other : enemies) {

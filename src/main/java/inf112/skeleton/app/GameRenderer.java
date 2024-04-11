@@ -1,5 +1,6 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.entities.Entity;
 import inf112.skeleton.app.grid.Grid;
 import inf112.skeleton.app.myInput.MyInputAdapter;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static inf112.skeleton.app.Constants.*;
 
@@ -29,7 +31,7 @@ public class GameRenderer extends Game {
     private SpriteBatch batch;
     private OrthographicCamera cam;
     private GameLogic gameLogic;
-    private ArrayList<TextureRegion> entitySprites = new ArrayList<>();
+    private ArrayList<Sprite> entitySprites = new ArrayList<>();
     private Texture spriteSheet;
     private BitmapFont font;
     private TiledMap map;
@@ -45,9 +47,9 @@ public class GameRenderer extends Game {
         batch = new SpriteBatch();
         cam = new OrthographicCamera();
         cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
-        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
         for (Entity entity : gameLogic.getEntities()) {
-            entitySprites.add(getSpriteFromSheet(spriteSheet, entity.getSpriteSheetX(), entity.getSpriteSheetY(),
+            spriteSheet = getSpriteSheet(entity.getSpriteSheetPath());
+            entitySprites.add(new Sprite(spriteSheet, entity.getSpriteSheetX(), entity.getSpriteSheetY(),
                                                  entity.getSpriteWidth(), entity.getSpriteHeight()));
         }
         font = new BitmapFont();
@@ -80,9 +82,25 @@ public class GameRenderer extends Game {
 
     private void drawEntities() {
         for (Entity entity : gameLogic.getEntities()) {
-            TextureRegion entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
-            batch.draw(entitySprite, entity.getX(), entity.getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
+            Sprite entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
+            updateEntitySprite(entity, entitySprite);
+            entitySprite.draw(batch);
         }
+    }
+
+    private void updateEntitySprite(Entity entity, Sprite entitySprite) {
+        //Rotation
+        entitySprite.setRotation(entity.getAngle());
+        entitySprites.set(gameLogic.getEntities().indexOf(entity), entitySprite);
+
+        //Size
+        entitySprite.setSize(entity.getHitbox().getWidth(), entity.getHitbox().getHeight());
+
+        //Position
+        entitySprite.setPosition(entity.getX(), entity.getY());
+
+        //Origin
+        entitySprite.setOrigin(entity.getOriginX(), entity.getOriginY());
     }
 
     private void drawHUD() {
@@ -106,9 +124,6 @@ public class GameRenderer extends Game {
     public void dispose() {
         batch.dispose();
         spriteSheet.dispose();
-        for (TextureRegion textureRegion : entitySprites) {
-            textureRegion.getTexture().dispose();
-        }
         font.dispose();
         map.dispose();
         mapRenderer.dispose();

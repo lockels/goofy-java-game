@@ -53,6 +53,11 @@ public class Constants {
     public final static int HEART_X = 30;
     public final static int HEART_Y = WINDOW_HEIGHT - HEART_HEIGHT - HEART_X;
 
+
+    // Map / Collision
+    public final static int PPM = 20;
+
+    
     // Game
     public final static int HIT_DAMAGE = 1;
     public final static int HIT_COOLDOWN = 1000;

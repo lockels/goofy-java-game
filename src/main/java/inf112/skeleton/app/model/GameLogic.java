@@ -36,7 +36,7 @@ public class GameLogic {
     private boolean showHitWarning = false;
     private long hitWarningStartTime = 0;
     private TiledMap map;
-    private World world;
+    public World world;
     // private Sound collisionSound;
 
     /**
@@ -46,12 +46,20 @@ public class GameLogic {
      */
     public GameLogic(GameState gameState) {
         this.gameState = gameState;
-        world = new World(new Vector2(0, -9.8f), true);
+        setWorld(new World(new Vector2(0, -9.8f), true));
         // loadSounds();
         initializeEntities();
     }
 
-    /**
+    public World getWorld() {
+		return world;
+	}
+
+	public void setWorld(World world) {
+		this.world = world;
+	}
+
+	/**
      * Gets the list of entities in the game.
      *
      * @return the list of entities
@@ -122,12 +130,18 @@ public class GameLogic {
      * Updates the game logic.
      */
     public void update() {
+        updateWorld();
         updatePlayerPosition();
         checkPlayerHit();
         checkEnemyCollisions();
         checkGameOver();
         updateHitWarning();
         updateEnemyPositions();
+    }
+
+    private void updateWorld() {
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        world.step(deltaTime, 6, 2); // The numbers 6 and 2 are velocity and position iterations, you can adjust these as needed.
     }
 
     private void updatePlayerPosition() {

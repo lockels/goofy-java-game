@@ -15,7 +15,7 @@ public class Main {
         Lwjgl3ApplicationConfiguration gameWindow = new Lwjgl3ApplicationConfiguration();
         gameWindow.setForegroundFPS(Constants.GAME_FPS);
         gameWindow.useVsync(true);
-        gameWindow.setTitle("ImprovedMovementTest");
+        gameWindow.setTitle("INF112 codemasters");
         gameWindow.setWindowedMode(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 
         // Run

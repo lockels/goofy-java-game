@@ -1,9 +1,8 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.model;
 
 /**
  * Class which stores all constants used in-game.
  *
- * @author Fredric Hegland
  */
 public class Constants {
     // App
@@ -19,16 +18,16 @@ public class Constants {
     public final static int PLAYER_ACCELERATION = 700;
     public final static int MAX_PLAYER_VELOCITY = 200;
     public final static int PLAYER_FRICTION = 1000;
-    public final static int PLAYER_HEALTH = 10;     // Player health
+    public final static int PLAYER_HEALTH = 10;
     public final static int PLAYER_SPRITESHEET_X = 306;
     public final static int PLAYER_SPRITESHEET_Y = 112;
-    public final static int PLAYER_SPRITESHEET_WIDTH = 12;
-    public final static int PLAYER_SPRITESHEET_HEIGHT = 16;
+    public final static int PLAYER_SPRITESHEET_WIDTH = 16;
+    public final static int PLAYER_SPRITESHEET_HEIGHT = 12;
 
     // Enemies
     public final static float ENEMY_SPEED_MAX = 1.2f;
     public final static float ENEMY_SPEED_MIN = 0.8f;
-    public final static int NUM_ENEMIES = 3;   // Number of enemies
+    public final static int NUM_ENEMIES = 5;
     public final static int ENEMY_SPEED = 100;
     public final static int ENEMY_WIDTH = 24;
     public final static int ENEMY_HEIGHT = 32;
@@ -38,8 +37,8 @@ public class Constants {
     public final static int ENEMY_HEALTH = 10;
     public final static int ENEMY_SPRITESHEET_X = 322;
     public final static int ENEMY_SPRITESHEET_Y = 112;
-    public final static int ENEMY_SPRITESHEET_WIDTH = 12;
-    public final static int ENEMY_SPRITESHEET_HEIGHT = 16;
+    public final static int ENEMY_SPRITESHEET_WIDTH = 16;
+    public final static int ENEMY_SPRITESHEET_HEIGHT = 12;
 
     // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;
@@ -65,12 +64,5 @@ public class Constants {
     public final static String HEART_IMG = "src/main/resources/HUD/heart16x16.png";
     public final static String HIT_WARNING_IMG = "src/main/resources/hitWarning.png";
     public final static String GAME_OVER_IMG = "src/main/resources/gameOver.png";
-
-    //Sword
-    public final static String SWORD_SPRITE = "src/main/resources/sprites/sword.png";
-    public final static int SWORD_HEIGHT = 40;
-    public final static int SWORD_WIDTH = 10;
-    public final static int SWORD_OFFSET = 10;
-
-
 }
+

@@ -1,16 +1,19 @@
-package inf112.skeleton.app.entities;
+package inf112.skeleton.app.model.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.Direction;
+import inf112.skeleton.app.model.Direction;
 
 import java.util.EnumMap;
 import java.util.Map;
 
-import static inf112.skeleton.app.Constants.*;
+import static inf112.skeleton.app.model.Constants.*;
 
+/**
+ * Represents a player entity in the game.
+ */
 public class Player extends Entity {
     private Vector2 velocity;
     private Vector2 direction;
@@ -18,8 +21,18 @@ public class Player extends Entity {
     private Map<Direction, Boolean> moveDirections;
     private int health;
 
-    public Player(Rectangle hitBox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteHeight, int spriteWidth, int originX, int originY, float baseAngle, String type) {
-        super(hitBox, spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight, originX, originY, baseAngle, type);
+    /**
+     * Constructs a new Player with the specified parameters.
+     *
+     * @param hitBox       the hitbox rectangle defining the bounds of the player
+     * @param spriteSheet  the file path to the sprite sheet for the player's appearance
+     * @param spriteSheetX the x-coordinate of the sprite on the sprite sheet
+     * @param spriteSheetY the y-coordinate of the sprite on the sprite sheet
+     * @param spriteHeight the height of the sprite
+     * @param spriteWidth  the width of the sprite
+     */
+    public Player(Rectangle hitBox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteHeight, int spriteWidth) {
+        super(hitBox, spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight);
         pos = new Vector2(hitBox.x, hitBox.y);
         velocity = new Vector2();
         direction = new Vector2();
@@ -32,18 +45,39 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Gets the health of the player.
+     *
+     * @return the player's health
+     */
     public int getHealth() {
         return health;
     }
 
+    /**
+     * Reduces the player's health by the specified amount.
+     *
+     * @param damage the amount of damage to take
+     */
     public void takeDamage(int damage) {
         this.health -= damage;
     }
 
+    /**
+     * Gets the map of movement directions for the player.
+     *
+     * @return the map of movement directions
+     */
     public Map<Direction, Boolean> getMovementDirections() {
         return moveDirections;
     }
 
+    /**
+     * Sets the movement state for the specified direction.
+     *
+     * @param direction the direction to set movement for
+     * @param isActive  true if the movement is active, false otherwise
+     */
     public void setMovement(Direction direction, boolean isActive) {
         moveDirections.put(direction, isActive);
     }
@@ -68,6 +102,9 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Moves the player based on current movement direction and velocity.
+     */
     public void move() {
         calculateMovementDirection();
         velocity.x += PLAYER_ACCELERATION * direction.x;

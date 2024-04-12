@@ -1,15 +1,15 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.view;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import inf112.skeleton.app.entities.Entity;
-import inf112.skeleton.app.grid.Grid;
-import inf112.skeleton.app.myInput.MyInputAdapter;
-import inf112.skeleton.app.HUD.HUD;
+import inf112.skeleton.app.controller.myInput.MyInputAdapter;
+import inf112.skeleton.app.model.GameLogic;
+import inf112.skeleton.app.model.GameState;
+import inf112.skeleton.app.model.entities.Entity;
+import inf112.skeleton.app.view.HUD.HUD;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera; 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,24 +20,30 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-import static inf112.skeleton.app.Constants.*;
+import static inf112.skeleton.app.model.Constants.*;
 
 /**
- * GameRenderer is the main class for rendering the game.
+ * The GameRenderer class is responsible for rendering the game.
+ * It manages the rendering of entities, HUD, and game UI elements.
  */
 public class GameRenderer extends Game {
     private SpriteBatch batch;
     private OrthographicCamera cam;
     private GameLogic gameLogic;
-    private ArrayList<Sprite> entitySprites = new ArrayList<>();
+    private ArrayList<TextureRegion> entitySprites = new ArrayList<>();
+
     private Texture spriteSheet;
     private BitmapFont font;
     private TiledMap map;
     private OrthogonalTiledMapRenderer mapRenderer;
     private HUD hud;
 
+    /**
+     * Constructs a GameRenderer with the specified GameLogic.
+     *
+     * @param gameLogic the GameLogic instance to render
+     */
     public GameRenderer(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
     }
@@ -47,10 +53,10 @@ public class GameRenderer extends Game {
         batch = new SpriteBatch();
         cam = new OrthographicCamera();
         cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
+        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
         for (Entity entity : gameLogic.getEntities()) {
-            spriteSheet = getSpriteSheet(entity.getSpriteSheetPath());
-            entitySprites.add(new Sprite(spriteSheet, entity.getSpriteSheetX(), entity.getSpriteSheetY(),
-                                                 entity.getSpriteWidth(), entity.getSpriteHeight()));
+            entitySprites.add(getSpriteFromSheet(spriteSheet, entity.getSpriteSheetX(), entity.getSpriteSheetY(),
+                    entity.getSpriteWidth(), entity.getSpriteHeight()));
         }
         font = new BitmapFont();
         Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
@@ -62,8 +68,8 @@ public class GameRenderer extends Game {
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(0, 1, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        clearScreen();
+        updateCamera();
         mapRenderer.setView(cam);
         mapRenderer.render();
         gameLogic.update();
@@ -71,36 +77,28 @@ public class GameRenderer extends Game {
         batch.setProjectionMatrix(cam.combined);
         drawEntities();
         drawHUD();
-        if (gameLogic.isShowHitWarning()) {
-            drawHitWarning();
-        }
-        if (gameLogic.getGameState() == GameState.GAME_OVER) {
-            drawGameOver();
-        }
+        drawGameUI();
         batch.end();
+    }
+
+    private void clearScreen() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    private void updateCamera() {
+        cam.position.set(gameLogic.getPlayer().getX() + PLAYER_WIDTH / 2,
+                gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
+        cam.update();
+        float zoomLevel = 0.7f;
+        cam.zoom = zoomLevel;
     }
 
     private void drawEntities() {
         for (Entity entity : gameLogic.getEntities()) {
-            Sprite entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
-            updateEntitySprite(entity, entitySprite);
-            entitySprite.draw(batch);
+            TextureRegion entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
+            batch.draw(entitySprite, entity.getX(), entity.getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
         }
-    }
-
-    private void updateEntitySprite(Entity entity, Sprite entitySprite) {
-        //Rotation
-        entitySprite.setRotation(entity.getAngle());
-        entitySprites.set(gameLogic.getEntities().indexOf(entity), entitySprite);
-
-        //Size
-        entitySprite.setSize(entity.getHitbox().getWidth(), entity.getHitbox().getHeight());
-
-        //Position
-        entitySprite.setPosition(entity.getX(), entity.getY());
-
-        //Origin
-        entitySprite.setOrigin(entity.getOriginX(), entity.getOriginY());
     }
 
     private void drawHUD() {
@@ -108,10 +106,28 @@ public class GameRenderer extends Game {
         hud.draw(batch);
     }
 
+    private void drawGameUI() {
+        if (gameLogic.isShowHitWarning()) {
+            drawHitWarning();
+        }
+        if (gameLogic.getGameState() == GameState.GAME_OVER) {
+            drawGameOver();
+        }
+        if (gameLogic.getGameState() == GameState.MENU){
+            drawMenu();
+        }
+    }
+
     private void drawGameOver() {
         // Draw a rectangle with a picture
         Rectangle rectangle = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-        batch.draw(new Texture(GAME_OVER_IMG), rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        Texture gameOverTexture = new Texture(GAME_OVER_IMG);
+
+        // Debug information
+        System.out.println("Rectangle dimensions: " + rectangle.width + "x" + rectangle.height);
+        System.out.println("Texture dimensions: " + gameOverTexture.getWidth() + "x" + gameOverTexture.getHeight());
+
+        batch.draw(gameOverTexture, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
     }
 
     private void drawHitWarning() {
@@ -124,6 +140,9 @@ public class GameRenderer extends Game {
     public void dispose() {
         batch.dispose();
         spriteSheet.dispose();
+        for (TextureRegion textureRegion : entitySprites) {
+            textureRegion.getTexture().dispose();
+        }
         font.dispose();
         map.dispose();
         mapRenderer.dispose();
@@ -136,4 +155,9 @@ public class GameRenderer extends Game {
     private Texture getSpriteSheet(String spriteSheet) {
         return new Texture(Gdx.files.internal(spriteSheet));
     }
+
+    private void drawMenu(){
+        
+    }
+
 }

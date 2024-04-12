@@ -19,8 +19,8 @@ Zelda rougelite inspirert av *the binding of isaac*
 * Krever *Java 17* eller senere
 
 ## Bugs
-* Janky movement (Maskinvare dependent)
 * Wall collision
+* Enemy collision
 
 ## TODO
 * Fix enemies

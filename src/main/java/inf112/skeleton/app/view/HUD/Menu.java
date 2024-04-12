@@ -1,12 +1,15 @@
-package inf112.skeleton.app.HUD;
+package inf112.skeleton.app.view.HUD;
 
 import java.util.ArrayList;
 
 public class Menu {
     private ArrayList<Button> buttons;
 
+    private Button startButton; 
+
     public Menu() {
         buttons = new ArrayList<>();
+
     }
 
     public void addButton(Button button) {
@@ -22,5 +25,6 @@ public class Menu {
             button.setClicked(visible);
         }
     }
-}
 
+
+}

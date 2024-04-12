@@ -40,6 +40,12 @@ public class Constants {
     public final static int ENEMY_SPRITESHEET_WIDTH = 16;
     public final static int ENEMY_SPRITESHEET_HEIGHT = 12;
 
+    // Sword
+    public final static String SWORD_SPRITE_PATH = "src/main/resources/sprites/sword.png";
+    public final static int SWORD_HEIGHT = 30;
+    public final static int SWORD_WIDTH = 10;
+    public final static int SWORD_Y_OFFSET = -10;
+
     // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;
     public final static int NUM_COLS = 50;

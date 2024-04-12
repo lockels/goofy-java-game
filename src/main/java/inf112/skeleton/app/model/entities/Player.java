@@ -31,8 +31,10 @@ public class Player extends Entity {
      * @param spriteHeight the height of the sprite
      * @param spriteWidth  the width of the sprite
      */
-    public Player(Rectangle hitBox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteHeight, int spriteWidth) {
-        super(hitBox, spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight);
+    public Player(Rectangle hitBox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteHeight, int spriteWidth,
+                  int originX, int originY, float baseAngle, String type) {
+        super(hitBox, spriteSheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight,
+                originX, originY, baseAngle, type);
         pos = new Vector2(hitBox.x, hitBox.y);
         velocity = new Vector2();
         direction = new Vector2();

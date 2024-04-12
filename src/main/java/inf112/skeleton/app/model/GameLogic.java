@@ -1,8 +1,6 @@
 package inf112.skeleton.app.model;
 
-import inf112.skeleton.app.model.entities.Enemy;
-import inf112.skeleton.app.model.entities.Entity;
-import inf112.skeleton.app.model.entities.Player;
+import inf112.skeleton.app.model.entities.*;
 
 import static inf112.skeleton.app.model.Constants.*;
 
@@ -27,6 +25,7 @@ public class GameLogic {
     private GameState gameState;
     // Entities
     private Player player;
+    private Sword sword;
     private List<Enemy> enemies = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     // Time
@@ -93,6 +92,8 @@ public class GameLogic {
     }
 
     private void initializeEntities() {
+        initializeSword();
+        entities.add(sword);
         initializePlayer();
         entities.add(player);
         initializeEnemies();
@@ -102,7 +103,7 @@ public class GameLogic {
     private void initializePlayer() {
         this.player = new Player(new Rectangle(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, PLAYER_WIDTH, PLAYER_HEIGHT),
                 DUNGEON_SHEET_IMG, PLAYER_SPRITESHEET_X, PLAYER_SPRITESHEET_Y, PLAYER_SPRITESHEET_WIDTH,
-                PLAYER_SPRITESHEET_HEIGHT);
+                PLAYER_SPRITESHEET_HEIGHT, 0, 0, 0, "Player");
     }
 
     private void initializeEnemies() {
@@ -113,21 +114,53 @@ public class GameLogic {
                     ENEMY_WIDTH, ENEMY_HEIGHT),
                     DUNGEON_SHEET_IMG, ENEMY_SPRITESHEET_X,
                     ENEMY_SPRITESHEET_Y, ENEMY_SPRITESHEET_HEIGHT,
-                    ENEMY_SPRITESHEET_WIDTH, randomSpeed);
+                    ENEMY_SPRITESHEET_WIDTH, randomSpeed, 0,0,0,"Enemy");
             enemies.add(enemy);
         }
+    }
+
+    private void initializeSword() {
+        this.sword = new Sword(new Rectangle(0, 0, SWORD_WIDTH, SWORD_HEIGHT),
+                SWORD_SPRITE_PATH, 0, 0, SWORD_HEIGHT,
+                SWORD_WIDTH, SWORD_WIDTH/2, SWORD_Y_OFFSET, -45, "Sword");
     }
 
     /**
      * Updates the game logic.
      */
     public void update() {
+        updateSword();
         updatePlayerPosition();
         checkPlayerHit();
         checkEnemyCollisions();
         checkGameOver();
         updateHitWarning();
         updateEnemyPositions();
+    }
+
+    //Sword
+    private void updateSword(){
+        updateSwordPosition();
+        updateSwordAngle();
+    }
+
+    private void updateSwordPosition() { sword.move(player.getX(), player.getY()); }
+
+    private void updateSwordAngle() {
+        angleTowards(sword, Gdx.input.getX(), Gdx.input.getY());
+    }
+
+    //WIP - Doesnt work properly
+    private float getAngle(Rectangle hitbox,  float targetX, float targetY) {
+        float distanceX = targetX - hitbox.x;
+        float distanceY = (Gdx.graphics.getHeight() - targetY) - hitbox.y;
+        float angle = MathUtils.radiansToDegrees * MathUtils.atan2(distanceY, distanceX);
+        if (angle < 0) { angle += 360; }
+        return angle;
+    }
+
+    private void angleTowards(Entity entity, float targetX, float targetY) {
+        entity.setAngle(getAngle(entity.getHitbox(), targetX, targetY));
     }
 
     private void updatePlayerPosition() {

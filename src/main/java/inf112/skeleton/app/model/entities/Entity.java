@@ -16,6 +16,11 @@ public abstract class Entity {
     protected int spriteSheetY;
     protected int spriteHeight;
     protected int spriteWidth;
+    protected float baseAngle;
+    protected float angle;
+    protected int originX;
+    protected int originY;
+    protected String type;
 
     /**
      * Constructs a new Entity with the specified parameters.
@@ -28,14 +33,25 @@ public abstract class Entity {
      * @param spriteHeight the height of the sprite
      */
     public Entity(Rectangle hitbox, String spriteSheet, int spriteSheetX, int spriteSheetY, int spriteWidth,
-                  int spriteHeight) {
+                  int spriteHeight, int originX, int originY, float baseAngle, String type) {
         this.hitbox = hitbox;
         this.spriteSheetPath = spriteSheet;
         this.spriteSheetX = spriteSheetX;
         this.spriteSheetY = spriteSheetY;
         this.spriteHeight = spriteHeight;
         this.spriteWidth = spriteWidth;
+        this.originX = originX;
+        this.originY = originY;
+        this.baseAngle = baseAngle;
+        this.angle = baseAngle;
+        this.type = type;
     }
+
+    public int getOriginX() { return originX; }
+    public int getOriginY() { return originY; }
+    public float getAngle() { return angle; }
+    public void setAngle(float angle) { this.angle = angle + baseAngle; }
+    public String getType() { return this.type; }
 
     /**
      * Gets the x-coordinate of the entity's position.

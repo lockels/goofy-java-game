@@ -26,8 +26,10 @@ public class Enemy extends Entity {
      * @param speed         the movement speed of the enemy
      */
     public Enemy(Rectangle hitBox, String dungeon_sheet, int spriteSheetX, int spriteSheetY,
-                 int spriteWidth, int spriteHeight, float speed) {
-        super(hitBox, dungeon_sheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight);
+                 int spriteWidth, int spriteHeight, float speed, int originX, int originY,
+                 float baseAngle, String type) {
+        super(hitBox, dungeon_sheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight,
+                originX, originY, baseAngle, type);
         this.speed = speed;
         pos = new Vector2(hitBox.x, hitBox.y);
         velocity = new Vector2();

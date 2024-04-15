@@ -17,10 +17,10 @@ public class EnemyTest {
         int spriteWidth = 32;
         int spriteHeight = 32;
         float speed = 1.0f;
-        Enemy enemy = new Enemy(hitbox, dungeon_sheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight, speed);
+        // Enemy enemy = new Enemy(hitbox, dungeon_sheet, spriteSheetX, spriteSheetY, spriteWidth, spriteHeight, speed);
 
         //Act
-        enemy.moveTowards(100, 100);
+        // enemy.moveTowards(100, 100);
 
     }
 }

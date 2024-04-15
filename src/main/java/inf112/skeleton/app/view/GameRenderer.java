@@ -1,49 +1,23 @@
 package inf112.skeleton.app.view;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
-import inf112.skeleton.app.model.GameState;
-import inf112.skeleton.app.model.entities.Entity;
-import inf112.skeleton.app.view.HUD.HUD;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
-
-import java.util.ArrayList;
-
-import static inf112.skeleton.app.model.Constants.*;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 /**
  * The GameRenderer class is responsible for rendering the game.
  * It manages the rendering of entities, HUD, and game UI elements.
  */
 public class GameRenderer extends Game {
-    private SpriteBatch batch;
-    private OrthographicCamera cam;
-    private GameLogic gameLogic;
-    private ArrayList<Sprite> entitySprites = new ArrayList<>();
-    private Texture spriteSheet;
-    private BitmapFont font;
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer mapRenderer;
-    private HUD hud;
 
-    /**
-     * Constructs a GameRenderer with the specified GameLogic.
-     *
-     * @param gameLogic the GameLogic instance to render
-     */
+    SpriteBatch batch;
+    ShapeRenderer shapeRenderer;
+    BitmapFont font;
+    GameLogic gameLogic;
+
     public GameRenderer(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
     }
@@ -51,131 +25,17 @@ public class GameRenderer extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        cam = new OrthographicCamera();
-        cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
-        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
-        for (Entity entity : gameLogic.getEntities()) {
-            TextureRegion spriteTextureRegion = (getSpriteFromSheet(getSpriteSheet((entity.getSpriteSheetPath())),
-                                                    entity.getSpriteSheetX(), entity.getSpriteSheetY(),
-                                                    entity.getSpriteWidth(), entity.getSpriteHeight()));
-            Sprite entitySprite = new Sprite(spriteTextureRegion);
-            entitySprites.add(entitySprite);
-        }
+        shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
-        Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
-        map = new TmxMapLoader().load(MAP_IMG);
-        mapRenderer = new OrthogonalTiledMapRenderer(map);
-        Texture heartTexture = new Texture(HEART_IMG);
-        hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth());
-    }
-
-    @Override
-    public void render() {
-        clearScreen();
-        updateCamera();
-        mapRenderer.setView(cam);
-        mapRenderer.render();
-        gameLogic.update();
-        batch.begin();
-        batch.setProjectionMatrix(cam.combined);
-        drawEntities();
-        System.out.println();
-        drawHUD();
-        drawGameUI();
-        batch.end();
-    }
-
-    private void clearScreen() {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    }
-
-    private float getCenterX(Entity entity){
-        return entity.getX() + entity.getSpriteWidth() / 2;
-    }
-
-    private float getCenterY(Entity entity){
-        return entity.getY() + entity.getSpriteHeight() / 2;
-    }
-
-    private void updateCamera() {
-        cam.position.set(getCenterX(gameLogic.getPlayer()), getCenterY(gameLogic.getPlayer()), 0);
-        cam.update();
-        float zoomLevel = 0.7f;
-        cam.zoom = zoomLevel;
-    }
-
-    private void drawEntities() {
-        for (Entity entity : gameLogic.getEntities()) {
-            updateEntitySprite(entity);
-            Sprite entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
-            entitySprite.draw(batch);
-        }
-    }
-
-    private void updateEntitySprite(Entity entity) {
-        Sprite entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
-        entitySprite.setSize(PLAYER_WIDTH, PLAYER_HEIGHT);
-        entitySprite.setPosition(entity.getX(), entity.getY());
-        entitySprite.setRotation(entity.getAngle());
-    }
-    private void drawHUD() {
-        hud.updateHearts(gameLogic.getPlayer().getHealth());
-        hud.draw(batch);
-    }
-
-    private void drawGameUI() {
-        if (gameLogic.isShowHitWarning()) {
-            drawHitWarning();
-        }
-        if (gameLogic.getGameState() == GameState.GAME_OVER) {
-            drawGameOver();
-        }
-        if (gameLogic.getGameState() == GameState.MENU){
-            drawMenu();
-        }
-    }
-
-    private void drawGameOver() {
-        // Draw a rectangle with a picture
-        Rectangle rectangle = new Rectangle(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-        Texture gameOverTexture = new Texture(GAME_OVER_IMG);
-
-        // Debug information
-        System.out.println("Rectangle dimensions: " + rectangle.width + "x" + rectangle.height);
-        System.out.println("Texture dimensions: " + gameOverTexture.getWidth() + "x" + gameOverTexture.getHeight());
-
-        batch.draw(gameOverTexture, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-    }
-
-    private void drawHitWarning() {
-        batch.setColor(1, 0, 0, 0.9f);
-        batch.draw(new Texture(HIT_WARNING_IMG), 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-        batch.setColor(1, 1, 1, 1);
+        setScreen(new GameTitleScreen(this, gameLogic, batch));
     }
 
     @Override
     public void dispose() {
         batch.dispose();
-        spriteSheet.dispose();
-        for (TextureRegion textureRegion : entitySprites) {
-            textureRegion.getTexture().dispose();
-        }
+        shapeRenderer.dispose();
         font.dispose();
-        map.dispose();
-        mapRenderer.dispose();
     }
 
-    private TextureRegion getSpriteFromSheet(Texture spriteSheet, int x, int y, int width, int height) {
-        return new TextureRegion(spriteSheet, x, y, width, height);
-    }
-
-    private Texture getSpriteSheet(String spriteSheet) {
-        return new Texture(Gdx.files.internal(spriteSheet));
-    }
-
-    private void drawMenu(){
-        
-    }
-
+    
 }

@@ -31,6 +31,7 @@ public class HUD {
         this.heartTexture = heartTexture;
         this.maxHearts = maxHearts;
         createHearts();
+        System.out.println("HUD created");
     }
 
     private void createHearts() {

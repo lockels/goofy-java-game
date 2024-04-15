@@ -2,6 +2,7 @@ package inf112.skeleton.app.view;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
+import inf112.skeleton.app.model.Constants;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
 import inf112.skeleton.app.model.entities.Entity;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -44,6 +46,7 @@ public class GameActiveScreen extends ScreenAdapter {
 
     GameRenderer game;
     GameLogic gameLogic;
+    // Camera cam;
 
     float circleX = 300;
     float circleY = 150;
@@ -57,9 +60,11 @@ public class GameActiveScreen extends ScreenAdapter {
      *
      * @param game the GameLogic instance to render
      */
-    public GameActiveScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch) {
+    public GameActiveScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
         this.game = game;
         this.gameLogic = gameLogic;
+        this.batch = batch;
+        this.cam = cam;
         System.out.println("Game: Active: " + gameLogic.getGameState());
         create();
     }
@@ -100,7 +105,6 @@ public class GameActiveScreen extends ScreenAdapter {
     //     game.shapeRenderer.setColor(0, 1, 0, 1);
     //     game.shapeRenderer.circle(circleX, circleY, 75);
     //     game.shapeRenderer.end();
-
     // }
 
     // @Override
@@ -109,6 +113,12 @@ public class GameActiveScreen extends ScreenAdapter {
     // }
 
     ////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void show() {
+        System.out.println("GameState: Active: " + gameLogic.getGameState());
+        batch = new SpriteBatch();
+    }
 
     public void create() {
         cam = new OrthographicCamera();
@@ -121,6 +131,7 @@ public class GameActiveScreen extends ScreenAdapter {
             Sprite entitySprite = new Sprite(spriteTextureRegion);
             entitySprites.add(entitySprite);
         }
+        System.out.println("Gamestate: " + gameLogic.getGameState());
         font = new BitmapFont();
         Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
         map = new TmxMapLoader().load(MAP_IMG);
@@ -136,6 +147,12 @@ public class GameActiveScreen extends ScreenAdapter {
         mapRenderer.setView(cam);
         mapRenderer.render();
         gameLogic.update();
+        if (gameLogic.getGameState() == GameState.GAME_OVER) {
+            game.setScreen(new GameOverScreen(game, gameLogic, batch, cam));
+            gameLogic.getPlayer().setHealth(Constants.PLAYER_HEALTH);
+            gameLogic.setGameState(GameState.GAME_ACTIVE);
+        }
+
         batch.begin();
         batch.setProjectionMatrix(cam.combined);
         drawEntities();

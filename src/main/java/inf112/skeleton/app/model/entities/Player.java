@@ -142,4 +142,8 @@ public class Player extends Entity {
         pos.x = Math.max(0, Math.min(pos.x, WINDOW_WIDTH - getHitbox().width));
         pos.y = Math.max(0, Math.min(pos.y, WINDOW_HEIGHT - getHitbox().height));
     }
+
+    public void setHealth(int playerHealth) {
+        this.health = playerHealth;
+    }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import inf112.skeleton.app.model.GameLogic;
@@ -14,8 +15,9 @@ public class GameTitleScreen extends ScreenAdapter{
     GameRenderer game;
     GameLogic gameLogic;
     SpriteBatch batch;
+    OrthographicCamera cam;
 
-    public GameTitleScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch) {
+    public GameTitleScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
         this.game = game;
         this.gameLogic = gameLogic;
         System.out.println("Game: Title: " + gameLogic.getGameState());
@@ -27,7 +29,7 @@ public class GameTitleScreen extends ScreenAdapter{
             @Override
             public boolean keyDown(int keyCode) {
                 if (keyCode == Input.Keys.SPACE) {
-                    game.setScreen(new GameActiveScreen(game, gameLogic, batch));
+                    game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
                 }
                 return true;
             }

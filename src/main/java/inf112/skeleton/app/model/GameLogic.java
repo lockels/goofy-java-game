@@ -83,6 +83,8 @@ public class GameLogic {
      * @return true if the hit warning should be displayed, false otherwise
      */
     public boolean isShowHitWarning() {
+        System.out.println("Lives left: " + player.getHealth());
+        // System.out.println("Game state: " + gameState);
         return showHitWarning;
     }
 
@@ -241,6 +243,10 @@ public class GameLogic {
             }
         }
 
+    }
+
+    public void setGameState(GameState gameActive) {
+        this.gameState = gameActive;
     }
 
 }

@@ -3,6 +3,7 @@ package inf112.skeleton.app.view;
 import inf112.skeleton.app.model.GameLogic;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -17,6 +18,7 @@ public class GameRenderer extends Game {
     ShapeRenderer shapeRenderer;
     BitmapFont font;
     GameLogic gameLogic;
+    OrthographicCamera cam;
 
     public GameRenderer(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
@@ -27,7 +29,7 @@ public class GameRenderer extends Game {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
-        setScreen(new GameTitleScreen(this, gameLogic, batch));
+        setScreen(new GameTitleScreen(this, gameLogic, batch, cam));
     }
 
     @Override

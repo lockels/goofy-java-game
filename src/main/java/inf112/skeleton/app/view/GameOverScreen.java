@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import inf112.skeleton.app.model.GameLogic;
@@ -14,8 +15,9 @@ public class GameOverScreen extends ScreenAdapter {
     GameRenderer game;
     GameLogic gameLogic;
     SpriteBatch batch;
+    OrthographicCamera cam;
 
-    public GameOverScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch) {
+    public GameOverScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
         this.game = game;
         this.gameLogic = gameLogic;
         System.out.println("Game: Over: " + gameLogic.getGameState());
@@ -29,7 +31,7 @@ public class GameOverScreen extends ScreenAdapter {
             public boolean keyDown(int keyCode) {
 
                 if (keyCode == Input.Keys.ENTER) {
-                    game.setScreen(new GameTitleScreen(game, gameLogic, batch));
+                    game.setScreen(new GameTitleScreen(game, gameLogic, batch, cam));
                 }
 
                 return true;

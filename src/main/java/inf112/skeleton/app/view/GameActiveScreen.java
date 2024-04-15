@@ -91,7 +91,7 @@ public class GameActiveScreen extends ScreenAdapter {
         map = new TmxMapLoader().load(MAP_IMG);
         mapRenderer = new OrthogonalTiledMapRenderer(map);
         Texture heartTexture = new Texture(HEART_IMG);
-        hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth());
+        hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());
     }
 
     @Override
@@ -139,6 +139,7 @@ public class GameActiveScreen extends ScreenAdapter {
     private void updateCamera() {
         cam.position.set(getCenterX(gameLogic.getPlayer()), getCenterY(gameLogic.getPlayer()), 0);
         cam.update();
+        System.out.println("Camera: " + cam.position.x + ", " + cam.position.y);
         float zoomLevel = 0.7f;
         cam.zoom = zoomLevel;
     }
@@ -171,7 +172,7 @@ public class GameActiveScreen extends ScreenAdapter {
 
     private void drawHitWarning() {
         batch.setColor(1, 0, 0, 0.9f);
-        batch.draw(new Texture(HIT_WARNING_IMG), 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+        batch.draw(new Texture(HIT_WARNING_IMG), getCameraX(), getCameraY(), WINDOW_WIDTH, WINDOW_HEIGHT);
         batch.setColor(1, 1, 1, 1);
     }
 
@@ -181,5 +182,23 @@ public class GameActiveScreen extends ScreenAdapter {
 
     private Texture getSpriteSheet(String spriteSheet) {
         return new Texture(Gdx.files.internal(spriteSheet));
+    }
+
+    /**
+     * Returns the x-coordinate of the camera relative to the map.
+     * @return x-coordinate of the camera
+     */
+    public int getCameraX() {
+        System.out.println(this.cam.position.x);
+        return (int) this.cam.position.x;
+    }
+
+    /**
+     * Returns the y-coordinate of the camera relative to the map.
+     * @return y-coordinate of the camera
+     */
+    public int getCameraY() {
+        System.out.println(this.cam.position.y);
+        return (int) this.cam.position.y;
     }
 }

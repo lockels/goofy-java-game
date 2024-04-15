@@ -20,6 +20,8 @@ public class HUD {
     private int heartPadding = Constants.HEART_PADDING;
     private int heartX = Constants.HEART_X;
     private int heartY = Constants.HEART_Y;
+    private int cameraX;
+    private int cameraY;
 
     /**
      * Constructs a HUD with the specified heart texture and maximum number of hearts.
@@ -27,9 +29,11 @@ public class HUD {
      * @param heartTexture the texture representing a heart icon
      * @param maxHearts    the maximum number of hearts to be displayed
      */
-    public HUD(Texture heartTexture, int maxHearts) {
+    public HUD(Texture heartTexture, int maxHearts, int cameraX, int cameraY) {
         this.heartTexture = heartTexture;
         this.maxHearts = maxHearts;
+        this.cameraX = cameraX;
+        this.cameraY = cameraY;
         createHearts();
         System.out.println("HUD created");
     }
@@ -37,8 +41,8 @@ public class HUD {
     private void createHearts() {
         hearts = new ArrayList<>();
         for (int i = 0; i < maxHearts; i++) {
-            float x = heartX + i * heartPadding;
-            float y = heartY;
+            float x = cameraX + heartX + i * heartPadding;
+            float y = cameraY + heartY;
             hearts.add(new Heart(heartTexture, x, y, heartWidth, heartHeight, true));
         }
     }

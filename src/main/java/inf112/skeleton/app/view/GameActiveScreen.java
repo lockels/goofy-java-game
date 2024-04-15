@@ -46,14 +46,6 @@ public class GameActiveScreen extends ScreenAdapter {
 
     GameRenderer game;
     GameLogic gameLogic;
-    // Camera cam;
-
-    float circleX = 300;
-    float circleY = 150;
-    float circleRadius = 50;
-
-    float xSpeed = 4;
-    float ySpeed = 3;
 
     /**
      * Constructs a GameRenderer with the specified GameLogic.
@@ -69,57 +61,19 @@ public class GameActiveScreen extends ScreenAdapter {
         create();
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////
-
-    // @Override
-    // public void show() {
-    //     Gdx.input.setInputProcessor(new InputAdapter() {
-    //         @Override
-    //         public boolean touchDown(int x, int y, int pointer, int button) {
-    //             int renderY = Gdx.graphics.getHeight() - y;
-    //             if (Vector2.dst(circleX, circleY, x, renderY) < circleRadius) {
-    //                 game.setScreen(new GameOverScreen(game, gameLogic));
-    //             }
-    //             return true;
-    //         }
-    //     });
-    // }
-
-    // @Override
-    // public void render(float delta) {
-    //     circleX += xSpeed;
-    //     circleY += ySpeed;
-
-    //     if (circleX < 0 || circleX > Gdx.graphics.getWidth()) {
-    //         xSpeed *= -1;
-    //     }
-
-    //     if (circleY < 0 || circleY > Gdx.graphics.getHeight()) {
-    //         ySpeed *= -1;
-    //     }
-
-    //     Gdx.gl.glClearColor(0, 0, .25f, 1);
-    //     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-    //     game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-    //     game.shapeRenderer.setColor(0, 1, 0, 1);
-    //     game.shapeRenderer.circle(circleX, circleY, 75);
-    //     game.shapeRenderer.end();
-    // }
-
-    // @Override
-    // public void hide() {
-    //     Gdx.input.setInputProcessor(null);
-    // }
-
-    ////////////////////////////////////////////////////////////////////////////////////
-
     @Override
     public void show() {
         System.out.println("GameState: Active: " + gameLogic.getGameState());
         batch = new SpriteBatch();
     }
 
+    /**
+     * This method is simply called in the constructor, 
+     * and it is NOT the same as a regular create() 
+     * method as it is not overridden from a superclass.
+     * So this code works as of now, but is far from optimal.
+     * - Fredric
+     */
     public void create() {
         cam = new OrthographicCamera();
         cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -149,6 +103,8 @@ public class GameActiveScreen extends ScreenAdapter {
         gameLogic.update();
         if (gameLogic.getGameState() == GameState.GAME_OVER) {
             game.setScreen(new GameOverScreen(game, gameLogic, batch, cam));
+
+            // Restores player health and sets game state to GAME_ACTIVE
             gameLogic.getPlayer().setHealth(Constants.PLAYER_HEALTH);
             gameLogic.setGameState(GameState.GAME_ACTIVE);
         }

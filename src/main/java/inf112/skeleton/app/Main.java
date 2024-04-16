@@ -10,7 +10,7 @@ import inf112.skeleton.app.view.GameRenderer;
 
 public class Main {
     public static void main(String[] args) {
-        // Game window
+        // Game window 
         Lwjgl3ApplicationConfiguration gameWindow = new Lwjgl3ApplicationConfiguration();
         gameWindow.setForegroundFPS(Constants.GAME_FPS);
         gameWindow.useVsync(true);
@@ -19,7 +19,6 @@ public class Main {
 
         // Run
         GameLogic gameLogic = new GameLogic(GameState.GAME_ACTIVE);
-        // GameTitleScreen gameTitleScreen = new GameTitleScreen(new GameRenderer(gameLogic), gameLogic);
         new Lwjgl3Application(new GameRenderer(gameLogic), gameWindow);
     }
 }

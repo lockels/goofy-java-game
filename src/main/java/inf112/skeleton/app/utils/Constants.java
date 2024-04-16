@@ -16,7 +16,7 @@ public class Constants {
     public final static float CAMERA_OFFSET_Y = CAMERA_WINDOW_HEIGHT / 2;
 
     // Player
-    public final static int PLAYER_SPAWN_X = 400;
+    public final static int PLAYER_SPAWN_X = 40;
     public final static int PLAYER_SPAWN_Y = 150;
     public final static int PLAYER_WIDTH = 24;
     public final static int PLAYER_HEIGHT = 32;

@@ -5,6 +5,8 @@ import com.badlogic.gdx.InputAdapter;
 import inf112.skeleton.app.model.Direction;
 import inf112.skeleton.app.model.entities.Player; 
 
+import static inf112.skeleton.app.model.Direction.*;
+
 public class MyInputAdapter extends InputAdapter {
     private final Player player;
 
@@ -37,10 +39,10 @@ public class MyInputAdapter extends InputAdapter {
 
     private Direction getKeyDirection(int keycode) {
         return switch (keycode) {
-            case Keys.LEFT -> Direction.LEFT;
-            case Keys.RIGHT -> Direction.RIGHT;
-            case Keys.UP -> Direction.UP;
-            case Keys.DOWN -> Direction.DOWN;
+            case Keys.LEFT -> LEFT;
+            case Keys.RIGHT -> RIGHT;
+            case Keys.UP -> UP;
+            case Keys.DOWN -> DOWN;
             default -> null;
         };
     }

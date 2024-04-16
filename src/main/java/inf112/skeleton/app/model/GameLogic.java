@@ -1,6 +1,5 @@
 package inf112.skeleton.app.model;
 
-import inf112.skeleton.app.model.entities.*;
 import inf112.skeleton.app.model.entities.Enemy;
 import inf112.skeleton.app.model.entities.Entity;
 import inf112.skeleton.app.model.entities.PhysicsFactory;
@@ -34,12 +33,9 @@ public class GameLogic {
     private List<Enemy> enemies = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     // Time
-    private long lastHitTime;
-    private final long hitCooldown = HIT_COOLDOWN;
     private final int hitWarningDuration = HIT_WARNING_DURATION;
     private boolean showHitWarning = false;
     private long hitWarningStartTime = 0;
-    private TiledMap map;
     public World world;
     // private Sound collisionSound;
 
@@ -224,14 +220,14 @@ public class GameLogic {
     //     }
     // }
 
-    private void applyHitToPlayer(Enemy enemy) {
-        if (System.currentTimeMillis() - lastHitTime > hitCooldown) {
-            player.takeDamage(HIT_DAMAGE);
-            lastHitTime = System.currentTimeMillis();
-            showHitWarning = true;
-            hitWarningStartTime = System.currentTimeMillis();
-        }
-    }
+    // private void applyHitToPlayer(Enemy enemy) {
+    //     if (System.currentTimeMillis() - lastHitTime > hitCooldown) {
+    //         player.takeDamage(HIT_DAMAGE);
+    //         lastHitTime = System.currentTimeMillis();
+    //         showHitWarning = true;
+    //         hitWarningStartTime = System.currentTimeMillis();
+    //     }
+    // }
 
     private void checkGameOver() {
         if (player.getHealth() <= 0) {

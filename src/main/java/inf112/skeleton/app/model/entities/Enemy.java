@@ -1,13 +1,12 @@
 package inf112.skeleton.app.model.entities;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public class Enemy extends Entity {
     private float speed;
-    
+
     /**
      * Constructs a new Enemy with the specified parameters.
      *

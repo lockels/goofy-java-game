@@ -15,7 +15,7 @@ public class MyInputAdapter extends InputAdapter {
     
     @Override
     public boolean keyDown(int keycode) {
-        System.out.println("MyInputAdapter: keyDown");
+        System.out.println("MyInputAdapter: keyDown " + keycode);
         Direction direction = getKeyDirection(keycode);
         if (direction != null) {
             player.setMovement(direction, true);
@@ -26,7 +26,7 @@ public class MyInputAdapter extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
-        System.out.println("MyInputAdapter: keyUp");
+        System.out.println("MyInputAdapter: keyUp " + keycode);
         Direction direction = getKeyDirection(keycode);
         if (direction != null) {
             player.setMovement(direction, false);

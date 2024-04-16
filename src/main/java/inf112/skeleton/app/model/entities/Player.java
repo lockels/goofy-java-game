@@ -10,6 +10,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import static inf112.skeleton.app.model.Constants.*;
+import static inf112.skeleton.app.model.Direction.*;
 
 /**
  * Represents a player entity in the game.
@@ -39,6 +40,8 @@ public class Player extends Entity {
         velocity = new Vector2();
         direction = new Vector2();
         health = PLAYER_HEALTH;
+
+        System.out.println("Player: Created");
 
         // Movement Directions
         moveDirections = new EnumMap<>(Direction.class);
@@ -86,20 +89,20 @@ public class Player extends Entity {
 
     private void calculateMovementDirection() {
         // Vertical
-        if ((moveDirections.get(Direction.UP)) == (moveDirections.get(Direction.DOWN))) {
+        if ((moveDirections.get(UP)) == (moveDirections.get(DOWN))) {
             direction.y = 0;
-        } else if (moveDirections.get(Direction.UP)) {
+        } else if (moveDirections.get(UP)) {
             direction.y = 1;
-        } else if (moveDirections.get(Direction.DOWN)) {
+        } else if (moveDirections.get(DOWN)) {
             direction.y = -1;
         }
 
         // Horizontal
-        if ((moveDirections.get(Direction.LEFT)) == (moveDirections.get(Direction.RIGHT))) {
+        if ((moveDirections.get(LEFT)) == (moveDirections.get(RIGHT))) {
             direction.x = 0;
-        } else if (moveDirections.get(Direction.LEFT)) {
+        } else if (moveDirections.get(LEFT)) {
             direction.x = -1;
-        } else if (moveDirections.get(Direction.RIGHT)) {
+        } else if (moveDirections.get(RIGHT)) {
             direction.x = 1;
         }
     }
@@ -108,6 +111,7 @@ public class Player extends Entity {
      * Moves the player based on current movement direction and velocity.
      */
     public void move() {
+        // System.out.println("Player: Move method called");
         calculateMovementDirection();
         velocity.x += PLAYER_ACCELERATION * direction.x;
         velocity.y += PLAYER_ACCELERATION * direction.y;

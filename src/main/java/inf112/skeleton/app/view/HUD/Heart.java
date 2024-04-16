@@ -39,7 +39,7 @@ public class Heart {
      * @param batch the SpriteBatch used for rendering
      */
     public void draw(SpriteBatch batch) {
-        System.out.println("Heart: draw " + x + ", " + y);
+        // System.out.println("Heart: draw " + x + ", " + y);
         batch.draw(heartTexture, x, y, width, height);
     }
 

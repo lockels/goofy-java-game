@@ -127,7 +127,7 @@ public class HUD {
         this.screenX = screenX;
         this.screenY = screenY;
         createHearts();
-        System.out.println("HUD created");
+        System.out.println("HUD: Created");
     }
 
     private void createHearts() {
@@ -135,7 +135,7 @@ public class HUD {
         for (int i = 0; i < maxHearts; i++) {
             float x = screenX + i * (HEART_WIDTH + HEART_HEIGHT);
             float y = screenY;
-            System.out.println("Heart Pos: " + x + ", " + y);
+            // System.out.println("Heart Pos: " + x + ", " + y);
             hearts.add(new Heart(heartTexture, x, y, HEART_WIDTH, HEART_HEIGHT, true));
         }
     }
@@ -165,9 +165,9 @@ public class HUD {
     public void updateHearts(int currentHealth, int screenX, int screenY) {
         this.screenX = screenX;
         this.screenY = screenY;
-        System.out.println("HUD: updateHearts");
-        System.out.println("currentHealth: " + currentHealth);
-        System.out.println("Heart position (x, y): " + this.screenX + ", " + this.screenY);
+        // System.out.println("HUD: updateHearts");
+        // System.out.println("currentHealth: " + currentHealth);
+        // System.out.println("Heart position (x, y): " + this.screenX + ", " + this.screenY);
         for (int i = 0; i < hearts.size(); i++) {
             float x = (this.screenX + i * HEART_PADDING) - CAMERA_OFFSET_X + HEART_PADDING; 
             float y = this.screenY - CAMERA_OFFSET_Y + HEART_PADDING;

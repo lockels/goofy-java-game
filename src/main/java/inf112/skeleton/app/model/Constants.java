@@ -16,7 +16,7 @@ public class Constants {
     public final static float CAMERA_OFFSET_Y = CAMERA_WINDOW_HEIGHT / 2;
 
     // Player
-    public final static int PLAYER_SPAWN_X = 40;
+    public final static int PLAYER_SPAWN_X = 400;
     public final static int PLAYER_SPAWN_Y = 150;
     public final static int PLAYER_WIDTH = 24;
     public final static int PLAYER_HEIGHT = 32;
@@ -57,7 +57,7 @@ public class Constants {
     public final static int CELL_WIDTH = WINDOW_WIDTH / NUM_COLS;
     public final static int CELL_HEIGHT = WINDOW_HEIGHT / NUM_ROWS;
 
-    // HUD
+    // HUD - All values adjusted for camera zoom level
     public final static float HEART_WIDTH = 20 * CAMERA_ZOOM_LEVEL;
     public final static float HEART_HEIGHT = HEART_WIDTH;
     public final static float HEART_PADDING = 25 * CAMERA_ZOOM_LEVEL; 

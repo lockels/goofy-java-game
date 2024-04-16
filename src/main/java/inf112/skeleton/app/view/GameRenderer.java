@@ -40,7 +40,5 @@ public class GameRenderer extends Game {
         batch.dispose();
         shapeRenderer.dispose();
         font.dispose();
-    }
-
-    
+    }   
 }

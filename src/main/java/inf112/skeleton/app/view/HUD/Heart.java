@@ -28,7 +28,7 @@ public class Heart {
         this.heartTexture = texture;
         this.x = x;
         this.y = y;
-        this.width = width;
+        this.width = width; 
         this.height = height;
         this.filled = filled;
     }
@@ -39,6 +39,7 @@ public class Heart {
      * @param batch the SpriteBatch used for rendering
      */
     public void draw(SpriteBatch batch) {
+        System.out.println("Heart: draw " + x + ", " + y);
         batch.draw(heartTexture, x, y, width, height);
     }
 
@@ -58,5 +59,10 @@ public class Heart {
      */
     public boolean isFilled() {
         return filled;
+    }
+
+    public void setPosition(float x2, float y2) {
+        this.x = x2;
+        this.y = y2;
     }
 }

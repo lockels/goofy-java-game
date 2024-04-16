@@ -30,10 +30,6 @@ import java.util.ArrayList;
 
 import static inf112.skeleton.app.model.Constants.*;
 
-/**
- * The GameRenderer class is responsible for rendering the game.
- * It manages the rendering of entities, HUD, and game UI elements.
- */
 public class GameActiveScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
@@ -47,50 +43,38 @@ public class GameActiveScreen extends ScreenAdapter {
     GameRenderer game;
     GameLogic gameLogic;
 
-    /**
-     * Constructs a GameRenderer with the specified GameLogic.
-     *
-     * @param game the GameLogic instance to render
-     */
     public GameActiveScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
         this.game = game;
         this.gameLogic = gameLogic;
         this.batch = batch;
         this.cam = cam;
-        System.out.println("Game: Active: " + gameLogic.getGameState());
+        System.out.println("GameActiveScreen: " + gameLogic.getGameState());
         create();
     }
 
     @Override
     public void show() {
-        System.out.println("GameState: Active: " + gameLogic.getGameState());
         batch = new SpriteBatch();
     }
 
-    /**
-     * This method is simply called in the constructor, 
-     * and it is NOT the same as a regular create() 
-     * method as it is not overridden from a superclass.
-     * So this code works as of now, but is far from optimal.
-     * - Fredric
-     */
     public void create() {
         cam = new OrthographicCamera();
-        cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
-        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
+        cam.setToOrtho(false, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+
+        spriteSheet = getSpriteSheet(Constants.DUNGEON_SHEET_IMG);
         for (Entity entity : gameLogic.getEntities()) {
-            TextureRegion spriteTextureRegion = (getSpriteFromSheet(getSpriteSheet((entity.getSpriteSheetPath())),
+            TextureRegion spriteTextureRegion = getSpriteFromSheet(getSpriteSheet(entity.getSpriteSheetPath()),
                     entity.getSpriteSheetX(), entity.getSpriteSheetY(),
-                    entity.getSpriteWidth(), entity.getSpriteHeight()));
+                    entity.getSpriteWidth(), entity.getSpriteHeight());
             Sprite entitySprite = new Sprite(spriteTextureRegion);
             entitySprites.add(entitySprite);
         }
         System.out.println("Gamestate: " + gameLogic.getGameState());
         font = new BitmapFont();
         Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
-        map = new TmxMapLoader().load(MAP_IMG);
+        map = new TmxMapLoader().load(Constants.MAP_IMG);
         mapRenderer = new OrthogonalTiledMapRenderer(map);
-        Texture heartTexture = new Texture(HEART_IMG);
+        Texture heartTexture = new Texture(Constants.HEART_IMG);
         hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());
     }
 
@@ -102,25 +86,70 @@ public class GameActiveScreen extends ScreenAdapter {
         mapRenderer.render();
         gameLogic.update();
         if (gameLogic.getGameState() == GameState.GAME_OVER) {
-            game.setScreen(new GameOverScreen(game, gameLogic, batch, cam));
-
-            // Restores player health and sets game state to GAME_ACTIVE
-            gameLogic.getPlayer().setHealth(Constants.PLAYER_HEALTH);
-            gameLogic.setGameState(GameState.GAME_ACTIVE);
+            initateGameOver();
         }
-
         batch.begin();
         batch.setProjectionMatrix(cam.combined);
         drawEntities();
-        System.out.println();
         drawHUD();
         drawGameUI();
         batch.end();
     }
 
-    @Override
-    public void hide() {
-    Gdx.input.setInputProcessor(null);
+    private void drawHUD() {
+        hud.updateHearts(gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());
+        hud.draw(batch);
+    }
+
+    private void updateCamera() {
+        cam.position.set(getCenterX(gameLogic.getPlayer()), getCenterY(gameLogic.getPlayer()), 0);
+        // cam.position.set(0, 0, 0);
+        cam.update();
+        cam.zoom = CAMERA_ZOOM_LEVEL;
+    }
+
+    private void drawEntities() {
+        for (Entity entity : gameLogic.getEntities()) {
+            updateEntitySprite(entity);
+            Sprite entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
+            entitySprite.draw(batch);
+        }
+    }
+
+    private void initateGameOver()  {
+        game.setScreen(new GameOverScreen(game, gameLogic, batch, cam));
+
+        // Restores player health and sets game state to GAME_ACTIVE
+        gameLogic.getPlayer().setHealth(Constants.PLAYER_HEALTH);
+        gameLogic.setGameState(GameState.GAME_ACTIVE);
+    }
+
+    private void updateEntitySprite(Entity entity) {
+        Sprite entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
+        entitySprite.setSize(Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT);
+        entitySprite.setPosition(entity.getX(), entity.getY());
+        entitySprite.setRotation(entity.getAngle());
+    }
+
+    private void drawGameUI() {
+        if (gameLogic.isShowHitWarning()) {
+            drawHitWarning();
+        }
+    }
+
+    private void drawHitWarning() {
+        batch.setColor(1, 0, 0, 0.9f);
+        batch.draw(new Texture(Constants.HIT_WARNING_IMG), getCameraX() - CAMERA_OFFSET_X, getCameraY() - CAMERA_OFFSET_Y, CAMERA_WINDOW_WIDTH,
+                CAMERA_WINDOW_HEIGHT);
+        batch.setColor(1, 1, 1, 1);
+    }
+
+    private TextureRegion getSpriteFromSheet(Texture spriteSheet, int x, int y, int width, int height) {
+        return new TextureRegion(spriteSheet, x, y, width, height);
+    }
+
+    private Texture getSpriteSheet(String spriteSheet) {
+        return new Texture(Gdx.files.internal(spriteSheet));
     }
 
     private void clearScreen() {
@@ -136,69 +165,11 @@ public class GameActiveScreen extends ScreenAdapter {
         return entity.getY() + entity.getSpriteHeight() / 2;
     }
 
-    private void updateCamera() {
-        cam.position.set(getCenterX(gameLogic.getPlayer()), getCenterY(gameLogic.getPlayer()), 0);
-        cam.update();
-        System.out.println("Camera: " + cam.position.x + ", " + cam.position.y);
-        float zoomLevel = 0.7f;
-        cam.zoom = zoomLevel;
-    }
-
-    private void drawEntities() {
-        for (Entity entity : gameLogic.getEntities()) {
-            updateEntitySprite(entity);
-            Sprite entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
-            entitySprite.draw(batch);
-        }
-    }
-
-    private void updateEntitySprite(Entity entity) {
-        Sprite entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
-        entitySprite.setSize(PLAYER_WIDTH, PLAYER_HEIGHT);
-        entitySprite.setPosition(entity.getX(), entity.getY());
-        entitySprite.setRotation(entity.getAngle());
-    }
-
-    private void drawHUD() {
-        hud.updateHearts(gameLogic.getPlayer().getHealth());
-        hud.draw(batch);
-    }
-
-    private void drawGameUI() {
-        if (gameLogic.isShowHitWarning()) {
-            drawHitWarning();
-        }
-    }
-
-    private void drawHitWarning() {
-        batch.setColor(1, 0, 0, 0.9f);
-        batch.draw(new Texture(HIT_WARNING_IMG), getCameraX(), getCameraY(), WINDOW_WIDTH, WINDOW_HEIGHT);
-        batch.setColor(1, 1, 1, 1);
-    }
-
-    private TextureRegion getSpriteFromSheet(Texture spriteSheet, int x, int y, int width, int height) {
-        return new TextureRegion(spriteSheet, x, y, width, height);
-    }
-
-    private Texture getSpriteSheet(String spriteSheet) {
-        return new Texture(Gdx.files.internal(spriteSheet));
-    }
-
-    /**
-     * Returns the x-coordinate of the camera relative to the map.
-     * @return x-coordinate of the camera
-     */
     public int getCameraX() {
-        System.out.println(this.cam.position.x);
         return (int) this.cam.position.x;
     }
 
-    /**
-     * Returns the y-coordinate of the camera relative to the map.
-     * @return y-coordinate of the camera
-     */
     public int getCameraY() {
-        System.out.println(this.cam.position.y);
         return (int) this.cam.position.y;
     }
 }

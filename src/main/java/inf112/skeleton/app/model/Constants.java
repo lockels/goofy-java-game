@@ -9,6 +9,11 @@ public class Constants {
     public final static int WINDOW_HEIGHT = 800;
     public final static int WINDOW_WIDTH = 800;
     public final static int GAME_FPS = 60;
+    public final static float CAMERA_ZOOM_LEVEL = 0.7f;
+    public final static float CAMERA_WINDOW_WIDTH = WINDOW_WIDTH * CAMERA_ZOOM_LEVEL;
+    public final static float CAMERA_WINDOW_HEIGHT = WINDOW_HEIGHT * CAMERA_ZOOM_LEVEL;
+    public final static float CAMERA_OFFSET_X = CAMERA_WINDOW_WIDTH / 2;
+    public final static float CAMERA_OFFSET_Y = CAMERA_WINDOW_HEIGHT / 2;
 
     // Player
     public final static int PLAYER_SPAWN_X = 40;
@@ -53,11 +58,11 @@ public class Constants {
     public final static int CELL_HEIGHT = WINDOW_HEIGHT / NUM_ROWS;
 
     // HUD
-    public final static int HEART_WIDTH = 20;
-    public final static int HEART_HEIGHT = HEART_WIDTH;
-    public final static int HEART_PADDING = 25;
-    public final static int HEART_X = 30;
-    public final static int HEART_Y = WINDOW_HEIGHT - HEART_HEIGHT - HEART_X;
+    public final static float HEART_WIDTH = 20 * CAMERA_ZOOM_LEVEL;
+    public final static float HEART_HEIGHT = HEART_WIDTH;
+    public final static float HEART_PADDING = 25 * CAMERA_ZOOM_LEVEL; 
+    public final static float HEART_X = 30 * CAMERA_ZOOM_LEVEL;
+    public final static float HEART_Y = (WINDOW_HEIGHT - HEART_HEIGHT - HEART_X) * CAMERA_ZOOM_LEVEL;
 
     // Game
     public final static int HIT_DAMAGE = 1;

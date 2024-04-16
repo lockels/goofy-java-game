@@ -20,7 +20,7 @@ public class GameTitleScreen extends ScreenAdapter{
     public GameTitleScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
         this.game = game;
         this.gameLogic = gameLogic;
-        System.out.println("Game: Title: " + gameLogic.getGameState());
+        System.out.println("GameTitleScreen: " + gameLogic.getGameState());
     }
 
     @Override
@@ -48,7 +48,7 @@ public class GameTitleScreen extends ScreenAdapter{
                 Gdx.graphics.getHeight() * .25f);
         game.batch.end();
     }
-
+ 
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);

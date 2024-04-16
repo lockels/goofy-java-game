@@ -64,12 +64,18 @@ public class Constants {
     public final static float HEART_X = 30 * CAMERA_ZOOM_LEVEL;
     public final static float HEART_Y = (WINDOW_HEIGHT - HEART_HEIGHT - HEART_X) * CAMERA_ZOOM_LEVEL;
 
+
+    // Map / Collision
+    public final static int PPM = 1;
+
+    
     // Game
     public final static int HIT_DAMAGE = 1;
     public final static int HIT_COOLDOWN = 1000;
     public final static int HIT_WARNING_DURATION = 150;
 
     // Files
+    public final static String PLAYER_IMG = "playerSprite.png";
     public final static String DUNGEON_SHEET_IMG = "dungeon_sheet.png";
     public final static String MAP_IMG = "maps/map2.tmx";
     public final static String HEART_IMG = "src/main/resources/HUD/heart16x16.png";

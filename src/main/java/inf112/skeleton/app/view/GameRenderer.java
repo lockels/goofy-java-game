@@ -2,13 +2,13 @@ package inf112.skeleton.app.view;
 
 import inf112.skeleton.app.model.GameLogic;
 
+import static inf112.skeleton.app.utils.Constants.*;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
-import static inf112.skeleton.app.model.Constants.*;
 
 /**
  * The GameRenderer class is responsible for rendering the game.
@@ -40,5 +40,5 @@ public class GameRenderer extends Game {
         batch.dispose();
         shapeRenderer.dispose();
         font.dispose();
-    }   
+    }
 }

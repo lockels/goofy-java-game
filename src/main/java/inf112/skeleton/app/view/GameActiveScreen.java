@@ -2,7 +2,6 @@ package inf112.skeleton.app.view;
 
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
-import inf112.skeleton.app.model.GameState;
 import inf112.skeleton.app.model.entities.Entity;
 import inf112.skeleton.app.utils.TiledObjectUtil;
 //import inf112.skeleton.app.utils.TiledObjectUtil;
@@ -20,7 +19,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import java.util.ArrayList;
 

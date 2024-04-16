@@ -2,8 +2,6 @@ package inf112.skeleton.app.view;
 
 import inf112.skeleton.app.model.GameLogic;
 
-import static inf112.skeleton.app.utils.Constants.*;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

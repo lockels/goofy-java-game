@@ -1,6 +1,7 @@
 package inf112.skeleton.app.view;
 
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
+import inf112.skeleton.app.model.Constants;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
 import inf112.skeleton.app.model.entities.Entity;
@@ -26,9 +27,9 @@ import java.util.ArrayList;
 import static inf112.skeleton.app.model.Constants.*;
 
 /**
- * The GameRenderer class is responsible for rendering the game.
- * It manages the rendering of entities, HUD, and game UI elements.
- */
+     * The GameRenderer class is responsible for rendering the game.
+     * It manages the rendering of entities, HUD, and game UI elements.
+     */
 public class GameRenderer extends Game {
     private SpriteBatch batch;
     private OrthographicCamera cam;
@@ -44,28 +45,23 @@ public class GameRenderer extends Game {
     private HUD hud;
 
     /**
-     * Constructs a GameRenderer with the specified GameLogic.
-     *
-     * @param gameLogic the GameLogic instance to render
-     */
+         * Constructs a GameRenderer with the specified GameLogic.
+         *
+         * @param gameLogic the GameLogic instance to render
+         */
     public GameRenderer(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
     }
 
     @Override
     public void create() {
-
         debugRenderer = new Box2DDebugRenderer();
         batch = new SpriteBatch();
-        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
-        for (Entity entity : gameLogic.getEntities()) {
-            entitySprites.add(getSpriteFromSheet(spriteSheet, entity.getSpriteSheetX(), entity.getSpriteSheetY(),
-                    entity.getSpriteWidth(), entity.getSpriteHeight()));
-        }
+        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG); 
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
-    
+
         font = new BitmapFont();
         Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
 
@@ -73,7 +69,7 @@ public class GameRenderer extends Game {
         tmr = new OrthogonalTiledMapRenderer(map);
 
         TiledObjectUtil.parseTiledObjectLayer(gameLogic.world, 
-                                              map.getLayers().get("collision-layer").getObjects());
+            map.getLayers().get("collision-layer").getObjects());
 
         Texture heartTexture = new Texture(HEART_IMG);
         hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth());
@@ -85,13 +81,13 @@ public class GameRenderer extends Game {
         updateCamera();
         gameLogic.update();
 
-        // map
+        // Map
         tmr.setView(cam);
         tmr.render();
 
         debugRenderer.render(gameLogic.world, cam.combined);
-        
-        // batch   
+
+        // Rendering   
         batch.begin();
         batch.setProjectionMatrix(cam.combined);
         drawEntities();
@@ -103,7 +99,7 @@ public class GameRenderer extends Game {
     @Override
     public void dispose() {
         batch.dispose();
-        spriteSheet.dispose();
+        // spriteSheet.dispose();
         for (TextureRegion textureRegion : entitySprites) {
             textureRegion.getTexture().dispose();
         }
@@ -119,7 +115,7 @@ public class GameRenderer extends Game {
 
     private void updateCamera() {
         cam.position.set(gameLogic.getPlayer().getX() + PLAYER_WIDTH / 2,
-                gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
+            gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
         cam.update();
         float zoomLevel = 0.7f;
         cam.zoom = zoomLevel;
@@ -127,8 +123,11 @@ public class GameRenderer extends Game {
 
     private void drawEntities() {
         for (Entity entity : gameLogic.getEntities()) {
-            TextureRegion entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
-            batch.draw(entitySprite, entity.getX(), entity.getY(), PLAYER_WIDTH, PLAYER_HEIGHT);
+            String textureID = entity.getTextureId() + ".png";
+            float xPos = entity.getX();
+            float yPos = entity.getY();
+            Texture tex = new Texture(textureID);
+            batch.draw(tex, xPos * PPM - (tex.getWidth() / 2), yPos * PPM - (tex.getHeight() / 2));
         }
     }
 
@@ -167,7 +166,6 @@ public class GameRenderer extends Game {
         batch.setColor(1, 1, 1, 1);
     }
 
-
     private TextureRegion getSpriteFromSheet(Texture spriteSheet, int x, int y, int width, int height) {
         return new TextureRegion(spriteSheet, x, y, width, height);
     }
@@ -177,7 +175,6 @@ public class GameRenderer extends Game {
     }
 
     private void drawMenu(){
-        
-    }
 
+    }
 }

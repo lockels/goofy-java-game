@@ -55,7 +55,7 @@ public class Constants {
 
 
     // Map / Collision
-    public final static int PPM = 20;
+    public final static int PPM = 1;
 
     
     // Game
@@ -64,6 +64,7 @@ public class Constants {
     public final static int HIT_WARNING_DURATION = 150;
 
     // Files
+    public final static String PLAYER_IMG = "playerSprite.png";
     public final static String DUNGEON_SHEET_IMG = "dungeon_sheet.png";
     public final static String MAP_IMG = "maps/map2.tmx";
     public final static String HEART_IMG = "src/main/resources/HUD/heart16x16.png";

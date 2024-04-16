@@ -3,9 +3,9 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
-import inf112.skeleton.app.model.Constants;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
+import inf112.skeleton.app.utils.Constants;
 import inf112.skeleton.app.view.GameRenderer;
 
 public class Main {

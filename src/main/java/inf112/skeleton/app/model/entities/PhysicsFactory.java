@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import inf112.skeleton.app.model.Constants;
+import inf112.skeleton.app.utils.Constants;
 
 public class PhysicsFactory {
     public static Body createEntityBody(World world, Vector2 position, float width, float height) {

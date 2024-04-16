@@ -1,93 +1,95 @@
 package inf112.skeleton.app.view;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
-import inf112.skeleton.app.model.Constants;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
 import inf112.skeleton.app.model.entities.Entity;
+import inf112.skeleton.app.utils.TiledObjectUtil;
+//import inf112.skeleton.app.utils.TiledObjectUtil;
 import inf112.skeleton.app.view.HUD.HUD;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import java.util.ArrayList;
 
-import static inf112.skeleton.app.model.Constants.*;
+import static inf112.skeleton.app.utils.Constants.*;
 
+/**
+     * The GameRenderer class is responsible for rendering the game.
+     * It manages the rendering of entities, HUD, and game UI elements.
+     */
 public class GameActiveScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
-    private ArrayList<Sprite> entitySprites = new ArrayList<>();
+    private GameLogic gameLogic;
+    private ArrayList<TextureRegion> entitySprites = new ArrayList<>();
+
+    private Box2DDebugRenderer debugRenderer;
+
     private Texture spriteSheet;
     private BitmapFont font;
     private TiledMap map;
-    private OrthogonalTiledMapRenderer mapRenderer;
+    private OrthogonalTiledMapRenderer tmr;
     private HUD hud;
 
-    GameRenderer game;
-    GameLogic gameLogic;
-
-    public GameActiveScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
-        this.game = game;
+    /**
+         * Constructs a GameRenderer with the specified GameLogic.
+         *
+         * @param gameLogic the GameLogic instance to render
+         */
+    public GameActiveScreen(Game game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
         this.gameLogic = gameLogic;
         this.batch = batch;
         this.cam = cam;
-        System.out.println("GameActiveScreen: " + gameLogic.getGameState());
         create();
     }
 
-    @Override
-    public void show() {
-        batch = new SpriteBatch();
-    }
-
     public void create() {
-        cam = new OrthographicCamera();
-        cam.setToOrtho(false, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+        debugRenderer = new Box2DDebugRenderer();
+        batch = new SpriteBatch();
+        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG); 
 
-        spriteSheet = getSpriteSheet(Constants.DUNGEON_SHEET_IMG);
-        for (Entity entity : gameLogic.getEntities()) {
-            TextureRegion spriteTextureRegion = getSpriteFromSheet(getSpriteSheet(entity.getSpriteSheetPath()),
-                    entity.getSpriteSheetX(), entity.getSpriteSheetY(),
-                    entity.getSpriteWidth(), entity.getSpriteHeight());
-            Sprite entitySprite = new Sprite(spriteTextureRegion);
-            entitySprites.add(entitySprite);
-        }
-        System.out.println("Gamestate: " + gameLogic.getGameState());
+        cam = new OrthographicCamera();
+        cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
+
         font = new BitmapFont();
         Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
-        map = new TmxMapLoader().load(Constants.MAP_IMG);
-        mapRenderer = new OrthogonalTiledMapRenderer(map);
-        Texture heartTexture = new Texture(Constants.HEART_IMG);
-        hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());
+
+        map = new TmxMapLoader().load(MAP_IMG);
+        tmr = new OrthogonalTiledMapRenderer(map);
+
+        TiledObjectUtil.parseTiledObjectLayer(gameLogic.world, 
+            map.getLayers().get("collision-layer").getObjects());
+
+        Texture heartTexture = new Texture(HEART_IMG);
+        hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0);
     }
 
     @Override
     public void render(float delta) {
         clearScreen();
         updateCamera();
-        mapRenderer.setView(cam);
-        mapRenderer.render();
         gameLogic.update();
-        if (gameLogic.getGameState() == GameState.GAME_OVER) {
-            initateGameOver();
-        }
+
+        // Map
+        tmr.setView(cam);
+        tmr.render();
+
+        debugRenderer.render(gameLogic.world, cam.combined);
+
+        // Rendering   
         batch.begin();
         batch.setProjectionMatrix(cam.combined);
         drawEntities();
@@ -96,39 +98,44 @@ public class GameActiveScreen extends ScreenAdapter {
         batch.end();
     }
 
-    private void drawHUD() {
-        hud.updateHearts(gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());
-        hud.draw(batch);
+    @Override
+    public void dispose() {
+        batch.dispose();
+        // spriteSheet.dispose();
+        for (TextureRegion textureRegion : entitySprites) {
+            textureRegion.getTexture().dispose();
+        }
+        font.dispose();
+        map.dispose();
+        tmr.dispose();
+    }
+
+    private void clearScreen() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     private void updateCamera() {
-        cam.position.set(getCenterX(gameLogic.getPlayer()), getCenterY(gameLogic.getPlayer()), 0);
-        // cam.position.set(0, 0, 0);
+        cam.position.set(gameLogic.getPlayer().getX() + PLAYER_WIDTH / 2,
+            gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
         cam.update();
-        cam.zoom = CAMERA_ZOOM_LEVEL;
+        float zoomLevel = 0.7f;
+        cam.zoom = zoomLevel;
     }
 
     private void drawEntities() {
         for (Entity entity : gameLogic.getEntities()) {
-            updateEntitySprite(entity);
-            Sprite entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
-            entitySprite.draw(batch);
+            String textureID = entity.getTextureId() + ".png";
+            float xPos = entity.getX();
+            float yPos = entity.getY();
+            Texture tex = new Texture(textureID);
+            batch.draw(tex, xPos * PPM - (tex.getWidth() / 2), yPos * PPM - (tex.getHeight() / 2));
         }
     }
 
-    private void initateGameOver()  {
-        game.setScreen(new GameOverScreen(game, gameLogic, batch, cam));
-
-        // Restores player health and sets game state to GAME_ACTIVE
-        gameLogic.getPlayer().setHealth(Constants.PLAYER_HEALTH);
-        gameLogic.setGameState(GameState.GAME_ACTIVE);
-    }
-
-    private void updateEntitySprite(Entity entity) {
-        Sprite entitySprite = entitySprites.get(gameLogic.getEntities().indexOf(entity));
-        entitySprite.setSize(Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT);
-        entitySprite.setPosition(entity.getX(), entity.getY());
-        entitySprite.setRotation(entity.getAngle());
+    private void drawHUD() {
+        hud.updateHearts(gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());
+        hud.draw(batch);
     }
 
     private void drawGameUI() {
@@ -139,8 +146,7 @@ public class GameActiveScreen extends ScreenAdapter {
 
     private void drawHitWarning() {
         batch.setColor(1, 0, 0, 0.9f);
-        batch.draw(new Texture(Constants.HIT_WARNING_IMG), getCameraX() - CAMERA_OFFSET_X, getCameraY() - CAMERA_OFFSET_Y, CAMERA_WINDOW_WIDTH,
-                CAMERA_WINDOW_HEIGHT);
+        batch.draw(new Texture(HIT_WARNING_IMG), 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
         batch.setColor(1, 1, 1, 1);
     }
 
@@ -152,24 +158,11 @@ public class GameActiveScreen extends ScreenAdapter {
         return new Texture(Gdx.files.internal(spriteSheet));
     }
 
-    private void clearScreen() {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    public float getCameraX() {
+        return this.cam.position.x;
     }
 
-    private float getCenterX(Entity entity) {
-        return entity.getX() + entity.getSpriteWidth() / 2;
-    }
-
-    private float getCenterY(Entity entity) {
-        return entity.getY() + entity.getSpriteHeight() / 2;
-    }
-
-    public int getCameraX() {
-        return (int) this.cam.position.x;
-    }
-
-    public int getCameraY() {
-        return (int) this.cam.position.y;
+    public float getCameraY() {
+        return this.cam.position.y;
     }
 }

@@ -94,7 +94,7 @@ package inf112.skeleton.app.view.HUD;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import static inf112.skeleton.app.model.Constants.*;
+import static inf112.skeleton.app.utils.Constants.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,8 +107,8 @@ public class HUD {
     private Texture heartTexture;
     private int maxHearts;
 
-    private int screenX;
-    private int screenY;
+    private float screenX;
+    private float screenY;
 
     /**
      * Constructs a HUD with the specified heart texture and maximum number of
@@ -121,7 +121,7 @@ public class HUD {
      * @param screenY      the screen Y coordinate where the hearts should be
      *                     displayed
      */
-    public HUD(Texture heartTexture, int maxHearts, int screenX, int screenY) {
+    public HUD(Texture heartTexture, int maxHearts, float screenX, float screenY) {
         this.heartTexture = heartTexture;
         this.maxHearts = maxHearts;
         this.screenX = screenX;
@@ -157,14 +157,14 @@ public class HUD {
      * Updates the hearts based on the current player health.
      *
      * @param currentHealth the current health of the player
-     * @param screenX       the screen X coordinate where the hearts should be
+     * @param f       the screen X coordinate where the hearts should be
      *                      displayed
-     * @param screenY       the screen Y coordinate where the hearts should be
+     * @param g       the screen Y coordinate where the hearts should be
      *                      displayed
      */
-    public void updateHearts(int currentHealth, int screenX, int screenY) {
-        this.screenX = screenX;
-        this.screenY = screenY;
+    public void updateHearts(int currentHealth, float f, float g) {
+        this.screenX = f;
+        this.screenY = g;
         // System.out.println("HUD: updateHearts");
         // System.out.println("currentHealth: " + currentHealth);
         // System.out.println("Heart position (x, y): " + this.screenX + ", " + this.screenY);

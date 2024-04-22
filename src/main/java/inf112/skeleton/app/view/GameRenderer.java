@@ -1,8 +1,11 @@
 package inf112.skeleton.app.view;
 
+import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
+import inf112.skeleton.app.model.GameState;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,6 +22,8 @@ public class GameRenderer extends Game {
     BitmapFont font;
     GameLogic gameLogic;
     OrthographicCamera cam;
+    
+    private MyInputAdapter inputAdapter;
 
     public GameRenderer(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
@@ -30,7 +35,12 @@ public class GameRenderer extends Game {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
+        gameLogic.setGameState(GameState.GAME_TITLE);
         setScreen(new GameTitleScreen(this, gameLogic, batch, cam));
+
+        // Create and set the input adapter
+        inputAdapter = new MyInputAdapter(gameLogic.getPlayer(), gameLogic);
+        Gdx.input.setInputProcessor(inputAdapter);
     }
 
     @Override

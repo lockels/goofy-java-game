@@ -46,7 +46,9 @@ public class Player extends Entity {
     public void move() {
         // Calculate movement direction
         Vector2 direction = new Vector2();
+        // System.out.println("Player: Moving");
         for (Map.Entry<Direction, Boolean> entry : moveDirections.entrySet()) {
+            // System.out.println("Player: Direction: " + entry.getKey() + " " + entry.getValue());
             if (entry.getValue()) {
                 switch (entry.getKey()) {
                     case UP:
@@ -74,4 +76,7 @@ public class Player extends Entity {
         this.health = playerHealth;
     }
 
+    public boolean collidesWith(Enemy enemy) {
+        return body.getPosition().dst(enemy.getBody().getPosition()) < PLAYER_COLLISION_RADIUS;
+    }
 }

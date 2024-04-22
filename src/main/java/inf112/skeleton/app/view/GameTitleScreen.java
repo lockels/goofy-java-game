@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import inf112.skeleton.app.model.GameLogic;
+import static inf112.skeleton.app.model.GameState.*;
 
 public class GameTitleScreen extends ScreenAdapter{
     
@@ -20,25 +21,21 @@ public class GameTitleScreen extends ScreenAdapter{
     public GameTitleScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
         this.game = game;
         this.gameLogic = gameLogic;
+        this.batch = batch;
         System.out.println("GameTitleScreen: " + gameLogic.getGameState());
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(new InputAdapter() {
-            @Override
-            public boolean keyDown(int keyCode) {
-                if (keyCode == Input.Keys.SPACE) {
-                    // game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
-                    game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
-                }
-                return true;
-            }
-        });
+        
     }
 
     @Override
     public void render(float delta) {
+        System.out.println("GameState: " + gameLogic.getGameState());
+        if (gameLogic.getGameState() == GAME_ACTIVE) {
+            game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
+        }
         Gdx.gl.glClearColor(0, .25f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();

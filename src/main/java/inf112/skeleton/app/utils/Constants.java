@@ -20,25 +20,27 @@ public class Constants {
     public final static int PLAYER_SPAWN_Y = 150;
     public final static int PLAYER_WIDTH = 24;
     public final static int PLAYER_HEIGHT = 32;
-    public final static int PLAYER_ACCELERATION = 700;
-    public final static int MAX_PLAYER_VELOCITY = 200;
+    public final static int PLAYER_ACCELERATION = 7000;
+    public final static int MAX_PLAYER_VELOCITY = 300;
     public final static int PLAYER_FRICTION = 1000;
-    public final static int PLAYER_HEALTH = 10;
+    public final static int PLAYER_HEALTH = 5;
     public final static int PLAYER_SPRITESHEET_X = 306;
     public final static int PLAYER_SPRITESHEET_Y = 112;
     public final static int PLAYER_SPRITESHEET_WIDTH = 16;
     public final static int PLAYER_SPRITESHEET_HEIGHT = 12;
+    
+    public final static float PLAYER_COLLISION_RADIUS = 45;
 
     // Enemies
-    public final static float ENEMY_SPEED_MAX = 1.2f;
-    public final static float ENEMY_SPEED_MIN = 0.8f;
+    public final static float ENEMY_SPEED_MAX = 0.8f;
+    public final static float ENEMY_SPEED_MIN = 0.5f;
     public final static int NUM_ENEMIES = 5;
     public final static int ENEMY_SPEED = 100;
     public final static int ENEMY_WIDTH = 24;
     public final static int ENEMY_HEIGHT = 32;
-    public final static int ENEMY_ACCELERATION = 400;
+    public final static int ENEMY_ACCELERATION = 300;
     public final static int MAX_ENEMY_VELOCITY = 200;
-    public final static int ENEMY_FRICTION = 2000;
+    public final static int ENEMY_FRICTION = 200;
     public final static int ENEMY_HEALTH = 10;
     public final static int ENEMY_SPRITESHEET_X = 322;
     public final static int ENEMY_SPRITESHEET_Y = 112;

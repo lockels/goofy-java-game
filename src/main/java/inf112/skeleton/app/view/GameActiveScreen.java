@@ -22,6 +22,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import java.util.ArrayList;
 
 import static inf112.skeleton.app.utils.Constants.*;
+import static inf112.skeleton.app.model.GameState.*;
 
 /**
      * The GameRenderer class is responsible for rendering the game.
@@ -40,42 +41,76 @@ public class GameActiveScreen extends ScreenAdapter {
     private TiledMap map;
     private OrthogonalTiledMapRenderer tmr;
     private HUD hud;
+    private MyInputAdapter inputAdapter;
+    // private Game game;
+    private GameRenderer game;
 
     /**
-         * Constructs a GameRenderer with the specified GameLogic.
+         * Constructs a GameActiveScreen.
          *
          * @param gameLogic the GameLogic instance to render
          */
-    public GameActiveScreen(Game game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
+    public GameActiveScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
         this.gameLogic = gameLogic;
         this.batch = batch;
         this.cam = cam;
+        this.game = game;
         create();
     }
 
     public void create() {
+        // debugRenderer = new Box2DDebugRenderer();
+        // batch = new SpriteBatch();
+        // spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG); 
+
+        // cam = new OrthographicCamera();
+        // cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        // font = new BitmapFont();
+        // // Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
+
+        // map = new TmxMapLoader().load(MAP_IMG);
+        // tmr = new OrthogonalTiledMapRenderer(map);
+
+        // TiledObjectUtil.parseTiledObjectLayer(gameLogic.world, 
+        //     map.getLayers().get("collision-layer").getObjects());
+
+        // Texture heartTexture = new Texture(HEART_IMG);
+        // hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0);
+    }
+
+    @Override
+    public void show() {
         debugRenderer = new Box2DDebugRenderer();
         batch = new SpriteBatch();
-        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG); 
+        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         font = new BitmapFont();
-        Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
+        // Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
 
         map = new TmxMapLoader().load(MAP_IMG);
         tmr = new OrthogonalTiledMapRenderer(map);
 
-        TiledObjectUtil.parseTiledObjectLayer(gameLogic.world, 
-            map.getLayers().get("collision-layer").getObjects());
+        TiledObjectUtil.parseTiledObjectLayer(gameLogic.world,
+                map.getLayers().get("collision-layer").getObjects());
 
         Texture heartTexture = new Texture(HEART_IMG);
         hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0);
+        
+        inputAdapter = new MyInputAdapter(gameLogic.getPlayer(), gameLogic);
+        Gdx.input.setInputProcessor(inputAdapter);
     }
 
     @Override
     public void render(float delta) {
+        System.out.println("GameState: " + gameLogic.getGameState());
+        if (gameLogic.getGameState() == GAME_OVER) {
+            game.setScreen(new GameOverScreen(game, gameLogic, batch, cam));
+        }
+
         clearScreen();
         updateCamera();
         gameLogic.update();
@@ -143,7 +178,7 @@ public class GameActiveScreen extends ScreenAdapter {
 
     private void drawHitWarning() {
         batch.setColor(1, 0, 0, 0.9f);
-        batch.draw(new Texture(HIT_WARNING_IMG), 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+        batch.draw(new Texture(HIT_WARNING_IMG), getCameraX() - CAMERA_OFFSET_X, getCameraY() - CAMERA_OFFSET_Y, CAMERA_WINDOW_WIDTH, CAMERA_WINDOW_HEIGHT);
         batch.setColor(1, 1, 1, 1);
     }
 

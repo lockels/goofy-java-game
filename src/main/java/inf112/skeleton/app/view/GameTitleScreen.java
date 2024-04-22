@@ -1,6 +1,8 @@
 package inf112.skeleton.app.view;
 
 import com.badlogic.gdx.Gdx;
+
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +15,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+
+
 
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
@@ -26,6 +38,8 @@ public class GameTitleScreen extends ScreenAdapter {
     Viewport viewport;
     Button startButton, noButton;
 
+    Viewport viewPort;
+
     public GameTitleScreen(GameRenderer game, GameLogic gameLogic) {
         this.game = game;
         this.gameLogic = gameLogic;
@@ -34,15 +48,19 @@ public class GameTitleScreen extends ScreenAdapter {
         this.viewport = new ExtendViewport(800, 800, cam); // Adjust viewport size as needed
         this.stage = new Stage(viewport, batch);
 
+        this.viewPort = new ExtendViewport(800, 800, cam); // Adjust viewport size as needed
+        this.stage = new Stage(viewPort, batch);
+
         setupUi();
     }
 
     private void setupUi() {
         // Background image
         Texture backgroundTexture = new Texture("new_menu.png"); // Ensure you have this asset
-        Button backgroundImage = new Button(new TextureRegionDrawable(new Texture("new_menu.png")));
-        backgroundImage.setFillParent(true);
-        stage.addActor(backgroundImage);
+
+        // Button backgroundImage = new Button(new TextureRegionDrawable(new Texture("new_menu.png")));
+        // backgroundImage.setFillParent(true);
+        // stage.addActor(backgroundImage);
 
         // Start button
         startButton = new Button(new TextureRegionDrawable(new Texture("Yes_Button.png")));
@@ -54,6 +72,19 @@ public class GameTitleScreen extends ScreenAdapter {
         noButton.setPosition(100, 100);
         // Add listener to noButton if required
         stage.addActor(noButton);
+
+        Image backgroundImage = new Image(backgroundTexture);
+        backgroundImage.setFillParent(true);
+        stage.addActor(backgroundImage);
+
+        startButton = new Button(new TextureRegionDrawable(new Texture("Yes_Button.png")));
+
+
+        startButton.setPosition(300, 200);
+
+        stage.addActor(startButton);
+
+        
     }
 
     @Override
@@ -78,7 +109,15 @@ public class GameTitleScreen extends ScreenAdapter {
         }
         if (noButton.isPressed()){
             System.out.println("nei");
+
         }
+         // Actions for buttons
+         if (startButton.isPressed()) {
+            gameLogic.setGameState(GameState.GAME_ACTIVE);
+            game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam));  // Ensure GameRenderer has public access to batch and cam
+
+        }
+
     }
 
     @Override
@@ -91,4 +130,8 @@ public class GameTitleScreen extends ScreenAdapter {
         stage.dispose();
         batch.dispose();
     }
+
 }
+
+
+

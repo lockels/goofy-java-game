@@ -41,6 +41,11 @@ public class GameRenderer extends Game {
         // Create and set the input adapter
         inputAdapter = new MyInputAdapter(gameLogic.getPlayer(), gameLogic);
         Gdx.input.setInputProcessor(inputAdapter);
+
+        cam = new OrthographicCamera(); 
+        cam.setToOrtho(false, 800, 800); 
+
+        setScreen(new GameTitleScreen(this, gameLogic)); 
     }
 
     @Override
@@ -50,3 +55,4 @@ public class GameRenderer extends Game {
         font.dispose();
     }
 }
+

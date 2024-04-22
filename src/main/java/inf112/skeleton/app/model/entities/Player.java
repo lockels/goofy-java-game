@@ -31,6 +31,8 @@ public class Player extends Entity {
         return health;
     }
 
+    
+
     public void takeDamage(int damage) {
         this.health -= damage;
     }

@@ -108,7 +108,7 @@ public class GameActiveScreen extends ScreenAdapter {
     public void render(float delta) {
         System.out.println("GameState: " + gameLogic.getGameState());
         if (gameLogic.getGameState() == GAME_OVER) {
-            game.setScreen(new GameOverScreen(game, gameLogic, batch, cam));
+            game.setScreen(new GameOverScreen(game, gameLogic));
         }
 
         clearScreen();

@@ -1,54 +1,87 @@
 package inf112.skeleton.app.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import inf112.skeleton.app.model.GameLogic;
-import static inf112.skeleton.app.model.GameState.*;
+import inf112.skeleton.app.model.GameState;
 
 public class GameOverScreen extends ScreenAdapter {
-    
     GameRenderer game;
     GameLogic gameLogic;
     SpriteBatch batch;
     OrthographicCamera cam;
+    Stage stage;
+    Viewport viewport;
+    Button yesButton, noButton;
 
-    public GameOverScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
+    public GameOverScreen(GameRenderer game, GameLogic gameLogic) {
         this.game = game;
         this.gameLogic = gameLogic;
-        this.batch = batch;
-        System.out.println("GameOverScreen: " + gameLogic.getGameState());
+        this.batch = new SpriteBatch();
+        this.cam = new OrthographicCamera();
+        this.viewport = new ExtendViewport(800, 800, cam);
+        this.stage = new Stage(viewport, batch);
+
+        setupUi();
+    }
+
+    private void setupUi() {
+        Texture backgroundTexture = new Texture("Game_over.png");
+        Image backgroundImage = new Image(backgroundTexture);
+        backgroundImage.setFillParent(true);
+        stage.addActor(backgroundImage);
+
+        yesButton = new Button(new TextureRegionDrawable(new Texture("Yes_Button.png")));
+        yesButton.setPosition(100, 10);
+        yesButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gameLogic.setGameState(GameState.GAME_ACTIVE);
+                game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
+                gameLogic.getPlayer().setHealth(5);
+            }
+        });
+        stage.addActor(yesButton);
+
+        noButton = new Button(new TextureRegionDrawable(new Texture("No_Button.png")));
+        noButton.setPosition(400, 10);
+        stage.addActor(noButton);
     }
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render(float delta) {
-        System.out.println("GameState: " + gameLogic.getGameState());
-        if (gameLogic.getGameState() == GAME_TITLE) {
-            game.setScreen(new GameTitleScreen(game, gameLogic));
-        }
-
-        Gdx.gl.glClearColor(.25f, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        batch.begin();
-        game.font.draw(batch, "You Lost!", Gdx.graphics.getWidth() * .25f, Gdx.graphics.getHeight() * .75f);
-        game.font.draw(batch, "Press enter to restart.", Gdx.graphics.getWidth() * .25f,
-                Gdx.graphics.getHeight() * .25f);
-        batch.end();
-
+        stage.act(delta);
+        stage.draw();
     }
 
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+        batch.dispose();
     }
 }

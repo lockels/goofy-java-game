@@ -65,6 +65,10 @@ public class GameLogic {
     }
 
     /**
+=======
+
+	/**
+>>>>>>> Stashed changes
      * Gets the list of entities in the game.
      *
      * @return the list of entities
@@ -91,9 +95,7 @@ public class GameLogic {
         return gameState;
     }
 
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
-    }
+    
 
     /**
      * Checks if the hit warning should be displayed.
@@ -113,6 +115,7 @@ public class GameLogic {
         initializePlayer();
         initializeEnemies();
     }
+
 
     private void initializePlayer() {
         Body playerBody = PhysicsFactory.createEntityBody(world,
@@ -251,5 +254,10 @@ public class GameLogic {
         for (Enemy enemy : enemies) {
             enemy.moveTowards(player.getX(), player.getY());
         }
+    }
+
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
     }
 }

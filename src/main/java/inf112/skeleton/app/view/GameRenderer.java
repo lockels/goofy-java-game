@@ -36,7 +36,7 @@ public class GameRenderer extends Game {
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
         gameLogic.setGameState(GameState.GAME_TITLE);
-        setScreen(new GameTitleScreen(this, gameLogic, batch, cam));
+        setScreen(new GameTitleScreen(this, gameLogic));
 
         // Create and set the input adapter
         inputAdapter = new MyInputAdapter(gameLogic.getPlayer(), gameLogic);

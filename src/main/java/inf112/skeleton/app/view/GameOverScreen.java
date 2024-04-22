@@ -33,7 +33,7 @@ public class GameOverScreen extends ScreenAdapter {
     public void render(float delta) {
         System.out.println("GameState: " + gameLogic.getGameState());
         if (gameLogic.getGameState() == GAME_TITLE) {
-            game.setScreen(new GameTitleScreen(game, gameLogic, batch, cam));
+            game.setScreen(new GameTitleScreen(game, gameLogic));
         }
 
         Gdx.gl.glClearColor(.25f, 0, 0, 1);

@@ -55,6 +55,7 @@ public class GameLogic {
         return world;
     }
 
+
     public void setWorld(World world) {
         this.world = world;
     }

@@ -1,9 +1,6 @@
 package inf112.skeleton.app.model;
 
-import inf112.skeleton.app.model.entities.Enemy;
-import inf112.skeleton.app.model.entities.Entity;
-import inf112.skeleton.app.model.entities.PhysicsFactory;
-import inf112.skeleton.app.model.entities.Player;
+import inf112.skeleton.app.model.entities.*;
 import static inf112.skeleton.app.utils.Constants.*;
 
 import java.util.List;
@@ -27,6 +24,7 @@ public class GameLogic {
     private GameState gameState;
     // Entities
     private Player player;
+    private Sword sword;
     private List<Enemy> enemies = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     // Time
@@ -113,7 +111,8 @@ public class GameLogic {
 
     private void initializeEntities() {
         initializePlayer();
-        initializeEnemies();
+        //initializeEnemies();
+        initializeSword();
     }
 
 
@@ -121,16 +120,33 @@ public class GameLogic {
         Body playerBody = PhysicsFactory.createEntityBody(world,
                 new Vector2(PLAYER_SPAWN_X, PLAYER_SPAWN_Y),
                 PLAYER_WIDTH,
-                PLAYER_HEIGHT);
+                PLAYER_HEIGHT,
+                "dynamic",
+                true);
         this.player = new Player(playerBody, "playerSprite");
         entities.add(this.player);
+    }
+
+    private void initializeSword() {
+        Body swordBody = PhysicsFactory.createEntityBody(world,
+                new Vector2(0, 0),
+                SWORD_WIDTH,
+                SWORD_HEIGHT,
+                "kinematic",
+                false);
+        this.sword = new Sword(swordBody, "swordSprite");
+        entities.add(this.sword);
     }
 
     private void initializeEnemies() {
         for (int i = 0; i < NUM_ENEMIES; i++) {
             Body enemyBody = PhysicsFactory.createEntityBody(
-                    world, getRandomEnemyPosition(),
-                    ENEMY_WIDTH, ENEMY_HEIGHT);
+                    world,
+                    getRandomEnemyPosition(),
+                    ENEMY_WIDTH,
+                    ENEMY_HEIGHT,
+                    "dynamic",
+                    true);
             float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
             Enemy enemy = new Enemy(enemyBody, "playerSprite", randomSpeed);
             enemies.add(enemy);
@@ -167,7 +183,7 @@ public class GameLogic {
      * Updates the game logic.
      */
     public void update() {
-        System.out.println("GameState: " + gameState);
+        //System.out.println("GameState: " + gameState);
         updateWorld();
         updatePlayerPosition();
         checkPlayerHit();
@@ -175,7 +191,27 @@ public class GameLogic {
         checkGameOver();
         updateHitWarning();
         updateEnemyPositions();
-        // System.out.println("GameState: " + gameState);
+        updateSword();
+    }
+
+    private void updateSword(){
+        updateSwordPos();
+        updateSwordAngle();
+    }
+    private void updateSwordPos() {sword.setPos(player.getX(), player.getY());}
+
+    private void updateSwordAngle() {
+        sword.setAngle(getAngleToMouse(400, 400)-90);
+    }
+
+    private float getAngleToMouse(float x1, float y1){
+        float x2 = Gdx.input.getX();
+        float y2 = Gdx.input.getY();
+        float distX = x2 - x1;
+        float distY = y2 - y1;
+        float angle = (float) Math.toDegrees(Math.atan2(distY, distX));
+        if (angle < 0) { angle+=360; }
+        return angle;
     }
 
     private void updateWorld() {
@@ -184,9 +220,7 @@ public class GameLogic {
                                      // these as needed.
     }
 
-    private void updatePlayerPosition() {
-        player.move();
-    }
+    private void updatePlayerPosition() { player.move(); }
 
     // private void checkEnemyCollisions() {
     // for (Enemy enemy : enemies) {
@@ -237,8 +271,8 @@ public class GameLogic {
     }
 
     private void checkGameOver() {
-        System.out.println("Player health: " + player.getHealth());
-        System.out.println("GameState: " + gameState);
+        //System.out.println("Player health: " + player.getHealth());
+        //System.out.println("GameState: " + gameState);
         if (player.getHealth() <= 0) {
             gameState = GameState.GAME_OVER;
         }
@@ -255,7 +289,6 @@ public class GameLogic {
             enemy.moveTowards(player.getX(), player.getY());
         }
     }
-
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;

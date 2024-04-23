@@ -106,7 +106,7 @@ public class GameActiveScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        System.out.println("GameState: " + gameLogic.getGameState());
+        //System.out.println("GameState: " + gameLogic.getGameState());
         if (gameLogic.getGameState() == GAME_OVER) {
             game.setScreen(new GameOverScreen(game, gameLogic));
         }
@@ -160,7 +160,7 @@ public class GameActiveScreen extends ScreenAdapter {
             String textureID = entity.getTextureId() + ".png";
             float xPos = entity.getX();
             float yPos = entity.getY();
-            Texture tex = new Texture(textureID);
+            Texture tex = new Texture("sprites/" + textureID);
             batch.draw(tex, xPos * PPM - (tex.getWidth() / 2), yPos * PPM - (tex.getHeight() / 2));
         }
     }

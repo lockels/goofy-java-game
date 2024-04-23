@@ -19,6 +19,9 @@ public abstract class Entity {
         return body.getPosition().y;
     }
 
+    public void setPos(float x, float y) {this.body.setTransform(x, y, getAngle());}
+    public void setAngle(float angle) {this.body.setTransform(getX(),getY(), (float) -Math.toRadians(angle));}
+
     public Body getBody() {
         return body;
     }

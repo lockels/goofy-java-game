@@ -1,5 +1,8 @@
 package inf112.skeleton.app.model;
 
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
+import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 import inf112.skeleton.app.model.entities.*;
 import static inf112.skeleton.app.utils.Constants.*;
 
@@ -44,9 +47,10 @@ public class GameLogic {
      */
     public GameLogic(GameState gameState) {
         this.gameState = gameState;
-        setWorld(new World(new Vector2(0, -9.8f), true));
+        setWorld(new World(new Vector2(0, 0), true));
         // loadSounds();
         initializeEntities();
+        world.setContactListener(new B2dContactListener());
     }
 
     public World getWorld() {
@@ -111,7 +115,7 @@ public class GameLogic {
 
     private void initializeEntities() {
         initializePlayer();
-        //initializeEnemies();
+        initializeEnemies();
         initializeSword();
     }
 
@@ -119,10 +123,11 @@ public class GameLogic {
     private void initializePlayer() {
         Body playerBody = PhysicsFactory.createEntityBody(world,
                 new Vector2(PLAYER_SPAWN_X, PLAYER_SPAWN_Y),
+                new Vector2(),
                 PLAYER_WIDTH,
                 PLAYER_HEIGHT,
-                "dynamic",
                 true);
+        playerBody.setUserData("player");
         this.player = new Player(playerBody, "playerSprite");
         entities.add(this.player);
     }
@@ -130,11 +135,14 @@ public class GameLogic {
     private void initializeSword() {
         Body swordBody = PhysicsFactory.createEntityBody(world,
                 new Vector2(0, 0),
+                new Vector2(SWORD_X_OFFSET,SWORD_Y_OFFSET),
                 SWORD_WIDTH,
                 SWORD_HEIGHT,
-                "kinematic",
                 false);
+        swordBody.setUserData("sword");
         this.sword = new Sword(swordBody, "swordSprite");
+        sword.getBody().setType(BodyDef.BodyType.KinematicBody);
+        sword.setBaseAngle(90);
         entities.add(this.sword);
     }
 
@@ -143,10 +151,11 @@ public class GameLogic {
             Body enemyBody = PhysicsFactory.createEntityBody(
                     world,
                     getRandomEnemyPosition(),
+                    new Vector2(),
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
-                    "dynamic",
                     true);
+            enemyBody.setUserData("enemy");
             float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
             Enemy enemy = new Enemy(enemyBody, "playerSprite", randomSpeed);
             enemies.add(enemy);
@@ -198,7 +207,9 @@ public class GameLogic {
         updateSwordPos();
         updateSwordAngle();
     }
-    private void updateSwordPos() {sword.setPos(player.getX(), player.getY());}
+    private void updateSwordPos() {
+        sword.setPos(player.getX(), player.getY());
+    }
 
     private void updateSwordAngle() {
         sword.setAngle(getAngleToMouse(400, 400));
@@ -250,7 +261,7 @@ public class GameLogic {
     private void checkPlayerHit() {
         for (Enemy enemy : enemies) {
             if (player.collidesWith(enemy)) {
-                System.out.println("Player hit by enemy");
+                //System.out.println("Player hit by enemy");
                 applyHitToPlayer(enemy);
                 // collisionSound.play();
             }

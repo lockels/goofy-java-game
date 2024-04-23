@@ -49,9 +49,10 @@ public class Constants {
 
     // Sword
     public final static String SWORD_SPRITE_PATH = "src/main/resources/sprites/sword.png";
-    public final static int SWORD_HEIGHT = 30;
+    public final static int SWORD_HEIGHT = 40;
     public final static int SWORD_WIDTH = 10;
-    public final static int SWORD_Y_OFFSET = -10;
+    public final static int SWORD_Y_OFFSET = 40;
+    public final static int SWORD_X_OFFSET = 0;
 
     // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;

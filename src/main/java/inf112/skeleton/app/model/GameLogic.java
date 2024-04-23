@@ -201,15 +201,11 @@ public class GameLogic {
     private void updateSwordPos() {sword.setPos(player.getX(), player.getY());}
 
     private void updateSwordAngle() {
-        sword.setAngle(getAngleToMouse(400, 400)-90);
+        sword.setAngle(getAngleToMouse(400, 400));
     }
 
     private float getAngleToMouse(float x1, float y1){
-        float x2 = Gdx.input.getX();
-        float y2 = Gdx.input.getY();
-        float distX = x2 - x1;
-        float distY = y2 - y1;
-        float angle = (float) Math.toDegrees(Math.atan2(distY, distX));
+        float angle = (float) Math.toDegrees(Math.atan2(Gdx.input.getY() - y1, Gdx.input.getX() - x1));
         if (angle < 0) { angle+=360; }
         return angle;
     }

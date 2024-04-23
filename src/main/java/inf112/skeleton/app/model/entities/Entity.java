@@ -5,6 +5,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 public abstract class Entity {
     protected Body body; // Box2D body
     protected String textureIdentifer;
+    protected float baseAngle = 90;
+
 
     public Entity(Body body, String textureIdentifer) {
         this.body = body;
@@ -20,7 +22,9 @@ public abstract class Entity {
     }
 
     public void setPos(float x, float y) {this.body.setTransform(x, y, getAngle());}
-    public void setAngle(float angle) {this.body.setTransform(getX(),getY(), (float) -Math.toRadians(angle));}
+    public void setAngle(float angle) {
+        this.body.setTransform(getX(),getY(), (float) -Math.toRadians(baseAngle + angle));
+    }
 
     public Body getBody() {
         return body;
@@ -31,6 +35,6 @@ public abstract class Entity {
     }
 
     public float getAngle() {
-        return body.getAngle();
+        return (float) Math.toDegrees(body.getAngle());
     }
 }

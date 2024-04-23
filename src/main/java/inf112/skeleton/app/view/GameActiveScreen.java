@@ -1,5 +1,6 @@
 package inf112.skeleton.app.view;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.entities.Entity;
@@ -161,7 +162,11 @@ public class GameActiveScreen extends ScreenAdapter {
             float xPos = entity.getX();
             float yPos = entity.getY();
             Texture tex = new Texture("sprites/" + textureID);
-            batch.draw(tex, xPos * PPM - (tex.getWidth() / 2), yPos * PPM - (tex.getHeight() / 2));
+            Sprite sprite = new Sprite(tex);
+            sprite.setRotation(entity.getAngle());
+            sprite.setX(xPos * PPM - (tex.getWidth() / 2));
+            sprite.setY(yPos * PPM - (tex.getHeight() / 2));
+            sprite.draw(batch);
         }
     }
 

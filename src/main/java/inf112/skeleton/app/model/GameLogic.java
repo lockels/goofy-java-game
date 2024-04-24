@@ -34,6 +34,7 @@ public class GameLogic {
     private Player player;
     private Sword sword;
     private List<Enemy> enemies = new ArrayList<>();
+    private List<Coin> coins = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     // Time
     private long lastHitTime;
@@ -115,6 +116,7 @@ public class GameLogic {
         initializePlayer();
         initializeEnemies();
         initializeSword();
+        initializeCoins();
     }
 
 
@@ -148,7 +150,7 @@ public class GameLogic {
         for (int i = 0; i < NUM_ENEMIES; i++) {
             Body enemyBody = PhysicsFactory.createEntityBody(
                     world,
-                    getRandomEnemyPosition(),
+                    getRandomEntityPosition(),
                     new Vector2(),
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
@@ -161,12 +163,33 @@ public class GameLogic {
         entities.addAll(enemies);
     }
 
-    private Vector2 getRandomEnemyPosition() {
+    private void initializeCoins() {
+        final int NUM_COINS = 7;
+
+        final int COIN_WIDTH = 1;
+        final int COIN_HEIGHT = 1;
+        for (int i = 0; i < NUM_COINS; i++) {
+            Body coinBody = PhysicsFactory.createEntityBody(
+                world,
+                getRandomEntityPosition(),
+                new Vector2(),
+                COIN_WIDTH,
+                COIN_HEIGHT,
+                false
+            );
+            coinBody.setUserData("coin");
+            Coin coin = new Coin(coinBody, "coinSprite", 1);
+            coins.add(coin);
+        }
+        entities.addAll(coins);
+    }
+
+    private Vector2 getRandomEntityPosition() {
         Vector2 randomPosition;
         do {
             randomPosition = new Vector2(
-                    MathUtils.random(0, WINDOW_WIDTH),
-                    MathUtils.random(0, WINDOW_HEIGHT));
+                MathUtils.random(0, WINDOW_WIDTH),
+                MathUtils.random(0, WINDOW_HEIGHT));
         } while (!isLegalSpawnPosition(randomPosition));
         return randomPosition;
     }
@@ -201,7 +224,7 @@ public class GameLogic {
             float y2 = polygonVertices[(i + 3) % polygonVertices.length];
 
             if (((y1 <= y && y < y2) || (y2 <= y && y < y1)) &&
-                (x < (x2 - x1) * (y - y1) / (y2 - y1) + x1)) {
+        (x < (x2 - x1) * (y - y1) / (y2 - y1) + x1)) {
                 intersects++;
             }
         }

@@ -13,10 +13,12 @@ import static inf112.skeleton.app.utils.Constants.*;
 public class Player extends Entity {
     private Map<Direction, Boolean> moveDirections;
     private int health;
+    private int coinCount;
 
     public Player(Body body, String textureId) {
         super(body, textureId);
         health = PLAYER_HEALTH;
+        coinCount = 0;
 
         System.out.println("Player: Created");
 
@@ -32,8 +34,25 @@ public class Player extends Entity {
     }
 
     
+    /**
+     * This method simulates the coin being collected by the player.
+     * Once collected, the coin is marked and deactivated in the physics simulation.
+     *
+     * @param player the player collecting the coin
+     */
+    public void collect(Coin coin) {
+        if (!coin.isCollected()) {
+            this.addCoins(coin.getValue());
+            coin.setCollected();
+            body.setActive(false); // Deactivate the physics body so it no longer interacts in the world
+        }
+    }
 
-    public void takeDamage(int damage) {
+    private void addCoins(int value) {
+        this.coinCount += value;
+	}
+
+	public void takeDamage(int damage) {
         this.health -= damage;
     }
 

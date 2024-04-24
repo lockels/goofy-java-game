@@ -174,7 +174,7 @@ public class GameLogic {
     private boolean isLegalSpawnPosition(Vector2 position) {
         MapLayer layer = map.getLayers().get("out-of-bounds-layer");
         if (layer == null) {
-            return true; // If the layer doesn't exist, assume all positions are legal.
+            return true;
         }
 
         for (MapObject object : layer.getObjects()) {
@@ -182,9 +182,8 @@ public class GameLogic {
                 PolygonMapObject polygonObject = (PolygonMapObject) object;
                 Polygon polygon = polygonObject.getPolygon();
 
-                // Check if the position is inside this polygon
                 if (isPointInPolygon(polygon.getTransformedVertices(), position.x, position.y)) {
-                    return false; // Position is inside an out-of-bounds polygon, so it's not legal.
+                    return false;
                 }
             }
         }

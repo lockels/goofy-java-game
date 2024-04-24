@@ -56,28 +56,6 @@ public class GameActiveScreen extends ScreenAdapter {
         this.batch = batch;
         this.cam = cam;
         this.game = game;
-        create();
-    }
-
-    public void create() {
-        // debugRenderer = new Box2DDebugRenderer();
-        // batch = new SpriteBatch();
-        // spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG); 
-
-        // cam = new OrthographicCamera();
-        // cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-        // font = new BitmapFont();
-        // // Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
-
-        // map = new TmxMapLoader().load(MAP_IMG);
-        // tmr = new OrthogonalTiledMapRenderer(map);
-
-        // TiledObjectUtil.parseTiledObjectLayer(gameLogic.world, 
-        //     map.getLayers().get("collision-layer").getObjects());
-
-        // Texture heartTexture = new Texture(HEART_IMG);
-        // hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0);
     }
 
     @Override
@@ -95,8 +73,7 @@ public class GameActiveScreen extends ScreenAdapter {
         map = new TmxMapLoader().load(MAP_IMG);
         tmr = new OrthogonalTiledMapRenderer(map);
 
-        TiledObjectUtil.parseTiledObjectLayer(gameLogic.world,
-                map.getLayers().get("collision-layer").getObjects());
+        // parseObjectLayers();
 
         Texture heartTexture = new Texture(HEART_IMG);
         hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0);

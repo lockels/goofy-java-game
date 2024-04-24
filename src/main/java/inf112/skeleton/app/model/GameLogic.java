@@ -4,6 +4,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 import inf112.skeleton.app.model.entities.*;
+import inf112.skeleton.app.utils.TiledObjectUtil;
+
 import static inf112.skeleton.app.utils.Constants.*;
 
 import java.util.List;
@@ -12,9 +14,12 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -49,14 +54,12 @@ public class GameLogic {
         this.gameState = gameState;
         setWorld(new World(new Vector2(0, 0), true));
         // loadSounds();
-        initializeEntities();
         world.setContactListener(new B2dContactListener());
     }
 
     public World getWorld() {
         return world;
     }
-
 
     public void setWorld(World world) {
         this.world = world;
@@ -67,10 +70,6 @@ public class GameLogic {
     }
 
     /**
-=======
-
-	/**
->>>>>>> Stashed changes
      * Gets the list of entities in the game.
      *
      * @return the list of entities
@@ -96,7 +95,6 @@ public class GameLogic {
     public GameState getGameState() {
         return gameState;
     }
-
     
 
     /**
@@ -174,18 +172,42 @@ public class GameLogic {
     }
 
     private boolean isLegalSpawnPosition(Vector2 position) {
-        // TiledMapTileLayer collisionLayer = (TiledMapTileLayer)
-        // map.getLayers().get("out-of-bounds-layer"); // Replace with your actual
-        // collision layer name
-        // System.out.println(collisionLayer);
+        MapLayer layer = map.getLayers().get("out-of-bounds-layer");
+        if (layer == null) {
+            return true; // If the layer doesn't exist, assume all positions are legal.
+        }
 
-        //// Convert world coordinates to tile coordinates
-        // int tileX = (int) (position.x / collisionLayer.getTileWidth());
-        // int tileY = (int) (position.y / collisionLayer.getTileHeight());
+        for (MapObject object : layer.getObjects()) {
+            if (object instanceof PolygonMapObject) {
+                PolygonMapObject polygonObject = (PolygonMapObject) object;
+                Polygon polygon = polygonObject.getPolygon();
 
-        //// Check if the tile is part of the collision getLayer
-        // return collisionLayer.getCell(tileX, tileY) == null;
+                // Check if the position is inside this polygon
+                if (isPointInPolygon(polygon.getTransformedVertices(), position.x, position.y)) {
+                    return false; // Position is inside an out-of-bounds polygon, so it's not legal.
+                }
+            }
+        }
+
         return true;
+    }
+
+    private boolean isPointInPolygon(float[] polygonVertices, float x, float y) {
+        int intersects = 0;
+
+        for (int i = 0; i < polygonVertices.length; i += 2) {
+            float x1 = polygonVertices[i];
+            float y1 = polygonVertices[i + 1];
+            float x2 = polygonVertices[(i + 2) % polygonVertices.length];
+            float y2 = polygonVertices[(i + 3) % polygonVertices.length];
+
+            if (((y1 <= y && y < y2) || (y2 <= y && y < y1)) &&
+                (x < (x2 - x1) * (y - y1) / (y2 - y1) + x1)) {
+                intersects++;
+            }
+        }
+
+        return (intersects % 2) == 1;
     }
 
     /**
@@ -224,7 +246,7 @@ public class GameLogic {
     private void updateWorld() {
         float deltaTime = Gdx.graphics.getDeltaTime();
         world.step(deltaTime, 6, 2); // The numbers 6 and 2 are velocity and position iterations, you can adjust
-                                     // these as needed.
+        // these as needed.
     }
 
     private void updatePlayerPosition() { player.move(); }
@@ -299,5 +321,10 @@ public class GameLogic {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public void setMap(TiledMap map) {
+        this.map = map;
+        initializeEntities();
     }
 }

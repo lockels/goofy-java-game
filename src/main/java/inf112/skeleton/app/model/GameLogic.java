@@ -158,7 +158,7 @@ public class GameLogic {
                     ENEMY_HEIGHT,
                     true);
             float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
-            Enemy enemy = new Enemy(enemyBody, "playerSprite", "enemy", randomSpeed);
+            Enemy enemy = new Enemy(enemyBody, ENEMY_SPRITE, "enemy", randomSpeed); 
             setUserDataToParent(enemy);
             enemies.add(enemy);
         }

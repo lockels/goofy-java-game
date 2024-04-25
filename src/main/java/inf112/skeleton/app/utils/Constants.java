@@ -84,6 +84,7 @@ public class Constants {
     public final static String HIT_WARNING = "src/main/resources/hitWarning.png";
     public final static String GAME_OVER_IMG = "src/main/resources/gameOver.png";
     public final static String SWORD_SPRITE = "swordSprite";
+    public final static String ENEMY_SPRITE = "Enemy";
 }
 
 

@@ -1,5 +1,6 @@
 package inf112.skeleton.app.model.entities;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public abstract class Entity {
@@ -7,6 +8,7 @@ public abstract class Entity {
     protected String textureIdentifer;
     protected String tag;
     protected float baseAngle = 0;
+    protected Vector2 offset = new Vector2();
     protected boolean isActive = true;
     protected boolean isDestroyed = false;
 
@@ -18,6 +20,10 @@ public abstract class Entity {
 
     public boolean getIsDestroyed() { return isDestroyed; }
     public void setIsDestroyed(boolean isDestroyed) { this.isDestroyed = isDestroyed; }
+
+    public Vector2 getOffset() { return offset; }
+
+    public void setOffset(Vector2 offset) { this.offset = offset; }
 
     public float getX() {
         return body.getPosition().x;

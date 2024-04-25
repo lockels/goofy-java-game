@@ -18,7 +18,7 @@ public class PhysicsFactory {
         Body body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(width / 2 / Constants.PPM, height / 2 / Constants.PPM, offset, 0);
+        shape.setAsBox(width / 2 * Constants.PPM, height / 2 * Constants.PPM, offset, 0);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.isSensor = !collisionEnabled; //Inverted for ease of use

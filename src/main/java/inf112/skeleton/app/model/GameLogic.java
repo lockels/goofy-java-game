@@ -136,13 +136,15 @@ public class GameLogic {
     }
 
     private void initializeSword() {
+        Vector2 offset = new Vector2(SWORD_X_OFFSET,SWORD_Y_OFFSET);
         Body swordBody = PhysicsFactory.createEntityBody(world,
                 new Vector2(0, 0),
-                new Vector2(SWORD_X_OFFSET,SWORD_Y_OFFSET),
+                offset,
                 SWORD_WIDTH,
                 SWORD_HEIGHT,
                 false);
         this.sword = new Sword(swordBody, "swordSprite", "sword");
+        sword.setOffset(offset);
         sword.setBaseAngle(90);
         setUserDataToParent(sword);
         entities.add(this.sword);
@@ -266,6 +268,7 @@ public class GameLogic {
 
     private void updateSwordAngle() {
         sword.setAngle(getAngleToMouse(400, 400));
+        System.out.println(getAngleToMouse(400, 400));
     }
 
     private float getAngleToMouse(float x1, float y1){

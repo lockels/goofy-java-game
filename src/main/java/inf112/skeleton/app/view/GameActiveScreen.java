@@ -1,6 +1,7 @@
 package inf112.skeleton.app.view;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.entities.Entity;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import static inf112.skeleton.app.utils.Constants.*;
 import static inf112.skeleton.app.model.GameState.*;
@@ -138,18 +140,39 @@ public class GameActiveScreen extends ScreenAdapter {
         cam.zoom = zoomLevel;
     }
 
-    private void drawEntities() {
+    /*private void drawEntities() {
         for (Entity entity : gameLogic.getActiveEntities()) {
-            String textureID = entity.getTextureId() + ".png";
             float xPos = entity.getX();
             float yPos = entity.getY();
-            Texture tex = new Texture("sprites/" + textureID);
+            Texture tex = new Texture("sprites/" + entity.getTextureId() + ".png");
             Sprite sprite = new Sprite(tex);
             sprite.setRotation(entity.getAngle());
             sprite.setX(xPos * PPM - (tex.getWidth() / 2));
             sprite.setY(yPos * PPM - (tex.getHeight() / 2));
             sprite.draw(batch);
         }
+    }*/
+
+    private void drawEntities() {
+        for (Entity entity : gameLogic.getActiveEntities()) {
+            float xPos = entity.getX();
+            float yPos = entity.getY();
+            Texture tex = new Texture("sprites/" + entity.getTextureId() + ".png");
+            Vector2 pos = calculateOffset(xPos, yPos, entity.getOffset().x, entity.getOffset().y, entity.getAngle());
+            Sprite sprite = new Sprite(tex);
+            sprite.setRotation(entity.getAngle());
+            sprite.setX(pos.x * PPM - (tex.getWidth() / 2));
+            sprite.setY(pos.y * PPM - (tex.getHeight() / 2));
+            sprite.draw(batch);
+        }
+    }
+
+    private Vector2 calculateOffset(float x, float y, float offsetX, float offsetY, float angle) {
+        if      (angle < 90)  { x += offsetX; y -= offsetY; }
+        else if (angle < 180) { x -= offsetX; y -= offsetY; }
+        else if (angle < 270) { x -= offsetX; y += offsetY; }
+        else if (angle < 360) { x += offsetX; y += offsetY; }
+        return new Vector2(x,y);
     }
 
     private void drawHUD() {

@@ -130,7 +130,7 @@ public class GameLogic {
                 PLAYER_WIDTH,
                 PLAYER_HEIGHT,
                 true);
-        this.player = new Player(playerBody, "playerSprite", "player");
+        this.player = new Player(playerBody, PLAYER_SPRITE, "player");
         setUserDataToParent(player);
         entities.add(this.player);
     }
@@ -142,7 +142,7 @@ public class GameLogic {
                 SWORD_WIDTH,
                 SWORD_HEIGHT,
                 false);
-        this.sword = new Sword(swordBody, "swordSprite", "sword");
+        this.sword = new Sword(swordBody, SWORD_SPRITE, "sword");
         sword.setBaseAngle(90);
         setUserDataToParent(sword);
         entities.add(this.sword);

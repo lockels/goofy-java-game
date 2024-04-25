@@ -62,7 +62,7 @@ public class GameActiveScreen extends ScreenAdapter {
     public void show() {
         debugRenderer = new Box2DDebugRenderer();
         batch = new SpriteBatch();
-        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
+        spriteSheet = getSpriteSheet(DUNGEON_SHEET);
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -165,7 +165,7 @@ public class GameActiveScreen extends ScreenAdapter {
 
     private void drawHitWarning() {
         batch.setColor(1, 0, 0, 0.9f);
-        batch.draw(new Texture(HIT_WARNING_IMG), getCameraX() - CAMERA_OFFSET_X, getCameraY() - CAMERA_OFFSET_Y, CAMERA_WINDOW_WIDTH, CAMERA_WINDOW_HEIGHT);
+        batch.draw(new Texture(HIT_WARNING), getCameraX() - CAMERA_OFFSET_X, getCameraY() - CAMERA_OFFSET_Y, CAMERA_WINDOW_WIDTH, CAMERA_WINDOW_HEIGHT);
         batch.setColor(1, 1, 1, 1);
     }
 

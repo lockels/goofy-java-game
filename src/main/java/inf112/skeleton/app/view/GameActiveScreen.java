@@ -134,7 +134,7 @@ public class GameActiveScreen extends ScreenAdapter {
     }
 
     private void drawEntities() {
-        for (Entity entity : gameLogic.getEntities()) {
+        for (Entity entity : gameLogic.getActiveEntities()) {
             String textureID = entity.getTextureId() + ".png";
             float xPos = entity.getX();
             float yPos = entity.getY();

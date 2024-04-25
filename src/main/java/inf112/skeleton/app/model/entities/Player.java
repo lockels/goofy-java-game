@@ -14,8 +14,8 @@ public class Player extends Entity {
     private Map<Direction, Boolean> moveDirections;
     private int health;
 
-    public Player(Body body, String textureId) {
-        super(body, textureId);
+    public Player(Body body, String textureId, String tag) {
+        super(body, textureId, tag);
         health = PLAYER_HEALTH;
 
         System.out.println("Player: Created");

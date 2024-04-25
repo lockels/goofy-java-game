@@ -24,6 +24,7 @@ public class PhysicsFactory {
         fixtureDef.isSensor = !collisionEnabled; //Inverted for ease of use
         fixtureDef.shape = shape;
 
+
         body.createFixture(fixtureDef);
 
         shape.dispose();

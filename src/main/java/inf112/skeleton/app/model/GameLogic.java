@@ -182,7 +182,7 @@ public class GameLogic {
                 false
             );
             coinBody.setUserData("coin");
-            Coin coin = new Coin(coinBody, "coinSprite", 1);
+            Coin coin = new Coin(coinBody, "coinSprite", 1, "coin");
             coins.add(coin);
         }
         entities.addAll(coins);

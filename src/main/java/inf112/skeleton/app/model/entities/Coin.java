@@ -12,9 +12,11 @@ public class Coin extends Entity {
      * @param body        the physics body associated with this coin
      * @param textureId   the identifier for the texture to render this coin
      * @param value       the monetary value of the coin
+     * @param tag         the tag or indentifier of the entity
      */
-    public Coin(Body body, String textureId, int value) {
-        super(body, textureId);
+
+    public Coin(Body body, String textureId, int value, String tag) {
+        super(body, textureId, tag);
         this.value = value;
         this.collected = false;
     }

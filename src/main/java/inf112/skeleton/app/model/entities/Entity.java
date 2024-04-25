@@ -35,8 +35,14 @@ public abstract class Entity {
     public Body getBody() {
         return body;
     }
-    public String getTag() { return tag; }
-    public boolean isActive() { return isActive; }
+
+    public String getTag() { 
+        return tag;
+    }
+
+    public boolean isActive() { 
+        return isActive;
+    }
 
     public String getTextureId() {
         return textureIdentifer;

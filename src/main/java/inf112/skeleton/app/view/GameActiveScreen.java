@@ -86,7 +86,7 @@ public class GameActiveScreen extends ScreenAdapter {
     public void render(float delta) {
         //System.out.println("GameState: " + gameLogic.getGameState());
         if (gameLogic.getGameState() == GAME_OVER) {
-            game.setScreen(new GameOverScreen(game, gameLogic));
+            iniateGameOver();
         }
 
         clearScreen();
@@ -123,6 +123,11 @@ public class GameActiveScreen extends ScreenAdapter {
     private void clearScreen() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    private void iniateGameOver()   {
+        game.setScreen(new GameOverScreen(game, gameLogic));
+        gameLogic.getPlayer().setHealth(PLAYER_HEALTH);
     }
 
     private void updateCamera() {

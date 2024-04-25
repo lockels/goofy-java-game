@@ -1,6 +1,7 @@
 package inf112.skeleton.app.model;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 import inf112.skeleton.app.model.entities.*;
@@ -75,8 +76,11 @@ public class GameLogic {
      *
      * @return the list of entities
      */
-    public List<Entity> getEntities() {
+    public List<Entity> getAllEntities() {
         return entities;
+    }
+    public List<Enemy> getAllEnemies() {
+        return enemies;
     }
 
     /**
@@ -119,6 +123,7 @@ public class GameLogic {
         initializeCoins();
     }
 
+    private void setUserDataToParent (Entity entity) { entity.getBody().getFixtureList().get(0).setUserData(entity); }
 
     private void initializePlayer() {
         Body playerBody = PhysicsFactory.createEntityBody(world,
@@ -127,8 +132,8 @@ public class GameLogic {
                 PLAYER_WIDTH,
                 PLAYER_HEIGHT,
                 true);
-        playerBody.setUserData("player");
-        this.player = new Player(playerBody, "playerSprite");
+        this.player = new Player(playerBody, PLAYER_SPRITE, "player");
+        setUserDataToParent(player);
         entities.add(this.player);
     }
 
@@ -139,10 +144,9 @@ public class GameLogic {
                 SWORD_WIDTH,
                 SWORD_HEIGHT,
                 false);
-        swordBody.setUserData("sword");
-        this.sword = new Sword(swordBody, "swordSprite");
-        sword.getBody().setType(BodyDef.BodyType.KinematicBody);
+        this.sword = new Sword(swordBody, SWORD_SPRITE, "sword");
         sword.setBaseAngle(90);
+        setUserDataToParent(sword);
         entities.add(this.sword);
     }
 
@@ -155,9 +159,9 @@ public class GameLogic {
                     ENEMY_WIDTH,
                     ENEMY_HEIGHT,
                     true);
-            enemyBody.setUserData("enemy");
             float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
-            Enemy enemy = new Enemy(enemyBody, "playerSprite", randomSpeed);
+            Enemy enemy = new Enemy(enemyBody, ENEMY_SPRITE, "enemy", randomSpeed); 
+            setUserDataToParent(enemy);
             enemies.add(enemy);
         }
         entities.addAll(enemies);
@@ -236,8 +240,8 @@ public class GameLogic {
      * Updates the game logic.
      */
     public void update() {
-        //System.out.println("GameState: " + gameState);
         updateWorld();
+        destroyInactiveEnemies();
         updatePlayerPosition();
         checkPlayerHit();
         // checkEnemyCollisions();
@@ -247,6 +251,34 @@ public class GameLogic {
         updateSword();
     }
 
+    public List<Entity> getActiveEntities() {
+        List<Entity> activeEntities = new ArrayList<>();
+        for (Entity entity : entities){
+            if (entity.isActive()) {activeEntities.add(entity);}
+        }
+        return activeEntities;
+    }
+
+    public List<Enemy> getActiveEnemies() {
+        List<Enemy> activeEnemies = new ArrayList<>();
+        for (Enemy enemy : enemies){
+            if (enemy.isActive()) {activeEnemies.add(enemy);}
+        }
+        return activeEnemies;
+    }
+
+    private void destroyInactiveEnemies() {
+        List<Enemy> activeEnemies = getActiveEnemies();
+        for (Enemy enemy : getAllEnemies()){
+            if (!activeEnemies.contains(enemy)){
+                if (!enemy.getIsDestroyed()){
+                    enemy.setIsDestroyed(true);
+                    enemy.getBody().setTransform(0,0,0);//Temp solution: teleport body outside of map to avoid collisions
+                    world.destroyBody(enemy.getBody());
+                }
+            }
+        }
+    }
     private void updateSword(){
         updateSwordPos();
         updateSwordAngle();

@@ -48,7 +48,6 @@ public class Constants {
     public final static int ENEMY_SPRITESHEET_HEIGHT = 12;
 
     // Sword
-    public final static String SWORD_SPRITE_PATH = "src/main/resources/sprites/sword.png";
     public final static int SWORD_HEIGHT = 40;
     public final static int SWORD_WIDTH = 10;
     public final static int SWORD_Y_OFFSET = 40;
@@ -78,11 +77,17 @@ public class Constants {
     public final static int HIT_WARNING_DURATION = 150;
 
     // Files
-    public final static String PLAYER_IMG = "playerSprite.png";
-    public final static String DUNGEON_SHEET_IMG = "dungeon_sheet.png";
+    public final static String PLAYER_SPRITE = "Main_Character";
+    public final static String DUNGEON_SHEET = "dungeon_sheet.png";
     public final static String MAP_IMG = "maps/map2.tmx";
     public final static String HEART_IMG = "src/main/resources/HUD/heart16x16.png";
-    public final static String HIT_WARNING_IMG = "src/main/resources/hitWarning.png";
+    public final static String HIT_WARNING = "src/main/resources/hitWarning.png";
     public final static String GAME_OVER_IMG = "src/main/resources/gameOver.png";
+    public final static String SWORD_SPRITE = "swordSprite";
+    public final static String ENEMY_SPRITE = "Enemy";
 }
+
+
+
+
 

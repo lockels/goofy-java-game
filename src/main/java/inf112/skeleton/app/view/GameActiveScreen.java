@@ -62,7 +62,7 @@ public class GameActiveScreen extends ScreenAdapter {
     public void show() {
         debugRenderer = new Box2DDebugRenderer();
         batch = new SpriteBatch();
-        spriteSheet = getSpriteSheet(DUNGEON_SHEET_IMG);
+        spriteSheet = getSpriteSheet(DUNGEON_SHEET);
 
         cam = new OrthographicCamera();
         cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -86,7 +86,7 @@ public class GameActiveScreen extends ScreenAdapter {
     public void render(float delta) {
         //System.out.println("GameState: " + gameLogic.getGameState());
         if (gameLogic.getGameState() == GAME_OVER) {
-            game.setScreen(new GameOverScreen(game, gameLogic));
+            iniateGameOver();
         }
 
         clearScreen();
@@ -125,6 +125,11 @@ public class GameActiveScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
+    private void iniateGameOver()   {
+        game.setScreen(new GameOverScreen(game, gameLogic));
+        gameLogic.getPlayer().setHealth(PLAYER_HEALTH);
+    }
+
     private void updateCamera() {
         cam.position.set(gameLogic.getPlayer().getX() + PLAYER_WIDTH / 2,
             gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
@@ -134,7 +139,7 @@ public class GameActiveScreen extends ScreenAdapter {
     }
 
     private void drawEntities() {
-        for (Entity entity : gameLogic.getEntities()) {
+        for (Entity entity : gameLogic.getActiveEntities()) {
             String textureID = entity.getTextureId() + ".png";
             float xPos = entity.getX();
             float yPos = entity.getY();
@@ -160,7 +165,7 @@ public class GameActiveScreen extends ScreenAdapter {
 
     private void drawHitWarning() {
         batch.setColor(1, 0, 0, 0.9f);
-        batch.draw(new Texture(HIT_WARNING_IMG), getCameraX() - CAMERA_OFFSET_X, getCameraY() - CAMERA_OFFSET_Y, CAMERA_WINDOW_WIDTH, CAMERA_WINDOW_HEIGHT);
+        batch.draw(new Texture(HIT_WARNING), getCameraX() - CAMERA_OFFSET_X, getCameraY() - CAMERA_OFFSET_Y, CAMERA_WINDOW_WIDTH, CAMERA_WINDOW_HEIGHT);
         batch.setColor(1, 1, 1, 1);
     }
 

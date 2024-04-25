@@ -4,8 +4,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
+import static inf112.skeleton.app.utils.Constants.*;
+
 public class Enemy extends Entity {
     private float speed;
+    private int enemyHP = ENEMY_HEALTH;
 
     /**
      * Constructs a new Enemy with the specified parameters.
@@ -18,8 +21,8 @@ public class Enemy extends Entity {
      * @param spriteHeight  the height of the sprite
      * @param speed         the movement speed of the enemy
      */
-    public Enemy(Body body, String textureId, float speed) {
-        super(body, textureId);
+    public Enemy(Body body, String textureId, String tag, float speed) {
+        super(body, textureId, tag);
         this.speed = speed;
     }
 
@@ -30,5 +33,15 @@ public class Enemy extends Entity {
         Vector2 velocity = new Vector2(MathUtils.cos(angle) * speed, MathUtils.sin(angle) * speed);
 
         body.setLinearVelocity(velocity);
+    }
+
+    public void hit(int dmg, Vector2 knockback) { takeDmg(dmg); }
+
+    private void applyKnockback(Vector2 knockback) {
+    }
+    private void takeDmg(int dmg) {
+        enemyHP -= dmg;
+        System.out.println(enemyHP);
+        if (enemyHP <= 0) {isActive = false; }
     }
 }

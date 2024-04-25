@@ -15,8 +15,8 @@ public class Player extends Entity {
     private int health;
     private int coinCount;
 
-    public Player(Body body, String textureId) {
-        super(body, textureId);
+    public Player(Body body, String textureId, String tag) {
+        super(body, textureId, tag);
         health = PLAYER_HEALTH;
         coinCount = 0;
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -67,7 +68,11 @@ public class TiledObjectUtil {
                 Body body = world.createBody(bodyDef);
 
                 PolygonShape shape = TiledObjectUtil.createPolygon((PolygonMapObject) object);
-                Fixture fixture = body.createFixture(shape, 0); // Spikes don't need density
+                FixtureDef fixtureDef = new FixtureDef(); // Create a FixtureDef
+                fixtureDef.shape = shape;
+                fixtureDef.isSensor = true; // Set the fixture as a sensor
+
+                Fixture fixture = body.createFixture(fixtureDef); // Use the FixtureDef to create the fixture
                 shape.dispose();
 
                 Spike spike = new Spike(body, "", SPIKE_DAMAGE);

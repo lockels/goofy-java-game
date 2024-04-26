@@ -33,10 +33,6 @@ public class Player extends Entity {
         return health;
     }
 
-    public int getCoinCount() {
-        return coinCount;
-    }
-    
     /**
      * This method simulates the coin being collected by the player.
      * Once collected, the coin is marked and deactivated in the physics simulation.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="108">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="110">
  <tileset firstgid="1" source="16x16 dungeon tiles SARA.tsx"/>
  <tileset firstgid="209" source="red_image_16x16.tsx"/>
  <layer id="2" name="Ground" width="50" height="50" locked="1">
@@ -145,6 +145,14 @@
   </object>
   <object id="107" x="117.218" y="165.264">
    <polygon points="0,0 0.681501,69.1723 68.4908,69.1723 68.1501,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="14" name="object-damage-layer">
+  <object id="108" x="308.006" y="408.437">
+   <polygon points="0,0 121.602,-0.258178 130.896,11.8762 131.412,132.445 121.085,143.547 0.258178,143.289 -11.618,132.703 -11.1016,12.1344"/>
+  </object>
+  <object id="109" x="115.378" y="153.296">
+   <polygon points="0,0 73.4007,-0.0968906 82.8103,11.077 83.9865,83.1188 73.6948,93.7046 1.06482,94.2927 -10.6971,84.001 -10.4031,10.7829"/>
   </object>
  </objectgroup>
 </map>

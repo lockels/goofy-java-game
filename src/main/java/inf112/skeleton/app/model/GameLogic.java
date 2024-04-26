@@ -1,11 +1,9 @@
 package inf112.skeleton.app.model;
 
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
-import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 import inf112.skeleton.app.model.entities.*;
-import inf112.skeleton.app.utils.TiledObjectUtil;
+import inf112.skeleton.app.utils.B2DPhysics.B2dContactListener;
+import inf112.skeleton.app.utils.B2DPhysics.CollisionCallBack;
+import inf112.skeleton.app.utils.B2DPhysics.PhysicsFactory;
 
 import static inf112.skeleton.app.utils.Constants.*;
 
@@ -13,12 +11,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
@@ -28,7 +24,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * GameLogic handles the game logic including player and enemy interactions.
  */
-public class GameLogic {
+public class GameLogic implements CollisionCallBack {
     // State
     private GameState gameState;
     // Entities
@@ -37,6 +33,7 @@ public class GameLogic {
     private List<Enemy> enemies = new ArrayList<>();
     private List<Coin> coins = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
+    private List<Polygon> spikePolygons = new ArrayList<>();
     // Time
     private long lastHitTime;
     private final long hitCooldown = HIT_COOLDOWN;
@@ -56,7 +53,7 @@ public class GameLogic {
         this.gameState = gameState;
         setWorld(new World(new Vector2(0, 0), true));
         // loadSounds();
-        world.setContactListener(new B2dContactListener());
+        world.setContactListener(new B2dContactListener(this));
     }
 
     public World getWorld() {
@@ -100,7 +97,6 @@ public class GameLogic {
     public GameState getGameState() {
         return gameState;
     }
-    
 
     /**
      * Checks if the hit warning should be displayed.
@@ -123,15 +119,17 @@ public class GameLogic {
         initializeCoins();
     }
 
-    private void setUserDataToParent (Entity entity) { entity.getBody().getFixtureList().get(0).setUserData(entity); }
+    private void setUserDataToParent (Entity entity) {
+        entity.getBody().getFixtureList().get(0).setUserData(entity); 
+    }
 
     private void initializePlayer() {
         Body playerBody = PhysicsFactory.createEntityBody(world,
-                new Vector2(PLAYER_SPAWN_X, PLAYER_SPAWN_Y),
-                new Vector2(),
-                PLAYER_WIDTH,
-                PLAYER_HEIGHT,
-                true);
+            new Vector2(PLAYER_SPAWN_X, PLAYER_SPAWN_Y),
+            new Vector2(),
+            PLAYER_WIDTH,
+            PLAYER_HEIGHT,
+            true);
         this.player = new Player(playerBody, PLAYER_SPRITE, "player");
         setUserDataToParent(player);
         entities.add(this.player);
@@ -139,11 +137,11 @@ public class GameLogic {
 
     private void initializeSword() {
         Body swordBody = PhysicsFactory.createEntityBody(world,
-                new Vector2(0, 0),
-                new Vector2(SWORD_X_OFFSET,SWORD_Y_OFFSET),
-                SWORD_WIDTH,
-                SWORD_HEIGHT,
-                false);
+            new Vector2(0, 0),
+            new Vector2(SWORD_X_OFFSET,SWORD_Y_OFFSET),
+            SWORD_WIDTH,
+            SWORD_HEIGHT,
+            false);
         this.sword = new Sword(swordBody, SWORD_SPRITE, "sword");
         sword.setBaseAngle(90);
         setUserDataToParent(sword);
@@ -153,12 +151,12 @@ public class GameLogic {
     private void initializeEnemies() {
         for (int i = 0; i < NUM_ENEMIES; i++) {
             Body enemyBody = PhysicsFactory.createEntityBody(
-                    world,
-                    getRandomEntityPosition(),
-                    new Vector2(),
-                    ENEMY_WIDTH,
-                    ENEMY_HEIGHT,
-                    true);
+                world,
+                getRandomEntityPosition(),
+                new Vector2(),
+                ENEMY_WIDTH,
+                ENEMY_HEIGHT,
+                true);
             float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
             Enemy enemy = new Enemy(enemyBody, ENEMY_SPRITE, "enemy", randomSpeed); 
             setUserDataToParent(enemy);
@@ -168,10 +166,6 @@ public class GameLogic {
     }
 
     private void initializeCoins() {
-        final int NUM_COINS = 7;
-
-        final int COIN_WIDTH = 1;
-        final int COIN_HEIGHT = 1;
         for (int i = 0; i < NUM_COINS; i++) {
             Body coinBody = PhysicsFactory.createEntityBody(
                 world,
@@ -182,7 +176,7 @@ public class GameLogic {
                 false
             );
             coinBody.setUserData("coin");
-            Coin coin = new Coin(coinBody, "coinSprite", 1, "coin");
+            Coin coin = new Coin(coinBody, COIN_SPRITE, 1, "coin");
             coins.add(coin);
         }
         entities.addAll(coins);
@@ -195,8 +189,21 @@ public class GameLogic {
                 MathUtils.random(0, WINDOW_WIDTH),
                 MathUtils.random(0, WINDOW_HEIGHT));
         } while (!isLegalSpawnPosition(randomPosition));
+
         return randomPosition;
     }
+
+
+    private void checkForSpikeCollisions() {
+        Vector2 playerPosition = this.player.getPosition();
+        for (Polygon spikePolygon : spikePolygons) {
+            if (isPointInPolygon(spikePolygon.getTransformedVertices(), playerPosition.x, playerPosition.y)) {
+                applyHitToPlayer();
+                break;
+            }
+        }
+    }
+
 
     private boolean isLegalSpawnPosition(Vector2 position) {
         MapLayer layer = map.getLayers().get("out-of-bounds-layer");
@@ -228,7 +235,7 @@ public class GameLogic {
             float y2 = polygonVertices[(i + 3) % polygonVertices.length];
 
             if (((y1 <= y && y < y2) || (y2 <= y && y < y1)) &&
-        (x < (x2 - x1) * (y - y1) / (y2 - y1) + x1)) {
+                 (x < (x2 - x1) * (y - y1) / (y2 - y1) + x1)) {
                 intersects++;
             }
         }
@@ -244,7 +251,7 @@ public class GameLogic {
         destroyInactiveEnemies();
         updatePlayerPosition();
         checkPlayerHit();
-        // checkEnemyCollisions();
+        checkForSpikeCollisions();
         checkGameOver();
         updateHitWarning();
         updateEnemyPositions();
@@ -269,9 +276,9 @@ public class GameLogic {
 
     private void destroyInactiveEnemies() {
         List<Enemy> activeEnemies = getActiveEnemies();
-        for (Enemy enemy : getAllEnemies()){
-            if (!activeEnemies.contains(enemy)){
-                if (!enemy.getIsDestroyed()){
+        for (Enemy enemy : getAllEnemies()) {
+            if (!activeEnemies.contains(enemy)) {
+                if (!enemy.getIsDestroyed()) {
                     enemy.setIsDestroyed(true);
                     enemy.getBody().setTransform(0,0,0);//Temp solution: teleport body outside of map to avoid collisions
                     world.destroyBody(enemy.getBody());
@@ -279,6 +286,7 @@ public class GameLogic {
             }
         }
     }
+
     private void updateSword(){
         updateSwordPos();
         updateSwordAngle();
@@ -300,51 +308,23 @@ public class GameLogic {
     private void updateWorld() {
         float deltaTime = Gdx.graphics.getDeltaTime();
         world.step(deltaTime, 6, 2); // The numbers 6 and 2 are velocity and position iterations, you can adjust
-        // these as needed.
     }
 
-    private void updatePlayerPosition() { player.move(); }
 
-    // private void checkEnemyCollisions() {
-    // for (Enemy enemy : enemies) {
-    // for (Enemy other : enemies) {
-    // if (enemy != other && enemy.collidesWith(other)) {
-    // separateEntities(enemy, other);
-    // }
-    // }
-    // }
-    // }
-
-    // private void separateEntities(Entity entityA, Entity entityB) {
-    // float distanceX = entityB.getX() - entityA.getX();
-    // float distanceY = entityB.getY() - entityA.getY();
-    // float distance = (float) Math.sqrt(distanceX * distanceX + distanceY *
-    // distanceY);
-    // float overlap = (entityA.getHitbox().width + entityB.getHitbox().width) / 2 -
-    // distance;
-
-    // if (distance > 0) {
-    // distanceX /= distance;
-    // distanceY /= distance;
-    // }
-
-    // float separationX = overlap * distanceX / 2;
-    // float separationY = overlap * distanceY / 2;
-
-    // entityA.move(separationX, separationY);
-    // }
+    private void updatePlayerPosition() {
+        player.move(); 
+    }
 
     private void checkPlayerHit() {
         for (Enemy enemy : enemies) {
             if (player.collidesWith(enemy)) {
-                //System.out.println("Player hit by enemy");
-                applyHitToPlayer(enemy);
+                applyHitToPlayer();
                 // collisionSound.play();
             }
         }   
     }
 
-    private void applyHitToPlayer(Enemy enemy) {
+    private void applyHitToPlayer() {
         if (System.currentTimeMillis() - lastHitTime > hitCooldown) {
             player.takeDamage(HIT_DAMAGE);
             lastHitTime = System.currentTimeMillis();
@@ -354,8 +334,6 @@ public class GameLogic {
     }
 
     private void checkGameOver() {
-        //System.out.println("Player health: " + player.getHealth());
-        //System.out.println("GameState: " + gameState);
         if (player.getHealth() <= 0) {
             gameState = GameState.GAME_OVER;
         }
@@ -381,4 +359,9 @@ public class GameLogic {
         this.map = map;
         initializeEntities();
     }
+
+	@Override
+	public void onPlayerSpikeCollision(Player player, Spike spike) {
+        applyHitToPlayer();
+	}
 }

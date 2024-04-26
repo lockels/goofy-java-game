@@ -33,6 +33,9 @@ public class Player extends Entity {
         return health;
     }
 
+    public int getCoinCount() {
+        return coinCount;
+    }
     
     /**
      * This method simulates the coin being collected by the player.

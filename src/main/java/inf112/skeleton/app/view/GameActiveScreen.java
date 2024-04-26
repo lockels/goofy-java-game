@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.entities.Entity;
-import inf112.skeleton.app.utils.TiledObjectUtil;
 import inf112.skeleton.app.view.HUD.HUD;
 
 import com.badlogic.gdx.Game;

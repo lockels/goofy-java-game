@@ -1,5 +1,6 @@
 package inf112.skeleton.app.model.entities;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public abstract class Entity {
@@ -24,6 +25,10 @@ public abstract class Entity {
         this.isDestroyed = isDestroyed; 
     }
 
+    public Vector2 getPosition() {
+        return body.getPosition();
+    }
+
     public float getX() {
         return body.getPosition().x;
     }
@@ -33,6 +38,7 @@ public abstract class Entity {
     }
 
     public void setPos(float x, float y) {this.body.setTransform(x, y, getAngle());}
+
     public void setAngle(float angle) {
         this.body.setTransform(getX(),getY(), (float) -Math.toRadians(baseAngle + angle)); // Degrees -> Radians
     }
@@ -55,7 +61,7 @@ public abstract class Entity {
 
     public float getAngle() {
         return (float) Math.toDegrees(body.getAngle());
-    } // Radians -> Degrees
+    }
 
     public float getBaseAngle() { 
         return this.baseAngle; 

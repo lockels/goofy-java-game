@@ -67,22 +67,29 @@ public class Constants {
     public final static float HEART_Y = (WINDOW_HEIGHT - HEART_HEIGHT - HEART_X) * CAMERA_ZOOM_LEVEL;
 
 
+    // Coins
+    public final static int NUM_COINS = 7;
+    public final static int COIN_WIDTH = 1;
+    public final static int COIN_HEIGHT = 1;
+
     // Map / Collision
     public final static int PPM = 1;
 
-    
+
     // Game
     public final static int HIT_DAMAGE = 1;
+    public final static int SPIKE_DAMAGE = 1;
     public final static int HIT_COOLDOWN = 1000;
     public final static int HIT_WARNING_DURATION = 150;
 
     // Files
-    public final static String PLAYER_SPRITE = "Main_Character";
     public final static String DUNGEON_SHEET = "dungeon_sheet.png";
     public final static String MAP_IMG = "maps/map2.tmx";
     public final static String HEART_IMG = "src/main/resources/HUD/heart16x16.png";
     public final static String HIT_WARNING = "src/main/resources/hitWarning.png";
     public final static String GAME_OVER_IMG = "src/main/resources/gameOver.png";
+    public final static String PLAYER_SPRITE = "Main_Character";
+    public final static String COIN_SPRITE = "coinSprite";
     public final static String SWORD_SPRITE = "swordSprite";
     public final static String ENEMY_SPRITE = "Enemy";
 }

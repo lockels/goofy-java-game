@@ -3,7 +3,7 @@ package inf112.skeleton.app.view;
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
-import inf112.skeleton.app.utils.B2DPhysics.TiledObjectUtil;
+import inf112.skeleton.app.utils.TiledObjectUtil;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import static inf112.skeleton.app.utils.Constants.*;
+import static inf112.skeleton.app.model.GameState.*;
 
 /**
  * The GameRenderer class is responsible for rendering the game.
@@ -68,7 +69,5 @@ public class GameRenderer extends Game {
     private void parseObjectLayers() {
         TiledObjectUtil.parseTiledObjectLayer(gameLogic.world,
                 map.getLayers().get("collision-layer").getObjects());
-        TiledObjectUtil.createSpikes(gameLogic.world,
-                map.getLayers().get("object-damage-layer").getObjects());
     }
 }

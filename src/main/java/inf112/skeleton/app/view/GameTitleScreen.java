@@ -90,5 +90,4 @@ public class GameTitleScreen extends ScreenAdapter {
         stage.dispose();
         batch.dispose();
     }
-
 }

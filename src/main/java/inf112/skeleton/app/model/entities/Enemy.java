@@ -35,6 +35,10 @@ public class Enemy extends Entity {
         body.setLinearVelocity(velocity);
     }
 
+    public float getSpeed() {
+        return this.speed;
+    }
+
     public void hit(int dmg, Vector2 knockback) { takeDmg(dmg); }
 
     private void applyKnockback(Vector2 knockback) {

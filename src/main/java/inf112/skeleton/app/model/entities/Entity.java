@@ -16,8 +16,13 @@ public abstract class Entity {
         this.tag = tag;
     }
 
-    public boolean getIsDestroyed() { return isDestroyed; }
-    public void setIsDestroyed(boolean isDestroyed) { this.isDestroyed = isDestroyed; }
+    public boolean getIsDestroyed() { 
+        return isDestroyed; 
+    }
+
+    public void setIsDestroyed(boolean isDestroyed) { 
+        this.isDestroyed = isDestroyed; 
+    }
 
     public float getX() {
         return body.getPosition().x;
@@ -52,8 +57,14 @@ public abstract class Entity {
         return (float) Math.toDegrees(body.getAngle());
     } // Radians -> Degrees
 
-    public float getBaseAngle() { return this.baseAngle; }
-    public void setBaseAngle(float baseAngle) { this.baseAngle = baseAngle; }
+    public float getBaseAngle() { 
+        return this.baseAngle; 
+    }
+
+
+    public void setBaseAngle(float baseAngle) { 
+        this.baseAngle = baseAngle; 
+    }
 
     public void trigger() {
         System.out.println(tag + " has been triggered!");

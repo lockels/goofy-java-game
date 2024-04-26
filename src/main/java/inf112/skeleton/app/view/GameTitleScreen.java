@@ -47,18 +47,17 @@ public class GameTitleScreen extends ScreenAdapter {
         Image backgroundImage = new Image(backgroundTexture);
         backgroundImage.setFillParent(true);
         stage.addActor(backgroundImage);
-        
+
         // Play Button
         playButton = new Button(new TextureRegionDrawable(new Texture("play.png")));
-        playButton.setPosition(viewPort.getWorldWidth()/4, 200);  // Position adjusted for bottom center
+        playButton.setPosition(viewPort.getWorldWidth() / 4, 200); // Position adjusted for bottom center
         stage.addActor(playButton);
 
-        //Quit Button
+        // Quit Button
         quitButton = new Button(new TextureRegionDrawable(new Texture("quit.png")));
-        quitButton.setPosition(300, 100);  // Next to the play button
+        quitButton.setPosition(300, 100); // Next to the play button
         stage.addActor(quitButton);
 
-        
     }
 
     @Override
@@ -72,25 +71,13 @@ public class GameTitleScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
-        //System.out.println("heo");
-
-        // Check if the start button is pressed
         if (playButton.isPressed()) {
-            gameLogic.setGameState(GameState.GAME_ACTIVE);  // Ensure GameRenderer has public access to batch and cam
-            game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
-            System.out.println("Gamestate changed " + gameLogic.getGameState());
-        }
-        // if (quitButton.isPressed()){
-        //     System.out.println("nei");
-
-        // }
-         // Actions for buttons
-         if (playButton.isPressed()) {
             gameLogic.setGameState(GameState.GAME_ACTIVE);
-            game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam));  // Ensure GameRenderer has public access to batch and cam
-
+            game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam)); 
         }
-
+        if (quitButton.isPressed()){
+            //Implement
+        }
     }
 
     @Override
@@ -105,6 +92,3 @@ public class GameTitleScreen extends ScreenAdapter {
     }
 
 }
-
-
-

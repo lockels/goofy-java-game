@@ -100,4 +100,8 @@ public class Player extends Entity {
     public boolean collidesWith(Enemy enemy) {
         return body.getPosition().dst(enemy.getBody().getPosition()) < PLAYER_COLLISION_RADIUS;
     }
+
+    public int getCoinCount(){
+        return coinCount;
+    }
 }

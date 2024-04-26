@@ -2,7 +2,7 @@ package inf112.skeleton.app.model.entities;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.*;
 
 import static inf112.skeleton.app.utils.Constants.*;
 
@@ -31,13 +31,14 @@ public class Enemy extends Entity {
         float diffY = targetY - getY();
         float angle = MathUtils.atan2(diffY, diffX);
         Vector2 velocity = new Vector2(MathUtils.cos(angle) * speed, MathUtils.sin(angle) * speed);
-
-        body.setLinearVelocity(velocity);
+        System.out.println(velocity);
+        body.applyLinearImpulse(velocity, body.localPoint2, true);
     }
 
-    public void hit(int dmg, Vector2 knockback) { takeDmg(dmg); }
+    public void hit(int dmg, int knockback, float angle) { takeDmg(dmg); applyKnockback(knockback, angle); }
 
-    private void applyKnockback(Vector2 knockback) {
+    private void applyKnockback(int knockback, float angle) {
+        body.applyLinearImpulse(trigVector(knockback, angle), body.localPoint2, true);
     }
     private void takeDmg(int dmg) {
         enemyHP -= dmg;

@@ -1,11 +1,6 @@
 package inf112.skeleton.app.model;
 
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
-import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 import inf112.skeleton.app.model.entities.*;
-import inf112.skeleton.app.utils.TiledObjectUtil;
 
 import static inf112.skeleton.app.utils.Constants.*;
 
@@ -13,17 +8,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import inf112.skeleton.app.model.entities.weapons.Sword;
+import inf112.skeleton.app.model.entities.weapons.Weapon;
 
 /**
  * GameLogic handles the game logic including player and enemy interactions.
@@ -33,7 +28,7 @@ public class GameLogic {
     private GameState gameState;
     // Entities
     private Player player;
-    private Sword sword;
+    private Weapon weapon;
     private List<Enemy> enemies = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     // Time
@@ -118,10 +113,8 @@ public class GameLogic {
     private void initializeEntities() {
         initializePlayer();
         initializeEnemies();
-        initializeSword();
+        initializeWeapon();
     }
-
-    private void setUserDataToParent (Entity entity) { entity.getBody().getFixtureList().get(0).setUserData(entity); }
 
     private void initializePlayer() {
         Body playerBody = PhysicsFactory.createEntityBody(world,
@@ -131,23 +124,12 @@ public class GameLogic {
                 PLAYER_HEIGHT,
                 true);
         this.player = new Player(playerBody, "playerSprite", "player");
-        setUserDataToParent(player);
         entities.add(this.player);
     }
 
-    private void initializeSword() {
-        Vector2 offset = new Vector2(SWORD_X_OFFSET,SWORD_Y_OFFSET);
-        Body swordBody = PhysicsFactory.createEntityBody(world,
-                new Vector2(0, 0),
-                offset,
-                SWORD_WIDTH,
-                SWORD_HEIGHT,
-                false);
-        this.sword = new Sword(swordBody, "swordSprite", "sword");
-        sword.setOffset(offset);
-        sword.setBaseAngle(90);
-        setUserDataToParent(sword);
-        entities.add(this.sword);
+    private void initializeWeapon() {
+        this.weapon = new Sword(world);
+        entities.add(this.weapon);
     }
 
     private void initializeEnemies() {
@@ -161,7 +143,6 @@ public class GameLogic {
                     true);
             float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
             Enemy enemy = new Enemy(enemyBody, "playerSprite", "enemy", randomSpeed);
-            setUserDataToParent(enemy);
             enemies.add(enemy);
         }
         entities.addAll(enemies);
@@ -227,7 +208,7 @@ public class GameLogic {
         checkGameOver();
         updateHitWarning();
         updateEnemyPositions();
-        updateSword();
+        updateWeapon();
     }
 
     public List<Entity> getActiveEntities() {
@@ -258,21 +239,23 @@ public class GameLogic {
             }
         }
     }
-    private void updateSword(){
-        updateSwordPos();
-        updateSwordAngle();
+    private void updateWeapon(){
+        updateWeaponPos();
+        updateWeaponAngle();
     }
-    private void updateSwordPos() {
-        sword.setPos(player.getX(), player.getY());
+    private void updateWeaponPos() {
+        weapon.setPos(player.getX(), player.getY());
     }
 
-    private void updateSwordAngle() {
-        sword.setAngle(getAngleToMouse(400 - (PLAYER_WIDTH/2), 400 + (PLAYER_HEIGHT/2)));
+    private void updateWeaponAngle() {
+        weapon.setAngle(getAngleToMouse(400 - (PLAYER_WIDTH/2), 400 + (PLAYER_HEIGHT/2)));
     }
 
     private float getAngleToMouse(float x1, float y1){
         float angle = (float) Math.toDegrees(Math.atan2(Gdx.input.getY() - y1, Gdx.input.getX() - x1));
+        angle += 90;
         if (angle < 0) { angle+=360; }
+        angle %= 360;
         return angle;
     }
 

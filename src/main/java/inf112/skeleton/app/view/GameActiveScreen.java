@@ -5,10 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.entities.Entity;
-import inf112.skeleton.app.utils.TiledObjectUtil;
 import inf112.skeleton.app.view.HUD.HUD;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -22,7 +20,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import static inf112.skeleton.app.utils.Constants.*;
 import static inf112.skeleton.app.model.GameState.*;
@@ -88,7 +85,7 @@ public class GameActiveScreen extends ScreenAdapter {
     public void render(float delta) {
         //System.out.println("GameState: " + gameLogic.getGameState());
         if (gameLogic.getGameState() == GAME_OVER) {
-            iniateGameOver();
+            initiateGameOver();
         }
 
         clearScreen();
@@ -127,31 +124,17 @@ public class GameActiveScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
-    private void iniateGameOver()   {
+    private void initiateGameOver()   {
         game.setScreen(new GameOverScreen(game, gameLogic));
         gameLogic.getPlayer().setHealth(PLAYER_HEALTH);
     }
 
     private void updateCamera() {
-        cam.position.set(gameLogic.getPlayer().getX() + PLAYER_WIDTH / 2,
-            gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
+        cam.position.set(gameLogic.getPlayer().getX() + (float) PLAYER_WIDTH / 2,
+            gameLogic.getPlayer().getY() + (float) PLAYER_HEIGHT / 2, 0);
         cam.update();
-        float zoomLevel = 0.7f;
-        cam.zoom = zoomLevel;
+        cam.zoom = 0.7f;
     }
-
-    /*private void drawEntities() {
-        for (Entity entity : gameLogic.getActiveEntities()) {
-            float xPos = entity.getX();
-            float yPos = entity.getY();
-            Texture tex = new Texture("sprites/" + entity.getTextureId() + ".png");
-            Sprite sprite = new Sprite(tex);
-            sprite.setRotation(entity.getAngle());
-            sprite.setX(xPos * PPM - (tex.getWidth() / 2));
-            sprite.setY(yPos * PPM - (tex.getHeight() / 2));
-            sprite.draw(batch);
-        }
-    }*/
 
     private void drawEntities() {
         for (Entity entity : gameLogic.getActiveEntities()) {
@@ -159,7 +142,7 @@ public class GameActiveScreen extends ScreenAdapter {
             float y = entity.getY();
             float angle = entity.getAngle();
             float heightOffset = entity.getOffset().y;
-            Vector2 offset = calculateOffset(heightOffset,angle);
+            Vector2 offset = entity.trigVector(heightOffset,angle);
             Texture tex = new Texture("sprites/" + entity.getTextureId() + ".png");
             Sprite sprite = new Sprite(tex);
             sprite.setRotation(angle);
@@ -169,21 +152,6 @@ public class GameActiveScreen extends ScreenAdapter {
         }
     }
 
-    private Vector2 calculateOffset(float heightOffset, float angle) {
-        float offsetX = (float) Math.sin(Math.toRadians(angle)) * heightOffset;
-        float offsetY = (float) Math.cos(Math.toRadians(angle)) * heightOffset;
-        if (angle >= 180) { offsetY *= -1; }
-        if ((angle <= 90)||(angle >= 270)) {offsetX *= -1; }
-        return new Vector2(offsetX, offsetY);
-    }
-
-//    private Vector2 calculateOffset(float x, float y, float offsetX, float offsetY, float angle) {
-//        if      (angle < 90)  { x += offsetX; y -= offsetY; }
-//        else if (angle < 180) { x -= offsetX; y -= offsetY; }
-//        else if (angle < 270) { x -= offsetX; y += offsetY; }
-//        else if (angle < 360) { x += offsetX; y += offsetY; }
-//        return new Vector2(x,y);
-//    }
 
     private void drawHUD() {
         hud.updateHearts(gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());

@@ -41,7 +41,7 @@ public class Constants {
     public final static int ENEMY_ACCELERATION = 300;
     public final static int MAX_ENEMY_VELOCITY = 200;
     public final static int ENEMY_FRICTION = 200;
-    public final static int ENEMY_HEALTH = 1;
+    public final static int ENEMY_HEALTH = 10;
     public final static int ENEMY_SPRITESHEET_X = 322;
     public final static int ENEMY_SPRITESHEET_Y = 112;
     public final static int ENEMY_SPRITESHEET_WIDTH = 16;

@@ -155,25 +155,35 @@ public class GameActiveScreen extends ScreenAdapter {
 
     private void drawEntities() {
         for (Entity entity : gameLogic.getActiveEntities()) {
-            float xPos = entity.getX();
-            float yPos = entity.getY();
+            float x = entity.getX();
+            float y = entity.getY();
+            float angle = entity.getAngle();
+            float heightOffset = entity.getOffset().y;
+            Vector2 offset = calculateOffset(heightOffset,angle);
             Texture tex = new Texture("sprites/" + entity.getTextureId() + ".png");
-            Vector2 pos = calculateOffset(xPos, yPos, entity.getOffset().x, entity.getOffset().y, entity.getAngle());
             Sprite sprite = new Sprite(tex);
-            sprite.setRotation(entity.getAngle());
-            sprite.setX(pos.x * PPM - (tex.getWidth() / 2));
-            sprite.setY(pos.y * PPM - (tex.getHeight() / 2));
+            sprite.setRotation(angle);
+            sprite.setX((x + offset.x * PPM) - sprite.getWidth() / 2);
+            sprite.setY((y + offset.y * PPM) - sprite.getHeight() / 2);
             sprite.draw(batch);
         }
     }
 
-    private Vector2 calculateOffset(float x, float y, float offsetX, float offsetY, float angle) {
-        if      (angle < 90)  { x += offsetX; y -= offsetY; }
-        else if (angle < 180) { x -= offsetX; y -= offsetY; }
-        else if (angle < 270) { x -= offsetX; y += offsetY; }
-        else if (angle < 360) { x += offsetX; y += offsetY; }
-        return new Vector2(x,y);
+    private Vector2 calculateOffset(float heightOffset, float angle) {
+        float offsetX = (float) Math.sin(Math.toRadians(angle)) * heightOffset;
+        float offsetY = (float) Math.cos(Math.toRadians(angle)) * heightOffset;
+        if (angle >= 180) { offsetY *= -1; }
+        if ((angle <= 90)||(angle >= 270)) {offsetX *= -1; }
+        return new Vector2(offsetX, offsetY);
     }
+
+//    private Vector2 calculateOffset(float x, float y, float offsetX, float offsetY, float angle) {
+//        if      (angle < 90)  { x += offsetX; y -= offsetY; }
+//        else if (angle < 180) { x -= offsetX; y -= offsetY; }
+//        else if (angle < 270) { x -= offsetX; y += offsetY; }
+//        else if (angle < 360) { x += offsetX; y += offsetY; }
+//        return new Vector2(x,y);
+//    }
 
     private void drawHUD() {
         hud.updateHearts(gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());

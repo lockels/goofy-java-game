@@ -267,8 +267,7 @@ public class GameLogic {
     }
 
     private void updateSwordAngle() {
-        sword.setAngle(getAngleToMouse(400, 400));
-        System.out.println(getAngleToMouse(400, 400));
+        sword.setAngle(getAngleToMouse(400 - (PLAYER_WIDTH/2), 400 + (PLAYER_HEIGHT/2)));
     }
 
     private float getAngleToMouse(float x1, float y1){

@@ -49,9 +49,9 @@ public class GameOverScreen extends ScreenAdapter {
         yesButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                gameLogic.resetGame();
                 gameLogic.setGameState(GameState.GAME_ACTIVE);
                 game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
-                gameLogic.getPlayer().setHealth(5);
             }
         });
         stage.addActor(yesButton);

@@ -31,7 +31,7 @@ public class TiledObjectUtil {
             BodyDef bdef = new BodyDef();
             bdef.type = BodyDef.BodyType.StaticBody;
             Body body = world.createBody(bdef);
-            body.createFixture(shape, 1.0f); // You may want to set the density to 0 for static bodies
+            body.createFixture(shape, 1.0f);
             shape.dispose();
         }
     }
@@ -68,11 +68,11 @@ public class TiledObjectUtil {
                 Body body = world.createBody(bodyDef);
 
                 PolygonShape shape = TiledObjectUtil.createPolygon((PolygonMapObject) object);
-                FixtureDef fixtureDef = new FixtureDef(); // Create a FixtureDef
+                FixtureDef fixtureDef = new FixtureDef(); 
                 fixtureDef.shape = shape;
-                fixtureDef.isSensor = true; // Set the fixture as a sensor
+                fixtureDef.isSensor = true;
 
-                Fixture fixture = body.createFixture(fixtureDef); // Use the FixtureDef to create the fixture
+                Fixture fixture = body.createFixture(fixtureDef);
                 shape.dispose();
 
                 Spike spike = new Spike(body, "", SPIKE_DAMAGE);

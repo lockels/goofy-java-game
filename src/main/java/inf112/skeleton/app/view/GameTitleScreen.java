@@ -32,10 +32,10 @@ public class GameTitleScreen extends ScreenAdapter {
         this.gameLogic = gameLogic;
         this.batch = new SpriteBatch();
         this.cam = new OrthographicCamera();
-        this.viewport = new ExtendViewport(800, 800, cam); // Adjust viewport size as needed
+        this.viewport = new ExtendViewport(800, 800, cam); 
         this.stage = new Stage(viewport, batch);
 
-        this.viewPort = new ExtendViewport(800, 800, cam); // Adjust viewport size as needed
+        this.viewPort = new ExtendViewport(800, 800, cam);
         this.stage = new Stage(viewPort, batch);
 
         setupUi();
@@ -50,7 +50,7 @@ public class GameTitleScreen extends ScreenAdapter {
 
         // Play Button
         playButton = new Button(new TextureRegionDrawable(new Texture("play.png")));
-        playButton.setPosition(viewPort.getWorldWidth() / 4, 200); // Position adjusted for bottom center
+        playButton.setPosition(viewPort.getWorldWidth() / 4, 200);
         stage.addActor(playButton);
 
         // Quit Button
@@ -76,7 +76,7 @@ public class GameTitleScreen extends ScreenAdapter {
             game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam)); 
         }
         if (quitButton.isPressed()){
-            //Implement
+            Gdx.app.exit();
         }
     }
 

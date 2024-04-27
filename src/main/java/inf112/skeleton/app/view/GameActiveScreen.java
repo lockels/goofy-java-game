@@ -83,7 +83,6 @@ public class GameActiveScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        //System.out.println("GameState: " + gameLogic.getGameState());
         if (gameLogic.getGameState() == GAME_OVER) {
             iniateGameOver();
         }

@@ -14,15 +14,13 @@ public class Player extends Entity {
     private Map<Direction, Boolean> moveDirections;
     private int health;
     private int coinCount;
-
+    private boolean inContactWithSpike = false;
+    
     public Player(Body body, String textureId, String tag) {
         super(body, textureId, tag);
         health = PLAYER_HEALTH;
         coinCount = 0;
 
-        System.out.println("Player: Created");
-
-        // Movement Directions
         moveDirections = new EnumMap<>(Direction.class);
         for (Direction dir : Direction.values()) {
             moveDirections.put(dir, false);
@@ -31,6 +29,18 @@ public class Player extends Entity {
 
     public int getHealth() {
         return health;
+    }
+
+    public void setHealth(int playerHealth) {
+        this.health = playerHealth;
+    }
+
+    public void setInContactWithSpike(boolean inContact) {
+        this.inContactWithSpike = inContact;
+    }
+
+    public boolean isInContactWithSpike() {
+        return inContactWithSpike;
     }
 
     /**
@@ -49,9 +59,9 @@ public class Player extends Entity {
 
     private void addCoins(int value) {
         this.coinCount += value;
-	}
+    }
 
-	public void takeDamage(int damage) {
+    public void takeDamage(int damage) {
         this.health -= damage;
     }
 
@@ -72,17 +82,17 @@ public class Player extends Entity {
             if (entry.getValue()) {
                 switch (entry.getKey()) {
                     case UP:
-                        direction.y += 1;
-                        break;
+                    direction.y += 1;
+                    break;
                     case DOWN:
-                        direction.y -= 1;
-                        break;
+                    direction.y -= 1;
+                    break;
                     case LEFT:
-                        direction.x -= 1;
-                        break;
+                    direction.x -= 1;
+                    break;
                     case RIGHT:
-                        direction.x += 1;
-                        break;
+                    direction.x += 1;
+                    break;
                 }
             }
         }
@@ -92,8 +102,8 @@ public class Player extends Entity {
         body.applyForceToCenter(direction.scl(PLAYER_ACCELERATION), true);
     }
 
-    public void setHealth(int playerHealth) {
-        this.health = playerHealth;
+    public void stopMovement() {
+        body.setLinearVelocity(0, 0);
     }
 
     public boolean collidesWith(Enemy enemy) {

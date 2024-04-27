@@ -42,7 +42,6 @@ public class GameLogic implements CollisionCallBack {
     private long hitWarningStartTime = 0;
     private TiledMap map;
     public World world;
-    // private Sound collisionSound;
 
     /**
      * Constructs a new GameLogic instance with the given game state.
@@ -54,6 +53,15 @@ public class GameLogic implements CollisionCallBack {
         setWorld(new World(new Vector2(0, 0), true));
         // loadSounds();
         world.setContactListener(new B2dContactListener(this));
+    }
+
+    public void resetGame() {
+        resetPlayer();
+    }
+
+    private void resetPlayer() {
+        this.player.setHealth(PLAYER_HEALTH);
+        this.player.setPos(PLAYER_SPAWN_X, PLAYER_SPAWN_Y);
     }
 
     public World getWorld() {
@@ -193,17 +201,15 @@ public class GameLogic implements CollisionCallBack {
         return randomPosition;
     }
 
-
     private void checkForSpikeCollisions() {
         Vector2 playerPosition = this.player.getPosition();
         for (Polygon spikePolygon : spikePolygons) {
-            if (isPointInPolygon(spikePolygon.getTransformedVertices(), playerPosition.x, playerPosition.y)) {
+            if (isPointInPolygon(spikePolygon.getTransformedVertices(), playerPosition)) {
                 applyHitToPlayer();
                 break;
             }
         }
     }
-
 
     private boolean isLegalSpawnPosition(Vector2 position) {
         MapLayer layer = map.getLayers().get("out-of-bounds-layer");
@@ -216,7 +222,7 @@ public class GameLogic implements CollisionCallBack {
                 PolygonMapObject polygonObject = (PolygonMapObject) object;
                 Polygon polygon = polygonObject.getPolygon();
 
-                if (isPointInPolygon(polygon.getTransformedVertices(), position.x, position.y)) {
+                if (isPointInPolygon(polygon.getTransformedVertices(), position)) {
                     return false;
                 }
             }
@@ -225,8 +231,10 @@ public class GameLogic implements CollisionCallBack {
         return true;
     }
 
-    private boolean isPointInPolygon(float[] polygonVertices, float x, float y) {
+    private boolean isPointInPolygon(float[] polygonVertices, Vector2 point) {
         int intersects = 0;
+        float x = point.x;
+        float y = point.y;
 
         for (int i = 0; i < polygonVertices.length; i += 2) {
             float x1 = polygonVertices[i];

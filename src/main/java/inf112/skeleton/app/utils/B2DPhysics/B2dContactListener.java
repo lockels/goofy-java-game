@@ -21,7 +21,11 @@ public class B2dContactListener implements ContactListener {
     }
 
     @Override
-    public void endContact(Contact contact) {}
+    public void endContact(Contact contact) {
+        Fixture fA = contact.getFixtureA();
+        Fixture fB = contact.getFixtureB();
+        resolvePlayerAndSpikeContact(fA, fB);
+    }
 
     @Override
     public void preSolve(Contact contact, Manifold manifold) {}
@@ -52,7 +56,15 @@ public class B2dContactListener implements ContactListener {
             System.out.println("spike hit");
             Player player = (fA.getUserData() instanceof Player) ? (Player) fA.getUserData() : (Player) fB.getUserData();
             Spike spike = (fA.getUserData() instanceof Spike) ? (Spike) fA.getUserData() : (Spike) fB.getUserData();
+            player.setInContactWithSpike(true);
             collisionCallBack.onPlayerSpikeCollision(player, spike); // Call the callback method
+        }
+    }
+
+    private void resolvePlayerAndSpikeContact(Fixture fA, Fixture fB) {
+        if (isPlayerContact(fA, fB) && isSpikeContact(fA, fB)) {
+            Player player = (fA.getUserData() instanceof Player) ? (Player) fA.getUserData() : (Player) fB.getUserData();
+            player.setInContactWithSpike(false);
         }
     }
 

@@ -15,7 +15,7 @@ public class Player extends Entity {
     private int health;
 
     public Player(Body body, String textureId, String tag) {
-        super(body, textureId, tag);
+        super(body, textureId, tag, PLAYER_HEIGHT, PLAYER_WIDTH);
         health = PLAYER_HEALTH;
 
         System.out.println("Player: Created");

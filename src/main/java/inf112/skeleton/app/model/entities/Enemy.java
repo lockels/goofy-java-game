@@ -10,6 +10,8 @@ public class Enemy extends Entity {
     private float speed;
     private int enemyHP = ENEMY_HEALTH;
 
+    private float stunTimer = 0;
+
     /**
      * Constructs a new Enemy with the specified parameters.
      *
@@ -22,7 +24,7 @@ public class Enemy extends Entity {
      * @param speed         the movement speed of the enemy
      */
     public Enemy(Body body, String textureId, String tag, float speed) {
-        super(body, textureId, tag);
+        super(body, textureId, tag, ENEMY_HEIGHT, ENEMY_WIDTH);
         this.speed = speed;
     }
 
@@ -35,14 +37,23 @@ public class Enemy extends Entity {
         body.applyLinearImpulse(velocity, body.localPoint2, true);
     }
 
-    public void hit(int dmg, int knockback, float angle) { takeDmg(dmg); applyKnockback(knockback, angle); }
+    public void hit(int dmg, float knockback, float angle, float stun) { takeDmg(dmg); applyKnockback(knockback, angle); setStunTimer(stun);}
 
-    private void applyKnockback(int knockback, float angle) {
-        body.applyLinearImpulse(trigVector(knockback, angle), body.localPoint2, true);
+    private void applyKnockback(float knockback, float angle) {
+        Vector2 trigCoords = trigVector(knockback, angle);
+        body.setLinearVelocity(trigCoords.x, trigCoords.y);
     }
     private void takeDmg(int dmg) {
         enemyHP -= dmg;
         System.out.println(enemyHP);
         if (enemyHP <= 0) {isActive = false; }
+    }
+
+    public float getStunTimer() {
+        return stunTimer;
+    }
+
+    public void setStunTimer(float stunTimer) {
+        this.stunTimer = stunTimer;
     }
 }

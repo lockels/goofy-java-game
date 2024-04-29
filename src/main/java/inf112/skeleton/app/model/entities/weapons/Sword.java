@@ -14,7 +14,7 @@ public class Sword extends Weapon {
                 new Vector2(SWORD_X_OFFSET, SWORD_Y_OFFSET),
                 SWORD_WIDTH,
                 SWORD_HEIGHT,
-                false), "swordSprite", 1, 1000000000, 1);
+                false), SWORD_SPRITE, SWORD_HEIGHT, SWORD_WIDTH, SWORD_DMG, SWORD_KNOCKBACK, SWORD_COOLDOWN, SWORD_STUN);
         this.setOffset(new Vector2(SWORD_X_OFFSET, SWORD_Y_OFFSET));
     }
 }

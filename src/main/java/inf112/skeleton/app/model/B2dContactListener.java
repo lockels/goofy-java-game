@@ -31,7 +31,8 @@ public class B2dContactListener implements ContactListener {
             Enemy enemy;
             if (fA.getUserData() instanceof Weapon) { weapon = (Weapon) fA.getUserData(); enemy = (Enemy) fB.getUserData(); }
             else                                    { weapon = (Weapon) fB.getUserData(); enemy = (Enemy) fA.getUserData(); }
-            enemy.hit(weapon.getDmg(), weapon.getKnockback(), weapon.getAngle());
+
+            if (weapon.getCooldownTimer() <= 0) { enemy.hit(weapon.getDmg(), weapon.getKnockback(), weapon.getAngle(), weapon.getStun()); weapon.startCooldownTimer(); }
         }
     }
 

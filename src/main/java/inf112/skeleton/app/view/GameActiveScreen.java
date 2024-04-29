@@ -145,6 +145,8 @@ public class GameActiveScreen extends ScreenAdapter {
             Vector2 offset = entity.trigVector(heightOffset,angle);
             Texture tex = new Texture("sprites/" + entity.getTextureId() + ".png");
             Sprite sprite = new Sprite(tex);
+            sprite.setScale(entity.getSpriteHeight()/tex.getHeight(), entity.getSpriteHeight()/tex.getWidth());
+            sprite.setAlpha(entity.getOpacity());
             sprite.setRotation(angle);
             sprite.setX((x + offset.x * PPM) - sprite.getWidth() / 2);
             sprite.setY((y + offset.y * PPM) - sprite.getHeight() / 2);

@@ -10,11 +10,16 @@ public abstract class Entity {
     protected Vector2 offset = new Vector2();
     protected boolean isActive = true;
     protected boolean isDestroyed = false;
+    protected float opacity = 1f;
+    protected float spriteHeight;
+    protected float spriteWidth;
 
-    public Entity(Body body, String textureIdentifier, String tag) {
+    public Entity(Body body, String textureIdentifier, String tag, float spriteHeight, float spriteWidth) {
         this.body = body;
         this.textureIdentifer = textureIdentifier;
         this.tag = tag;
+        this.spriteHeight = spriteHeight;
+        this.spriteWidth = spriteWidth;
         this.body.getFixtureList().get(0).setUserData(this);
     }
 
@@ -65,5 +70,16 @@ public abstract class Entity {
         return new Vector2(x, y);
     }
 
+    public float getOpacity() { return opacity; }
+
+    public void setOpacity(float opacity) { this.opacity = opacity; }
+
+    public float getSpriteHeight() {
+        return spriteHeight;
+    }
+
+    public float getSpriteWidth() {
+        return spriteWidth;
+    }
 
 }

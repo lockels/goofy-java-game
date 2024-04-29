@@ -17,8 +17,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-import inf112.skeleton.app.model.entities.weapons.Sword;
-import inf112.skeleton.app.model.entities.weapons.Weapon;
+import inf112.skeleton.app.model.entities.weapons.*;
 
 /**
  * GameLogic handles the game logic including player and enemy interactions.
@@ -128,7 +127,9 @@ public class GameLogic {
     }
 
     private void initializeWeapon() {
-        this.weapon = new Sword(world);
+        this.weapon = new Dagger(world);
+        //this.weapon = new Sword(world);
+        //this.weapon = new Axe(world);
         entities.add(this.weapon);
     }
 
@@ -207,6 +208,7 @@ public class GameLogic {
         // checkEnemyCollisions();
         checkGameOver();
         updateHitWarning();
+        updateEnemyStunTimer();
         updateEnemyPositions();
         updateWeapon();
     }
@@ -240,6 +242,7 @@ public class GameLogic {
         }
     }
     private void updateWeapon(){
+        updateWeaponCooldownTimer();
         updateWeaponPos();
         updateWeaponAngle();
     }
@@ -249,6 +252,20 @@ public class GameLogic {
 
     private void updateWeaponAngle() {
         weapon.setAngle(getAngleToMouse(400 - (PLAYER_WIDTH/2), 400 + (PLAYER_HEIGHT/2)));
+    }
+
+    private void updateWeaponCooldownTimer() {
+        weapon.setCooldownTimer( (weapon.getCooldownTimer() - (float) 1 / 60));
+        if (weapon.getCooldownTimer() > 0) { weapon.setOpacity(0.5f); }
+        else                               { weapon.setOpacity(1f);}
+    }
+
+    private void updateEnemyStunTimer() {
+        for (Enemy enemy : enemies) {
+            enemy.setStunTimer( (enemy.getStunTimer() - (float) 1 / 60));
+            if (enemy.getStunTimer() > 0) { enemy.setOpacity(0.5f); }
+            else                          { enemy.setOpacity(1f);}
+        }
     }
 
     private float getAngleToMouse(float x1, float y1){
@@ -331,7 +348,7 @@ public class GameLogic {
 
     private void updateEnemyPositions() {
         for (Enemy enemy : enemies) {
-            enemy.moveTowards(player.getX(), player.getY());
+            if (enemy.getStunTimer() <= 0) { enemy.moveTowards(player.getX(), player.getY()); } //If enemy has no stun remaining
         }
     }
 

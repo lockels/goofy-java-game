@@ -34,7 +34,7 @@ public class Constants {
     // Enemies
     public final static float ENEMY_SPEED_MAX = 0.8f;
     public final static float ENEMY_SPEED_MIN = 0.5f;
-    public final static int NUM_ENEMIES = 5;
+    public final static int NUM_ENEMIES = 1;
     public final static int ENEMY_SPEED = 100;
     public final static int ENEMY_WIDTH = 24;
     public final static int ENEMY_HEIGHT = 32;
@@ -47,12 +47,39 @@ public class Constants {
     public final static int ENEMY_SPRITESHEET_WIDTH = 16;
     public final static int ENEMY_SPRITESHEET_HEIGHT = 12;
 
-    // Sword
-    public final static String SWORD_SPRITE_PATH = "src/main/resources/sprites/sword.png";
+    // Weapons
+    // - Sword
+    public final static String SWORD_SPRITE = "swordSprite";
     public final static int SWORD_HEIGHT = 40;
     public final static int SWORD_WIDTH = 10;
     public final static int SWORD_Y_OFFSET = 40;
     public final static int SWORD_X_OFFSET = 0;
+    public final static int SWORD_DMG = 4;
+    public final static float SWORD_KNOCKBACK = 100;
+    public final static float SWORD_STUN = 1;
+    public final static float SWORD_COOLDOWN = 1;
+
+    // - Axe
+    public final static String AXE_SPRITE = "axeSprite";
+    public final static int AXE_HEIGHT = 50;
+    public final static int AXE_WIDTH = 15;
+    public final static int AXE_Y_OFFSET = 50;
+    public final static int AXE_X_OFFSET = 0;
+    public final static int AXE_DMG = 5;
+    public final static float AXE_KNOCKBACK = 500;
+    public final static float AXE_STUN = 3;
+    public final static float AXE_COOLDOWN = 1;
+
+    // - Dagger
+    public final static String DAGGER_SPRITE = "swordSprite";
+    public final static int DAGGER_HEIGHT = 10;
+    public final static int DAGGER_WIDTH = 10;
+    public final static int DAGGER_Y_OFFSET = 30;
+    public final static int DAGGER_X_OFFSET = 0;
+    public final static int DAGGER_DMG = 1;
+    public final static float DAGGER_KNOCKBACK = 50;
+    public final static float DAGGER_STUN = 0.5f;
+    public final static float DAGGER_COOLDOWN = 0.25f;
 
     // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;

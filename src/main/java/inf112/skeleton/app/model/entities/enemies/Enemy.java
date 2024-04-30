@@ -1,15 +1,15 @@
-package inf112.skeleton.app.model.entities;
+package inf112.skeleton.app.model.entities.enemies;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import inf112.skeleton.app.model.entities.Entity;
 
 import static inf112.skeleton.app.utils.Constants.*;
 
 public class Enemy extends Entity {
     private float speed;
-    private int enemyHP = ENEMY_HEALTH;
-
+    private int hp;
     private float stunTimer = 0;
 
     /**
@@ -23,9 +23,10 @@ public class Enemy extends Entity {
      * @param spriteHeight  the height of the sprite
      * @param speed         the movement speed of the enemy
      */
-    public Enemy(Body body, String textureId, String tag, float speed) {
-        super(body, textureId, tag, ENEMY_HEIGHT, ENEMY_WIDTH);
+    public Enemy(Body body, String textureId, int spriteHeight, int spriteWidth, float speed, int hp) {
+        super(body, textureId, "enemy", spriteHeight, spriteWidth);
         this.speed = speed;
+        this.hp = hp;
     }
 
     public void moveTowards(float targetX, float targetY) {
@@ -44,9 +45,8 @@ public class Enemy extends Entity {
         body.setLinearVelocity(trigCoords.x, trigCoords.y);
     }
     private void takeDmg(int dmg) {
-        enemyHP -= dmg;
-        System.out.println(enemyHP);
-        if (enemyHP <= 0) {isActive = false; }
+        hp -= dmg;
+        if (hp <= 0) {isActive = false; }
     }
 
     public float getStunTimer() {

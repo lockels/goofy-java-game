@@ -13,7 +13,14 @@ public class Axe extends Weapon {
                 new Vector2(AXE_X_OFFSET, AXE_Y_OFFSET),
                 AXE_WIDTH,
                 AXE_HEIGHT,
-                false), AXE_SPRITE, AXE_HEIGHT, AXE_WIDTH, AXE_DMG, AXE_KNOCKBACK, AXE_COOLDOWN, AXE_STUN);
+                false),
+                AXE_SPRITE,
+                AXE_HEIGHT,
+                AXE_WIDTH,
+                AXE_DMG,
+                AXE_KNOCKBACK,
+                AXE_COOLDOWN,
+                AXE_STUN);
         this.setOffset(new Vector2(AXE_X_OFFSET, AXE_Y_OFFSET));
     }
 }

@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import inf112.skeleton.app.model.entities.enemies.*;
 import inf112.skeleton.app.model.entities.weapons.*;
 
 /**
@@ -127,23 +128,22 @@ public class GameLogic {
     }
 
     private void initializeWeapon() {
-        // this.weapon = new Dagger(world);
-        // this.weapon = new Sword(world);
-        this.weapon = new Axe(world);
+        //this.weapon = new Dagger(world);
+        this.weapon = new Sword(world);
+        //this.weapon = new Axe(world);
         entities.add(this.weapon);
     }
 
     private void initializeEnemies() {
         for (int i = 0; i < NUM_ENEMIES; i++) {
-            Body enemyBody = PhysicsFactory.createEntityBody(
-                    world,
-                    getRandomEnemyPosition(),
-                    new Vector2(),
-                    ENEMY_WIDTH,
-                    ENEMY_HEIGHT,
-                    true);
-            float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
-            Enemy enemy = new Enemy(enemyBody, "playerSprite", "enemy", randomSpeed);
+            Enemy enemy = switch ((int) (Math.random() * 3)) {
+               case 0 -> new Light(world);
+               case 1 -> new Medium(world);
+               case 2 -> new Heavy(world);
+               default -> throw new IllegalStateException("Unexpected value");
+            };
+            Vector2 randomPosition = getRandomEnemyPosition();
+            enemy.setPos(randomPosition.x, randomPosition.y);
             enemies.add(enemy);
         }
         entities.addAll(enemies);

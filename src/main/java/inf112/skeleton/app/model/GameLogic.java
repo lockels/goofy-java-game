@@ -127,9 +127,9 @@ public class GameLogic {
     }
 
     private void initializeWeapon() {
-        this.weapon = new Dagger(world);
-        //this.weapon = new Sword(world);
-        //this.weapon = new Axe(world);
+        // this.weapon = new Dagger(world);
+        // this.weapon = new Sword(world);
+        this.weapon = new Axe(world);
         entities.add(this.weapon);
     }
 

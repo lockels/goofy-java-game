@@ -32,26 +32,75 @@ public class Constants {
     public final static float PLAYER_COLLISION_RADIUS = 45;
 
     // Enemies
-    public final static float ENEMY_SPEED_MAX = 0.8f;
-    public final static float ENEMY_SPEED_MIN = 0.5f;
     public final static int NUM_ENEMIES = 5;
-    public final static int ENEMY_SPEED = 100;
-    public final static int ENEMY_WIDTH = 24;
-    public final static int ENEMY_HEIGHT = 32;
+
+    // - Light
+    public final static String LIGHT_ENEMY_SPRITE = "light_enemy";
+    public final static int LIGHT_ENEMY_WIDTH = 20;
+    public final static int LIGHT_ENEMY_HEIGHT = 20;
+    public final static int LIGHT_ENEMY_SPEED = 250;
+    public final static int LIGHT_ENEMY_HEALTH = 3;
+
+    // - Medium
+    public final static String MEDIUM_ENEMY_SPRITE = "medium_enemy";
+    public final static int MEDIUM_ENEMY_WIDTH = 32;
+    public final static int MEDIUM_ENEMY_HEIGHT = 32;
+    public final static int MEDIUM_ENEMY_SPEED = 100;
+    public final static int MEDIUM_ENEMY_HEALTH = 10;
+
+    // - Medium
+    public final static String HEAVY_ENEMY_SPRITE = "heavy_enemy";
+    public final static int HEAVY_ENEMY_WIDTH = 60;
+    public final static int HEAVY_ENEMY_HEIGHT = 60;
+    public final static int HEAVY_ENEMY_SPEED = 50;
+    public final static int HEAVY_ENEMY_HEALTH = 25;
+
+    // UNUSED ENEMY
     public final static int ENEMY_ACCELERATION = 300;
     public final static int MAX_ENEMY_VELOCITY = 200;
     public final static int ENEMY_FRICTION = 200;
-    public final static int ENEMY_HEALTH = 10;
+
     public final static int ENEMY_SPRITESHEET_X = 322;
     public final static int ENEMY_SPRITESHEET_Y = 112;
     public final static int ENEMY_SPRITESHEET_WIDTH = 16;
     public final static int ENEMY_SPRITESHEET_HEIGHT = 12;
+    public final static float ENEMY_SPEED_MAX = 0.8f;
+    public final static float ENEMY_SPEED_MIN = 0.5f;
 
     // Sword
+    // Weapons
+    // - Sword
+    public final static String SWORD_SPRITE = "swordSprite";
     public final static int SWORD_HEIGHT = 40;
     public final static int SWORD_WIDTH = 10;
     public final static int SWORD_Y_OFFSET = 40;
     public final static int SWORD_X_OFFSET = 0;
+    public final static int SWORD_DMG = 4;
+    public final static float SWORD_KNOCKBACK = 100;
+    public final static float SWORD_STUN = 1;
+    public final static float SWORD_COOLDOWN = 1;
+
+    // - Axe
+    public final static String AXE_SPRITE = "axeSprite";
+    public final static int AXE_HEIGHT = 60;
+    public final static int AXE_WIDTH = 30;
+    public final static int AXE_Y_OFFSET = 50;
+    public final static int AXE_X_OFFSET = 0;
+    public final static int AXE_DMG = 5;
+    public final static float AXE_KNOCKBACK = 500;
+    public final static float AXE_STUN = 1;
+    public final static float AXE_COOLDOWN = 3;
+
+    // - Dagger
+    public final static String DAGGER_SPRITE = "swordSprite";
+    public final static int DAGGER_HEIGHT = 20;
+    public final static int DAGGER_WIDTH = 10;
+    public final static int DAGGER_Y_OFFSET = 25;
+    public final static int DAGGER_X_OFFSET = 0;
+    public final static int DAGGER_DMG = 1;
+    public final static float DAGGER_KNOCKBACK = 50;
+    public final static float DAGGER_STUN = 0.5f;
+    public final static float DAGGER_COOLDOWN = 0.25f;
 
     // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;
@@ -66,15 +115,13 @@ public class Constants {
     public final static float HEART_X = 30 * CAMERA_ZOOM_LEVEL;
     public final static float HEART_Y = (WINDOW_HEIGHT - HEART_HEIGHT - HEART_X) * CAMERA_ZOOM_LEVEL;
 
-
     // Coins
     public final static int NUM_COINS = 7;
-    public final static int COIN_WIDTH = 1;
-    public final static int COIN_HEIGHT = 1;
+    public final static int COIN_WIDTH = 20;
+    public final static int COIN_HEIGHT = 20;
 
     // Map / Collision
     public final static int PPM = 1;
-
 
     // Game
     public final static int HIT_DAMAGE = 1;
@@ -84,17 +131,12 @@ public class Constants {
 
     // Files
     public final static String DUNGEON_SHEET = "dungeon_sheet.png";
+    public final static String DUNGEON_SHEET_IMG = "dungeon_sheet.png";
     public final static String MAP_IMG = "maps/map2.tmx";
     public final static String HEART_IMG = "src/main/resources/HUD/heart16x16.png";
     public final static String HIT_WARNING = "src/main/resources/hitWarning.png";
     public final static String GAME_OVER_IMG = "src/main/resources/gameOver.png";
     public final static String PLAYER_SPRITE = "Main_Character";
     public final static String COIN_SPRITE = "coinSprite";
-    public final static String SWORD_SPRITE = "swordSprite";
     public final static String ENEMY_SPRITE = "Enemy";
 }
-
-
-
-
-

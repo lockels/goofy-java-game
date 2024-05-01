@@ -5,8 +5,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 public class Spike extends Entity {
     private int damage;
 
-    public Spike(Body body, String textureIdentifier, int damage) {
-        super(body, textureIdentifier, "Spike");
+    public Spike(Body body, String textureIdentifier, int damage, float spriteHeight, float spriteWidth) {
+        super(body, textureIdentifier, "Spike", spriteHeight, spriteWidth);
         this.damage = damage;
     }
 

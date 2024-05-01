@@ -3,11 +3,11 @@ package inf112.skeleton.app.model.entities;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import inf112.skeleton.app.model.Direction;
+import inf112.skeleton.app.model.entities.enemies.Enemy;
 
 import java.util.EnumMap;
 import java.util.Map;
 
-import static inf112.skeleton.app.model.Direction.*;
 import static inf112.skeleton.app.utils.Constants.*;
 
 public class Player extends Entity {
@@ -17,7 +17,7 @@ public class Player extends Entity {
     private boolean inContactWithSpike = false;
     
     public Player(Body body, String textureId, String tag) {
-        super(body, textureId, tag);
+        super(body, textureId, tag, PLAYER_HEIGHT, PLAYER_WIDTH);
         health = PLAYER_HEALTH;
         coinCount = 0;
 
@@ -25,6 +25,14 @@ public class Player extends Entity {
         for (Direction dir : Direction.values()) {
             moveDirections.put(dir, false);
         }
+    }
+
+
+    /**
+     * return the position of the body o fthe player
+     */
+    public Vector2 getPosition() {
+        return this.body.getPosition();
     }
 
     public int getHealth() {
@@ -76,9 +84,7 @@ public class Player extends Entity {
     public void move() {
         // Calculate movement direction
         Vector2 direction = new Vector2();
-        // System.out.println("Player: Moving");
         for (Map.Entry<Direction, Boolean> entry : moveDirections.entrySet()) {
-            // System.out.println("Player: Direction: " + entry.getKey() + " " + entry.getValue());
             if (entry.getValue()) {
                 switch (entry.getKey()) {
                     case UP:

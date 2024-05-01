@@ -1,5 +1,8 @@
 package inf112.skeleton.app.model.entities;
 
+import static inf112.skeleton.app.utils.Constants.COIN_HEIGHT;
+import static inf112.skeleton.app.utils.Constants.COIN_WIDTH;
+
 import com.badlogic.gdx.physics.box2d.Body;
 
 public class Coin extends Entity {
@@ -16,7 +19,7 @@ public class Coin extends Entity {
      */
 
     public Coin(Body body, String textureId, int value, String tag) {
-        super(body, textureId, tag);
+        super(body, textureId, tag, COIN_HEIGHT, COIN_WIDTH);
         this.value = value;
         this.collected = false;
     }

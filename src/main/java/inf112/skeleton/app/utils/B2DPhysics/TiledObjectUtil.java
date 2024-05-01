@@ -75,7 +75,7 @@ public class TiledObjectUtil {
                 Fixture fixture = body.createFixture(fixtureDef);
                 shape.dispose();
 
-                Spike spike = new Spike(body, "", SPIKE_DAMAGE);
+                Spike spike = new Spike(body, "", SPIKE_DAMAGE, 0 , 0);
                 fixture.setUserData(spike);
             }
         }

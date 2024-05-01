@@ -20,6 +20,9 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import inf112.skeleton.app.model.entities.enemies.*;
+import inf112.skeleton.app.model.entities.weapons.*;
+import inf112.skeleton.app.model.entities.weapons.Sword;
 
 /**
  * GameLogic handles the game logic including player and enemy interactions.
@@ -29,7 +32,7 @@ public class GameLogic implements CollisionCallBack {
     private GameState gameState;
     // Entities
     private Player player;
-    private Sword sword;
+    private Weapon weapon;
     private List<Enemy> enemies = new ArrayList<>();
     private List<Coin> coins = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
@@ -54,6 +57,7 @@ public class GameLogic implements CollisionCallBack {
         // loadSounds();
         world.setContactListener(new B2dContactListener(this));
     }
+
 
     public void resetGame() {
         resetPlayer();
@@ -123,7 +127,7 @@ public class GameLogic implements CollisionCallBack {
     private void initializeEntities() {
         initializePlayer();
         initializeEnemies();
-        initializeSword();
+        initializeWeapon();
         initializeCoins();
     }
 
@@ -132,9 +136,8 @@ public class GameLogic implements CollisionCallBack {
     }
 
     private void initializePlayer() {
-        Body playerBody = PhysicsFactory.createEntityBody(world,
+        Body playerBody = PhysicsFactory.createDynamicEntityBody(world,
             new Vector2(PLAYER_SPAWN_X, PLAYER_SPAWN_Y),
-            new Vector2(),
             PLAYER_WIDTH,
             PLAYER_HEIGHT,
             true);
@@ -143,31 +146,21 @@ public class GameLogic implements CollisionCallBack {
         entities.add(this.player);
     }
 
-    private void initializeSword() {
-        Body swordBody = PhysicsFactory.createEntityBody(world,
-            new Vector2(0, 0),
-            new Vector2(SWORD_X_OFFSET,SWORD_Y_OFFSET),
-            SWORD_WIDTH,
-            SWORD_HEIGHT,
-            false);
-        this.sword = new Sword(swordBody, SWORD_SPRITE, "sword");
-        sword.setBaseAngle(90);
-        setUserDataToParent(sword);
-        entities.add(this.sword);
+    private void initializeWeapon() {
+        this.weapon = new Sword(world);
+        entities.add(this.weapon);
     }
 
-    private void initializeEnemies() {
+  private void initializeEnemies() {
         for (int i = 0; i < NUM_ENEMIES; i++) {
-            Body enemyBody = PhysicsFactory.createEntityBody(
-                world,
-                getRandomEntityPosition(),
-                new Vector2(),
-                ENEMY_WIDTH,
-                ENEMY_HEIGHT,
-                true);
-            float randomSpeed = MathUtils.random(ENEMY_SPEED_MIN, ENEMY_SPEED_MAX) * ENEMY_SPEED;
-            Enemy enemy = new Enemy(enemyBody, ENEMY_SPRITE, "enemy", randomSpeed); 
-            setUserDataToParent(enemy);
+            Enemy enemy = switch ((int) (Math.random() * 3)) {
+               case 0 -> new Light(world);
+               case 1 -> new Medium(world);
+               case 2 -> new Heavy(world);
+               default -> throw new IllegalStateException("Unexpected value");
+            };
+            Vector2 randomPosition = getRandomEntityPosition();
+            enemy.setPos(randomPosition.x, randomPosition.y);
             enemies.add(enemy);
         }
         entities.addAll(enemies);
@@ -175,14 +168,10 @@ public class GameLogic implements CollisionCallBack {
 
     private void initializeCoins() {
         for (int i = 0; i < NUM_COINS; i++) {
-            Body coinBody = PhysicsFactory.createEntityBody(
-                world,
+            Body coinBody = PhysicsFactory.createStaticEntityBody(world,
                 getRandomEntityPosition(),
-                new Vector2(),
                 COIN_WIDTH,
-                COIN_HEIGHT,
-                false
-            );
+                COIN_HEIGHT);
             coinBody.setUserData("coin");
             Coin coin = new Coin(coinBody, COIN_SPRITE, 1, "coin");
             coins.add(coin);
@@ -262,8 +251,9 @@ public class GameLogic implements CollisionCallBack {
         checkForSpikeCollisions();
         checkGameOver();
         updateHitWarning();
+        updateEnemyStunTimer();
         updateEnemyPositions();
-        updateSword();
+        updateWeapon();
     }
 
     public List<Entity> getActiveEntities() {
@@ -295,21 +285,39 @@ public class GameLogic implements CollisionCallBack {
         }
     }
 
-    private void updateSword(){
-        updateSwordPos();
-        updateSwordAngle();
-    }
-    private void updateSwordPos() {
-        sword.setPos(player.getX(), player.getY());
+    private void updateWeapon(){
+        updateWeaponCooldownTimer();
+        updateWeaponPos();
+        updateWeaponAngle();
     }
 
-    private void updateSwordAngle() {
-        sword.setAngle(getAngleToMouse(400, 400));
+    private void updateWeaponPos() {
+        weapon.setPos(player.getX(), player.getY());
+    }
+
+    private void updateWeaponAngle() {
+        weapon.setAngle(getAngleToMouse(400 - (PLAYER_WIDTH/2), 400 + (PLAYER_HEIGHT/2)));
+    }
+
+    private void updateWeaponCooldownTimer() {
+        weapon.setCooldownTimer( (weapon.getCooldownTimer() - (float) 1 / 60));
+        if (weapon.getCooldownTimer() > 0) { weapon.setOpacity(0.5f); }
+        else                               { weapon.setOpacity(1f);}
+    }
+
+    private void updateEnemyStunTimer() {
+        for (Enemy enemy : enemies) {
+            enemy.setStunTimer( (enemy.getStunTimer() - (float) 1 / 60));
+            if (enemy.getStunTimer() > 0) { enemy.setOpacity(0.5f); }
+            else                          { enemy.setOpacity(1f);}
+        }
     }
 
     private float getAngleToMouse(float x1, float y1){
         float angle = (float) Math.toDegrees(Math.atan2(Gdx.input.getY() - y1, Gdx.input.getX() - x1));
+        angle += 90;
         if (angle < 0) { angle+=360; }
+        angle %= 360;
         return angle;
     }
 
@@ -355,7 +363,7 @@ public class GameLogic implements CollisionCallBack {
 
     private void updateEnemyPositions() {
         for (Enemy enemy : enemies) {
-            enemy.moveTowards(player.getX(), player.getY());
+            if (enemy.getStunTimer() <= 0) { enemy.moveTowards(player.getX(), player.getY()); } //If enemy has no stun remaining
         }
     }
 

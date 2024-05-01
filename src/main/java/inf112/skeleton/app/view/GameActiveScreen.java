@@ -1,12 +1,12 @@
 package inf112.skeleton.app.view;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.entities.Entity;
 import inf112.skeleton.app.view.HUD.HUD;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -84,7 +84,7 @@ public class GameActiveScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         if (gameLogic.getGameState() == GAME_OVER) {
-            iniateGameOver();
+            initiateGameOver();
         }
 
         clearScreen();
@@ -123,32 +123,36 @@ public class GameActiveScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
-    private void iniateGameOver()   {
+    private void initiateGameOver()   {
         game.setScreen(new GameOverScreen(game, gameLogic));
         gameLogic.getPlayer().setHealth(PLAYER_HEALTH);
     }
 
     private void updateCamera() {
-        cam.position.set(gameLogic.getPlayer().getX() + PLAYER_WIDTH / 2,
-            gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
+        cam.position.set(gameLogic.getPlayer().getX() + (float) PLAYER_WIDTH / 2,
+            gameLogic.getPlayer().getY() + (float) PLAYER_HEIGHT / 2, 0);
         cam.update();
-        float zoomLevel = 0.7f;
-        cam.zoom = zoomLevel;
+        cam.zoom = 0.7f;
     }
 
     private void drawEntities() {
         for (Entity entity : gameLogic.getActiveEntities()) {
-            String textureID = entity.getTextureId() + ".png";
-            float xPos = entity.getX();
-            float yPos = entity.getY();
-            Texture tex = new Texture("sprites/" + textureID);
+            float x = entity.getX();
+            float y = entity.getY();
+            float angle = entity.getAngle();
+            float heightOffset = entity.getOffset().y;
+            Vector2 offset = entity.trigVector(heightOffset,angle);
+            Texture tex = new Texture("sprites/" + entity.getTextureId() + ".png");
             Sprite sprite = new Sprite(tex);
-            sprite.setRotation(entity.getAngle());
-            sprite.setX(xPos * PPM - (tex.getWidth() / 2));
-            sprite.setY(yPos * PPM - (tex.getHeight() / 2));
+            sprite.setScale(entity.getSpriteWidth()/tex.getWidth(), entity.getSpriteHeight()/tex.getHeight());
+            sprite.setAlpha(entity.getOpacity());
+            sprite.setRotation(angle);
+            sprite.setX((x + offset.x * PPM) - sprite.getWidth() / 2);
+            sprite.setY((y + offset.y * PPM) - sprite.getHeight() / 2);
             sprite.draw(batch);
         }
     }
+
 
     private void drawHUD() {
         hud.updateHearts(gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());

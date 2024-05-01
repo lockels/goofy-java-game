@@ -50,9 +50,13 @@ public class MyInputAdapter extends InputAdapter {
     private Direction getKeyDirection(int keycode) {
         return switch (keycode) {
             case Keys.LEFT -> LEFT;
+            case Keys.A -> LEFT;
             case Keys.RIGHT -> RIGHT;
+            case Keys.D -> RIGHT;
             case Keys.UP -> UP;
+            case Keys.W -> UP;
             case Keys.DOWN -> DOWN;
+            case Keys.S -> DOWN;
             default -> null;
         };
     }

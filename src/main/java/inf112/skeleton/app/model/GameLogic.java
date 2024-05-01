@@ -61,9 +61,13 @@ public class GameLogic implements CollisionCallBack {
     public void resetGame() {
         this.player.setHealth(PLAYER_HEALTH);
         this.player.setPos(PLAYER_SPAWN_X, PLAYER_SPAWN_Y);
+        this.player.getBody().setLinearVelocity(new Vector2().scl(0));
+        this.player.getBody().applyForceToCenter(new Vector2().scl(0), true);
 
         entities.clear();
+        coins.clear();
         enemies.clear();
+        spikePolygons.clear();
 
         coins = new ArrayList<>();
         initializeCoins();
@@ -155,7 +159,9 @@ public class GameLogic implements CollisionCallBack {
     }
 
     private void initializeWeapon() {
-        this.weapon = new Sword(world);
+        // this.weapon = new Sword(world);
+        this.weapon = new Axe(world);
+        // this.weapon = new Dagger(worldd);
         entities.add(this.weapon);
     }
 

@@ -9,10 +9,25 @@ import static inf112.skeleton.app.utils.Constants.*;
 
 public class Sword extends Weapon {
     public Sword(World world) {
-        super(PhysicsFactory.createStaticEntityBody(world,
+        // super(PhysicsFactory.createStaticEntityBody(world,
+        //         new Vector2(0, 0),
+        //         SWORD_WIDTH ,
+        //         SWORD_HEIGHT),
+        //         SWORD_SPRITE,
+        //         SWORD_HEIGHT,
+        //         SWORD_WIDTH,
+        //         SWORD_DMG,
+        //         SWORD_KNOCKBACK,
+        //         SWORD_COOLDOWN,
+        //         SWORD_STUN);
+        // this.setOffset(new Vector2(SWORD_X_OFFSET, SWORD_Y_OFFSET));
+        super(PhysicsFactory.createEntityBody(world,
                 new Vector2(0, 0),
+                new Vector2(SWORD_X_OFFSET, SWORD_Y_OFFSET),
                 SWORD_WIDTH,
-                SWORD_HEIGHT),
+                SWORD_HEIGHT,
+                false
+                ),
                 SWORD_SPRITE,
                 SWORD_HEIGHT,
                 SWORD_WIDTH,
@@ -21,5 +36,6 @@ public class Sword extends Weapon {
                 SWORD_COOLDOWN,
                 SWORD_STUN);
         this.setOffset(new Vector2(SWORD_X_OFFSET, SWORD_Y_OFFSET));
+
     }
 }

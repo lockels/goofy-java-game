@@ -107,12 +107,10 @@ public class Player extends Entity {
             }
         }
         direction.nor(); // Normalize to get unit vector
-
+        body.setLinearVelocity(direction.scl(PLAYER_SPEED));
         if (MyInputAdapter.keyPressed()) {
-            body.setLinearVelocity(direction.scl(PLAYER_SPEED));
             body.applyForceToCenter(direction.scl(PLAYER_SPEED), true);
         }
-        body.setLinearVelocity(direction.scl(PLAYER_SPEED));
         body.applyForceToCenter(direction.scl(0), true);
     }
 

@@ -21,8 +21,8 @@ public class Constants {
     public final static int PLAYER_WIDTH = 24;
     public final static int PLAYER_HEIGHT = 32;
     public final static int PLAYER_SPEED = 200;
-    public final static int PLAYER_FRICTION = 1000;
-    public final static int PLAYER_HEALTH = 5;
+    // public final static int PLAYER_FRICTION = 1000;
+    public final static int PLAYER_HEALTH = 10;
     public final static int PLAYER_SPRITESHEET_X = 306;
     public final static int PLAYER_SPRITESHEET_Y = 112;
     public final static int PLAYER_SPRITESHEET_WIDTH = 16;
@@ -47,28 +47,16 @@ public class Constants {
     public final static int MEDIUM_ENEMY_SPEED = 100;
     public final static int MEDIUM_ENEMY_HEALTH = 10;
 
-    // - Medium
+    // - Heavy
     public final static String HEAVY_ENEMY_SPRITE = "heavy_enemy";
     public final static int HEAVY_ENEMY_WIDTH = 60;
     public final static int HEAVY_ENEMY_HEIGHT = 60;
     public final static int HEAVY_ENEMY_SPEED = 50;
     public final static int HEAVY_ENEMY_HEALTH = 25;
 
-    // UNUSED ENEMY
-    public final static int ENEMY_ACCELERATION = 300;
-    public final static int MAX_ENEMY_VELOCITY = 200;
-    public final static int ENEMY_FRICTION = 200;
-
-    public final static int ENEMY_SPRITESHEET_X = 322;
-    public final static int ENEMY_SPRITESHEET_Y = 112;
-    public final static int ENEMY_SPRITESHEET_WIDTH = 16;
-    public final static int ENEMY_SPRITESHEET_HEIGHT = 12;
-    public final static float ENEMY_SPEED_MAX = 0.8f;
-    public final static float ENEMY_SPEED_MIN = 0.5f;
-
     // Sword
     // Weapons
-    // - Sword
+    // Dagger
     public final static String SWORD_SPRITE = "swordSprite";
     public final static int SWORD_HEIGHT = 40;
     public final static int SWORD_WIDTH = 10;
@@ -138,8 +126,6 @@ public class Constants {
     public final static String PLAYER_SPRITE = "Main_Character";
     public final static String COIN_SPRITE = "coinSprite";
     public final static String ENEMY_SPRITE = "Enemy";
-
-
 
     public final static String WEAPON_SELECTION = "Weapon_Selection.png";
     public final static String WEAPON_BUTTON = "Weapon_Selection_Button.png";

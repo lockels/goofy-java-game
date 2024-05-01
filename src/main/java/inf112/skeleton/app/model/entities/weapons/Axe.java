@@ -8,10 +8,25 @@ import static inf112.skeleton.app.utils.Constants.*;
 
 public class Axe extends Weapon {
     public Axe(World world) {
-        super(PhysicsFactory.createStaticEntityBody(world,
+        // super(PhysicsFactory.createStaticEntityBody(world,
+        //         new Vector2(0, 0),
+        //         AXE_WIDTH,
+        //         AXE_HEIGHT),
+        //         AXE_SPRITE,
+        //         AXE_HEIGHT,
+        //         AXE_WIDTH,
+        //         AXE_DMG,
+        //         AXE_KNOCKBACK,
+        //         AXE_COOLDOWN,
+        //         AXE_STUN);
+        // this.setOffset(new Vector2(AXE_X_OFFSET, AXE_Y_OFFSET));
+        super(PhysicsFactory.createEntityBody(world,
                 new Vector2(0, 0),
+                new Vector2(AXE_X_OFFSET, AXE_Y_OFFSET),
                 AXE_WIDTH,
-                AXE_HEIGHT),
+                AXE_HEIGHT,
+                false
+                ),
                 AXE_SPRITE,
                 AXE_HEIGHT,
                 AXE_WIDTH,

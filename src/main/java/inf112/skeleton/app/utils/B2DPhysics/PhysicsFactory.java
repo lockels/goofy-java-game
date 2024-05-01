@@ -3,6 +3,8 @@ package inf112.skeleton.app.utils.B2DPhysics;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
+import inf112.skeleton.app.utils.Constants;
+
 import static inf112.skeleton.app.utils.Constants.PPM;
 
 public abstract class PhysicsFactory {
@@ -41,4 +43,26 @@ public abstract class PhysicsFactory {
         fixture.setUserData(body);
         return body;
     }
+
+    public static Body createEntityBody(World world, Vector2 position, Vector2 offset, float width, float height, boolean collisionEnabled) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(position.x / Constants.PPM, position.y / Constants.PPM);
+
+        Body body = world.createBody(bodyDef);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width / 2 * Constants.PPM, height / 2 * Constants.PPM, offset, 0);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.isSensor = !collisionEnabled; //Inverted for ease of use
+        fixtureDef.shape = shape;
+
+        body.createFixture(fixtureDef);
+
+        shape.dispose();
+
+        return body;
+    }
+
 }

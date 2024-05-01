@@ -8,10 +8,21 @@ import static inf112.skeleton.app.utils.Constants.*;
 
 public class Dagger extends Weapon {
     public Dagger(World world) {
-        super(PhysicsFactory.createStaticEntityBody(world,
+        // super(PhysicsFactory.createStaticEntityBody(world,
+        //         new Vector2(0, 0),
+        //         DAGGER_WIDTH,
+        //         DAGGER_HEIGHT),
+        //     DAGGER_SPRITE, DAGGER_HEIGHT,
+        //     DAGGER_WIDTH, DAGGER_DMG,
+        //     DAGGER_KNOCKBACK, DAGGER_COOLDOWN, DAGGER_STUN);
+        // this.setOffset(new Vector2(DAGGER_X_OFFSET, DAGGER_Y_OFFSET));
+        super(PhysicsFactory.createEntityBody(world,
                 new Vector2(0, 0),
+                new Vector2(DAGGER_X_OFFSET, DAGGER_Y_OFFSET),
                 DAGGER_WIDTH,
-                DAGGER_HEIGHT),
+                DAGGER_HEIGHT,
+                false
+                ),
             DAGGER_SPRITE, DAGGER_HEIGHT,
             DAGGER_WIDTH, DAGGER_DMG,
             DAGGER_KNOCKBACK, DAGGER_COOLDOWN, DAGGER_STUN);

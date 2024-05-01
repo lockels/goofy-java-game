@@ -134,7 +134,8 @@ public class GameActiveScreen extends ScreenAdapter {
         tmr.setView(cam);
         tmr.render();
 
-        debugRenderer.render(gameLogic.world, cam.combined);
+        // Draws hitboxes
+        // debugRenderer.render(gameLogic.world, cam.combined);
         
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();

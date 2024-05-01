@@ -51,7 +51,6 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         this.backButtonTexture = new Texture(BACK_TO_GAME_BUTTON); 
     }
 
-
     @Override
     public void show() {
         stage = new Stage();
@@ -63,7 +62,6 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
 
         backButton = new Button(buttonStyle);
         backButton.setSize(200, 30);
-
 
         float xPosition = 45; 
         float yPosition = 30; 

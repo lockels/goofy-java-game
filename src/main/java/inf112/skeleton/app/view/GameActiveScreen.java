@@ -65,8 +65,6 @@ public class GameActiveScreen extends ScreenAdapter {
         this.batch = batch;
         this.cam = cam;
         this.game = game;
-
-
     }
 
     @Override
@@ -87,7 +85,7 @@ public class GameActiveScreen extends ScreenAdapter {
         // parseObjectLayers();
 
         Texture heartTexture = new Texture(HEART_IMG);
-        hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0);
+        hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0, 0);
         
         inputAdapter = new MyInputAdapter(gameLogic.getPlayer(), gameLogic);
 
@@ -135,7 +133,7 @@ public class GameActiveScreen extends ScreenAdapter {
         tmr.render();
 
         // Draws hitboxes
-        // debugRenderer.render(gameLogic.world, cam.combined);
+        debugRenderer.render(gameLogic.world, cam.combined);
         
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
@@ -172,8 +170,8 @@ public class GameActiveScreen extends ScreenAdapter {
     }
 
     private void updateCamera() {
-        cam.position.set(gameLogic.getPlayer().getX() + (float) PLAYER_WIDTH / 2,
-            gameLogic.getPlayer().getY() + (float) PLAYER_HEIGHT / 2, 0);
+        cam.position.set(gameLogic.getPlayer().getX() + PLAYER_WIDTH / 2,
+            gameLogic.getPlayer().getY() + PLAYER_HEIGHT / 2, 0);
         cam.update();
         cam.zoom = 0.7f;
     }
@@ -197,6 +195,9 @@ public class GameActiveScreen extends ScreenAdapter {
     }
 
     private void drawHUD() {
+        // Draw coinValue
+        // batch.draw(getSpriteFromSheet(spriteSheet, 0, 0, 16, 16), getCameraX() - CAMERA_OFFSET_X + 10, getCameraY() + CAMERA_OFFSET_Y - 10);
+        // hud.setCoinValue(gameLogic.getPlayer().getCoins());
         hud.updateHearts(gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());
         hud.draw(batch);
     }

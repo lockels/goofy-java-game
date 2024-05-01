@@ -65,7 +65,7 @@ public class Constants {
     public final static int SWORD_DMG = 4;
     public final static float SWORD_KNOCKBACK = 100;
     public final static float SWORD_STUN = 1;
-    public final static float SWORD_COOLDOWN = 1;
+    public final static float SWORD_COOLDOWN = 0.5f;
 
     // - Axe
     public final static String AXE_SPRITE = "axeSprite";
@@ -76,7 +76,7 @@ public class Constants {
     public final static int AXE_DMG = 5;
     public final static float AXE_KNOCKBACK = 500;
     public final static float AXE_STUN = 1;
-    public final static float AXE_COOLDOWN = 3;
+    public final static float AXE_COOLDOWN = 1.5f;
 
     // - Dagger
     public final static String DAGGER_SPRITE = "swordSprite";
@@ -87,7 +87,7 @@ public class Constants {
     public final static int DAGGER_DMG = 1;
     public final static float DAGGER_KNOCKBACK = 50;
     public final static float DAGGER_STUN = 0.5f;
-    public final static float DAGGER_COOLDOWN = 0.25f;
+    public final static float DAGGER_COOLDOWN = 0.1f;
 
     // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;

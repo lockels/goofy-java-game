@@ -15,6 +15,7 @@ public class HUD {
     private List<Heart> hearts;
     private Texture heartTexture;
     private int maxHearts;
+    private int coinValue;
 
     private float screenX;
     private float screenY;
@@ -30,11 +31,13 @@ public class HUD {
      * @param screenY      the screen Y coordinate where the hearts should be
      *                     displayed
      */
-    public HUD(Texture heartTexture, int maxHearts, float screenX, float screenY) {
+    public HUD(Texture heartTexture, int maxHearts, int coinValue, float screenX, float screenY) {
         this.heartTexture = heartTexture;
         this.maxHearts = maxHearts;
+        this.coinValue = coinValue;
         this.screenX = screenX;
         this.screenY = screenY;
+
         createHearts();
         System.out.println("HUD: Created");
     }
@@ -46,6 +49,10 @@ public class HUD {
             float y = screenY;
             hearts.add(new Heart(heartTexture, x, y, HEART_WIDTH, HEART_HEIGHT, true));
         }
+    }
+
+    public void setCoinValue(int coinValue) {
+        this.coinValue = coinValue;
     }
 
     /**

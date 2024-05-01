@@ -214,6 +214,17 @@ public class GameLogic implements CollisionCallBack {
         }
     }
 
+    private void checkForCoinCollisions() {
+        
+        for (Coin coin : coins) {
+            if (player.collidesWith(coin)) {
+                // player.collect(coin);
+                System.out.println("Player collected coin");
+            }
+            else System.out.println("Player did not collect coin");
+        }
+    }
+
     private boolean isLegalSpawnPosition(Vector2 position) {
         MapLayer layer = map.getLayers().get("out-of-bounds-layer");
         if (layer == null) {
@@ -263,6 +274,7 @@ public class GameLogic implements CollisionCallBack {
         updatePlayerPosition();
         checkPlayerHit();
         checkForSpikeCollisions();
+        checkForCoinCollisions();
         checkGameOver();
         updateHitWarning();
         updateEnemyStunTimer();

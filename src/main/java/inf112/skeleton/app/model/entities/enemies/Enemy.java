@@ -33,8 +33,8 @@ public class Enemy extends Entity {
         float diffX = targetX - getX();
         float diffY = targetY - getY();
         float angle = MathUtils.atan2(diffY, diffX);
+        float speed = this.speed / 100;
         Vector2 velocity = new Vector2(MathUtils.cos(angle) * speed, MathUtils.sin(angle) * speed);
-        System.out.println(velocity);
         body.applyLinearImpulse(velocity, body.localPoint2, true);
     }
 
@@ -55,5 +55,9 @@ public class Enemy extends Entity {
 
     public void setStunTimer(float stunTimer) {
         this.stunTimer = stunTimer;
+    }
+
+    public void setHealth(int hp) {
+        this.hp = hp;
     }
 }

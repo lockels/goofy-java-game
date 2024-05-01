@@ -15,6 +15,7 @@ import static inf112.skeleton.app.model.GameState.*;
 public class MyInputAdapter extends InputAdapter {
     private final Player player;
     private GameLogic gameLogic;
+    private static boolean keyPressed = false;
 
     public MyInputAdapter(Player player, GameLogic gameLogic) {
         System.out.println("MyInputAdapter: Created");
@@ -25,6 +26,7 @@ public class MyInputAdapter extends InputAdapter {
     @Override
     public boolean keyDown(int keycode) {
         Direction direction = getKeyDirection(keycode);
+        keyPressed = true;
         if (direction != null) {
             player.setMovement(direction, true);
             return true;
@@ -40,11 +42,16 @@ public class MyInputAdapter extends InputAdapter {
     @Override
     public boolean keyUp(int keycode) {
         Direction direction = getKeyDirection(keycode);
+        keyPressed = false;
         if (direction != null) {
             player.setMovement(direction, false);
             return true;
         }
         return false;
+    }
+
+    public static boolean keyPressed()    {
+        return keyPressed;
     }
 
     private Direction getKeyDirection(int keycode) {

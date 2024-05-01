@@ -58,14 +58,22 @@ public class GameLogic implements CollisionCallBack {
         world.setContactListener(new B2dContactListener(this));
     }
 
-
     public void resetGame() {
-        resetPlayer();
-    }
-
-    private void resetPlayer() {
         this.player.setHealth(PLAYER_HEALTH);
         this.player.setPos(PLAYER_SPAWN_X, PLAYER_SPAWN_Y);
+
+        entities.clear();
+        enemies.clear();
+
+        coins = new ArrayList<>();
+        initializeCoins();
+        enemies = new ArrayList<>();
+        initializeEnemies();
+
+        entities.add(player);
+        entities.add(weapon);
+        entities.addAll(enemies);
+        entities.addAll(coins);
     }
 
     public World getWorld() {
@@ -325,7 +333,6 @@ public class GameLogic implements CollisionCallBack {
         float deltaTime = Gdx.graphics.getDeltaTime();
         world.step(deltaTime, 6, 2); // The numbers 6 and 2 are velocity and position iterations, you can adjust
     }
-
 
     private void updatePlayerPosition() {
         player.move(); 

@@ -29,7 +29,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-
 import static inf112.skeleton.app.utils.Constants.*;
 import static inf112.skeleton.app.model.GameState.*;
 
@@ -195,7 +194,6 @@ public class GameActiveScreen extends ScreenAdapter {
             sprite.draw(batch);
         }
     }
-
 
     private void drawHUD() {
         hud.updateHearts(gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());

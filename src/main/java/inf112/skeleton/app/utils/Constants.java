@@ -20,8 +20,7 @@ public class Constants {
     public final static int PLAYER_SPAWN_Y = 150;
     public final static int PLAYER_WIDTH = 24;
     public final static int PLAYER_HEIGHT = 32;
-    public final static int PLAYER_ACCELERATION = 7000;
-    public final static int MAX_PLAYER_VELOCITY = 300;
+    public final static int PLAYER_SPEED = 200;
     public final static int PLAYER_FRICTION = 1000;
     public final static int PLAYER_HEALTH = 5;
     public final static int PLAYER_SPRITESHEET_X = 306;

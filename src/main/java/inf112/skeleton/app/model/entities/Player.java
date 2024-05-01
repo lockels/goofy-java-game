@@ -2,6 +2,8 @@ package inf112.skeleton.app.model.entities;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+
+import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.Direction;
 import inf112.skeleton.app.model.entities.enemies.Enemy;
 
@@ -26,7 +28,6 @@ public class Player extends Entity {
             moveDirections.put(dir, false);
         }
     }
-
 
     /**
      * return the position of the body o fthe player
@@ -99,13 +100,20 @@ public class Player extends Entity {
                     case RIGHT:
                     direction.x += 1;
                     break;
+                    case NONE:
+                    direction.set(0, 0);
+                    break;
                 }
             }
         }
         direction.nor(); // Normalize to get unit vector
 
-        // Apply force based on direction
-        body.applyForceToCenter(direction.scl(PLAYER_ACCELERATION), true);
+        if (MyInputAdapter.keyPressed()) {
+            body.setLinearVelocity(direction.scl(PLAYER_SPEED));
+            body.applyForceToCenter(direction.scl(PLAYER_SPEED), true);
+        }
+        body.setLinearVelocity(direction.scl(PLAYER_SPEED));
+        body.applyForceToCenter(direction.scl(0), true);
     }
 
     public void stopMovement() {

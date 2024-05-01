@@ -30,6 +30,20 @@ public class GameRenderer extends Game {
     
     private MyInputAdapter inputAdapter;
 
+
+
+    public OrthographicCamera getCamera() {
+        return cam;
+    }
+
+    public GameLogic getGameLogic() {
+        return gameLogic;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
     public GameRenderer(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
     }

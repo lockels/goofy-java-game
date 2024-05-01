@@ -21,6 +21,15 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+
 import static inf112.skeleton.app.utils.Constants.*;
 import static inf112.skeleton.app.model.GameState.*;
 
@@ -44,6 +53,8 @@ public class GameActiveScreen extends ScreenAdapter {
     private MyInputAdapter inputAdapter;
     // private Game game;
     private GameRenderer game;
+    private Stage stage;
+    private Button weaponSelectionButton;
 
     /**
          * Constructs a GameActiveScreen.
@@ -55,6 +66,8 @@ public class GameActiveScreen extends ScreenAdapter {
         this.batch = batch;
         this.cam = cam;
         this.game = game;
+
+
     }
 
     @Override
@@ -78,6 +91,33 @@ public class GameActiveScreen extends ScreenAdapter {
         hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0);
         
         inputAdapter = new MyInputAdapter(gameLogic.getPlayer(), gameLogic);
+
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage); 
+
+        Texture buttonTexture = new Texture(WEAPON_BUTTON);
+        Drawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(buttonTexture));
+        Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
+        buttonStyle.up = buttonDrawable; // Set the button image
+
+        weaponSelectionButton = new Button(buttonStyle);
+        weaponSelectionButton.setSize(300, 50); 
+        weaponSelectionButton.setPosition(500, Gdx.graphics.getHeight() - 750); 
+        stage.addActor(weaponSelectionButton); 
+
+        // Setup Input Multiplexer
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(stage); 
+        multiplexer.addProcessor(inputAdapter); 
+        Gdx.input.setInputProcessor(multiplexer); // Need this for processing both hearts and button
+
+        // Adding the listener to the button
+        weaponSelectionButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new WeaponSelectionScreen(game));
+            }
+        });
         Gdx.input.setInputProcessor(inputAdapter);
     }
 
@@ -96,7 +136,10 @@ public class GameActiveScreen extends ScreenAdapter {
         tmr.render();
 
         debugRenderer.render(gameLogic.world, cam.combined);
-
+        
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        stage.draw();
+        
         // Rendering   
         batch.begin();
         batch.setProjectionMatrix(cam.combined);

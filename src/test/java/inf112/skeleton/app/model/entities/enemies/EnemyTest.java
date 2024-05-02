@@ -1,5 +1,6 @@
 package inf112.skeleton.app.model.entities.enemies;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
@@ -7,6 +8,8 @@ import com.badlogic.gdx.utils.Array;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,22 +21,30 @@ public class EnemyTest {
 
     @BeforeEach
     public void setUp() {
+        // Mock the Body object
         body = mock(Body.class);
 
-        // Mocking fixture list to return a non-null empty array
+        // Create and configure a mock Fixture
+        Fixture mockFixture = mock(Fixture.class);
+
+        // Create a non-empty Array of Fixtures and add the mock fixture to this list
         Array<Fixture> fixtures = new Array<>();
+        fixtures.add(mockFixture);
+
+        // Set the mock to return the fixtures when getFixtureList is called
         when(body.getFixtureList()).thenReturn(fixtures);
 
-        // Initialize the Enemy object
+        // Initialize the Enemy object with mocked body and fixture
         enemy = new Enemy(body, "test_texture", 32, 32, 10.0f, 100);
     }
+
 
     // @Test
     // public void testMoveTowards() {
     //     enemy.moveTowards(50, 50);
-    //     // Verify that applyLinearImpulse was called on the body
     //     verify(body, times(1)).applyLinearImpulse(any(Vector2.class), any(Vector2.class), eq(true));
     // }
+
 
     @Test
     public void testHit() {

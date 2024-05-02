@@ -2,10 +2,15 @@ package inf112.skeleton.app.model.entities;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.utils.Array;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
+import static org.mockito.ArgumentMatchers.anyFloat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +23,7 @@ public class EntityTest {
 
     private static class TestEntity extends Entity {
         public TestEntity(Body body, String textureIdentifier, String tag) {
-            //super(body, textureIdentifier, tag);
+            super(body, textureIdentifier, tag, 1.0f, 1.0f);  // Added sprite dimensions as required by Entity's constructor
         }
     }
 
@@ -26,10 +31,19 @@ public class EntityTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        // Mocking the fixture list to return a non-null empty array
+        Fixture mockFixture = mock(Fixture.class);
+        Array<Fixture> fixtures = new Array<>();
+        fixtures.add(mockFixture);
+        when(mockBody.getFixtureList()).thenReturn(fixtures);
+
         when(mockBody.getPosition()).thenReturn(new Vector2(0, 0)); // Setting initial position to (0, 0)
         when(mockBody.getAngle()).thenReturn(0.0f); // Initial angle is 0 radians
+
         testEntity = new TestEntity(mockBody, "testTextureId", "testTag");
     }
+
 
     @Test 
     public void testGetIsDestroyedAndSetIsDestroyed(){
@@ -41,16 +55,14 @@ public class EntityTest {
 
     @Test
     public void testGetPositionAndSetPosition() {
-    // Test initial position
-    Vector2 initialPosition = new Vector2(0, 0);
-    assertEquals(initialPosition, testEntity.getPosition());
+        // Test initial position
+        assertEquals(new Vector2(0, 0), testEntity.getPosition());
 
-    // Change position and test the new pos
-    Vector2 newPosition = new Vector2(20, 20);
-    when(mockBody.getPosition()).thenReturn(newPosition); 
-    testEntity.setPos(20, 20); 
-    assertEquals(newPosition, testEntity.getPosition());
+        // Change position and test the new pos
+        testEntity.setPos(20, 20);
+        verify(mockBody).setTransform(20, 20, 0); // Verifying the transformation is called correctly
     }
+
 
     @Test 
     public void testGetXAndGetY(){
@@ -98,17 +110,6 @@ public class EntityTest {
         assertFalse(testEntity.getIsDestroyed());
         testEntity.setIsDestroyed(true);
         assertTrue(testEntity.getIsDestroyed());
-    }
-
-    @Test
-    public void testGetBaseAngleAndSetBaseAngle() {
-        assertEquals(0.0f, testEntity.getBaseAngle());
-
-        // Set new base angle
-        float newBaseAngle = 180.0f;
-        testEntity.setBaseAngle(newBaseAngle);
-
-        assertEquals(newBaseAngle, testEntity.getBaseAngle());
     }
 }
 

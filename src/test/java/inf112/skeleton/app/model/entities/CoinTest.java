@@ -3,9 +3,12 @@ package inf112.skeleton.app.model.entities;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -33,7 +36,15 @@ public class CoinTest {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(0, 0);
-        body = world.createBody(bodyDef);
+        body = mock(Body.class); // Ensure the body is mocked if not already
+
+        // Create and configure a mock Fixture and a non-empty Array of Fixtures
+        Fixture mockFixture = mock(Fixture.class);
+        Array<Fixture> fixtures = new Array<>();
+        fixtures.add(mockFixture);
+
+        // Set the mock to return the fixtures when getFixtureList is called
+        when(body.getFixtureList()).thenReturn(fixtures);
 
         // Set up the Coin with a real body
         coin = new Coin(body, textureId, initialValue, "coin");
@@ -44,15 +55,22 @@ public class CoinTest {
         world.dispose();
     }
 
-    // @Test
-    // public void testConstructor() {
-    //     Assertions.assertNotNull(coin);
-    //     Assertions.assertEquals(body, coin.getBody());
-    //     Assertions.assertEquals(textureId, coin.getTextureId());
-    //     Assertions.assertEquals("coin", coin.getTag());
-    //     Assertions.assertEquals(initialValue, coin.getValue());
-    //     Assertions.assertFalse(coin.isCollected());
-    // }
+    @Test
+    public void testConstructor() {
+        //coin instance should not be null 
+        assertNotNull(coin);
+        //Body should match the one passed in the constructo
+        assertEquals(body, coin.getBody());
+        //Texture ID should match the one passed in the constructor
+        assertEquals(textureId, coin.getTextureId());
+        //Tag should match the one passed in the constructor
+        assertEquals("coin", coin.getTag());
+        //Initial value should match the one passed in the constructor
+        assertEquals(initialValue, coin.getValue());
+        //Coin should not be collected initially
+        assertFalse(coin.isCollected());
+    }
+
 
     @Test
     public void testGetValue() {

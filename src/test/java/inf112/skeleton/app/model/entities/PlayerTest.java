@@ -2,6 +2,8 @@ package inf112.skeleton.app.model.entities;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.utils.Array;
 
 import inf112.skeleton.app.model.Direction;
 import inf112.skeleton.app.model.entities.enemies.Enemy;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 import java.util.Map;
@@ -19,8 +22,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
 
-    @Mock
+   @Mock
     private Body mockBody;
+
+    @Mock
+    private Fixture mockFixture;
 
     @Mock
     private Coin mockCoin;
@@ -34,11 +40,17 @@ public class PlayerTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        // Mocking fixture list to avoid null pointer
+        Array<Fixture> fixtures = new Array<>();
+        fixtures.add(mockFixture); // Add mock fixture to the list
+        when(mockBody.getFixtureList()).thenReturn(fixtures);
+
         when(mockBody.getPosition()).thenReturn(new Vector2(0, 0)); // Default position
         when(mockCoin.isCollected()).thenReturn(false);
         when(mockCoin.getValue()).thenReturn(5);
         when(mockEnemy.getBody()).thenReturn(mockBody);
-        
+
         player = new Player(mockBody, "testTextureId", "player");
     }
 

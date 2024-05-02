@@ -16,18 +16,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
 
-public class GameTitleScreen extends ScreenAdapter {
+public class GameHelpScreen extends ScreenAdapter {
     GameRenderer game;
     GameLogic gameLogic;
     SpriteBatch batch;
     OrthographicCamera cam;
     Stage stage;
     Viewport viewport;
-    Button playButton, quitButton, helpButton;
+    Button backButton;
 
     Viewport viewPort;
 
-    public GameTitleScreen(GameRenderer game, GameLogic gameLogic) {
+    public GameHelpScreen(GameRenderer game, GameLogic gameLogic) {
         this.game = game;
         this.gameLogic = gameLogic;
         this.batch = new SpriteBatch();
@@ -48,20 +48,10 @@ public class GameTitleScreen extends ScreenAdapter {
         backgroundImage.setFillParent(true);
         stage.addActor(backgroundImage);
 
-        // Play Button
-        playButton = new Button(new TextureRegionDrawable(new Texture("play.png")));
-        playButton.setPosition(viewPort.getWorldWidth() / 4, 200);
-        stage.addActor(playButton);
-
-        // Quit Button
-        quitButton = new Button(new TextureRegionDrawable(new Texture("quit.png")));
-        quitButton.setPosition(300, 100); // Next to the play button
-        stage.addActor(quitButton);
-
-        //Help Button
-        helpButton = new Button(new TextureRegionDrawable(new Texture("help.png")));
-        helpButton.setPosition(700, 700);
-        stage.addActor(helpButton);
+        //Back Button
+        backButton = new Button(new TextureRegionDrawable(new Texture("exit.png")));
+        backButton.setPosition(700, 700);
+        stage.addActor(backButton);
 
     }
 
@@ -76,16 +66,8 @@ public class GameTitleScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
-        if (playButton.isPressed()) {
-            gameLogic.setGameState(GameState.GAME_ACTIVE);
-            game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam)); 
-        }
-        if (quitButton.isPressed()){
-            Gdx.app.exit();
-        }
-        if(helpButton.isPressed()){
-            game.setScreen(new GameHelpScreen(game, gameLogic)); 
-
+        if(backButton.isPressed()){
+            game.setScreen(new GameTitleScreen(game, gameLogic));
         }
     }
 
@@ -100,3 +82,4 @@ public class GameTitleScreen extends ScreenAdapter {
         batch.dispose();
     }
 }
+

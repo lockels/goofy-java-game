@@ -60,4 +60,12 @@ public class Enemy extends Entity {
     public void setHealth(int hp) {
         this.hp = hp;
     }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public int getEnemyHP() {
+        return hp;
+    }
 }

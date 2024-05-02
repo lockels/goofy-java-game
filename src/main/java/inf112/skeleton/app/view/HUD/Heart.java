@@ -61,8 +61,51 @@ public class Heart {
         return filled;
     }
 
+    /**
+     * Sets the position of the heart icon.
+     *
+     * @param x2 the new x-coordinate for the heart
+     * @param y2 the new y-coordinate for the heart
+     */
     public void setPosition(float x2, float y2) {
         this.x = x2;
         this.y = y2;
     }
+
+    /**
+     * Gets the x-coordinate of the heart
+     *
+     * @return the x-coordinate of the heart
+     */
+    public float getX() {
+        return x;
+    }
+
+     /**
+     * Gets the y-coordinate of the heart
+     *
+     * @return the y-coordinate of the heart
+     */
+    public float getY() {
+        return y;
+    }
+
+    /**
+     * Gets the width of the heart icon.
+     *
+     * @return the width of the heart
+     */
+    public float getWidth() {
+        return width;
+    }
+
+    /**
+     * Gets the height of the heart icon.
+     *
+     * @return the height of the heart
+     */
+    public float getHeight() {
+        return height;
+    }
 }
+

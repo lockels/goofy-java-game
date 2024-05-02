@@ -1,102 +1,191 @@
-// package inf112.skeleton.app.model.entities;
+package inf112.skeleton.app.model.entities;
 
-// import com.badlogic.gdx.math.Vector2;
-// import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 
-// import inf112.skeleton.app.model.Direction;
-// import inf112.skeleton.app.utils.Constants;
+import inf112.skeleton.app.model.Direction;
+import inf112.skeleton.app.model.entities.enemies.Enemy;
+import inf112.skeleton.app.utils.Constants;
 
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
-// import org.mockito.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.*;
 
-// import static org.mockito.Mockito.*;
-// import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-// public class PlayerTest {
+import java.util.Map;
 
-//     @Mock
-//     private Body mockBody;
-//     @Mock
-//     private Coin mockCoin;
-//     @Mock
-//     private Enemy mockEnemy;
+import static org.junit.jupiter.api.Assertions.*;
 
-//     private Player player;
+public class PlayerTest {
 
-//     @BeforeEach
-//     public void setUp() {
-//         MockitoAnnotations.openMocks(this);
-//         when(mockBody.getPosition()).thenReturn(new Vector2(0, 0)); // Default position
-//         when(mockCoin.isCollected()).thenReturn(false);
-//         when(mockCoin.getValue()).thenReturn(5);
-//         when(mockEnemy.getBody()).thenReturn(mockBody);
+    @Mock
+    private Body mockBody;
+
+    @Mock
+    private Coin mockCoin;
+
+    @Mock
+    private Enemy mockEnemy;
+
+
+    private Player player;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        when(mockBody.getPosition()).thenReturn(new Vector2(0, 0)); // Default position
+        when(mockCoin.isCollected()).thenReturn(false);
+        when(mockCoin.getValue()).thenReturn(5);
+        when(mockEnemy.getBody()).thenReturn(mockBody);
         
-//         player = new Player(mockBody, "testTextureId", "player");
-//     }
+        player = new Player(mockBody, "testTextureId", "player");
+    }
 
-//     @Test
-//     public void testGetHealth() {
-//         assertEquals(Constants.PLAYER_HEALTH, player.getHealth(), "Health should be initialized to PLAYER_HEALTH");
-//     }
+    @Test
+    public void testGetHealth() {
+        assertEquals(Constants.PLAYER_HEALTH, player.getHealth());
+    }
 
-//     @Test
-//     public void testCollectCoinNotCollected() {
-//         player.collect(mockCoin);
-//         verify(mockCoin).setCollected();
-//         assertEquals(5, player.getCoinCount());
-//     }
+    @Test
+    public void testSetHealth() {
+        player.setHealth(80);
+        assertEquals(80, player.getHealth());
+    }
 
-//     @Test
-//     public void testCollectCoinAlreadyCollected() {
-//         when(mockCoin.isCollected()).thenReturn(true);
-//         player.collect(mockCoin);
-//         verify(mockCoin, never()).setCollected();
-//         assertEquals(0, player.getCoinCount());
-//     }
+    @Test
+    public void testSetInContactWithSpike() {
+        // Test setting to true
+        player.setInContactWithSpike(true);
+        assertTrue(player.isInContactWithSpike());
 
-//     @Test
-//     public void testTakeDamage() {
-//         int initialHealth = player.getHealth();
-//         player.takeDamage(10);
-//         assertEquals(initialHealth - 10, player.getHealth(), "Health should decrease by 10.");
-//     }
+        // Test setting to false
+        player.setInContactWithSpike(false);
+        assertFalse(player.isInContactWithSpike());
+    }
 
-//     @Test
-//     public void testSetHealth() {
-//         player.setHealth(80);
-//         assertEquals(80, player.getHealth());
-//     }
+    @Test
+    public void testIsInContactWithSpike() {
+        // Initially setting the player's spike contact to false and testing
+        player.setInContactWithSpike(false);
+        assertFalse(player.isInContactWithSpike());
+        // Setting the player's spike contact to true and testing
+        player.setInContactWithSpike(true);
+        assertTrue(player.isInContactWithSpike());
+    }
 
-//     @Test
-//     public void testMovementDirections() {
-//         player.setMovement(Direction.UP, true);
-//         assertTrue(player.getMovementDirections().get(Direction.UP));
-//     }
+    @Test
+    public void testCollect() {
+        // Arrange
+        when(mockCoin.isCollected()).thenReturn(false);
+        when(mockCoin.getValue()).thenReturn(10);
 
-//     @Test
-//     public void testMove() {
-//         player.setMovement(Direction.UP, true);
-//         player.move();
-//         ArgumentCaptor<Vector2> captor = ArgumentCaptor.forClass(Vector2.class);
-//         verify(mockBody).applyForceToCenter(captor.capture(), eq(true));
-//         Vector2 expectedForce = new Vector2(0, 1).nor().scl(Constants.PLAYER_ACCELERATION);
-//         assertTrue(expectedForce.epsilonEquals(captor.getValue(), 0.01f));
-//     }
+        int initialCoinCount = player.getCoinCount(); // Assuming getCoinCount exists to track coins
 
-//     @Test
-//     public void testCollidesWithEnemy() {
-//         when(mockEnemy.getBody()).thenReturn(mockBody);
-//         when(mockEnemy.getBody().getPosition()).thenReturn(new Vector2(0, 0.5f));
-//         assertTrue(player.collidesWith(mockEnemy));
-//     }
+        player.collect(mockCoin);
 
-//     @Test
-//     public void testGetCoinCount() {
-//         assertEquals(0, player.getCoinCount());
-//         player.collect(mockCoin);
-//         assertEquals(5, player.getCoinCount());
-//     }
+        verify(mockCoin, times(1)).setCollected();
+        verify(mockBody, times(1)).setActive(false);
+        assertEquals(initialCoinCount + 10, player.getCoinCount());
+    }
 
-// }
+    @Test
+    public void testTakeDamage() {
+        int initialHealth = player.getHealth();
+        player.takeDamage(10);
+        assertEquals(initialHealth - 10, player.getHealth(), "Health should decrease by 10.");
+    }
+
+    @Test
+    public void testGetMovementDirections() {
+        // Setup different directions and states
+        player.setMovement(Direction.UP, true);
+        player.setMovement(Direction.DOWN, false);
+        player.setMovement(Direction.LEFT, true);
+        player.setMovement(Direction.RIGHT, false);
+
+        // Act
+        Map<Direction, Boolean> directions = player.getMovementDirections();
+
+        // Assert
+        assertTrue(directions.get(Direction.UP), "North should be active.");
+        assertFalse(directions.get(Direction.DOWN), "South should be inactive.");
+        assertTrue(directions.get(Direction.LEFT), "East should be active.");
+        assertFalse(directions.get(Direction.RIGHT), "West should be inactive.");
+    }
+
+    @Test
+    public void testSetMovement() {
+        // Arrange
+        Direction testDirection = Direction.UP;
+        boolean initialActiveState = player.getMovementDirections().get(testDirection);
+        
+        // Act
+        player.setMovement(testDirection, !initialActiveState); 
+
+        // Assert
+        assertNotEquals(initialActiveState, player.getMovementDirections().get(testDirection));
+    }
+
+    @Test
+    public void testMove_WhenMovingUp() {
+        // Arrange
+        player.setMovement(Direction.UP, true);
+
+        // Act
+        player.move();
+
+        // Assert
+        ArgumentCaptor<Vector2> vectorCaptor = ArgumentCaptor.forClass(Vector2.class);
+        verify(mockBody).applyForceToCenter(vectorCaptor.capture(), eq(true));
+
+        // Checking the applied force vector
+        Vector2 expectedForce = new Vector2(0, 1).nor().scl(Constants.PLAYER_ACCELERATION);
+        assertEquals(expectedForce.x, vectorCaptor.getValue().x, 0.01);
+        assertEquals(expectedForce.y, vectorCaptor.getValue().y, 0.01);
+    }
+
+    @Test
+    public void testMove_WhenMovingInMultipleDirections() {
+        // Arrange
+        player.setMovement(Direction.UP, true);
+        player.setMovement(Direction.RIGHT, true);
+
+        // Act
+        player.move();
+
+        // Assert
+        ArgumentCaptor<Vector2> vectorCaptor = ArgumentCaptor.forClass(Vector2.class);
+        verify(mockBody).applyForceToCenter(vectorCaptor.capture(), eq(true));
+
+        // Checking normalization
+        Vector2 expectedForce = new Vector2(1, 1).nor().scl(Constants.PLAYER_ACCELERATION);
+        assertEquals(expectedForce.x, vectorCaptor.getValue().x, 0.01);
+        assertEquals(expectedForce.y, vectorCaptor.getValue().y, 0.01);
+    }
+
+    @Test
+    public void testStopMovement() {
+        // Act
+        player.stopMovement();
+
+        // Assert
+        verify(mockBody).setLinearVelocity(0, 0); // Verify that linear velocity is set to zero
+    }
+
+    @Test
+    public void testCollidesWith() {
+        when(mockEnemy.getBody()).thenReturn(mockBody);
+        when(mockEnemy.getBody().getPosition()).thenReturn(new Vector2(0, 0.5f));
+        assertTrue(player.collidesWith(mockEnemy));
+    }
+
+    @Test
+    public void testGetCoinCount() {
+        assertEquals(0, player.getCoinCount());
+        player.collect(mockCoin);
+        assertEquals(5, player.getCoinCount());
+    }
+
+}
 

@@ -10,6 +10,8 @@ import static inf112.skeleton.app.utils.Constants.*;
 import java.util.List;
 import java.util.ArrayList;
 import inf112.skeleton.app.controller.myInput.SoundController;
+import java.util.Iterator;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -29,6 +31,8 @@ import inf112.skeleton.app.model.entities.weapons.*;
 public class GameLogic implements CollisionCallBack {
     // State
     private GameState gameState;
+    private int wave;
+    //
     // Entities
     private Player player;
     private Weapon weapon;
@@ -36,6 +40,7 @@ public class GameLogic implements CollisionCallBack {
     private List<Coin> coins = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     private List<Polygon> spikePolygons = new ArrayList<>();
+    
     // Time
     private long lastHitTime;
     private final long hitCooldown = HIT_COOLDOWN;
@@ -46,6 +51,8 @@ public class GameLogic implements CollisionCallBack {
     public World world;
     //sounds
     private SoundController soundController = new SoundController();
+ 
+
     /**
      * Constructs a new GameLogic instance with the given game state.
      *
@@ -168,13 +175,14 @@ public class GameLogic implements CollisionCallBack {
         entities.add(this.weapon);
     }
 
-  private void initializeEnemies() {
-        for (int i = 0; i < NUM_ENEMIES; i++) {
+
+    private void initializeEnemies() {
+        for (int i = 0; i < 2; i++) {
             Enemy enemy = switch ((int) (Math.random() * 3)) {
-               case 0 -> new Light(world);
-               case 1 -> new Medium(world);
-               case 2 -> new Heavy(world);
-               default -> throw new IllegalStateException("Unexpected value");
+                case 0 -> new Light(world);
+                case 1 -> new Medium(world);
+                case 2 -> new Heavy(world);
+                default -> throw new IllegalStateException("Unexpected value");
             };
             Vector2 randomPosition = getRandomEntityPosition();
             enemy.setPos(randomPosition.x, randomPosition.y);
@@ -283,6 +291,7 @@ public class GameLogic implements CollisionCallBack {
         updateEnemyStunTimer();
         updateEnemyPositions();
         updateWeapon();
+        updateWave();
     }
 
     public List<Entity> getActiveEntities() {
@@ -303,13 +312,16 @@ public class GameLogic implements CollisionCallBack {
 
     private void destroyInactiveEnemies() {
         List<Enemy> activeEnemies = getActiveEnemies();
-        for (Enemy enemy : getAllEnemies()) {
+        Iterator<Enemy> iterator = getAllEnemies().iterator();
+        while (iterator.hasNext()) {
+            Enemy enemy = iterator.next();
             if (!activeEnemies.contains(enemy)) {
                 if (!enemy.getIsDestroyed()) {
                     enemy.setIsDestroyed(true);
-                    enemy.getBody().setTransform(0,0,0);//Temp solution: teleport body outside of map to avoid collisions
+                    enemy.getBody().setTransform(0, 0, 0);
                     world.destroyBody(enemy.getBody());
                     playEnemyDeathSound(enemy);
+                    iterator.remove();
                 }
             }
         }
@@ -370,7 +382,10 @@ public class GameLogic implements CollisionCallBack {
         player.move(); 
     }
 
-    
+    private void updateWave() {
+        if (enemies.size() == 0) 
+            initializeEnemies();
+    }
 
     private void checkPlayerHit() {
         for (Enemy enemy : enemies) {
@@ -425,7 +440,8 @@ public class GameLogic implements CollisionCallBack {
         applyHitToPlayer();
 	}
 
+	@Override
+	public void onPlayerCoinCollision(Player player, Coin coin) {
 
- 
-
+	}
 }

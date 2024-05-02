@@ -37,6 +37,8 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
     private Stage stage; 
     private Texture backButtonTexture; // Texture for the back to game button
     private Button backButton; 
+    private Button treeButton;
+    private Texture treeButtonSwordTexture;
 
      /**
         * Constructs a new WeaponSelectionScreen which sets up the environment to display
@@ -49,6 +51,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         this.batch = new SpriteBatch();
         this.backgroundTexture = new Texture(WEAPON_SELECTION);
         this.backButtonTexture = new Texture(BACK_TO_GAME_BUTTON); 
+        this.treeButtonSwordTexture = new Texture(TREE_SWORD_BUTTON);
     }
 
     
@@ -57,21 +60,50 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
+        //Back button
         Drawable buttonDrawable = new TextureRegionDrawable(new TextureRegion(backButtonTexture));
         Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
         buttonStyle.up = buttonDrawable; 
-
         backButton = new Button(buttonStyle);
-        backButton.setSize(200, 30);
-
-        
-        float xPosition = 45; 
-        float yPosition = 30; 
-
-        backButton.setPosition(xPosition, yPosition);
+        backButton.setSize(200, 40);
+        // Position for the backButton
+        float backButtonX = 50; 
+        float backButtonY = 20; 
+        backButton.setPosition(backButtonX, backButtonY);
         stage.addActor(backButton);
+    
+        //Tree button
+        Drawable buttonDrawable1 = new TextureRegionDrawable(new TextureRegion(treeButtonSwordTexture));
+        Button.ButtonStyle buttonStyle1 = new Button.ButtonStyle();
+        buttonStyle1.up = buttonDrawable1; 
+        treeButton = new Button(buttonStyle1);
+        treeButton.setSize(280, 290);
+        // Position for the treeButton - positioned horizontally next to backButton
+        float treeButtonX = 110; 
+        float treeButtonY = 360; 
+        treeButton.setPosition(treeButtonX, treeButtonY);
+        stage.addActor(treeButton);
 
         backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                try {
+                    SpriteBatch batch = game.getBatch(); 
+                    GameLogic gameLogic = game.getGameLogic();
+                    OrthographicCamera cam = game.getCamera(); 
+
+                    if (gameLogic != null && cam != null) {
+                        game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
+                    } else {
+                        System.out.println("Game logic or camera is null");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        treeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try {
@@ -109,6 +141,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         batch.dispose();
         backgroundTexture.dispose();
         backButtonTexture.dispose();
+        treeButtonSwordTexture.dispose();;
         stage.dispose();
     }
 

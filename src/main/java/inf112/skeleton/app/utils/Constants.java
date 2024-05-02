@@ -128,7 +128,7 @@ public class Constants {
     public final static String ENEMY_SPRITE = "Enemy";
 
     // Weapon Selection
-    public final static String WEAPON_SELECTION = "Weapon_Selection.png";
+    public final static String WEAPON_SELECTION = "Weapon_Selection_New.png";
     public final static String WEAPON_BUTTON = "Weapon_Selection_Button.png";
     public final static String BACK_TO_GAME_BUTTON = "back_to_game_button.png";
     public final static String GREEN_SWORD = "Green_sword.png";

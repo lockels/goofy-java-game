@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import inf112.skeleton.app.model.GameLogic;
-import inf112.skeleton.app.model.GameState;
 
 public class GameHelpScreen extends ScreenAdapter {
     GameRenderer game;
@@ -43,7 +42,7 @@ public class GameHelpScreen extends ScreenAdapter {
 
     private void setupUi() {
         // Background image
-        Texture backgroundTexture = new Texture("new_menu.png");
+        Texture backgroundTexture = new Texture("helpBackground.png");
         Image backgroundImage = new Image(backgroundTexture);
         backgroundImage.setFillParent(true);
         stage.addActor(backgroundImage);

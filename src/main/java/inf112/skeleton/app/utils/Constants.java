@@ -7,8 +7,8 @@ package inf112.skeleton.app.utils;
 public class Constants {
     // Number constants for the gameplay
     public final static int PLAYER_HEALTH = 10;
-    public final static int NUM_ENEMIES = 0;
-    public final static int NUM_COINS = 70;
+    public final static int NUM_ENEMIES = 5;
+    public final static int NUM_COINS = 10;
 
     // App
     public final static int WINDOW_HEIGHT = 800;
@@ -114,13 +114,12 @@ public class Constants {
     // Coins
     public final static int COIN_WIDTH = 20;
     public final static int COIN_HEIGHT = 20;
-    public final static float COIN_PADDING = 25 * CAMERA_ZOOM_LEVEL;
+    public final static float COIN_VALUE_PADDING = 25 * CAMERA_ZOOM_LEVEL;
     public final static int COIN_VALUE_ONE = 25;
     public final static int COIN_VALUE_TWO = 50;
     public final static int COIN_VALUE_THREE = 100;
     public final static int COIN_VALUE_FOUR = 150;
     public final static int COIN_VALUE_FIVE = 250;
-    // public final static int COIN_COOLDOWN = 10;
 
     // Map / Collision
     public final static int PPM = 1;

@@ -133,4 +133,21 @@ public class Constants {
     public final static String GREEN_SWORD = "Green_sword.png";
     public final static String RED_SWORD = "Red_sword.png";
     public final static String TREE_SWORD = "Tree_sword.png";
+
+
+    //GameHelpScreen
+    public final static String HELP_SCREEN_BACKGROUND = "src/main/resources/gamehelpscreen/helpbackground.png";
+    public final static String EXIT_BUTTON = "src/main/resources/gamehelpscreen/exit.png";
+
+    //GameOverScreen
+    public final static String GAME_OVER_BACKGROUND = "src/main/resources/gameoverscreen/Game_over.png";
+    public final static String YES_BUTTON = "src/main/resources/gameoverscreen/Yes_Button.png";
+    public final static String NO_BUTTON = "src/main/resources/gameoverscreen/No_Button.png";
+
+    //GameTitleScreen
+    public final static String MENU = "src/main/resources/gametitlescreen/new_menu.png";
+    public final static String PLAY_BUTTON = "src/main/resources/gametitlescreen/play.png"; 
+    public final static String QUIT_BUTTON = "src/main/resources/gametitlescreen/quit.png";
+    public final static String HELP_BUTTON = "src/main/resources/gametitlescreen/help.png";
 }
+

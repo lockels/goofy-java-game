@@ -1,5 +1,9 @@
 package inf112.skeleton.app.view;
 
+import static inf112.skeleton.app.utils.Constants.GAME_OVER_BACKGROUND;
+import static inf112.skeleton.app.utils.Constants.NO_BUTTON;
+import static inf112.skeleton.app.utils.Constants.YES_BUTTON;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -39,12 +43,12 @@ public class GameOverScreen extends ScreenAdapter {
     }
 
     private void setupUi() {
-        Texture backgroundTexture = new Texture("Game_over.png");
+        Texture backgroundTexture = new Texture(GAME_OVER_BACKGROUND);
         Image backgroundImage = new Image(backgroundTexture);
         backgroundImage.setFillParent(true);
         stage.addActor(backgroundImage);
 
-        yesButton = new Button(new TextureRegionDrawable(new Texture("Yes_Button.png")));
+        yesButton = new Button(new TextureRegionDrawable(new Texture(YES_BUTTON)));
         yesButton.setPosition(100, 10);
         yesButton.addListener(new ClickListener() {
             @Override
@@ -56,7 +60,7 @@ public class GameOverScreen extends ScreenAdapter {
         });
         stage.addActor(yesButton);
 
-        noButton = new Button(new TextureRegionDrawable(new Texture("No_Button.png")));
+        noButton = new Button(new TextureRegionDrawable(new Texture(NO_BUTTON)));
         noButton.setPosition(400, 10);
         stage.addActor(noButton);
     }

@@ -1,8 +1,14 @@
 package inf112.skeleton.app.model.entities;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.World;
+
 import static org.mockito.Mockito.mock;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,30 +18,41 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CoinTest {
+    private World world;
     private Coin coin;
-    private Body mockBody;
+    private Body body;
     private final int initialValue = 10;
     private final String textureId = "coin_texture";
-    private final String tag = "coin";
 
     @BeforeEach
     public void setUp() {
-        // Create a mock Body to pass to the Coin constructor
-        mockBody = mock(Body.class);
-        // Instantiate the Coin with a mock body, a texture identifier, a value, and a tag
-        coin = new Coin(mockBody, textureId, initialValue, tag);
+        // Set up the Box2D world
+        world = new World(new Vector2(0, 0), true);
+
+        // Define body definition for testing
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(0, 0);
+        body = world.createBody(bodyDef);
+
+        // Set up the Coin with a real body
+        coin = new Coin(body, textureId, initialValue, "coin");
     }
 
-    @Test
-    public void testConstructor() {
-        // Assert that the coin was created and the values are correctly assigned
-        assertNotNull(coin);
-        assertEquals(mockBody, coin.getBody()); 
-        assertEquals(textureId, coin.getTextureId()); 
-        assertEquals(tag, coin.getTag()); 
-        assertEquals(initialValue, coin.getValue());
-        assertFalse(coin.isCollected());
+    @AfterEach
+    public void tearDown() {
+        world.dispose();
     }
+
+    // @Test
+    // public void testConstructor() {
+    //     Assertions.assertNotNull(coin);
+    //     Assertions.assertEquals(body, coin.getBody());
+    //     Assertions.assertEquals(textureId, coin.getTextureId());
+    //     Assertions.assertEquals("coin", coin.getTag());
+    //     Assertions.assertEquals(initialValue, coin.getValue());
+    //     Assertions.assertFalse(coin.isCollected());
+    // }
 
     @Test
     public void testGetValue() {

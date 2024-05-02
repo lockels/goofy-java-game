@@ -30,6 +30,10 @@ public abstract class Entity {
 
     public void setOffset(Vector2 offset) { this.offset = offset; }
 
+    public Vector2 getPosition() {
+        return body.getPosition();
+    }
+
     public float getX() {
         return body.getPosition().x;
     }

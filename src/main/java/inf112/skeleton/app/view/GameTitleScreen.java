@@ -1,5 +1,10 @@
 package inf112.skeleton.app.view;
 
+import static inf112.skeleton.app.utils.Constants.HELP_BUTTON;
+import static inf112.skeleton.app.utils.Constants.MENU;
+import static inf112.skeleton.app.utils.Constants.PLAY_BUTTON;
+import static inf112.skeleton.app.utils.Constants.QUIT_BUTTON;
+
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.ScreenAdapter;
@@ -45,23 +50,23 @@ public class GameTitleScreen extends ScreenAdapter {
 
     private void setupUi() {
         // Background image
-        Texture backgroundTexture = new Texture("new_menu.png");
+        Texture backgroundTexture = new Texture(MENU);
         Image backgroundImage = new Image(backgroundTexture);
         backgroundImage.setFillParent(true);
         stage.addActor(backgroundImage);
 
         // Play Button
-        playButton = new Button(new TextureRegionDrawable(new Texture("play.png")));
+        playButton = new Button(new TextureRegionDrawable(new Texture(PLAY_BUTTON)));
         playButton.setPosition(viewPort.getWorldWidth() / 4, 200);
         stage.addActor(playButton);
 
         // Quit Button
-        quitButton = new Button(new TextureRegionDrawable(new Texture("quit.png")));
+        quitButton = new Button(new TextureRegionDrawable(new Texture(QUIT_BUTTON)));
         quitButton.setPosition(300, 100); // Next to the play button
         stage.addActor(quitButton);
 
         //Help Button
-        helpButton = new Button(new TextureRegionDrawable(new Texture("help.png")));
+        helpButton = new Button(new TextureRegionDrawable(new Texture(HELP_BUTTON)));
         helpButton.setPosition(700, 700);
         stage.addActor(helpButton);
 

@@ -1,5 +1,8 @@
 package inf112.skeleton.app.view;
 
+import static inf112.skeleton.app.utils.Constants.EXIT_BUTTON;
+import static inf112.skeleton.app.utils.Constants.HELP_SCREEN_BACKGROUND;
+
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.ScreenAdapter;
@@ -42,13 +45,13 @@ public class GameHelpScreen extends ScreenAdapter {
 
     private void setupUi() {
         // Background image
-        Texture backgroundTexture = new Texture("helpBackground.png");
+        Texture backgroundTexture = new Texture(HELP_SCREEN_BACKGROUND);
         Image backgroundImage = new Image(backgroundTexture);
         backgroundImage.setFillParent(true);
         stage.addActor(backgroundImage);
 
         //Back Button
-        backButton = new Button(new TextureRegionDrawable(new Texture("exit.png")));
+        backButton = new Button(new TextureRegionDrawable(new Texture(EXIT_BUTTON)));
         backButton.setPosition(700, 700);
         stage.addActor(backButton);
 

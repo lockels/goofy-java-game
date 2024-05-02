@@ -207,6 +207,7 @@ public class GameLogic implements CollisionCallBack {
                 COIN_WIDTH,
                 COIN_HEIGHT);
             coinBody.setUserData("coin");
+            // Coin coin = switch ((int))
             Coin coin = new Coin(coinBody, COIN_SPRITE, 1, "coin");
             coins.add(coin);
         }
@@ -239,6 +240,7 @@ public class GameLogic implements CollisionCallBack {
         for (Coin coin : coins) {
             if (player.collidesWith(coin)) {
                 // player.collect(coin);
+                coin.setCollected();
                 System.out.println("Player collected coin");
             }
             else System.out.println("Player did not collect coin");

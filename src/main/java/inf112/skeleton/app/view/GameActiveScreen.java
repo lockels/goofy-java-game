@@ -196,9 +196,7 @@ public class GameActiveScreen extends ScreenAdapter {
     }
 
     private void drawHUD() {
-        // Draw coinValue
-        // batch.draw(getSpriteFromSheet(spriteSheet, 0, 0, 16, 16), getCameraX() - CAMERA_OFFSET_X + 10, getCameraY() + CAMERA_OFFSET_Y - 10);
-        // hud.setCoinValue(gameLogic.getPlayer().getCoins());
+        font.draw(batch, "Coins: ", getCameraX() + CAMERA_OFFSET_X - COIN_PADDING - 200, getCameraY() + CAMERA_OFFSET_Y - COIN_PADDING);
         hud.updateHearts(gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());
         hud.draw(batch);
     }

@@ -19,7 +19,7 @@ public class SpikeTest {
         // Mock the Body object using Mockito
         mockBody = Mockito.mock(Body.class);
         // Instantiate a Spike object
-        spike = new Spike(mockBody, "spikeTest", 10);
+        spike = new Spike(mockBody, "spikeTest", 10, 0, 0);
     }
 
     /**

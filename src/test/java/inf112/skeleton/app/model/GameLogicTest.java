@@ -8,17 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.MockitoAnnotations;
-
-
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
-import inf112.skeleton.app.model.entities.Enemy;
 import inf112.skeleton.app.model.entities.Player;
-import inf112.skeleton.app.model.entities.Sword;
 import inf112.skeleton.app.utils.Constants;
 
 public class GameLogicTest {

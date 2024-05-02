@@ -9,7 +9,7 @@ import static inf112.skeleton.app.utils.Constants.*;
 
 import java.util.List;
 import java.util.ArrayList;
-
+import inf112.skeleton.app.controller.myInput.SoundController;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -22,7 +22,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.app.model.entities.enemies.*;
 import inf112.skeleton.app.model.entities.weapons.*;
-import inf112.skeleton.app.model.entities.weapons.Sword;
 
 /**
  * GameLogic handles the game logic including player and enemy interactions.
@@ -45,17 +44,21 @@ public class GameLogic implements CollisionCallBack {
     private long hitWarningStartTime = 0;
     private TiledMap map;
     public World world;
-
+    //sounds
+    private SoundController soundController = new SoundController();
     /**
      * Constructs a new GameLogic instance with the given game state.
      *
      * @param gameState the initial game state
      */
+    
     public GameLogic(GameState gameState) {
         this.gameState = gameState;
         setWorld(new World(new Vector2(0, 0), true));
-        // loadSounds();
         world.setContactListener(new B2dContactListener(this));
+        if (this.gameState == GameState.GAME_TITLE) {
+            soundController.initializeBackgroundMusic();
+        }
     }
 
     public void resetGame() {
@@ -306,8 +309,19 @@ public class GameLogic implements CollisionCallBack {
                     enemy.setIsDestroyed(true);
                     enemy.getBody().setTransform(0,0,0);//Temp solution: teleport body outside of map to avoid collisions
                     world.destroyBody(enemy.getBody());
+                    playEnemyDeathSound(enemy);
                 }
             }
+        }
+    }
+
+    private void playEnemyDeathSound(Enemy enemy) {
+        if (enemy instanceof Light) {
+            soundController.playTechoShotSound();;;
+        } else if (enemy instanceof Medium) {
+            soundController.playDamageSound();;
+        } else if (enemy instanceof Heavy) {
+            soundController.playPestilenceSound();
         }
     }
 
@@ -356,11 +370,13 @@ public class GameLogic implements CollisionCallBack {
         player.move(); 
     }
 
+    
+
     private void checkPlayerHit() {
         for (Enemy enemy : enemies) {
             if (player.collidesWith(enemy)) {
                 applyHitToPlayer();
-                // collisionSound.play();
+                
             }
         }   
     }
@@ -372,12 +388,15 @@ public class GameLogic implements CollisionCallBack {
             showHitWarning = true;
             hitWarningStartTime = System.currentTimeMillis();
         }
+        //soundController.playDamageSound();
     }
 
     private void checkGameOver() {
         if (player.getHealth() <= 0) {
             gameState = GameState.GAME_OVER;
+            soundController.playGameOverSound();
         }
+        
     }
 
     private void updateHitWarning() {
@@ -405,4 +424,8 @@ public class GameLogic implements CollisionCallBack {
 	public void onPlayerSpikeCollision(Player player, Spike spike) {
         applyHitToPlayer();
 	}
+
+
+ 
+
 }

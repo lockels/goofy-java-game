@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
+import inf112.skeleton.app.controller.myInput.SoundController;
 
 public class GameTitleScreen extends ScreenAdapter {
     GameRenderer game;
@@ -24,7 +25,7 @@ public class GameTitleScreen extends ScreenAdapter {
     Stage stage;
     Viewport viewport;
     Button playButton, quitButton, helpButton;
-
+    
     Viewport viewPort;
 
     public GameTitleScreen(GameRenderer game, GameLogic gameLogic) {
@@ -37,6 +38,7 @@ public class GameTitleScreen extends ScreenAdapter {
 
         this.viewPort = new ExtendViewport(800, 800, cam);
         this.stage = new Stage(viewPort, batch);
+        
 
         setupUi();
     }

@@ -21,7 +21,6 @@ public class Constants {
     public final static int PLAYER_WIDTH = 24;
     public final static int PLAYER_HEIGHT = 32;
     public final static int PLAYER_SPEED = 200;
-    // public final static int PLAYER_FRICTION = 1000;
     public final static int PLAYER_HEALTH = 10;
     public final static int PLAYER_SPRITESHEET_X = 306;
     public final static int PLAYER_SPRITESHEET_Y = 112;
@@ -110,6 +109,7 @@ public class Constants {
     public final static int COIN_VALUE_THREE = 100;
     public final static int COIN_VALUE_FOUR = 150;
     public final static int COIN_VALUE_FIVE = 250;
+    public final static int COIN_COOLDOWN = 100;
 
     // Map / Collision
     public final static int PPM = 1;
@@ -117,7 +117,7 @@ public class Constants {
     // Game
     public final static int HIT_DAMAGE = 1;
     public final static int SPIKE_DAMAGE = 1;
-    public final static int HIT_COOLDOWN = 1000;
+    public final static int HIT_COOLDOWN = 500;
     public final static int HIT_WARNING_DURATION = 150;
 
     // Files

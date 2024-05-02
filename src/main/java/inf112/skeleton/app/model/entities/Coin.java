@@ -23,12 +23,13 @@ public class Coin extends Entity {
         this.value = value;
         this.collected = false;
     }
-
+ 
     public int getValue() {
         return value;
     }
     
     public void setCollected() {
+        super.setIsDestroyed(true);
         collected = true;
     }
 

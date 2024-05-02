@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.entities.Entity;
+import inf112.skeleton.app.model.entities.enemies.Enemy;
 import inf112.skeleton.app.view.HUD.HUD;
 
 import com.badlogic.gdx.Gdx;
@@ -166,6 +167,11 @@ public class GameActiveScreen extends ScreenAdapter {
     }
 
     private void initiateGameOver()   {
+        // Set health to enemies to 0
+        // for (Enemy enemy : gameLogic.) {
+        //     enemy.setHealth(0);
+        // }
+        gameLogic.destroyInactiveEntities();
         game.setScreen(new GameOverScreen(game, gameLogic));
         gameLogic.getPlayer().setHealth(PLAYER_HEALTH);
     }
@@ -179,6 +185,10 @@ public class GameActiveScreen extends ScreenAdapter {
 
     private void drawEntities() {
         for (Entity entity : gameLogic.getActiveEntities()) {
+            if (entity.getIsDestroyed()) {
+                System.out.println("Coin collected");
+                gameLogic.removeEntity(entity);
+            }
             float x = entity.getX();
             float y = entity.getY();
             float angle = entity.getAngle();
@@ -196,7 +206,7 @@ public class GameActiveScreen extends ScreenAdapter {
     }
 
     private void drawHUD() {
-        font.draw(batch, "Coins: ", getCameraX() + CAMERA_OFFSET_X - COIN_PADDING - 200, getCameraY() + CAMERA_OFFSET_Y - COIN_PADDING);
+        font.draw(batch, "Coins: " + gameLogic.getCoinValue(), getCameraX() + CAMERA_OFFSET_X - COIN_PADDING - 200, getCameraY() + CAMERA_OFFSET_Y - COIN_PADDING);
         hud.updateHearts(gameLogic.getPlayer().getHealth(), getCameraX(), getCameraY());
         hud.draw(batch);
     }

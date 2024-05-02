@@ -73,7 +73,7 @@ public abstract class Entity {
         if (angle >= 180) { y *= -1; }
         return new Vector2(x, y);
     }
-
+ 
     public float getOpacity() { return opacity; }
 
     public void setOpacity(float opacity) { this.opacity = opacity; }

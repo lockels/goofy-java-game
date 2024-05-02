@@ -43,10 +43,13 @@ public class GameLogic implements CollisionCallBack {
     
     // Time
     private long lastHitTime;
+    private long lastCoinTime;
     private final long hitCooldown = HIT_COOLDOWN;
     private final int hitWarningDuration = HIT_WARNING_DURATION;
+    private final long coinCooldown = COIN_COOLDOWN;
     private boolean showHitWarning = false;
     private long hitWarningStartTime = 0;
+    private int coinValue = 0;
     private TiledMap map;
     public World world;
     //sounds
@@ -72,16 +75,21 @@ public class GameLogic implements CollisionCallBack {
     }
 
     public void resetGame() {
+        System.out.println("Resetting game");
+        // Reset player
         this.player.setHealth(PLAYER_HEALTH);
         this.player.setPos(PLAYER_SPAWN_X, PLAYER_SPAWN_Y);
         this.player.getBody().setLinearVelocity(new Vector2().scl(0));
         this.player.getBody().applyForceToCenter(new Vector2().scl(0), true);
 
+        // Clear entities
+        // destroyInactiveEntities();
         entities.clear();
-        coins.clear();
-        enemies.clear();
-        spikePolygons.clear();
+        // coins.clear();
+        // enemies.clear();
+        // spikePolygons.clear();
 
+        // Initialize new entities
         coins = new ArrayList<>();
         initializeCoins();
         enemies = new ArrayList<>();
@@ -91,6 +99,14 @@ public class GameLogic implements CollisionCallBack {
         entities.add(weapon);
         entities.addAll(enemies);
         entities.addAll(coins);
+    }
+
+    public int getCoinValue() {
+        return coinValue;
+    }
+
+    public void setCoinValue(int coinValue) {
+        this.coinValue = coinValue;
     }
 
     public World getWorld() {
@@ -207,8 +223,14 @@ public class GameLogic implements CollisionCallBack {
                 COIN_WIDTH,
                 COIN_HEIGHT);
             coinBody.setUserData("coin");
-            // Coin coin = switch ((int))
-            Coin coin = new Coin(coinBody, COIN_SPRITE, 1, "coin");
+            Coin coin = switch ((int) (Math.random() * 5))  {
+                case 0 -> new Coin(coinBody, COIN_SPRITE, COIN_VALUE_ONE, "coin");
+                case 1 -> new Coin(coinBody, COIN_SPRITE, COIN_VALUE_TWO, "coin");
+                case 2 -> new Coin(coinBody, COIN_SPRITE, COIN_VALUE_THREE, "coin");
+                case 3 -> new Coin(coinBody, COIN_SPRITE, COIN_VALUE_FOUR, "coin");
+                case 4 -> new Coin(coinBody, COIN_SPRITE, COIN_VALUE_FIVE, "coin");
+                default -> throw new IllegalStateException("Unexpected value");
+            };
             coins.add(coin);
         }
         entities.addAll(coins);
@@ -235,15 +257,19 @@ public class GameLogic implements CollisionCallBack {
         }
     }
 
+    public void removeEntity(Entity entity) {
+        world.destroyBody(entity.getBody());
+        entities.remove(entity);
+    }
+
     private void checkForCoinCollisions() {
-        
         for (Coin coin : coins) {
             if (player.collidesWith(coin)) {
-                // player.collect(coin);
-                coin.setCollected();
-                System.out.println("Player collected coin");
+                // if ()   {
+                    coin.setCollected();
+                    updateCoinCooldown(coin.getValue());
+                // }
             }
-            else System.out.println("Player did not collect coin");
         }
     }
 
@@ -292,7 +318,7 @@ public class GameLogic implements CollisionCallBack {
      */
     public void update() {
         updateWorld();
-        destroyInactiveEnemies();
+        destroyInactiveEntities();
         updatePlayerPosition();
         checkPlayerHit();
         checkForSpikeCollisions();
@@ -313,14 +339,15 @@ public class GameLogic implements CollisionCallBack {
         return activeEntities;
     }
 
-    public List<Enemy> getActiveEnemies() {
-        List<Enemy> activeEnemies = new ArrayList<>();
-        for (Enemy enemy : enemies){
-            if (enemy.isActive()) {activeEnemies.add(enemy);}
-        }
-        return activeEnemies;
-    }
+    // public List<Enemy> getActiveEnemies() {
+    //     List<Enemy> activeEnemies = new ArrayList<>();
+    //     for (Enemy enemy : enemies){
+    //         if (enemy.isActive()) {activeEnemies.add(enemy);}
+    //     }
+    //     return activeEnemies;
+    // }
 
+<<<<<<< HEAD
     private void destroyInactiveEnemies() {
         List<Enemy> activeEnemies = getActiveEnemies();
         Iterator<Enemy> iterator = getAllEnemies().iterator();
@@ -333,6 +360,17 @@ public class GameLogic implements CollisionCallBack {
                     world.destroyBody(enemy.getBody());
                     playEnemyDeathSound(enemy);
                     iterator.remove();
+=======
+    public void destroyInactiveEntities() {
+        List<Entity> activeEntities = getActiveEntities();
+        for (Entity entity : entities) {
+            // System.out.println(entity);
+            if (!activeEntities.contains(entity)) {
+                if (!entity.getIsDestroyed()) {
+                    entity.setIsDestroyed(true);
+                    entity.getBody().setTransform(0,0,0);//Temp solution: teleport body outside of map to avoid collisions
+                    world.destroyBody(entity.getBody());
+>>>>>>> cc9ac58 (Improved coinpickup aswell as entitybody-despawning)
                 }
             }
         }
@@ -432,6 +470,13 @@ public class GameLogic implements CollisionCallBack {
     private void updateHitWarning() {
         if (showHitWarning && System.currentTimeMillis() - hitWarningStartTime > hitWarningDuration) {
             showHitWarning = false;
+        }
+    }
+
+    private void updateCoinCooldown(int value) {
+        if (System.currentTimeMillis() - lastCoinTime > coinCooldown) {
+            lastCoinTime = System.currentTimeMillis();
+            coinValue += value;
         }
     }
 

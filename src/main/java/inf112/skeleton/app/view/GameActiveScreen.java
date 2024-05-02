@@ -85,9 +85,11 @@ public class GameActiveScreen extends ScreenAdapter {
         // parseObjectLayers();
 
         Texture heartTexture = new Texture(HEART_IMG);
-        hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0, 0);
-        
+        hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0);
+
         inputAdapter = new MyInputAdapter(gameLogic.getPlayer(), gameLogic);
+        Gdx.input.setInputProcessor(inputAdapter);
+
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); 
@@ -115,7 +117,6 @@ public class GameActiveScreen extends ScreenAdapter {
                 game.setScreen(new WeaponSelectionScreen(game));
             }
         });
-        Gdx.input.setInputProcessor(inputAdapter);
     }
 
     @Override

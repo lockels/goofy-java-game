@@ -15,10 +15,10 @@ public class HUD {
     private List<Heart> hearts;
     private Texture heartTexture;
     private int maxHearts;
-    private int coinValue;
 
     private float screenX;
     private float screenY;
+    public Heart[] getHearts;
 
     /**
      * Constructs a HUD with the specified heart texture and maximum number of
@@ -31,13 +31,11 @@ public class HUD {
      * @param screenY      the screen Y coordinate where the hearts should be
      *                     displayed
      */
-    public HUD(Texture heartTexture, int maxHearts, int coinValue, float screenX, float screenY) {
+    public HUD(Texture heartTexture, int maxHearts, float screenX, float screenY) {
         this.heartTexture = heartTexture;
         this.maxHearts = maxHearts;
-        this.coinValue = coinValue;
         this.screenX = screenX;
         this.screenY = screenY;
-
         createHearts();
         System.out.println("HUD: Created");
     }
@@ -47,12 +45,9 @@ public class HUD {
         for (int i = 0; i < maxHearts; i++) {
             float x = screenX + i * (HEART_WIDTH + HEART_HEIGHT);
             float y = screenY;
+            // System.out.println("Heart Pos: " + x + ", " + y);
             hearts.add(new Heart(heartTexture, x, y, HEART_WIDTH, HEART_HEIGHT, true));
         }
-    }
-
-    public void setCoinValue(int coinValue) {
-        this.coinValue = coinValue;
     }
 
     /**
@@ -80,6 +75,9 @@ public class HUD {
     public void updateHearts(int currentHealth, float f, float g) {
         this.screenX = f;
         this.screenY = g;
+        // System.out.println("HUD: updateHearts");
+        // System.out.println("currentHealth: " + currentHealth);
+        // System.out.println("Heart position (x, y): " + this.screenX + ", " + this.screenY);
         for (int i = 0; i < hearts.size(); i++) {
             float x = (this.screenX + i * HEART_PADDING) - CAMERA_OFFSET_X + HEART_PADDING; 
             float y = this.screenY - CAMERA_OFFSET_Y + HEART_PADDING;

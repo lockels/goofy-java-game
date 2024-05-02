@@ -51,6 +51,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         this.backButtonTexture = new Texture(BACK_TO_GAME_BUTTON); 
     }
 
+    
     @Override
     public void show() {
         stage = new Stage();
@@ -63,6 +64,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         backButton = new Button(buttonStyle);
         backButton.setSize(200, 30);
 
+        
         float xPosition = 45; 
         float yPosition = 30; 
 
@@ -89,6 +91,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         });
     }
 
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -110,7 +113,8 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         stage.dispose();
     }
 
-    @Override public void create() {
+    @Override
+    public void create() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
     }
@@ -120,4 +124,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'render'");
     }
+    
+
 }
+

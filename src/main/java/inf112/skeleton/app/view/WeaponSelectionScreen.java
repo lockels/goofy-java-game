@@ -120,8 +120,4 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'render'");
     }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 }

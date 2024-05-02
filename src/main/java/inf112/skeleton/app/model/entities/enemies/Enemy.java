@@ -35,7 +35,6 @@ public class Enemy extends Entity {
         float speed = this.speed / 100;
         Vector2 velocity = new Vector2(MathUtils.cos(angle) * speed, MathUtils.sin(angle) * speed);
         body.applyLinearImpulse(velocity, body.localPoint2, true);
-        // body.applyForceToCenter(new Vector2().scl(-1), true);
     }
 
     public void hit(int dmg, float knockback, float angle, float stun) {

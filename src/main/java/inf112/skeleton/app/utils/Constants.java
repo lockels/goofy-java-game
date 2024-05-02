@@ -5,6 +5,11 @@ package inf112.skeleton.app.utils;
  *
  */
 public class Constants {
+    // Number constants for the gameplay
+    public final static int PLAYER_HEALTH = 10;
+    public final static int NUM_ENEMIES = 0;
+    public final static int NUM_COINS = 70;
+
     // App
     public final static int WINDOW_HEIGHT = 800;
     public final static int WINDOW_WIDTH = 800;
@@ -21,7 +26,6 @@ public class Constants {
     public final static int PLAYER_WIDTH = 24;
     public final static int PLAYER_HEIGHT = 32;
     public final static int PLAYER_SPEED = 200;
-    public final static int PLAYER_HEALTH = 10;
     public final static int PLAYER_SPRITESHEET_X = 306;
     public final static int PLAYER_SPRITESHEET_Y = 112;
     public final static int PLAYER_SPRITESHEET_WIDTH = 16;
@@ -31,9 +35,12 @@ public class Constants {
 
     // Enemies
 <<<<<<< HEAD
+<<<<<<< HEAD
     public final static int NUM_STARTER_ENEMIES = 2;
 =======
     public final static int NUM_ENEMIES = 5;
+=======
+>>>>>>> 667a330 (Fixed coin-pickup-bugs)
     public final static int ENEMY_KNOCKBACK_DAMPING = 1;
 >>>>>>> d58ce55 (Added knockback damping for enemies)
 
@@ -105,7 +112,6 @@ public class Constants {
     public final static float HEART_Y = (WINDOW_HEIGHT - HEART_HEIGHT - HEART_X) * CAMERA_ZOOM_LEVEL;
 
     // Coins
-    public final static int NUM_COINS = 7;
     public final static int COIN_WIDTH = 20;
     public final static int COIN_HEIGHT = 20;
     public final static float COIN_PADDING = 25 * CAMERA_ZOOM_LEVEL;
@@ -114,7 +120,7 @@ public class Constants {
     public final static int COIN_VALUE_THREE = 100;
     public final static int COIN_VALUE_FOUR = 150;
     public final static int COIN_VALUE_FIVE = 250;
-    public final static int COIN_COOLDOWN = 100;
+    // public final static int COIN_COOLDOWN = 10;
 
     // Map / Collision
     public final static int PPM = 1;

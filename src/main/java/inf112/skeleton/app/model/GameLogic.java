@@ -43,10 +43,8 @@ public class GameLogic implements CollisionCallBack {
     
     // Time
     private long lastHitTime;
-    private long lastCoinTime;
     private final long hitCooldown = HIT_COOLDOWN;
     private final int hitWarningDuration = HIT_WARNING_DURATION;
-    private final long coinCooldown = COIN_COOLDOWN;
     private boolean showHitWarning = false;
     private long hitWarningStartTime = 0;
     private int coinValue = 0;
@@ -194,6 +192,7 @@ public class GameLogic implements CollisionCallBack {
 
     private void initializeWeapon() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         // this.weapon = new RedSword(world);
         // this.weapon = new TreeSword(world);
         this.weapon = new GreenSword(world);
@@ -202,6 +201,11 @@ public class GameLogic implements CollisionCallBack {
         // this.weapon = new Axe(world);
         // this.weapon = new Dagger(worldd);
 >>>>>>> d58ce55 (Added knockback damping for enemies)
+=======
+        // this.weapon = new Sword(world);
+        // this.weapon = new Axe(world);
+        this.weapon = new Dagger(world);
+>>>>>>> 667a330 (Fixed coin-pickup-bugs)
         entities.add(this.weapon);
     }
 
@@ -271,10 +275,10 @@ public class GameLogic implements CollisionCallBack {
     private void checkForCoinCollisions() {
         for (Coin coin : coins) {
             if (player.collidesWith(coin)) {
-                // if ()   {
+                if (!coin.isCollected())   {
                     coin.setCollected();
-                    updateCoinCooldown(coin.getValue());
-                // }
+                    coinValue += coin.getValue();
+                }
             }
         }
     }
@@ -478,14 +482,7 @@ public class GameLogic implements CollisionCallBack {
             showHitWarning = false;
         }
     }
-
-    private void updateCoinCooldown(int value) {
-        if (System.currentTimeMillis() - lastCoinTime > coinCooldown) {
-            lastCoinTime = System.currentTimeMillis();
-            coinValue += value;
-        }
-    }
-
+    
     private void updateEnemyPositions() {
         for (Enemy enemy : enemies) {
             if (enemy.getStunTimer() <= 0) { enemy.moveTowards(player.getX(), player.getY()); } //If enemy has no stun remaining

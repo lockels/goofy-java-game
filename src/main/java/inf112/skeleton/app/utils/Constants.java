@@ -30,7 +30,12 @@ public class Constants {
     public final static float PLAYER_COLLISION_RADIUS = 1;
 
     // Enemies
+<<<<<<< HEAD
     public final static int NUM_STARTER_ENEMIES = 2;
+=======
+    public final static int NUM_ENEMIES = 5;
+    public final static int ENEMY_KNOCKBACK_DAMPING = 1;
+>>>>>>> d58ce55 (Added knockback damping for enemies)
 
     // - Light
     public final static String LIGHT_ENEMY_SPRITE = "light_enemy";

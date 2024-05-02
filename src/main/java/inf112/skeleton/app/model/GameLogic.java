@@ -193,9 +193,15 @@ public class GameLogic implements CollisionCallBack {
     }
 
     private void initializeWeapon() {
+<<<<<<< HEAD
         // this.weapon = new RedSword(world);
         // this.weapon = new TreeSword(world);
         this.weapon = new GreenSword(world);
+=======
+        this.weapon = new Sword(world);
+        // this.weapon = new Axe(world);
+        // this.weapon = new Dagger(worldd);
+>>>>>>> d58ce55 (Added knockback damping for enemies)
         entities.add(this.weapon);
     }
 

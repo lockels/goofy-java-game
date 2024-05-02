@@ -35,14 +35,22 @@ public class Enemy extends Entity {
         float speed = this.speed / 100;
         Vector2 velocity = new Vector2(MathUtils.cos(angle) * speed, MathUtils.sin(angle) * speed);
         body.applyLinearImpulse(velocity, body.localPoint2, true);
+        // body.applyForceToCenter(new Vector2().scl(-1), true);
     }
 
-    public void hit(int dmg, float knockback, float angle, float stun) { takeDmg(dmg); applyKnockback(knockback, angle); setStunTimer(stun);}
+    public void hit(int dmg, float knockback, float angle, float stun) {
+        takeDmg(dmg); 
+        applyKnockback(knockback, angle); 
+        setStunTimer(stun);
+    }
 
     private void applyKnockback(float knockback, float angle) {
         Vector2 trigCoords = trigVector(knockback, angle);
         body.setLinearVelocity(trigCoords.x, trigCoords.y);
+        body.setLinearDamping(ENEMY_KNOCKBACK_DAMPING);
+        body.applyForceToCenter(new Vector2().scl(PLAYER_SPEED), true);
     }
+
     private void takeDmg(int dmg) {
         hp -= dmg;
         if (hp <= 0) {isActive = false; }

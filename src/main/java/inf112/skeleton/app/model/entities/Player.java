@@ -122,7 +122,7 @@ public class Player extends Entity {
     // }
 
     public boolean collidesWith(Entity entity)  {
-        return body.getPosition().dst(entity.getBody().getPosition()) < PLAYER_COLLISION_RADIUS;
+        return body.getPosition().dst(entity.getBody().getPosition()) < Math.max(entity.spriteWidth, entity.spriteHeight) + PLAYER_COLLISION_RADIUS;
     }
 
     public int getCoinCount(){

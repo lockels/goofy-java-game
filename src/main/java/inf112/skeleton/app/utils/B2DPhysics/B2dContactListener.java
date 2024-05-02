@@ -19,7 +19,6 @@ public class B2dContactListener implements ContactListener {
         Fixture fA = contact.getFixtureA();
         Fixture fB = contact.getFixtureB();
         weaponAndEnemyContact(fA, fB);
-        playerAndCoinContact(fA, fB);
         playerAndSpikeContact(fA, fB);
     }
 
@@ -56,16 +55,6 @@ public class B2dContactListener implements ContactListener {
             collisionCallBack.onPlayerSpikeCollision(player, spike); // Call the callback method
         }
     }
-
-    private void playerAndCoinContact(Fixture fA, Fixture fB) {
-        if (isPlayerContact(fA, fB) && isSpikeContact(fA, fB)) {
-            System.out.println("coin hit");
-            Player player = (fA.getUserData() instanceof Player) ? (Player) fA.getUserData() : (Player) fB.getUserData();
-            Coin coin = (fA.getUserData() instanceof Coin) ? (Coin) fA.getUserData() : (Coin) fB.getUserData();
-            collisionCallBack.onPlayerCoinCollision(player, coin);
-        }
-    }
-    
 
     private void resolvePlayerAndSpikeContact(Fixture fA, Fixture fB) {
         if (isPlayerContact(fA, fB) && isSpikeContact(fA, fB)) {

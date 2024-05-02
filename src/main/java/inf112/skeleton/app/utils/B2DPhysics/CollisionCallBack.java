@@ -6,5 +6,4 @@ import inf112.skeleton.app.model.entities.Spike;
 
 public interface CollisionCallBack {
     void onPlayerSpikeCollision(Player player, Spike spike);
-    void onPlayerCoinCollision(Player player, Coin coin);
 }

@@ -51,7 +51,10 @@ public class GameLogic implements CollisionCallBack {
     public World world;
     //sounds
     private SoundController soundController = new SoundController();
- 
+
+    private float waveTimer = 0;
+    private float waveDelay = 5; // 5 seconds delay for respawning enemies
+
 
     /**
      * Constructs a new GameLogic instance with the given game state.
@@ -177,7 +180,8 @@ public class GameLogic implements CollisionCallBack {
 
 
     private void initializeEnemies() {
-        for (int i = 0; i < 2; i++) {
+        int num_enemies = NUM_STARTER_ENEMIES + 2 * this.wave;
+        for (int i = 0; i < num_enemies; i++) {
             Enemy enemy = switch ((int) (Math.random() * 3)) {
                 case 0 -> new Light(world);
                 case 1 -> new Medium(world);
@@ -383,8 +387,12 @@ public class GameLogic implements CollisionCallBack {
     }
 
     private void updateWave() {
-        if (enemies.size() == 0) 
+        waveTimer += Gdx.graphics.getDeltaTime();
+        if (enemies.size() == 0 && waveTimer >= waveDelay) {
             initializeEnemies();
+            wave += 1;
+            waveTimer = 0;
+        }
     }
 
     private void checkPlayerHit() {
@@ -440,8 +448,4 @@ public class GameLogic implements CollisionCallBack {
         applyHitToPlayer();
 	}
 
-	@Override
-	public void onPlayerCoinCollision(Player player, Coin coin) {
-
-	}
 }

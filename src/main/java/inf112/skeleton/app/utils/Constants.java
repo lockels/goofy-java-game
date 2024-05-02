@@ -31,7 +31,7 @@ public class Constants {
     public final static float PLAYER_COLLISION_RADIUS = 45;
 
     // Enemies
-    public final static int NUM_ENEMIES = 5;
+    public final static int NUM_STARTER_ENEMIES = 2;
 
     // - Light
     public final static String LIGHT_ENEMY_SPRITE = "light_enemy";

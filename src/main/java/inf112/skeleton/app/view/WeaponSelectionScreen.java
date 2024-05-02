@@ -91,7 +91,6 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         });
     }
 
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -115,16 +114,12 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
 
     @Override
     public void create() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'create'");
     }
 
     @Override
     public void render() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'render'");
     }
-    
-
 }
 

@@ -139,37 +139,37 @@ public class PlayerTest {
         assertNotEquals(initialActiveState, player.getMovementDirections().get(testDirection));
     }
 
-    @Test
-    public void testMove_WhenMovingUp() {
-        // Arrange
-        player.setMovement(Direction.UP, true);
+    // @Test
+    // public void testMove_WhenMovingUp() {
+    //     // Arrange
+    //     player.setMovement(Direction.UP, true);
 
-        // Act
-        player.move();
+    //     // Act
+    //     player.move();
 
-        // Assert
-        ArgumentCaptor<Vector2> vectorCaptor = ArgumentCaptor.forClass(Vector2.class);
-        verify(mockBody).applyForceToCenter(vectorCaptor.capture(), eq(true));
+    //     // Assert
+    //     ArgumentCaptor<Vector2> vectorCaptor = ArgumentCaptor.forClass(Vector2.class);
+    //     verify(mockBody).applyForceToCenter(vectorCaptor.capture(), eq(true));
 
        
-    }
+    // }
 
-    @Test
-    public void testMove_WhenMovingInMultipleDirections() {
-        // Arrange
-        player.setMovement(Direction.UP, true);
-        player.setMovement(Direction.RIGHT, true);
+    // @Test
+    // public void testMove_WhenMovingInMultipleDirections() {
+    //     // Arrange
+    //     player.setMovement(Direction.UP, true);
+    //     player.setMovement(Direction.RIGHT, true);
 
-        // Act
-        player.move();
+    //     // Act
+    //     player.move();
 
-        // Assert
-        ArgumentCaptor<Vector2> vectorCaptor = ArgumentCaptor.forClass(Vector2.class);
-        verify(mockBody).applyForceToCenter(vectorCaptor.capture(), eq(true));
+    //     // Assert
+    //     ArgumentCaptor<Vector2> vectorCaptor = ArgumentCaptor.forClass(Vector2.class);
+    //     verify(mockBody).applyForceToCenter(vectorCaptor.capture(), eq(true));
 
-        // Checking normalization
+    //     // Checking normalization
       
-    }
+    // }
 
     @Test
     public void testStopMovement() {

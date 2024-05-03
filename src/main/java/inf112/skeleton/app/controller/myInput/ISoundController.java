@@ -14,7 +14,4 @@ public interface ISoundController {
     void initializeBackgroundMusic();  
     void dispose();
     void setMusicVolume(float volume) ;
-    // Method to set the volume for sounds
-    //void setVolume(float volume); // General volume setter
-    //void setSpecificSoundVolume(String soundName, float volume); // Specific sound volume setter
 }

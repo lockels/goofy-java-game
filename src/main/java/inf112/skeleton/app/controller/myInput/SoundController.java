@@ -3,6 +3,8 @@ package inf112.skeleton.app.controller.myInput;
 import javax.sound.sampled.*;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +12,7 @@ import java.util.HashMap;
 
 public class SoundController implements ISoundController {
     private HashMap<String, Clip> clips = new HashMap<>();
-    private com.badlogic.gdx.audio.Music backgroundMusic;
+    private Music backgroundMusic;
     public SoundController() {
 
         //initializeBackgroundMusic();
@@ -134,11 +136,11 @@ public class SoundController implements ISoundController {
         }
     }
 
+    public HashMap<String, Clip> getClips() {
+    return this.clips;
+    }
 
-    
-
-   
-
-  
-  
+    public Music getBackgroundMusic(){
+        return this.backgroundMusic;
+    }
 }

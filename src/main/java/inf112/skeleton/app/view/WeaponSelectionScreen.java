@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import inf112.skeleton.app.model.GameLogic;
+import inf112.skeleton.app.model.entities.weapons.GreenSword;
+import inf112.skeleton.app.model.entities.weapons.RedSword;
 import inf112.skeleton.app.model.entities.weapons.TreeSword;
 import inf112.skeleton.app.model.entities.weapons.Weapon;
 
@@ -112,26 +114,6 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         float treeButtonY = 355; 
         treeButton.setPosition(treeButtonX, treeButtonY);
         stage.addActor(treeButton);
-
-       
-        // treeButton.addListener(new ClickListener() {
-        //     @Override
-        //     public void clicked(InputEvent event, float x, float y) {
-        //         try {
-        //             SpriteBatch batch = game.getBatch(); 
-        //             GameLogic gameLogic = game.getGameLogic();
-        //             OrthographicCamera cam = game.getCamera(); 
-
-        //             if (gameLogic != null && cam != null) {
-        //                 game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
-        //             } else {
-        //                 System.out.println("Game logic or camera is null");
-        //             }
-        //         } catch (Exception e) {
-        //             e.printStackTrace();
-        //         }
-        //     }
-        // });
         
         treeButton.addListener(new ClickListener() {
             @Override
@@ -171,16 +153,41 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         stage.addActor(redSwordButton);
         redSwordButton.setPosition(redSwordButtonX, redSwordButtonY);
         stage.addActor(redSwordButton);
+
         
+        // redSwordButton.addListener(new ClickListener() {
+        //     @Override
+        //     public void clicked(InputEvent event, float x, float y) {
+        //         try {
+        //             SpriteBatch batch = game.getBatch(); 
+        //             GameLogic gameLogic = game.getGameLogic();
+        //             OrthographicCamera cam = game.getCamera(); 
+
+        //             if (gameLogic != null && cam != null) {
+        //                 game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
+        //             } else {
+        //                 System.out.println("Game logic or camera is null");
+        //             }
+        //         } catch (Exception e) {
+        //             e.printStackTrace();
+        //         }
+        //     }
+        // });
+
         redSwordButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try {
-                    SpriteBatch batch = game.getBatch(); 
+                    SpriteBatch batch = game.getBatch();
                     GameLogic gameLogic = game.getGameLogic();
-                    OrthographicCamera cam = game.getCamera(); 
-
+                    OrthographicCamera cam = game.getCamera();
+        
                     if (gameLogic != null && cam != null) {
+                        Weapon weapon = gameLogic.getWeapon();
+                        if (weapon instanceof RedSword) {
+                            RedSword redSword = (RedSword) weapon;
+                            redSword.toggleActive(); // Toggle the activation state of the RedSword
+                        }
                         game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
                     } else {
                         System.out.println("Game logic or camera is null");
@@ -190,6 +197,8 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
                 }
             }
         });
+
+        
 
         //Green Sword Button
         Drawable buttonDrawable3 = new TextureRegionDrawable(new TextureRegion(greenButtonSwordTexture));
@@ -202,15 +211,38 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         greenSwordButton.setPosition(greenSwordButtonX, greenSwordButtonY);
         stage.addActor(greenSwordButton);
 
+        // greenSwordButton.addListener(new ClickListener() {
+        //     @Override
+        //     public void clicked(InputEvent event, float x, float y) {
+        //         try {
+        //             SpriteBatch batch = game.getBatch(); 
+        //             GameLogic gameLogic = game.getGameLogic();
+        //             OrthographicCamera cam = game.getCamera(); 
+
+        //             if (gameLogic != null && cam != null) {
+        //                 game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
+        //             } else {
+        //                 System.out.println("Game logic or camera is null");
+        //             }
+        //         } catch (Exception e) {
+        //             e.printStackTrace();
+        //         }
+        //     }
+        // });
         greenSwordButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try {
-                    SpriteBatch batch = game.getBatch(); 
+                    SpriteBatch batch = game.getBatch();
                     GameLogic gameLogic = game.getGameLogic();
-                    OrthographicCamera cam = game.getCamera(); 
-
+                    OrthographicCamera cam = game.getCamera();
+        
                     if (gameLogic != null && cam != null) {
+                        Weapon weapon = gameLogic.getWeapon();
+                        if (weapon instanceof GreenSword) {
+                            GreenSword greenSword = (GreenSword) weapon;
+                            greenSword.toggleActive(); // Toggle the activation state of the GreenSword
+                        }
                         game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
                     } else {
                         System.out.println("Game logic or camera is null");
@@ -220,6 +252,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
                 }
             }
         });
+        
 
     }
 

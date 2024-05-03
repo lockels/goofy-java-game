@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import inf112.skeleton.app.model.entities.Player;
 import inf112.skeleton.app.model.entities.Spike;
 import inf112.skeleton.app.model.entities.enemies.Enemy;
-import inf112.skeleton.app.model.entities.weapons.Sword;
+import inf112.skeleton.app.model.entities.weapons.RedSword;
 import inf112.skeleton.app.model.entities.weapons.Weapon;
 import inf112.skeleton.app.utils.Constants;
 
@@ -24,7 +24,7 @@ class B2dContactListenerTest {
     private Fixture fixtureA, fixtureB;
     private Player mockPlayer;
     private Spike mockSpike;
-    private Sword mocksSword;
+    private RedSword mocksSword;
     private Enemy mockEnemy;
 
     @BeforeEach
@@ -37,7 +37,7 @@ class B2dContactListenerTest {
         fixtureB = mock(Fixture.class);
         mockPlayer = mock(Player.class);
         mockSpike = mock(Spike.class);
-        mocksSword = mock(Sword.class);
+        mocksSword = mock(RedSword.class);
         mockEnemy = mock(Enemy.class);
 
 

@@ -54,21 +54,18 @@ public class Constants {
     public final static int HEAVY_ENEMY_SPEED = 50;
     public final static int HEAVY_ENEMY_HEALTH = 25;
 
-    // Sword
-    // Weapons
-    // Dagger
-    public final static String SWORD_SPRITE = "swordSprite";
-    public final static int SWORD_HEIGHT = 40;
-    public final static int SWORD_WIDTH = 10;
-    public final static int SWORD_Y_OFFSET = 40;
-    public final static int SWORD_X_OFFSET = 0;
-    public final static int SWORD_DMG = 4;
-    public final static float SWORD_KNOCKBACK = 100;
-    public final static float SWORD_STUN = 1;
-    public final static float SWORD_COOLDOWN = 0.5f;
+    // - Red Sword 
+    public final static String RED_SWORD_SPRITE = "Red_sword";
+    public final static int RED_SWORD_HEIGHT = 40;
+    public final static int RED_SWORD_WIDTH = 10;
+    public final static int RED_SWORD_Y_OFFSET = 40;
+    public final static int RED_SWORD_X_OFFSET = 0;
+    public final static int RED_SWORD_DMG = 4;
+    public final static float RED_SWORD_KNOCKBACK = 100;
+    public final static float RED_SWORD_STUN = 1;
+    public final static float RED_SWORD_COOLDOWN = 0.5f;
 
-    // - Axe
-    // public final static String AXE_SPRITE = "axeSprite";
+    // - Tree Sword 
     public final static String TREE_SPRITE = "Tree_sword";
     public final static int TREE_HEIGHT = 60;
     public final static int TREE_WIDTH = 30;
@@ -79,16 +76,16 @@ public class Constants {
     public final static float TREE_STUN = 1;
     public final static float TREE_COOLDOWN = 1.5f;
 
-    // - Dagger
-    public final static String DAGGER_SPRITE = "swordSprite";
-    public final static int DAGGER_HEIGHT = 20;
-    public final static int DAGGER_WIDTH = 10;
-    public final static int DAGGER_Y_OFFSET = 25;
-    public final static int DAGGER_X_OFFSET = 0;
-    public final static int DAGGER_DMG = 1;
-    public final static float DAGGER_KNOCKBACK = 50;
-    public final static float DAGGER_STUN = 0.5f;
-    public final static float DAGGER_COOLDOWN = 0.1f;
+    // - Green Sword 
+    public final static String GREEN_SWORD_SPRITE = "Green_sword";
+    public final static int GREEN_SWORD_HEIGHT = 20;
+    public final static int GREEN_SWORD_WIDTH = 10;
+    public final static int GREEN_SWORD_Y_OFFSET = 25;
+    public final static int GREEN_SWORD_X_OFFSET = 0;
+    public final static int GREEN_SWORD_DMG = 1;
+    public final static float GREEN_SWORD_KNOCKBACK = 50;
+    public final static float GREEN_SWORD_STUN = 0.5f;
+    public final static float GREEN_SWORD_COOLDOWN = 0.1f;
 
     // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;

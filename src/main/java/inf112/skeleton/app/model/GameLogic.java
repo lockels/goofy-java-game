@@ -148,12 +148,12 @@ public class GameLogic implements CollisionCallBack {
     public void setShowHitWarning(boolean showHitWarning) {
         this.showHitWarning = showHitWarning;
     }
-    
+
     // Ensure there is a way to access the specific weapon
     public Weapon getWeapon() {
         return weapon;
     }
-    
+
     private void initializeEntities() {
         initializePlayer();
         initializeEnemies();
@@ -177,9 +177,9 @@ public class GameLogic implements CollisionCallBack {
     }
 
     private void initializeWeapon() {
-        // this.weapon = new Sword(world);
-        this.weapon = new TreeSword(world);
-        // this.weapon = new Dagger(worldd);
+        // this.weapon = new RedSword(world);
+        // this.weapon = new TreeSword(world);
+        this.weapon = new GreenSword(world);
         entities.add(this.weapon);
     }
 

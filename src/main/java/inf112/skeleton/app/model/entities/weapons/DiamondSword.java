@@ -1,6 +1,5 @@
 package inf112.skeleton.app.model.entities.weapons;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.app.utils.B2DPhysics.PhysicsFactory;
@@ -25,13 +24,5 @@ public class DiamondSword extends Weapon {
                 DIAMOND_COOLDOWN,
                 DIAMOND_STUN);
         this.setOffset(new Vector2(DIAMOND_X_OFFSET, DIAMOND_Y_OFFSET));
-    }
-
-
-    @Override
-    public void render(SpriteBatch batch) {
-        // if (isActive) {
-            super.render(batch);
-        // }
     }
 }

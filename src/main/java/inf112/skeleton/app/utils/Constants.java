@@ -68,15 +68,16 @@ public class Constants {
     public final static float SWORD_COOLDOWN = 0.5f;
 
     // - Axe
-    public final static String AXE_SPRITE = "axeSprite";
-    public final static int AXE_HEIGHT = 60;
-    public final static int AXE_WIDTH = 30;
-    public final static int AXE_Y_OFFSET = 50;
-    public final static int AXE_X_OFFSET = 0;
-    public final static int AXE_DMG = 5;
-    public final static float AXE_KNOCKBACK = 500;
-    public final static float AXE_STUN = 1;
-    public final static float AXE_COOLDOWN = 1.5f;
+    // public final static String AXE_SPRITE = "axeSprite";
+    public final static String TREE_SPRITE = "Tree_sword";
+    public final static int TREE_HEIGHT = 60;
+    public final static int TREE_WIDTH = 30;
+    public final static int TREE_Y_OFFSET = 50;
+    public final static int TREE_X_OFFSET = 0;
+    public final static int TREE_DMG = 5;
+    public final static float TREE_KNOCKBACK = 500;
+    public final static float TREE_STUN = 1;
+    public final static float TREE_COOLDOWN = 1.5f;
 
     // - Dagger
     public final static String DAGGER_SPRITE = "swordSprite";

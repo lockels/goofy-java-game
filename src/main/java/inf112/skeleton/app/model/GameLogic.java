@@ -173,7 +173,7 @@ public class GameLogic implements CollisionCallBack {
 
     private void initializeWeapon() {
         // this.weapon = new Sword(world);
-        this.weapon = new Axe(world);
+        this.weapon = new TreeSword(world);
         // this.weapon = new Dagger(worldd);
         entities.add(this.weapon);
     }

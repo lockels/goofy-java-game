@@ -18,7 +18,7 @@ public class HUD {
 
     private float screenX;
     private float screenY;
-    public Heart[] getHearts;
+    public Heart[] Hearts;
 
     /**
      * Constructs a HUD with the specified heart texture and maximum number of
@@ -88,5 +88,9 @@ public class HUD {
                 hearts.get(i).setFilled(false);
             }
         }
+    }
+
+    public List<Heart> getHearts() {
+        return hearts;
     }
 }

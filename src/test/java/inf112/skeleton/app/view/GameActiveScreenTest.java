@@ -51,6 +51,31 @@ public class GameActiveScreenTest {
         
         screen = new GameActiveScreen(mockGame, mockGameLogic, mockBatch, mockCam);
     }
+
+    @Test
+    void testDispose() {
+        
+    }
+
+    @Test
+    void testGetCameraX() {
+        
+    }
+
+    @Test
+    void testGetCameraY() {
+        
+    }
+
+    @Test
+    void testRender() {
+        
+    }
+
+    @Test
+    void testShow() {
+        
+    }
 }
 
 

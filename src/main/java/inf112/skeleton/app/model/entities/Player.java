@@ -14,13 +14,11 @@ import static inf112.skeleton.app.utils.Constants.*;
 public class Player extends Entity {
     private Map<Direction, Boolean> moveDirections;
     private int health;
-    // private int coinCount;
     private boolean inContactWithSpike = false;
     
     public Player(Body body, String textureId, String tag) {
         super(body, textureId, tag, PLAYER_HEIGHT, PLAYER_WIDTH);
         health = PLAYER_HEALTH;
-        // coinCount = 0;
 
         moveDirections = new EnumMap<>(Direction.class);
         for (Direction dir : Direction.values()) {
@@ -50,24 +48,6 @@ public class Player extends Entity {
     public boolean isInContactWithSpike() {
         return inContactWithSpike;
     }
-
-    /**
-     * This method simulates the coin being collected by the player.
-     * Once collected, the coin is marked and deactivated in the physics simulation.
-     *
-     * @param player the player collecting the coin
-     */
-    // public void collect(Coin coin) {
-    //     if (!coin.isCollected()) {
-    //         // this.addCoins(coin.getValue());
-    //         coin.setCollected();
-    //         body.setActive(false); // Deactivate the physics body so it no longer interacts in the world
-    //     }
-    // }
-
-    // private void addCoins(int value) {
-    //     this.coinCount += value;
-    // }
 
     public void takeDamage(int damage) {
         this.health -= damage;
@@ -120,8 +100,4 @@ public class Player extends Entity {
     public boolean collidesWith(Entity entity)  {
         return body.getPosition().dst(entity.getBody().getPosition()) < Math.max(entity.spriteWidth, entity.spriteHeight) + PLAYER_COLLISION_RADIUS;
     }
-
-    // public int getCoinCount(){
-    //     return coinCount;
-    // }
 }

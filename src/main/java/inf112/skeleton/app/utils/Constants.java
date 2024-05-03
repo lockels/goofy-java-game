@@ -62,8 +62,8 @@ public class Constants {
     // Weapons
     // - Tree Sword
     public final static String TREE_SWORD_IMG = "TreeSword";
-    public final static int TREE_HEIGHT = 60;
-    public final static int TREE_WIDTH = 30;
+    public final static int TREE_HEIGHT = 30;
+    public final static int TREE_WIDTH = 15;
     public final static int TREE_Y_OFFSET = 50;
     public final static int TREE_X_OFFSET = 0;
     public final static int TREE_DMG = 5;
@@ -73,8 +73,8 @@ public class Constants {
 
     // - Metal Sword
     public final static String METAL_SWORD_IMG = "MetalSword";
-    public final static int METAL_HEIGHT = 60;
-    public final static int METAL_WIDTH = 30;
+    public final static int METAL_HEIGHT = 40;
+    public final static int METAL_WIDTH = 20;
     public final static int METAL_Y_OFFSET = 50;
     public final static int METAL_X_OFFSET = 0;
     public final static int METAL_DMG = 3;
@@ -84,7 +84,7 @@ public class Constants {
 
     // - Diamond Sword
     public final static String DIAMOND_SWORD_IMG = "DiamondSword";
-    public final static int DIAMOND_HEIGHT = 60;
+    public final static int DIAMOND_HEIGHT = 70;
     public final static int DIAMOND_WIDTH = 30;
     public final static int DIAMOND_Y_OFFSET = 50;
     public final static int DIAMOND_X_OFFSET = 0;
@@ -144,8 +144,8 @@ public class Constants {
     public final static String RED_SWORD = "Red_sword.png";
     public final static String TREE_SWORD = "Tree_sword.png";
     public final static String TREE_SWORD_BUTTON = "Tree_Sword_Button.png";
-    public final static String RED_SWORD_BUTTON = "Red_Sword_Button.png";
-    public final static String GREEN_SWORD_BUTTON = "Green_Sword_Button.png";
+    public final static String METAL_SWORD_BUTTON = "Red_Sword_Button.png";
+    public final static String DIAMOND_SWORD_BUTTON = "Green_Sword_Button.png";
 
     // GameHelpScreen
     public final static String HELP_SCREEN_BACKGROUND = "src/main/resources/gamehelpscreen/helpbackground.png";

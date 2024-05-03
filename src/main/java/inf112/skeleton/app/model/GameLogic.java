@@ -192,7 +192,7 @@ public class GameLogic implements CollisionCallBack {
 
     private void initializeWeapon() {
         // this.weapon = new TreeSword(world);
-
+        // this.weapon = new MetalSword(world);
         this.weapon = new DiamondSword(world);
         entities.add(this.weapon);
     }
@@ -200,13 +200,10 @@ public class GameLogic implements CollisionCallBack {
     private void initializeEnemies() {
         System.out.println("Initializing enemies");
         int num_enemies = NUM_STARTER_ENEMIES + 2 * this.wave;
-
         int num_heavy = (int) (num_enemies * 0.2f);
         int num_medium = (int) (num_enemies * 0.4f);
         int num_light = num_enemies - num_heavy - num_medium;
-
         int[] enemyTypes = {num_light, num_medium, num_heavy};
-
         for (int i = 0; i < enemyTypes.length; i++) {
             for (int j = 0; j < enemyTypes[i]; j++)   {
                 Enemy enemy;
@@ -354,14 +351,6 @@ public class GameLogic implements CollisionCallBack {
         }
         return activeEntities;
     }
-
-    // public List<Enemy> getActiveEnemies() {
-    // List<Enemy> activeEnemies = new ArrayList<>();
-    // for (Enemy enemy : enemies){
-    // if (enemy.isActive()) {activeEnemies.add(enemy);}
-    // }
-    // return activeEnemies;
-    // }
 
     private void destroyInactiveEnemies() {
         List<Enemy> activeEnemies = enemies;

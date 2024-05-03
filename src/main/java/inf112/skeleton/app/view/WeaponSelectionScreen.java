@@ -45,7 +45,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
     private Button diamondSwordButton;
     private Button metalSwordButton;
     private Texture treeButtonSwordTexture;
-    private Texture redButtonSwordTexture; 
+    private Texture metalButtonSwordTexture; 
     private Texture diamondButtonSwordTexture;
     
 
@@ -61,8 +61,8 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         this.backgroundTexture = new Texture(WEAPON_SELECTION);
         this.backButtonTexture = new Texture(BACK_TO_GAME_BUTTON); 
         this.treeButtonSwordTexture = new Texture(TREE_SWORD_BUTTON);
-        this.redButtonSwordTexture = new Texture(RED_SWORD_BUTTON);
-        this.diamondButtonSwordTexture = new Texture(GREEN_SWORD_BUTTON);
+        this.metalButtonSwordTexture = new Texture(METAL_SWORD_BUTTON);
+        this.diamondButtonSwordTexture = new Texture(DIAMOND_SWORD_BUTTON);
     }
 
     
@@ -138,11 +138,9 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
                 }
             }
         });
-        
 
-
-        //Red Sword button
-        Drawable buttonDrawable2 = new TextureRegionDrawable(new TextureRegion(redButtonSwordTexture));
+        //Metal Sword button
+        Drawable buttonDrawable2 = new TextureRegionDrawable(new TextureRegion(metalButtonSwordTexture));
         Button.ButtonStyle buttonStyle2 = new Button.ButtonStyle();
         buttonStyle2.up = buttonDrawable2; 
         metalSwordButton = new Button(buttonStyle2);
@@ -153,26 +151,6 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         stage.addActor(metalSwordButton);
         metalSwordButton.setPosition(metalSwordButtonX, metalSwordButtonY);
         stage.addActor(metalSwordButton);
-
-        
-        // metalSwordButton.addListener(new ClickListener() {
-        //     @Override
-        //     public void clicked(InputEvent event, float x, float y) {
-        //         try {
-        //             SpriteBatch batch = game.getBatch(); 
-        //             GameLogic gameLogic = game.getGameLogic();
-        //             OrthographicCamera cam = game.getCamera(); 
-
-        //             if (gameLogic != null && cam != null) {
-        //                 game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
-        //             } else {
-        //                 System.out.println("Game logic or camera is null");
-        //             }
-        //         } catch (Exception e) {
-        //             e.printStackTrace();
-        //         }
-        //     }
-        // });
 
         metalSwordButton.addListener(new ClickListener() {
             @Override
@@ -198,9 +176,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
             }
         });
 
-        
-
-        //Green Sword Button
+        //Diamond Sword Button
         Drawable buttonDrawable3 = new TextureRegionDrawable(new TextureRegion(diamondButtonSwordTexture));
         Button.ButtonStyle buttonStyle3 = new Button.ButtonStyle();
         buttonStyle3.up = buttonDrawable3; 
@@ -211,24 +187,6 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         diamondSwordButton.setPosition(diamondSwordButtonX, diamondSwordButtonY);
         stage.addActor(diamondSwordButton);
 
-        // diamondSwordButton.addListener(new ClickListener() {
-        //     @Override
-        //     public void clicked(InputEvent event, float x, float y) {
-        //         try {
-        //             SpriteBatch batch = game.getBatch(); 
-        //             GameLogic gameLogic = game.getGameLogic();
-        //             OrthographicCamera cam = game.getCamera(); 
-
-        //             if (gameLogic != null && cam != null) {
-        //                 game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
-        //             } else {
-        //                 System.out.println("Game logic or camera is null");
-        //             }
-        //         } catch (Exception e) {
-        //             e.printStackTrace();
-        //         }
-        //     }
-        // });
         diamondSwordButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -252,23 +210,16 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
                 }
             }
         });
-        
-
     }
-
-
-
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         stage.act(delta); 
         batch.begin();
         batch.draw(backgroundTexture, 0, 0);
         batch.end();
-
         stage.draw(); 
     }
 
@@ -278,7 +229,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         backgroundTexture.dispose();
         backButtonTexture.dispose();
         treeButtonSwordTexture.dispose();
-        redButtonSwordTexture.dispose();
+        metalButtonSwordTexture.dispose();
         diamondButtonSwordTexture.dispose();
         stage.dispose();
     }

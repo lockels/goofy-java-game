@@ -16,8 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import inf112.skeleton.app.model.GameLogic;
-import inf112.skeleton.app.model.entities.weapons.GreenSword;
-import inf112.skeleton.app.model.entities.weapons.RedSword;
+import inf112.skeleton.app.model.entities.weapons.DiamondSword;
+import inf112.skeleton.app.model.entities.weapons.MetalSword;
 import inf112.skeleton.app.model.entities.weapons.TreeSword;
 import inf112.skeleton.app.model.entities.weapons.Weapon;
 
@@ -42,11 +42,11 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
     private Texture backButtonTexture; // Texture for the back to game button
     private Button backButton; 
     private Button treeButton;
-    private Button greenSwordButton;
-    private Button redSwordButton;
+    private Button diamondSwordButton;
+    private Button metalSwordButton;
     private Texture treeButtonSwordTexture;
     private Texture redButtonSwordTexture; 
-    private Texture greenButtonSwordTexture;
+    private Texture diamondButtonSwordTexture;
     
 
      /**
@@ -62,7 +62,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         this.backButtonTexture = new Texture(BACK_TO_GAME_BUTTON); 
         this.treeButtonSwordTexture = new Texture(TREE_SWORD_BUTTON);
         this.redButtonSwordTexture = new Texture(RED_SWORD_BUTTON);
-        this.greenButtonSwordTexture = new Texture(GREEN_SWORD_BUTTON);
+        this.diamondButtonSwordTexture = new Texture(GREEN_SWORD_BUTTON);
     }
 
     
@@ -145,17 +145,17 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         Drawable buttonDrawable2 = new TextureRegionDrawable(new TextureRegion(redButtonSwordTexture));
         Button.ButtonStyle buttonStyle2 = new Button.ButtonStyle();
         buttonStyle2.up = buttonDrawable2; 
-        redSwordButton = new Button(buttonStyle2);
-        redSwordButton.setSize(280, 290);
-        float redSwordButtonX = 430; 
-        float redSwordButtonY = 355; 
-        redSwordButton.setPosition(treeButtonX, treeButtonY);
-        stage.addActor(redSwordButton);
-        redSwordButton.setPosition(redSwordButtonX, redSwordButtonY);
-        stage.addActor(redSwordButton);
+        metalSwordButton = new Button(buttonStyle2);
+        metalSwordButton.setSize(280, 290);
+        float metalSwordButtonX = 430; 
+        float metalSwordButtonY = 355; 
+        metalSwordButton.setPosition(treeButtonX, treeButtonY);
+        stage.addActor(metalSwordButton);
+        metalSwordButton.setPosition(metalSwordButtonX, metalSwordButtonY);
+        stage.addActor(metalSwordButton);
 
         
-        // redSwordButton.addListener(new ClickListener() {
+        // metalSwordButton.addListener(new ClickListener() {
         //     @Override
         //     public void clicked(InputEvent event, float x, float y) {
         //         try {
@@ -174,7 +174,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         //     }
         // });
 
-        redSwordButton.addListener(new ClickListener() {
+        metalSwordButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try {
@@ -184,9 +184,9 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         
                     if (gameLogic != null && cam != null) {
                         Weapon weapon = gameLogic.getWeapon();
-                        if (weapon instanceof RedSword) {
-                            RedSword redSword = (RedSword) weapon;
-                            redSword.toggleActive(); // Toggle the activation state of the RedSword
+                        if (weapon instanceof MetalSword) {
+                            MetalSword metalSword = (MetalSword) weapon;
+                            metalSword.toggleActive(); // Toggle the activation state of the RedSword
                         }
                         game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
                     } else {
@@ -201,17 +201,17 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         
 
         //Green Sword Button
-        Drawable buttonDrawable3 = new TextureRegionDrawable(new TextureRegion(greenButtonSwordTexture));
+        Drawable buttonDrawable3 = new TextureRegionDrawable(new TextureRegion(diamondButtonSwordTexture));
         Button.ButtonStyle buttonStyle3 = new Button.ButtonStyle();
         buttonStyle3.up = buttonDrawable3; 
-        greenSwordButton = new Button(buttonStyle3);
-        greenSwordButton.setSize(280, 290);
-        float greenSwordButtonX = 270; 
-        float greenSwordButtonY = 60; 
-        greenSwordButton.setPosition(greenSwordButtonX, greenSwordButtonY);
-        stage.addActor(greenSwordButton);
+        diamondSwordButton = new Button(buttonStyle3);
+        diamondSwordButton.setSize(280, 290);
+        float diamondSwordButtonX = 270; 
+        float diamondSwordButtonY = 60; 
+        diamondSwordButton.setPosition(diamondSwordButtonX, diamondSwordButtonY);
+        stage.addActor(diamondSwordButton);
 
-        // greenSwordButton.addListener(new ClickListener() {
+        // diamondSwordButton.addListener(new ClickListener() {
         //     @Override
         //     public void clicked(InputEvent event, float x, float y) {
         //         try {
@@ -229,7 +229,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         //         }
         //     }
         // });
-        greenSwordButton.addListener(new ClickListener() {
+        diamondSwordButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try {
@@ -239,9 +239,9 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         
                     if (gameLogic != null && cam != null) {
                         Weapon weapon = gameLogic.getWeapon();
-                        if (weapon instanceof GreenSword) {
-                            GreenSword greenSword = (GreenSword) weapon;
-                            greenSword.toggleActive(); // Toggle the activation state of the GreenSword
+                        if (weapon instanceof DiamondSword) {
+                            DiamondSword diamondSword = (DiamondSword) weapon;
+                            diamondSword.toggleActive(); // Toggle the activation state of the GreenSword
                         }
                         game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
                     } else {
@@ -279,7 +279,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         backButtonTexture.dispose();
         treeButtonSwordTexture.dispose();
         redButtonSwordTexture.dispose();
-        greenButtonSwordTexture.dispose();
+        diamondButtonSwordTexture.dispose();
         stage.dispose();
     }
 

@@ -34,15 +34,8 @@ public class Constants {
     public final static float PLAYER_COLLISION_RADIUS = 1;
 
     // Enemies
-<<<<<<< HEAD
-<<<<<<< HEAD
     public final static int NUM_STARTER_ENEMIES = 2;
-=======
-    public final static int NUM_ENEMIES = 5;
-=======
->>>>>>> 667a330 (Fixed coin-pickup-bugs)
     public final static int ENEMY_KNOCKBACK_DAMPING = 1;
->>>>>>> d58ce55 (Added knockback damping for enemies)
 
     // - Light
     public final static String LIGHT_ENEMY_SPRITE = "light_enemy";
@@ -65,51 +58,10 @@ public class Constants {
     public final static int HEAVY_ENEMY_SPEED = 50;
     public final static int HEAVY_ENEMY_HEALTH = 25;
 
-<<<<<<< HEAD
-    // - Red Sword 
-    public final static String RED_SWORD_SPRITE = "Red_sword";
-    public final static int RED_SWORD_HEIGHT = 40;
-    public final static int RED_SWORD_WIDTH = 10;
-    public final static int RED_SWORD_Y_OFFSET = 40;
-    public final static int RED_SWORD_X_OFFSET = 0;
-    public final static int RED_SWORD_DMG = 4;
-    public final static float RED_SWORD_KNOCKBACK = 100;
-    public final static float RED_SWORD_STUN = 1;
-    public final static float RED_SWORD_COOLDOWN = 0.5f;
-
-<<<<<<< HEAD
-    // - Tree Sword 
-    public final static String TREE_SPRITE = "Tree_sword";
-=======
     // Sword
     // Weapons
     // - Tree Sword
     public final static String TREE_SWORD_IMG = "TreeSword";
->>>>>>> 79394bb (Fixes swordsprites)
-    public final static int TREE_HEIGHT = 60;
-    public final static int TREE_WIDTH = 30;
-    public final static int TREE_Y_OFFSET = 50;
-    public final static int TREE_X_OFFSET = 0;
-    public final static int TREE_DMG = 1;
-    public final static float TREE_KNOCKBACK = 50;
-    public final static float TREE_STUN = 0.5f;
-    public final static float TREE_COOLDOWN = 1.5f;
-=======
-    // - Axe
-    // public final static String AXE_SPRITE = "axeSprite";
-<<<<<<< HEAD
-    public final static String AXE_SPRITE = "Tree_sword";
-    public final static int AXE_HEIGHT = 60;
-    public final static int AXE_WIDTH = 30;
-    public final static int AXE_Y_OFFSET = 50;
-    public final static int AXE_X_OFFSET = 0;
-    public final static int AXE_DMG = 5;
-    public final static float AXE_KNOCKBACK = 500;
-    public final static float AXE_STUN = 1;
-    public final static float AXE_COOLDOWN = 1.5f;
->>>>>>> db588c8 (Updated sprites for swords)
-=======
-    public final static String TREE_SPRITE = "Tree_sword";
     public final static int TREE_HEIGHT = 60;
     public final static int TREE_WIDTH = 30;
     public final static int TREE_Y_OFFSET = 50;
@@ -118,22 +70,7 @@ public class Constants {
     public final static float TREE_KNOCKBACK = 500;
     public final static float TREE_STUN = 1;
     public final static float TREE_COOLDOWN = 1.5f;
->>>>>>> 6dd5fac (Fixes sword-sprites)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // - Green Sword 
-    public final static String GREEN_SWORD_SPRITE = "Green_sword";
-    public final static int GREEN_SWORD_HEIGHT = 20;
-    public final static int GREEN_SWORD_WIDTH = 10;
-    public final static int GREEN_SWORD_Y_OFFSET = 25;
-    public final static int GREEN_SWORD_X_OFFSET = 0;
-    public final static int GREEN_SWORD_DMG = 1;
-    public final static float GREEN_SWORD_KNOCKBACK = 50;
-    public final static float GREEN_SWORD_STUN = 0.5f;
-    public final static float GREEN_SWORD_COOLDOWN = 0.1f;
-=======
-=======
     // - Metal Sword
     public final static String METAL_SWORD_IMG = "MetalSword";
     public final static int METAL_HEIGHT = 60;
@@ -145,7 +82,6 @@ public class Constants {
     public final static float METAL_STUN = 0.8f;
     public final static float METAL_COOLDOWN = 0.5f;
 
->>>>>>> df0bedc (Fixed spawn of different enemies)
     // - Diamond Sword
     public final static String DIAMOND_SWORD_IMG = "DiamondSword";
     public final static int DIAMOND_HEIGHT = 60;
@@ -156,7 +92,6 @@ public class Constants {
     public final static float DIAMOND_KNOCKBACK = 500;
     public final static float DIAMOND_STUN = 1.0f;
     public final static float DIAMOND_COOLDOWN = 0.1f;
->>>>>>> 79394bb (Fixes swordsprites)
 
     // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;

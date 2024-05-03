@@ -191,36 +191,9 @@ public class GameLogic implements CollisionCallBack {
     }
 
     private void initializeWeapon() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        // this.weapon = new RedSword(world);
         // this.weapon = new TreeSword(world);
-        this.weapon = new GreenSword(world);
-=======
-        this.weapon = new Sword(world);
-        // this.weapon = new Axe(world);
-        // this.weapon = new Dagger(worldd);
-<<<<<<< HEAD
->>>>>>> d58ce55 (Added knockback damping for enemies)
-=======
-        // this.weapon = new Sword(world);
-<<<<<<< HEAD
-        // this.weapon = new Axe(world);
-        this.weapon = new Dagger(world);
->>>>>>> 667a330 (Fixed coin-pickup-bugs)
-=======
-        this.weapon = new Axe(world);
-=======
-        // this.weapon = new Axe(world);d
->>>>>>> 6dd5fac (Fixes sword-sprites)
-        // this.weapon = new Dagger(world);
->>>>>>> 5c8857c (Merge)
-=======
-        // this.weapon = new Sword1(world);
-        // this.weapon = new Sword2(world);
+
         this.weapon = new DiamondSword(world);
->>>>>>> 79394bb (Fixes swordsprites)
         entities.add(this.weapon);
     }
 
@@ -390,9 +363,8 @@ public class GameLogic implements CollisionCallBack {
     // return activeEnemies;
     // }
 
-<<<<<<< HEAD
     private void destroyInactiveEnemies() {
-        List<Enemy> activeEnemies = getActiveEnemies();
+        List<Enemy> activeEnemies = enemies;
         Iterator<Enemy> iterator = getAllEnemies().iterator();
         while (iterator.hasNext()) {
             Enemy enemy = iterator.next();
@@ -403,27 +375,20 @@ public class GameLogic implements CollisionCallBack {
                     world.destroyBody(enemy.getBody());
                     playEnemyDeathSound(enemy);
                     iterator.remove();
-=======
+                }
+            }
+        }
+    }
+
     public void destroyInactiveEntities() {
         List<Entity> activeEntities = getActiveEntities();
         List<Enemy> enemiesToRemove = new ArrayList<>();
         for (Entity entity : entities) {
             if (!activeEntities.contains(entity)) {
                 if (!entity.getIsDestroyed()) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    entity.setIsDestroyed(true);
-                    entity.getBody().setTransform(0,0,0);//Temp solution: teleport body outside of map to avoid collisions
-                    world.destroyBody(entity.getBody());
->>>>>>> cc9ac58 (Improved coinpickup aswell as entitybody-despawning)
-=======
-                    // entity.setIsDestroyed(true);
-                    // entity.getBody().setTransform(0,0,0);//Temp solution: teleport body outside of map to avoid collisions
-                    // world.destroyBody(entity.getBody());
-=======
->>>>>>> df0bedc (Fixed spawn of different enemies)
-                    enemiesToRemove.add((Enemy) entity);
->>>>>>> 6dd5fac (Fixes sword-sprites)
+                    if (entity instanceof Enemy) {
+                        enemiesToRemove.add((Enemy) entity);
+                    }
                 }
             }
         }

@@ -1,5 +1,7 @@
 package inf112.skeleton.app.model.entities.enemies;
 
+import static inf112.skeleton.app.utils.Constants.*;
+
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;

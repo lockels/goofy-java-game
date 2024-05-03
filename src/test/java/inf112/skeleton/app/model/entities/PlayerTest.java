@@ -139,7 +139,6 @@
 //         assertNotEquals(initialActiveState, player.getMovementDirections().get(testDirection));
 //     }
 
-<<<<<<< HEAD
     // @Test
     // public void testMove_WhenMovingUp() {
     //     // Arrange
@@ -171,7 +170,6 @@
     //     // Checking normalization
       
     // }
-=======
 //     @Test
 //     public void testMove_WhenMovingUp() {
 //         // Arrange
@@ -203,7 +201,6 @@
 //         // Checking normalization
       
 //     }
->>>>>>> 6dd5fac (Fixes sword-sprites)
 
 //     @Test
 //     public void testStopMovement() {

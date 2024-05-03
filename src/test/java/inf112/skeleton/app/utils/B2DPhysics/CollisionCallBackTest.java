@@ -1,5 +1,10 @@
 package inf112.skeleton.app.utils.B2DPhysics;
 
+import org.junit.jupiter.api.Test;
+
 public class CollisionCallBackTest {
-    //This class is tested in B2dContactListenerTest
+    @Test
+    void testOnPlayerSpikeCollision() {
+
+    }
 }

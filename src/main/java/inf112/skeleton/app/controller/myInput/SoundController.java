@@ -55,9 +55,8 @@ public class SoundController implements ISoundController {
         backgroundMusic.setVolume(0.5f);
         backgroundMusic.play();
     }
-    
 
-    public void initializeSounds() {
+    private void initializeSounds() {
         initializeBackgroundMusic();
         // Initialize other sounds similarly
     }

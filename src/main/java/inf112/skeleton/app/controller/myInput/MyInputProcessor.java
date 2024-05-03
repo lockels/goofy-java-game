@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 
 public class MyInputProcessor implements InputProcessor {
     @Override
+    
     public boolean keyDown(int keyCode) {
         return false;
     }

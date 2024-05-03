@@ -1,40 +1,60 @@
-package inf112.skeleton.app.model.entities.enemies;
+package inf112.skeleton.app.model.entities.weapons;
 
 import org.junit.jupiter.api.Test;
 
-public class HeavyTest {
+public class TreeSwordTest {
     @Test
-    void testGetEnemyHP() {
+    void testGetCooldown() {
 
     }
 
     @Test
-    void testGetSpeed() {
+    void testGetCooldownTimer() {
 
     }
 
     @Test
-    void testGetStunTimer() {
+    void testGetDmg() {
 
     }
 
     @Test
-    void testHit() {
+    void testGetKnockback() {
 
     }
 
     @Test
-    void testMoveTowards() {
+    void testGetStun() {
 
     }
 
     @Test
-    void testSetHealth() {
+    void testSetCooldown() {
 
     }
 
     @Test
-    void testSetStunTimer() {
+    void testSetCooldownTimer() {
+
+    }
+
+    @Test
+    void testSetDmg() {
+
+    }
+
+    @Test
+    void testSetKnockback() {
+
+    }
+
+    @Test
+    void testSetStun() {
+
+    }
+
+    @Test
+    void testStartCooldownTimer() {
 
     }
 

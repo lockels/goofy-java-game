@@ -18,6 +18,86 @@ import inf112.skeleton.app.utils.Constants;
 
 public class GameLogicTest {
 
+   @Test
+   void testGetActiveEnemies() {
+      
+   }
+
+   @Test
+   void testGetActiveEntities() {
+      
+   }
+
+   @Test
+   void testGetAllEnemies() {
+      
+   }
+
+   @Test
+   void testGetAllEntities() {
+      
+   }
+
+   @Test
+   void testGetGameState() {
+      
+   }
+
+   @Test
+   void testGetPlayer() {
+      
+   }
+
+   @Test
+   void testGetWorld() {
+      
+   }
+
+   @Test
+   void testIsShowHitWarning() {
+      
+   }
+
+   @Test
+   void testOnPlayerSpikeCollision() {
+      
+   }
+
+   @Test
+   void testResetGame() {
+      
+   }
+
+   @Test
+   void testSetGameState() {
+      
+   }
+
+   @Test
+   void testSetMap() {
+      
+   }
+
+   @Test
+   void testSetPlayer() {
+      
+   }
+
+   @Test
+   void testSetShowHitWarning() {
+      
+   }
+
+   @Test
+   void testSetWorld() {
+      
+   }
+
+   @Test
+   void testUpdate() {
+      
+   }
+
    // @Mock private World mockWorld;
    //  @Mock private Player mockPlayer;
    //  @Mock private Enemy mockEnemy;

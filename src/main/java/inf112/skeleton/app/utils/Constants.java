@@ -83,17 +83,6 @@ public class Constants {
 =======
     // Sword
     // Weapons
-    // - Metal Sword
-    public final static String METAL_SWORD_IMG = "MetalSword";
-    public final static int METAL_HEIGHT = 60;
-    public final static int METAL_WIDTH = 30;
-    public final static int METAL_Y_OFFSET = 40;
-    public final static int METAL_X_OFFSET = 0;
-    public final static int METAL_DMG = 4;
-    public final static float METAL_KNOCKBACK = 100;
-    public final static float METAL_STUN = 1;
-    public final static float METAL_COOLDOWN = 0.5f;
-
     // - Tree Sword
     public final static String TREE_SWORD_IMG = "TreeSword";
 >>>>>>> 79394bb (Fixes swordsprites)
@@ -101,9 +90,9 @@ public class Constants {
     public final static int TREE_WIDTH = 30;
     public final static int TREE_Y_OFFSET = 50;
     public final static int TREE_X_OFFSET = 0;
-    public final static int TREE_DMG = 5;
-    public final static float TREE_KNOCKBACK = 500;
-    public final static float TREE_STUN = 1;
+    public final static int TREE_DMG = 1;
+    public final static float TREE_KNOCKBACK = 50;
+    public final static float TREE_STUN = 0.5f;
     public final static float TREE_COOLDOWN = 1.5f;
 =======
     // - Axe
@@ -132,6 +121,7 @@ public class Constants {
 >>>>>>> 6dd5fac (Fixes sword-sprites)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // - Green Sword 
     public final static String GREEN_SWORD_SPRITE = "Green_sword";
     public final static int GREEN_SWORD_HEIGHT = 20;
@@ -143,15 +133,28 @@ public class Constants {
     public final static float GREEN_SWORD_STUN = 0.5f;
     public final static float GREEN_SWORD_COOLDOWN = 0.1f;
 =======
+=======
+    // - Metal Sword
+    public final static String METAL_SWORD_IMG = "MetalSword";
+    public final static int METAL_HEIGHT = 60;
+    public final static int METAL_WIDTH = 30;
+    public final static int METAL_Y_OFFSET = 50;
+    public final static int METAL_X_OFFSET = 0;
+    public final static int METAL_DMG = 3;
+    public final static float METAL_KNOCKBACK = 100;
+    public final static float METAL_STUN = 0.8f;
+    public final static float METAL_COOLDOWN = 0.5f;
+
+>>>>>>> df0bedc (Fixed spawn of different enemies)
     // - Diamond Sword
     public final static String DIAMOND_SWORD_IMG = "DiamondSword";
     public final static int DIAMOND_HEIGHT = 60;
     public final static int DIAMOND_WIDTH = 30;
-    public final static int DIAMOND_Y_OFFSET = 25;
+    public final static int DIAMOND_Y_OFFSET = 50;
     public final static int DIAMOND_X_OFFSET = 0;
-    public final static int DIAMOND_DMG = 1;
-    public final static float DIAMOND_KNOCKBACK = 50;
-    public final static float DIAMOND_STUN = 0.5f;
+    public final static int DIAMOND_DMG = 5;
+    public final static float DIAMOND_KNOCKBACK = 500;
+    public final static float DIAMOND_STUN = 1.0f;
     public final static float DIAMOND_COOLDOWN = 0.1f;
 >>>>>>> 79394bb (Fixes swordsprites)
 

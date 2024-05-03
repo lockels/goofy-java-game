@@ -1,5 +1,4 @@
 package inf112.skeleton.app.utils.B2DPhysics;
-
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import org.junit.jupiter.api.*;
@@ -24,27 +23,70 @@ class PhysicsFactoryTest {
     }
 
     @Test
-    void testCreateEntityBody() {
+    void testCreateDynamicEntityBody() {
         Vector2 position = new Vector2(100, 100);
-        Vector2 offset = new Vector2(1, 1);
         float width = 50;
         float height = 50;
         boolean collisionEnabled = true;
 
-        Body body = PhysicsFactory.createEntityBody(world, position, offset, width, height, collisionEnabled);
+        Body body = PhysicsFactory.createDynamicEntityBody(world, position, width, height, collisionEnabled);
 
-        //body should not be null
         assertNotNull(body);
-        //Body x position should be scaled by PPM
+        assertEquals(BodyDef.BodyType.DynamicBody, body.getType());
         assertEquals(position.x / PPM, body.getPosition().x);
-        //Body y position should be scaled by PPM
         assertEquals(position.y / PPM, body.getPosition().y);
-        //Body should have at least one fixture
-        assertFalse(body.getFixtureList().isEmpty());
 
         Fixture fixture = body.getFixtureList().first();
-
-        //Fixture should not be a sensor when collisionEnabled is true
+        assertNotNull(fixture);
         assertFalse(fixture.isSensor());
+
+        // Test with collision disabled
+        body = PhysicsFactory.createDynamicEntityBody(world, position, width, height, false);
+        fixture = body.getFixtureList().first();
+        assertTrue(fixture.isSensor());
+    }
+
+    @Test
+    void testCreateStaticEntityBody() {
+        Vector2 position = new Vector2(200, 200);
+        float width = 30;
+        float height = 40;
+
+        Body body = PhysicsFactory.createStaticEntityBody(world, position, width, height);
+
+        assertNotNull(body);
+        assertEquals(BodyDef.BodyType.StaticBody, body.getType());
+        assertEquals(position.x / PPM, body.getPosition().x);
+        assertEquals(position.y / PPM, body.getPosition().y);
+
+        Fixture fixture = body.getFixtureList().first();
+        assertNotNull(fixture);
+        assertTrue(fixture.isSensor());
+        assertEquals(body, fixture.getUserData());
+    }
+
+    @Test
+    void testCreateEntityBody() {
+        Vector2 position = new Vector2(300, 300);
+        Vector2 offset = new Vector2(5, 5);
+        float width = 60;
+        float height = 60;
+        boolean collisionEnabled = true;
+
+        Body body = PhysicsFactory.createEntityBody(world, position, offset, width, height, collisionEnabled);
+
+        assertNotNull(body);
+        assertEquals(BodyDef.BodyType.DynamicBody, body.getType());
+        assertEquals(position.x / PPM, body.getPosition().x);
+        assertEquals(position.y / PPM, body.getPosition().y);
+
+        Fixture fixture = body.getFixtureList().first();
+        assertNotNull(fixture);
+        assertFalse(fixture.isSensor());
+
+        // Test with collision disabled
+        body = PhysicsFactory.createEntityBody(world, position, offset, width, height, false);
+        fixture = body.getFixtureList().first();
+        assertTrue(fixture.isSensor());
     }
 }

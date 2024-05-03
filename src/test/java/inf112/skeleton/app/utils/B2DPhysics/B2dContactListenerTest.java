@@ -77,4 +77,35 @@ class B2dContactListenerTest {
         verify(mockCallback, times(1)).onPlayerSpikeCollision(mockPlayer, mockSpike);
     }
 
+    @Test
+    void testBeginContactBasic() {
+        when(fixtureA.getUserData()).thenReturn(mockPlayer);
+        when(fixtureB.getUserData()).thenReturn(mockSpike);
+        listener.beginContact(mockContact);
+        verify(mockCallback).onPlayerSpikeCollision(eq(mockPlayer), eq(mockSpike));
+    }
+
+    @Test
+    void testEndContactBasic() {
+        when(fixtureA.getUserData()).thenReturn(mockPlayer);
+        when(fixtureB.getUserData()).thenReturn(mockSpike);
+        listener.endContact(mockContact);
+        verify(mockPlayer).setInContactWithSpike(false);
+    }
+
+    @Test
+    void testBeginContactWithNullUserData() {
+        when(fixtureA.getUserData()).thenReturn(null);
+        when(fixtureB.getUserData()).thenReturn(null);
+        listener.beginContact(mockContact);
+        verifyNoInteractions(mockCallback);
+    }
+
+    @Test
+    void testEndContactWithNullUserData() {
+        when(fixtureA.getUserData()).thenReturn(null);
+        when(fixtureB.getUserData()).thenReturn(null);
+        listener.endContact(mockContact);
+        verifyNoInteractions(mockPlayer);
+    }
 }

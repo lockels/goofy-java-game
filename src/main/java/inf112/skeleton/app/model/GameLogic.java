@@ -519,6 +519,10 @@ public class GameLogic implements CollisionCallBack {
         applyHitToPlayer();
     }
 
+    public TiledMap getMap() {
+        return map;
+    }
+
 
 
 }

@@ -155,8 +155,8 @@ public class Constants {
     public final static int SPIKE_DAMAGE = 1;
     public final static int HIT_COOLDOWN = 500;
     public final static int HIT_WARNING_DURATION = 150;
-
-    // Files
+ 
+    // Files 
     public final static String DUNGEON_SHEET = "dungeon_sheet.png";
     public final static String DUNGEON_SHEET_IMG = "dungeon_sheet.png";
     public final static String MAP_IMG = "maps/map2.tmx";
@@ -167,7 +167,7 @@ public class Constants {
     public final static String COIN_SPRITE = "coinSprite";
     public final static String ENEMY_SPRITE = "Enemy";
 
-    // Swords
+    // Sword images
     public final static String SWORD_ONE = "Sword1";
     public final static String SWORD_TWO = "Sword2";
     public final static String SWORD_THREE = "Sword3";

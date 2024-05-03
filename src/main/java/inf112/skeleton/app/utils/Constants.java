@@ -30,7 +30,7 @@ public class Constants {
     public final static int PLAYER_SPRITESHEET_Y = 112;
     public final static int PLAYER_SPRITESHEET_WIDTH = 16;
     public final static int PLAYER_SPRITESHEET_HEIGHT = 12;
-    
+
     public final static float PLAYER_COLLISION_RADIUS = 1;
 
     // Enemies
@@ -65,6 +65,7 @@ public class Constants {
     public final static int HEAVY_ENEMY_SPEED = 50;
     public final static int HEAVY_ENEMY_HEALTH = 25;
 
+<<<<<<< HEAD
     // - Red Sword 
     public final static String RED_SWORD_SPRITE = "Red_sword";
     public final static int RED_SWORD_HEIGHT = 40;
@@ -79,6 +80,23 @@ public class Constants {
 <<<<<<< HEAD
     // - Tree Sword 
     public final static String TREE_SPRITE = "Tree_sword";
+=======
+    // Sword
+    // Weapons
+    // - Metal Sword
+    public final static String METAL_SWORD_IMG = "MetalSword";
+    public final static int METAL_HEIGHT = 60;
+    public final static int METAL_WIDTH = 30;
+    public final static int METAL_Y_OFFSET = 40;
+    public final static int METAL_X_OFFSET = 0;
+    public final static int METAL_DMG = 4;
+    public final static float METAL_KNOCKBACK = 100;
+    public final static float METAL_STUN = 1;
+    public final static float METAL_COOLDOWN = 0.5f;
+
+    // - Tree Sword
+    public final static String TREE_SWORD_IMG = "TreeSword";
+>>>>>>> 79394bb (Fixes swordsprites)
     public final static int TREE_HEIGHT = 60;
     public final static int TREE_WIDTH = 30;
     public final static int TREE_Y_OFFSET = 50;
@@ -113,6 +131,7 @@ public class Constants {
     public final static float TREE_COOLDOWN = 1.5f;
 >>>>>>> 6dd5fac (Fixes sword-sprites)
 
+<<<<<<< HEAD
     // - Green Sword 
     public final static String GREEN_SWORD_SPRITE = "Green_sword";
     public final static int GREEN_SWORD_HEIGHT = 20;
@@ -123,6 +142,18 @@ public class Constants {
     public final static float GREEN_SWORD_KNOCKBACK = 50;
     public final static float GREEN_SWORD_STUN = 0.5f;
     public final static float GREEN_SWORD_COOLDOWN = 0.1f;
+=======
+    // - Diamond Sword
+    public final static String DIAMOND_SWORD_IMG = "DiamondSword";
+    public final static int DIAMOND_HEIGHT = 60;
+    public final static int DIAMOND_WIDTH = 30;
+    public final static int DIAMOND_Y_OFFSET = 25;
+    public final static int DIAMOND_X_OFFSET = 0;
+    public final static int DIAMOND_DMG = 1;
+    public final static float DIAMOND_KNOCKBACK = 50;
+    public final static float DIAMOND_STUN = 0.5f;
+    public final static float DIAMOND_COOLDOWN = 0.1f;
+>>>>>>> 79394bb (Fixes swordsprites)
 
     // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;
@@ -133,7 +164,7 @@ public class Constants {
     // HUD - All values adjusted for camera zoom level
     public final static float HEART_WIDTH = 20 * CAMERA_ZOOM_LEVEL;
     public final static float HEART_HEIGHT = HEART_WIDTH;
-    public final static float HEART_PADDING = 25 * CAMERA_ZOOM_LEVEL; 
+    public final static float HEART_PADDING = 25 * CAMERA_ZOOM_LEVEL;
     public final static float HEART_X = 30 * CAMERA_ZOOM_LEVEL;
     public final static float HEART_Y = (WINDOW_HEIGHT - HEART_HEIGHT - HEART_X) * CAMERA_ZOOM_LEVEL;
 
@@ -155,8 +186,8 @@ public class Constants {
     public final static int SPIKE_DAMAGE = 1;
     public final static int HIT_COOLDOWN = 500;
     public final static int HIT_WARNING_DURATION = 150;
- 
-    // Files 
+
+    // Files
     public final static String DUNGEON_SHEET = "dungeon_sheet.png";
     public final static String DUNGEON_SHEET_IMG = "dungeon_sheet.png";
     public final static String MAP_IMG = "maps/map2.tmx";
@@ -166,11 +197,6 @@ public class Constants {
     public final static String PLAYER_SPRITE = "Main_Character";
     public final static String COIN_SPRITE = "coinSprite";
     public final static String ENEMY_SPRITE = "Enemy";
-
-    // Sword images
-    public final static String SWORD_ONE = "Sword1";
-    public final static String SWORD_TWO = "Sword2";
-    public final static String SWORD_THREE = "Sword3";
 
     // Weapon Selection
     public final static String WEAPON_SELECTION = "Weapon_Selection_New.png";
@@ -183,20 +209,18 @@ public class Constants {
     public final static String RED_SWORD_BUTTON = "Red_Sword_Button.png";
     public final static String GREEN_SWORD_BUTTON = "Green_Sword_Button.png";
 
-
-    //GameHelpScreen
+    // GameHelpScreen
     public final static String HELP_SCREEN_BACKGROUND = "src/main/resources/gamehelpscreen/helpbackground.png";
     public final static String EXIT_BUTTON = "src/main/resources/gamehelpscreen/exit.png";
 
-    //GameOverScreen
+    // GameOverScreen
     public final static String GAME_OVER_BACKGROUND = "src/main/resources/gameoverscreen/Game_over.png";
     public final static String YES_BUTTON = "src/main/resources/gameoverscreen/Yes_Button.png";
     public final static String NO_BUTTON = "src/main/resources/gameoverscreen/No_Button.png";
 
-    //GameTitleScreen
+    // GameTitleScreen
     public final static String MENU = "src/main/resources/gametitlescreen/new_menu.png";
-    public final static String PLAY_BUTTON = "src/main/resources/gametitlescreen/play.png"; 
+    public final static String PLAY_BUTTON = "src/main/resources/gametitlescreen/play.png";
     public final static String QUIT_BUTTON = "src/main/resources/gametitlescreen/quit.png";
     public final static String HELP_BUTTON = "src/main/resources/gametitlescreen/help.png";
 }
-

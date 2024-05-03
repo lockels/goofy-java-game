@@ -44,9 +44,8 @@ public class TreeSword extends Weapon {
                 new Vector2(TREE_X_OFFSET, TREE_Y_OFFSET),
                 TREE_WIDTH,
                 TREE_HEIGHT,
-                false
-                ),
-                SWORD_ONE,
+                false),
+                TREE_SWORD_IMG,
                 TREE_HEIGHT,
                 TREE_WIDTH,
                 TREE_DMG,

@@ -193,6 +193,7 @@ public class GameLogic implements CollisionCallBack {
     private void initializeWeapon() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         // this.weapon = new RedSword(world);
         // this.weapon = new TreeSword(world);
         this.weapon = new GreenSword(world);
@@ -215,6 +216,11 @@ public class GameLogic implements CollisionCallBack {
 >>>>>>> 6dd5fac (Fixes sword-sprites)
         // this.weapon = new Dagger(world);
 >>>>>>> 5c8857c (Merge)
+=======
+        // this.weapon = new Sword1(world);
+        // this.weapon = new Sword2(world);
+        this.weapon = new DiamondSword(world);
+>>>>>>> 79394bb (Fixes swordsprites)
         entities.add(this.weapon);
     }
 

@@ -12,40 +12,65 @@ public abstract class Weapon extends Entity {
     float cooldown;
     float cooldownTimer;
     float stun;
-    public Weapon(Body body, String textureId, int spriteHeight, int SpriteWidth, int dmg, float knockback, float cooldown, float stun) {
-       super(body, textureId, "weapon", spriteHeight, SpriteWidth);
-       this.dmg = dmg;
-       this.knockback = knockback;
-       this.cooldown = cooldown;
-       this.stun = stun;
-   }
 
-    public int getDmg() { return dmg; }
+    public Weapon(Body body, String textureId, int spriteHeight, int SpriteWidth, int dmg, float knockback,
+            float cooldown, float stun) {
+        super(body, textureId, "weapon", spriteHeight, SpriteWidth);
+        this.dmg = dmg;
+        this.knockback = knockback;
+        this.cooldown = cooldown;
+        this.stun = stun;
+    }
 
-    public float getKnockback() { return knockback; }
+    public int getDmg() {
+        return dmg;
+    }
 
-    public float getCooldown() { return cooldown; }
+    public float getKnockback() {
+        return knockback;
+    }
 
-    public float getStun() { return stun; }
+    public float getCooldown() {
+        return cooldown;
+    }
 
-    public float getCooldownTimer() { return cooldownTimer; }
+    public float getStun() {
+        return stun;
+    }
 
-    public void setDmg(int dmg) { this.dmg = dmg; }
+    public float getCooldownTimer() {
+        return cooldownTimer;
+    }
 
-    public void setKnockback(float knockback) { this.knockback = knockback; }
+    public void setDmg(int dmg) {
+        this.dmg = dmg;
+    }
 
-    public void setCooldown(float cooldown) { this.cooldown = cooldown; }
+    public void setKnockback(float knockback) {
+        this.knockback = knockback;
+    }
 
-    public void setStun(float stun) { this.stun = stun; }
+    public void setCooldown(float cooldown) {
+        this.cooldown = cooldown;
+    }
 
-    public void setCooldownTimer(float cooldownTimer) { this.cooldownTimer = cooldownTimer; }
+    public void setStun(float stun) {
+        this.stun = stun;
+    }
 
-    public void startCooldownTimer() { this.cooldownTimer = cooldown; }
+    public void setCooldownTimer(float cooldownTimer) {
+        this.cooldownTimer = cooldownTimer;
+    }
 
-     // Base render method
-     public void render(SpriteBatch batch) {
+    public void startCooldownTimer() {
+        this.cooldownTimer = cooldown;
+    }
+
+    public void render(SpriteBatch batch) {
         if (sprite != null) {
             sprite.draw(batch);
         }
     }
+
+
 }

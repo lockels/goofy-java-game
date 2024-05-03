@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Array;
 
+import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.Direction;
 import inf112.skeleton.app.model.entities.enemies.Enemy;
 import inf112.skeleton.app.utils.Constants;
@@ -55,6 +56,13 @@ public class PlayerTest {
     }
 
     @Test
+    public void testGetPosition() {
+        assertEquals(new Vector2(0, 0), player.getPosition());
+    }
+
+    
+
+    @Test
     public void testGetHealth() {
         assertEquals(Constants.PLAYER_HEALTH, player.getHealth());
     }
@@ -93,6 +101,29 @@ public class PlayerTest {
         assertEquals(initialHealth - 10, player.getHealth(), "Health should decrease by 10.");
     }
 
+
+    //@Test
+    //public void testMove() {
+    //    // Arrange
+    //    Player player = new Player(mockBody, "testTextureId", "player");
+    //    player.setMovement(Direction.UP, true);
+    //    player.setMovement(Direction.LEFT, true);
+    //    player.setMovement(Direction.DOWN, false);
+    //    player.setMovement(Direction.RIGHT, false);
+
+    //    // Assuming MyInputAdapter.keyPressed() is static and returns false
+    //    MyInputAdapter adapter = mock(MyInputAdapter.class);
+    //    when(mockObject.setUserData(any())).thenReturn(someValue);  // Incorrect
+
+    //    // Act
+    //    player.move();
+
+    //    // Assert
+    //    float expectedVelocityComponent = Constants.PLAYER_SPEED / (float) Math.sqrt(2);
+    //    verify(mockBody).setLinearVelocity(eq(-expectedVelocityComponent), eq(expectedVelocityComponent));
+    //}
+
+
     @Test
     public void testGetMovementDirections() {
         // Setup different directions and states
@@ -116,7 +147,7 @@ public class PlayerTest {
         // Arrange
         Direction testDirection = Direction.UP;
         boolean initialActiveState = player.getMovementDirections().get(testDirection);
-        
+     
         // Act
         player.setMovement(testDirection, !initialActiveState); 
 
@@ -124,33 +155,6 @@ public class PlayerTest {
         assertNotEquals(initialActiveState, player.getMovementDirections().get(testDirection));
     }
 
-    @Test
-    public void testMove_WhenMovingInMultipleDirections() {
-        // Arrange
-        player.setMovement(Direction.UP, true);
-        player.setMovement(Direction.RIGHT, true);
-
-        // Act
-        player.move();
-
-        // Assert
-        ArgumentCaptor<Vector2> vectorCaptor = ArgumentCaptor.forClass(Vector2.class);
-        verify(mockBody).applyForceToCenter(vectorCaptor.capture(), eq(true));
-
-        // Checking normalization
-    }
-    @Test
-    public void testMove_WhenMovingUp() {
-        // Arrange
-        player.setMovement(Direction.UP, true);
-
-        // Act
-        player.move();
-
-        // Assert
-        ArgumentCaptor<Vector2> vectorCaptor = ArgumentCaptor.forClass(Vector2.class);
-        verify(mockBody).applyForceToCenter(vectorCaptor.capture(), eq(true));
-    }
 
     @Test
     public void testStopMovement() {

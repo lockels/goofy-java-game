@@ -189,8 +189,8 @@ public class GameLogic implements CollisionCallBack {
     }
 
     private void initializeWeapon() {
-        this.weapon = new TreeSword(world);
-        // this.weapon = new MetalSword(world);
+        // this.weapon = new TreeSword(world);
+        this.weapon = new MetalSword(world);
         // this.weapon = new DiamondSword(world);
         entities.add(this.weapon);
     }
@@ -518,5 +518,7 @@ public class GameLogic implements CollisionCallBack {
     public void onPlayerSpikeCollision(Player player, Spike spike) {
         applyHitToPlayer();
     }
+
+
 
 }

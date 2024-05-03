@@ -114,7 +114,7 @@ public class GameActiveScreen extends ScreenAdapter {
         weaponSelectionButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new WeaponSelectionScreen(game));
+                game.setScreen(new WeaponSelection1(game, gameLogic) );
             }
         });
     }

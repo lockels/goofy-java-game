@@ -8,7 +8,7 @@ import inf112.skeleton.app.utils.B2DPhysics.PhysicsFactory;
 import static inf112.skeleton.app.utils.Constants.*;
 
 public class MetalSword extends Weapon {
-    private boolean isActive = false; // Initially inactive
+    // private boolean isActive = true; // Initially inactive
 
     public MetalSword(World world) {
         super(PhysicsFactory.createEntityBody(world,
@@ -27,19 +27,19 @@ public class MetalSword extends Weapon {
         this.setOffset(new Vector2(METAL_X_OFFSET, METAL_Y_OFFSET));
     }
 
-    // Method to toggle visibility/activation
-    public void toggleActive() {
-        isActive = !isActive;
-    }
+    // // Method to toggle visibility/activation
+    // public void toggleActive() {
+    //     isActive = !isActive;
+    // }
 
-    public boolean isActive() {
-        return isActive;
-    }
+    // public boolean isActive() {
+    //     return isActive;
+    // }
 
     @Override
     public void render(SpriteBatch batch) {
-        if (isActive) {
+        // if (isActive) {
             super.render(batch);
-        }
+        // }
     }
 }

@@ -23,13 +23,13 @@ import inf112.skeleton.app.model.GameState;
 import inf112.skeleton.app.controller.myInput.SoundController;
 
 public class GameTitleScreen extends ScreenAdapter {
-    GameRenderer game;
-    GameLogic gameLogic;
-    SpriteBatch batch;
-    OrthographicCamera cam;
-    Stage stage;
-    Viewport viewport;
-    Button playButton, quitButton, helpButton;
+    private GameRenderer game;
+    private GameLogic gameLogic;
+    private SpriteBatch batch;
+    private OrthographicCamera cam;
+    private Stage stage;
+    private Viewport viewport;
+    private Button playButton, quitButton, helpButton;
     
     Viewport viewPort;
 

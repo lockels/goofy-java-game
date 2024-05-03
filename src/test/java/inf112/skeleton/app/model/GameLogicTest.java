@@ -121,7 +121,7 @@ public class GameLogicTest {
    // @Test
    // void testRemoveEntity() {
    //    Body body = mock(Body.class);
-   //    Entity entity = new Entity(body, "testTextureId", "testEntity");
+   //    Entity entity = new Entity(body, "testTextureId", " testEntity");
    //    gameLogic.removeEntity(entity);
    //    assertFalse(gameLogic.getAllEntities().contains(entity));
    // }

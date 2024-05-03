@@ -163,7 +163,8 @@ public class GameLogic implements CollisionCallBack {
     }
 
     public void setWeapon(Weapon weapon) {
-        removeEntity(this.weapon);
+        if (this.weapon != null) 
+            removeEntity(this.weapon);
         this.weapon = weapon;
         entities.add(weapon);
     }

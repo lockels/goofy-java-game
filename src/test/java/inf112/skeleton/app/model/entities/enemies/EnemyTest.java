@@ -49,7 +49,7 @@ public class EnemyTest {
     @Test
     public void testHit() {
         enemy.hit(10, 5, 90, 2.0f);
-        assertEquals(90, enemy.getHealth(), "Health should decrease by 10");
+        assertEquals(90, enemy.getHP(), "Health should decrease by 10");
         assertEquals(2.0f, enemy.getStunTimer(), 0.01, "Stun timer should be set to 2.0");
     }
 
@@ -61,8 +61,8 @@ public class EnemyTest {
 
     @Test
     public void testSetHealth() {
-        enemy.setHealth(80);
-        assertEquals(80, enemy.getHealth(), "Health should be set to 80");
+        enemy.setHP(80);
+        assertEquals(80, enemy.getHP(), "Health should be set to 80");
     }
 
     @Test
@@ -72,7 +72,7 @@ public class EnemyTest {
 
     @Test
     void testGetEnemyHP() {
-        assertEquals(100, enemy.getHealth());
+        assertEquals(100, enemy.getHP());
     }
 
 }

@@ -65,15 +65,18 @@ public class Enemy extends Entity {
         this.stunTimer = stunTimer;
     }
 
-    public void setHealth(int hp) {
-        this.hp = hp;
-    }
+   
 
     public float getSpeed() {
         return speed;
     }
 
-    public int getHealth() {
+    
+    public int getHP() {
         return hp;
+    }
+
+    public void setHP(int hp) {
+        this.hp = hp;
     }
 }

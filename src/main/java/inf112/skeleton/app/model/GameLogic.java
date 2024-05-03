@@ -32,7 +32,7 @@ public class GameLogic implements CollisionCallBack {
     // State
     private GameState gameState;
     private int wave;
-    //
+    
     // Entities
     private Player player;
     private Weapon weapon;
@@ -158,11 +158,6 @@ public class GameLogic implements CollisionCallBack {
         return showHitWarning;
     }
 
-    // ER DENNE BRUKT NOE STED??
-    public void setShowHitWarning(boolean showHitWarning) {
-        this.showHitWarning = showHitWarning;
-    }
-
     // Ensure there is a way to access the specific weapon
     public Weapon getWeapon() {
         return weapon;
@@ -191,9 +186,9 @@ public class GameLogic implements CollisionCallBack {
     }
 
     private void initializeWeapon() {
-        // this.weapon = new TreeSword(world);
+        this.weapon = new TreeSword(world);
         // this.weapon = new MetalSword(world);
-        this.weapon = new DiamondSword(world);
+        // this.weapon = new DiamondSword(world);
         entities.add(this.weapon);
     }
 
@@ -369,7 +364,7 @@ public class GameLogic implements CollisionCallBack {
         }
     }
 
-    public void destroyInactiveEntities() {
+    private void destroyInactiveEntities() {
         List<Entity> activeEntities = getActiveEntities();
         List<Enemy> enemiesToRemove = new ArrayList<>();
         for (Entity entity : entities) {

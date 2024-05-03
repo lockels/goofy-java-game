@@ -64,7 +64,6 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         this.metalButtonSwordTexture = new Texture(METAL_SWORD_BUTTON);
         this.diamondButtonSwordTexture = new Texture(DIAMOND_SWORD_BUTTON);
     }
-
     
     @Override
     public void show() {

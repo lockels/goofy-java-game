@@ -91,7 +91,6 @@ public class GameActiveScreen extends ScreenAdapter {
         inputAdapter = new MyInputAdapter(gameLogic.getPlayer(), gameLogic);
         Gdx.input.setInputProcessor(inputAdapter);
 
-
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); 
 
@@ -167,11 +166,7 @@ public class GameActiveScreen extends ScreenAdapter {
     }
 
     private void initiateGameOver()   {
-        // Set health to enemies to 0
-        // for (Enemy enemy : gameLogic.) {
-        //     enemy.setHealth(0);
-        // }
-        gameLogic.destroyInactiveEntities();
+        // gameLogic.destroyInactiveEntities();
         game.setScreen(new GameOverScreen(game, gameLogic));
         gameLogic.getPlayer().setHealth(PLAYER_HEALTH);
     }

@@ -31,7 +31,7 @@ public class Constants {
     public final static int PLAYER_SPRITESHEET_WIDTH = 16;
     public final static int PLAYER_SPRITESHEET_HEIGHT = 12;
 
-    public final static float PLAYER_COLLISION_RADIUS = 1;
+    public final static float PLAYER_COLLISION_RADIUS = 5;
 
     // Enemies
     public final static int NUM_STARTER_ENEMIES = 2;

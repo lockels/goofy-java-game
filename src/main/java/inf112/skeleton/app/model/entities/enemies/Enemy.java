@@ -73,7 +73,7 @@ public class Enemy extends Entity {
         return speed;
     }
 
-    public int getEnemyHP() {
+    public int getHealth() {
         return hp;
     }
 }

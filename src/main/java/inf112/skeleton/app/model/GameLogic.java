@@ -32,7 +32,7 @@ public class GameLogic implements CollisionCallBack {
     // State
     private GameState gameState;
     private int wave;
-    
+
     // Entities
     private Player player;
     private Weapon weapon;
@@ -285,6 +285,7 @@ public class GameLogic implements CollisionCallBack {
         MapLayer layer = map.getLayers().get("out-of-bounds-layer");
         if (layer == null) {
             return true;
+            
         }
         for (MapObject object : layer.getObjects()) {
             if (object instanceof PolygonMapObject) {

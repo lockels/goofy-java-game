@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import inf112.skeleton.app.model.entities.Entity;
 
-import static inf112.skeleton.app.utils.Constants.*;
 
 public class Enemy extends Entity {
     private float speed;

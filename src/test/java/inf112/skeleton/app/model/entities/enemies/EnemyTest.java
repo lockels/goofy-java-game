@@ -54,8 +54,25 @@ public class EnemyTest {
     }
 
     @Test
+    void testSetStunTimer() {
+        enemy.setStunTimer(5.0f);
+        assertEquals(5.0f, enemy.getStunTimer());
+    }
+
+    @Test
     public void testSetHealth() {
         enemy.setHealth(80);
         assertEquals(80, enemy.getEnemyHP(), "Health should be set to 80");
     }
+
+    @Test
+    void testGetSpeed() {
+        assertEquals(10.0f, enemy.getSpeed());
+    }
+
+    @Test
+    void testGetEnemyHP() {
+        assertEquals(100, enemy.getEnemyHP());
+    }
+
 }

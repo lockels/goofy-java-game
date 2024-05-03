@@ -1,13 +1,11 @@
 package inf112.skeleton.app.controller.myInput;
 
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputAdapter;
 import inf112.skeleton.app.model.Direction;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
 import inf112.skeleton.app.model.entities.Player;
-import inf112.skeleton.app.view.GameActiveScreen;
 
 import static inf112.skeleton.app.model.Direction.*;
 import static inf112.skeleton.app.model.GameState.*;

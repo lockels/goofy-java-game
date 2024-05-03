@@ -1,4 +1,4 @@
-package inf112.skeleton.app.model.entities;
+package inf112.skeleton.app.model.entities.weapons;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;

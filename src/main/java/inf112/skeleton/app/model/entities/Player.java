@@ -2,11 +2,9 @@ package inf112.skeleton.app.model.entities;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.utils.ArrayMap.Entries;
 
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.Direction;
-import inf112.skeleton.app.model.entities.enemies.Enemy;
 
 import java.util.EnumMap;
 import java.util.Map;

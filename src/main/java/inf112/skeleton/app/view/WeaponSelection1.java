@@ -94,16 +94,19 @@ public class WeaponSelection1 extends ScreenAdapter{
         else if (treeButton.isPressed()){
             gameLogic.setGameState(GameState.GAME_ACTIVE);
             game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam)); 
+            gameLogic.getWeapon().setIsDestroyed(true);
             gameLogic.setWeapon(new TreeSword(gameLogic.getWorld()));
         }
         else if(metalSwordButton.isPressed()){
             gameLogic.setGameState(GameState.GAME_ACTIVE);
             game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam));
+            gameLogic.getWeapon().setIsDestroyed(true);
             gameLogic.setWeapon(new MetalSword(gameLogic.getWorld()));
         }
         else if(diamondSwordButton.isPressed()){
             gameLogic.setGameState(GameState.GAME_ACTIVE);
             game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam));
+            gameLogic.getWeapon().setIsDestroyed(true);
             gameLogic.setWeapon(new DiamondSword(gameLogic.getWorld()));
         }
     }

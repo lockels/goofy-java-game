@@ -163,13 +163,15 @@ public class GameLogic implements CollisionCallBack {
     }
 
     public void setWeapon(Weapon weapon) {
+        removeEntity(this.weapon);
         this.weapon = weapon;
+        entities.add(weapon);
     }
 
     private void initializeEntities() {
         initializePlayer();
         initializeEnemies();
-        initializeWeapon();
+        initializeWeapon(new MetalSword(world));
         initializeCoins();
     }
 
@@ -188,9 +190,8 @@ public class GameLogic implements CollisionCallBack {
         entities.add(this.player);
     }
 
-    private void initializeWeapon() {
-        // this.weapon = new TreeSword(world);
-        this.weapon = new MetalSword(world);
+    private void initializeWeapon(Weapon weapon) {
+        this.weapon = weapon;
         // this.weapon = new DiamondSword(world);
         entities.add(this.weapon);
     }
@@ -522,7 +523,4 @@ public class GameLogic implements CollisionCallBack {
     public TiledMap getMap() {
         return map;
     }
-
-
-
 }

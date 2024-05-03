@@ -67,6 +67,17 @@ public class GameActiveScreen extends ScreenAdapter {
         this.cam = cam;
         this.game = game;
     }
+    
+    /**
+     * Returns the stage
+     */
+    public Stage getStage() {
+        return this.stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     @Override
     public void show() {

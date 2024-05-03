@@ -203,9 +203,14 @@ public class GameLogic implements CollisionCallBack {
 >>>>>>> d58ce55 (Added knockback damping for enemies)
 =======
         // this.weapon = new Sword(world);
+<<<<<<< HEAD
         // this.weapon = new Axe(world);
         this.weapon = new Dagger(world);
 >>>>>>> 667a330 (Fixed coin-pickup-bugs)
+=======
+        this.weapon = new Axe(world);
+        // this.weapon = new Dagger(world);
+>>>>>>> 5c8857c (Merge)
         entities.add(this.weapon);
     }
 
@@ -482,7 +487,7 @@ public class GameLogic implements CollisionCallBack {
             showHitWarning = false;
         }
     }
-    
+
     private void updateEnemyPositions() {
         for (Enemy enemy : enemies) {
             if (enemy.getStunTimer() <= 0) { enemy.moveTowards(player.getX(), player.getY()); } //If enemy has no stun remaining

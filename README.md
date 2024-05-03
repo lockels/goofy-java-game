@@ -1,29 +1,26 @@
 # INF112 Project - *Zelda RougeLite*
-## META
-* [Trello](https://trello.com/b/Xchy9euA/inf112-gruppeprosjekt)
-* Team: *Codemasters* (Gruppe 2)
-  * Fredrik Grahm-Haga (Lead game designer)
-  * Fredric Hegland (Lead level designer)
-  * Kenan Inci (Lead sound designer)
-  * Idiris Elmi (Lead game programmer)
-  * Ella Solberg (Project Lead)
-  * Sara Stavang (Lead game artist)
+
+## Brukerhisorie: 
+
+Som en spiller, ønsker jeg å kunne drepe fiender med våpner som jeg får kjøpt i "Weaponselection", slik at de ikke kan angripe meg.
+
+## Akseptansekriterier
+
+Spilleren skal kunne angripe fiender ved hjelp av våpen.
+Når spilleren klikker på et våpen i "Weaponselection", skal våpnet bli kjøpt og brukt av spilleren 
+Spilleren skal kunne se antall penger den har.
+Spilleren skal kunne se antall liv den har.
 
 ## Om spillet:
 Zelda rougelite inspirert av *the binding of isaac*
 * Kontroller
     * Piltaster for å bevege seg
 
-## Kjøring
-* Kompileres med `mvn package`
+## Kompilering
+* Kompileres med `mvn compile`
+* Kjøres med `mvn exec:java`
 * Krever *Java 17* eller senere
 
-## Bugs
-* Wall collision
-* Enemy collision
-
-## TODO
-* Fix enemies
 
 ## Credits
 * `dungeon_sheet.png` from https://opengameart.org/content/a-blocky-dungeon (credit: http://blog-buch.rhcloud.com)

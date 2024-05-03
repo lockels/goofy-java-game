@@ -90,6 +90,7 @@ public class Constants {
 =======
     // - Axe
     // public final static String AXE_SPRITE = "axeSprite";
+<<<<<<< HEAD
     public final static String AXE_SPRITE = "Tree_sword";
     public final static int AXE_HEIGHT = 60;
     public final static int AXE_WIDTH = 30;
@@ -100,6 +101,17 @@ public class Constants {
     public final static float AXE_STUN = 1;
     public final static float AXE_COOLDOWN = 1.5f;
 >>>>>>> db588c8 (Updated sprites for swords)
+=======
+    public final static String TREE_SPRITE = "Tree_sword";
+    public final static int TREE_HEIGHT = 60;
+    public final static int TREE_WIDTH = 30;
+    public final static int TREE_Y_OFFSET = 50;
+    public final static int TREE_X_OFFSET = 0;
+    public final static int TREE_DMG = 5;
+    public final static float TREE_KNOCKBACK = 500;
+    public final static float TREE_STUN = 1;
+    public final static float TREE_COOLDOWN = 1.5f;
+>>>>>>> 6dd5fac (Fixes sword-sprites)
 
     // - Green Sword 
     public final static String GREEN_SWORD_SPRITE = "Green_sword";
@@ -154,6 +166,11 @@ public class Constants {
     public final static String PLAYER_SPRITE = "Main_Character";
     public final static String COIN_SPRITE = "coinSprite";
     public final static String ENEMY_SPRITE = "Enemy";
+
+    // Swords
+    public final static String SWORD_ONE = "Sword1";
+    public final static String SWORD_TWO = "Sword2";
+    public final static String SWORD_THREE = "Sword3";
 
     // Weapon Selection
     public final static String WEAPON_SELECTION = "Weapon_Selection_New.png";

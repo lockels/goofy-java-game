@@ -81,10 +81,10 @@ public class GameLogic implements CollisionCallBack {
         this.player.getBody().applyForceToCenter(new Vector2().scl(0), true);
 
         // Clear entities
-        // destroyInactiveEntities();
+        destroyInactiveEntities();
         entities.clear();
-        // coins.clear();
-        // enemies.clear();
+        coins.clear();
+        enemies.clear();
         // spikePolygons.clear();
 
         // Initialize new entities
@@ -200,6 +200,7 @@ public class GameLogic implements CollisionCallBack {
         this.weapon = new Sword(world);
         // this.weapon = new Axe(world);
         // this.weapon = new Dagger(worldd);
+<<<<<<< HEAD
 >>>>>>> d58ce55 (Added knockback damping for enemies)
 =======
         // this.weapon = new Sword(world);
@@ -209,13 +210,16 @@ public class GameLogic implements CollisionCallBack {
 >>>>>>> 667a330 (Fixed coin-pickup-bugs)
 =======
         this.weapon = new Axe(world);
+=======
+        // this.weapon = new Axe(world);d
+>>>>>>> 6dd5fac (Fixes sword-sprites)
         // this.weapon = new Dagger(world);
 >>>>>>> 5c8857c (Merge)
         entities.add(this.weapon);
     }
 
-
     private void initializeEnemies() {
+        System.out.println("Initializing enemies");
         int num_enemies = NUM_STARTER_ENEMIES + 2 * this.wave;
         for (int i = 0; i < num_enemies; i++) {
             Enemy enemy = switch ((int) (Math.random() * 3)) {
@@ -273,8 +277,16 @@ public class GameLogic implements CollisionCallBack {
     }
 
     public void removeEntity(Entity entity) {
+        System.out.println("Entities: " + entities);
+        if (entity instanceof Enemy) {
+            enemies.remove(entity);
+        }
         world.destroyBody(entity.getBody());
         entities.remove(entity);
+
+        entity.setIsDestroyed(true);
+        // entity.getBody().setTransform(0,0,0);
+        // world.destroyBody(entity.getBody());
     }
 
     private void checkForCoinCollisions() {
@@ -378,16 +390,27 @@ public class GameLogic implements CollisionCallBack {
 =======
     public void destroyInactiveEntities() {
         List<Entity> activeEntities = getActiveEntities();
+        List<Enemy> enemiesToRemove = new ArrayList<>();
         for (Entity entity : entities) {
             // System.out.println(entity);
             if (!activeEntities.contains(entity)) {
                 if (!entity.getIsDestroyed()) {
+<<<<<<< HEAD
                     entity.setIsDestroyed(true);
                     entity.getBody().setTransform(0,0,0);//Temp solution: teleport body outside of map to avoid collisions
                     world.destroyBody(entity.getBody());
 >>>>>>> cc9ac58 (Improved coinpickup aswell as entitybody-despawning)
+=======
+                    // entity.setIsDestroyed(true);
+                    // entity.getBody().setTransform(0,0,0);//Temp solution: teleport body outside of map to avoid collisions
+                    // world.destroyBody(entity.getBody());
+                    enemiesToRemove.add((Enemy) entity);
+>>>>>>> 6dd5fac (Fixes sword-sprites)
                 }
             }
+        }
+        for (Enemy enemy : enemiesToRemove) {
+            removeEntity(enemy);
         }
     }
 
@@ -449,6 +472,7 @@ public class GameLogic implements CollisionCallBack {
     private void updateWave() {
         waveTimer += Gdx.graphics.getDeltaTime();
         if (enemies.size() == 0 && waveTimer >= waveDelay) {
+            player.setHealth(PLAYER_HEALTH);
             initializeEnemies();
             wave += 1;
             waveTimer = 0;
@@ -471,7 +495,7 @@ public class GameLogic implements CollisionCallBack {
             showHitWarning = true;
             hitWarningStartTime = System.currentTimeMillis();
         }
-        //soundController.playDamageSound();
+        soundController.playDamageSound();
     }
 
     private void checkGameOver() {

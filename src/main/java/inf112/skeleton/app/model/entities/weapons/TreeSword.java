@@ -46,7 +46,7 @@ public class TreeSword extends Weapon {
                 TREE_HEIGHT,
                 false
                 ),
-                TREE_SPRITE,
+                SWORD_ONE,
                 TREE_HEIGHT,
                 TREE_WIDTH,
                 TREE_DMG,

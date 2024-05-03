@@ -1,3 +1,5 @@
+//Tests written by Fredrik
+
 package inf112.skeleton.app.model.entities.enemies;
 
 import com.badlogic.gdx.math.Vector2;

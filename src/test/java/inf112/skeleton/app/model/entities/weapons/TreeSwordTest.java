@@ -1,160 +1,47 @@
 package inf112.skeleton.app.model.entities.weapons;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 public class TreeSwordTest {
-    @Test
-    void testGetCooldown() {
+    private Weapon weapon;
 
+    @BeforeEach
+    public void setUp() {
+        weapon = new TreeSword(new World(new Vector2(), true));
     }
 
+    //Getter tests
     @Test
-    void testGetCooldownTimer() {
-
-    }
-
-    @Test
-    void testGetDmg() {
-
-    }
+    void testGetDmg() { assertEquals(5, weapon.getDmg()); }
 
     @Test
-    void testGetKnockback() {
-
-    }
+    void testGetStun() { assertEquals(1, weapon.getStun()); }
 
     @Test
-    void testGetStun() {
-
-    }
+    void testGeKnockback() { assertEquals(500, weapon.getKnockback()); }
 
     @Test
-    void testSetCooldown() {
+    void testGetCooldownTimer() { assertEquals(0, weapon.getCooldownTimer()); }
 
-    }
-
+    //Setter tests
     @Test
     void testSetCooldownTimer() {
-
+        assertNotEquals(10, weapon.getCooldownTimer());
+        weapon.setCooldownTimer(10);
+        assertEquals(10, weapon.getCooldownTimer());
     }
 
-    @Test
-    void testSetDmg() {
-
-    }
-
-    @Test
-    void testSetKnockback() {
-
-    }
-
-    @Test
-    void testSetStun() {
-
-    }
-
+    //Methods
     @Test
     void testStartCooldownTimer() {
-
-    }
-
-    @Test
-    void testGetAngle() {
-
-    }
-
-    @Test
-    void testGetBody() {
-
-    }
-
-    @Test
-    void testGetIsDestroyed() {
-
-    }
-
-    @Test
-    void testGetOffset() {
-
-    }
-
-    @Test
-    void testGetOpacity() {
-
-    }
-
-    @Test
-    void testGetPosition() {
-
-    }
-
-    @Test
-    void testGetSpriteHeight() {
-
-    }
-
-    @Test
-    void testGetSpriteWidth() {
-
-    }
-
-    @Test
-    void testGetTag() {
-
-    }
-
-    @Test
-    void testGetTextureId() {
-
-    }
-
-    @Test
-    void testGetX() {
-
-    }
-
-    @Test
-    void testGetY() {
-
-    }
-
-    @Test
-    void testIsActive() {
-
-    }
-
-    @Test
-    void testSetAngle() {
-
-    }
-
-    @Test
-    void testSetIsDestroyed() {
-
-    }
-
-    @Test
-    void testSetOffset() {
-
-    }
-
-    @Test
-    void testSetOpacity() {
-
-    }
-
-    @Test
-    void testSetPos() {
-
-    }
-
-    @Test
-    void testTrigVector() {
-
-    }
-
-    @Test
-    void testTrigger() {
-
+        assertNotEquals(1.5, weapon.getCooldownTimer());
+        weapon.startCooldownTimer();
+        assertEquals(1.5, weapon.getCooldownTimer());
     }
 }

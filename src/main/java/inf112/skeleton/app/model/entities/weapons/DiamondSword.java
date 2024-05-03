@@ -7,8 +7,6 @@ import inf112.skeleton.app.utils.B2DPhysics.PhysicsFactory;
 import static inf112.skeleton.app.utils.Constants.*;
 
 public class DiamondSword extends Weapon {
-    // private boolean isActive = true; // Initially inactive
-
     public DiamondSword(World world) {
         super(PhysicsFactory.createEntityBody(world,
                 new Vector2(0, 0),

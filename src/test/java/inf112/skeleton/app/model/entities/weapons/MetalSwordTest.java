@@ -8,23 +8,23 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class DiamondSwordTest {
+public class MetalSwordTest {
     private Weapon weapon;
 
     @BeforeEach
     public void setUp() {
-        weapon = new DiamondSword(new World(new Vector2(), true));
+        weapon = new MetalSword(new World(new Vector2(), true));
     }
 
     //Getter tests
     @Test
-    void testGetDmg() { assertEquals(5, weapon.getDmg()); }
+    void testGetDmg() { assertEquals(3, weapon.getDmg()); }
 
     @Test
-    void testGetStun() { assertEquals(1, weapon.getStun()); }
+    void testGetStun() { assertEquals(0.8f, weapon.getStun()); }
 
     @Test
-    void testGeKnockback() { assertEquals(500, weapon.getKnockback()); }
+    void testGeKnockback() { assertEquals(100, weapon.getKnockback()); }
 
     @Test
     void testGetCooldownTimer() { assertEquals(0, weapon.getCooldownTimer()); }
@@ -40,8 +40,8 @@ public class DiamondSwordTest {
     //Methods
     @Test
     void testStartCooldownTimer() {
-        assertNotEquals(0.1f, weapon.getCooldownTimer());
+        assertNotEquals(0.5, weapon.getCooldownTimer());
         weapon.startCooldownTimer();
-        assertEquals(0.1f, weapon.getCooldownTimer());
+        assertEquals(0.5, weapon.getCooldownTimer());
     }
 }

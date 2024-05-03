@@ -22,16 +22,13 @@ public abstract class Weapon extends Entity {
         this.stun = stun;
     }
 
+    //Getters
     public int getDmg() {
         return dmg;
     }
 
     public float getKnockback() {
         return knockback;
-    }
-
-    public float getCooldown() {
-        return cooldown;
     }
 
     public float getStun() {
@@ -42,35 +39,13 @@ public abstract class Weapon extends Entity {
         return cooldownTimer;
     }
 
-    public void setDmg(int dmg) {
-        this.dmg = dmg;
-    }
-
-    public void setKnockback(float knockback) {
-        this.knockback = knockback;
-    }
-
-    public void setCooldown(float cooldown) {
-        this.cooldown = cooldown;
-    }
-
-    public void setStun(float stun) {
-        this.stun = stun;
-    }
-
+    //Setters
     public void setCooldownTimer(float cooldownTimer) {
         this.cooldownTimer = cooldownTimer;
     }
 
+    //Methods
     public void startCooldownTimer() {
         this.cooldownTimer = cooldown;
     }
-
-    public void render(SpriteBatch batch) {
-        if (sprite != null) {
-            sprite.draw(batch);
-        }
-    }
-
-
 }

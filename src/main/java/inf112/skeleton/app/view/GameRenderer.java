@@ -48,6 +48,8 @@ public class GameRenderer extends Game {
         this.gameLogic = gameLogic;
     }
 
+    
+
     @Override
     public void create() {
         System.out.println("GameRenderer: Created");

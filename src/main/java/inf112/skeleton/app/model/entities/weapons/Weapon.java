@@ -1,9 +1,12 @@
 package inf112.skeleton.app.model.entities.weapons;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import inf112.skeleton.app.model.entities.Entity;
 
 public abstract class Weapon extends Entity {
+    protected Sprite sprite; // Ensure the sprite or similar graphic representation exists
     int dmg;
     float knockback;
     float cooldown;
@@ -38,4 +41,11 @@ public abstract class Weapon extends Entity {
     public void setCooldownTimer(float cooldownTimer) { this.cooldownTimer = cooldownTimer; }
 
     public void startCooldownTimer() { this.cooldownTimer = cooldown; }
+
+     // Base render method
+     public void render(SpriteBatch batch) {
+        if (sprite != null) {
+            sprite.draw(batch);
+        }
+    }
 }

@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import inf112.skeleton.app.model.GameLogic;
+import inf112.skeleton.app.model.entities.weapons.TreeSword;
+import inf112.skeleton.app.model.entities.weapons.Weapon;
 
 import static inf112.skeleton.app.utils.Constants.*;
 
@@ -112,6 +114,25 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
         stage.addActor(treeButton);
 
        
+        // treeButton.addListener(new ClickListener() {
+        //     @Override
+        //     public void clicked(InputEvent event, float x, float y) {
+        //         try {
+        //             SpriteBatch batch = game.getBatch(); 
+        //             GameLogic gameLogic = game.getGameLogic();
+        //             OrthographicCamera cam = game.getCamera(); 
+
+        //             if (gameLogic != null && cam != null) {
+        //                 game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
+        //             } else {
+        //                 System.out.println("Game logic or camera is null");
+        //             }
+        //         } catch (Exception e) {
+        //             e.printStackTrace();
+        //         }
+        //     }
+        // });
+        
         treeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -119,8 +140,13 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
                     SpriteBatch batch = game.getBatch(); 
                     GameLogic gameLogic = game.getGameLogic();
                     OrthographicCamera cam = game.getCamera(); 
-
+        
                     if (gameLogic != null && cam != null) {
+                        Weapon weapon = gameLogic.getWeapon();
+                        if (weapon instanceof TreeSword) {
+                            TreeSword treeSword = (TreeSword) weapon;
+                            treeSword.toggleActive(); // Toggle the activation state of the TreeSword
+                        }
                         game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
                     } else {
                         System.out.println("Game logic or camera is null");
@@ -130,6 +156,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
                 }
             }
         });
+        
 
 
         //Red Sword button

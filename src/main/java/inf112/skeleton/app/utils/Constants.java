@@ -76,6 +76,7 @@ public class Constants {
     public final static float RED_SWORD_STUN = 1;
     public final static float RED_SWORD_COOLDOWN = 0.5f;
 
+<<<<<<< HEAD
     // - Tree Sword 
     public final static String TREE_SPRITE = "Tree_sword";
     public final static int TREE_HEIGHT = 60;
@@ -86,6 +87,19 @@ public class Constants {
     public final static float TREE_KNOCKBACK = 500;
     public final static float TREE_STUN = 1;
     public final static float TREE_COOLDOWN = 1.5f;
+=======
+    // - Axe
+    // public final static String AXE_SPRITE = "axeSprite";
+    public final static String AXE_SPRITE = "Tree_sword";
+    public final static int AXE_HEIGHT = 60;
+    public final static int AXE_WIDTH = 30;
+    public final static int AXE_Y_OFFSET = 50;
+    public final static int AXE_X_OFFSET = 0;
+    public final static int AXE_DMG = 5;
+    public final static float AXE_KNOCKBACK = 500;
+    public final static float AXE_STUN = 1;
+    public final static float AXE_COOLDOWN = 1.5f;
+>>>>>>> db588c8 (Updated sprites for swords)
 
     // - Green Sword 
     public final static String GREEN_SWORD_SPRITE = "Green_sword";

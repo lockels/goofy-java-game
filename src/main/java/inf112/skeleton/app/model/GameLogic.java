@@ -84,7 +84,6 @@ public class GameLogic implements CollisionCallBack {
         entities.clear();
         coins.clear();
         enemies.clear();
-        // spikePolygons.clear();
 
         // Initialize new entities
         coins = new ArrayList<>();
@@ -161,6 +160,10 @@ public class GameLogic implements CollisionCallBack {
     // Ensure there is a way to access the specific weapon
     public Weapon getWeapon() {
         return weapon;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
     }
 
     private void initializeEntities() {

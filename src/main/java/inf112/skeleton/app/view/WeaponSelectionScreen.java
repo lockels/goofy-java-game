@@ -127,6 +127,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
                         if (weapon instanceof TreeSword) {
                             TreeSword treeSword = (TreeSword) weapon;
                             treeSword.toggleActive(); // Toggle the activation state of the TreeSword
+                            gameLogic.setWeapon(treeSword);
                         }
                         game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
                     } else {
@@ -164,6 +165,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
                         if (weapon instanceof MetalSword) {
                             MetalSword metalSword = (MetalSword) weapon;
                             metalSword.toggleActive(); // Toggle the activation state of the RedSword
+                            gameLogic.setWeapon(metalSword);
                         }
                         game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
                     } else {
@@ -199,6 +201,7 @@ public class WeaponSelectionScreen extends ScreenAdapter implements ApplicationL
                         if (weapon instanceof DiamondSword) {
                             DiamondSword diamondSword = (DiamondSword) weapon;
                             diamondSword.toggleActive(); // Toggle the activation state of the GreenSword
+                            gameLogic.setWeapon(diamondSword);
                         }
                         game.setScreen(new GameActiveScreen(game, gameLogic, batch, cam));
                     } else {

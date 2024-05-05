@@ -194,7 +194,6 @@ public class GameActiveScreen extends ScreenAdapter {
     private void drawEntities() {
         for (Entity entity : gameLogic.getActiveEntities()) {
             if (entity.getIsDestroyed()) {
-                System.out.println("Coin collected");
                 gameLogic.removeEntity(entity);
             }
             float x = entity.getX();

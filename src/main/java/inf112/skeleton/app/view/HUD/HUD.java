@@ -37,7 +37,6 @@ public class HUD {
         this.screenX = screenX;
         this.screenY = screenY;
         createHearts();
-        System.out.println("HUD: Created");
     }
 
     private void createHearts() {

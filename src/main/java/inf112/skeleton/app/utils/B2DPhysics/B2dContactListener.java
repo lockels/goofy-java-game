@@ -63,7 +63,6 @@ public class B2dContactListener implements ContactListener {
 
     private void playerAndSpikeContact(Fixture fA, Fixture fB) {
         if (isPlayerContact(fA, fB) && isSpikeContact(fA, fB)) {
-            System.out.println("spike hit");
             Player player = (fA.getUserData() instanceof Player) ? (Player) fA.getUserData() : (Player) fB.getUserData();
             Spike spike = (fA.getUserData() instanceof Spike) ? (Spike) fA.getUserData() : (Spike) fB.getUserData();
             player.setInContactWithSpike(true);

@@ -3,6 +3,13 @@ package inf112.skeleton.app.view;
 import static inf112.skeleton.app.utils.Constants.BACK_TO_GAME_BUTTON;
 import static inf112.skeleton.app.utils.Constants.DIAMOND_SWORD_BUTTON;
 import static inf112.skeleton.app.utils.Constants.METAL_SWORD_BUTTON;
+import static inf112.skeleton.app.utils.Constants.DIAMOND_SWORD_COST;
+import static inf112.skeleton.app.utils.Constants.HELP_BUTTON;
+import static inf112.skeleton.app.utils.Constants.MENU;
+import static inf112.skeleton.app.utils.Constants.METAL_SWORD_BUTTON;
+import static inf112.skeleton.app.utils.Constants.METAL_SWORD_COST;
+import static inf112.skeleton.app.utils.Constants.PLAY_BUTTON;
+import static inf112.skeleton.app.utils.Constants.QUIT_BUTTON;
 import static inf112.skeleton.app.utils.Constants.TREE_SWORD_BUTTON;
 import static inf112.skeleton.app.utils.Constants.WEAPON_SELECTION;
 
@@ -103,16 +110,24 @@ public class WeaponSelection1 extends ScreenAdapter{
             gameLogic.setWeapon(new TreeSword(gameLogic.getWorld()));
         }
         else if(metalSwordButton.isPressed()){
-            gameLogic.setGameState(GameState.GAME_ACTIVE);
-            game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam));
-            gameLogic.getWeapon().setIsDestroyed(true);
-            gameLogic.setWeapon(new MetalSword(gameLogic.getWorld()));
+            System.out.printf("num coins: %d", gameLogic.getCoinValue());
+            if (gameLogic.getCoinValue() >= METAL_SWORD_COST) {
+                gameLogic.setGameState(GameState.GAME_ACTIVE);
+                game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam));
+                gameLogic.getWeapon().setIsDestroyed(true);
+                gameLogic.setCoinValue(gameLogic.getCoinValue() - METAL_SWORD_COST);
+                gameLogic.setWeapon(new MetalSword(gameLogic.getWorld()));
+            }
         }
         else if(diamondSwordButton.isPressed()){
-            gameLogic.setGameState(GameState.GAME_ACTIVE);
-            game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam));
-            gameLogic.getWeapon().setIsDestroyed(true);
-            gameLogic.setWeapon(new DiamondSword(gameLogic.getWorld()));
+            System.out.printf("num coins: %d", gameLogic.getCoinValue());
+            if (gameLogic.getCoinValue() >= DIAMOND_SWORD_COST) {
+                gameLogic.setGameState(GameState.GAME_ACTIVE);
+                game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam));
+                gameLogic.getWeapon().setIsDestroyed(true);
+                gameLogic.setCoinValue(gameLogic.getCoinValue() - DIAMOND_SWORD_COST);
+                gameLogic.setWeapon(new DiamondSword(gameLogic.getWorld()));
+            }
         }
     }
 
@@ -131,5 +146,4 @@ public class WeaponSelection1 extends ScreenAdapter{
         stage.dispose();
         batch.dispose();
     }
-
 }

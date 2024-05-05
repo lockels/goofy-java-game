@@ -67,7 +67,6 @@ public class GameRenderer extends Game {
 
     @Override
     public void create() {
-        System.out.println("GameRenderer: Created");
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();

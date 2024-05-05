@@ -69,7 +69,6 @@ public class GameLogic implements CollisionCallBack {
     }
 
     public void resetGame() {
-        System.out.println("Resetting game");
         // Reset player
         this.player.setHealth(PLAYER_HEALTH);
         this.player.setPos(PLAYER_SPAWN_X, PLAYER_SPAWN_Y);
@@ -262,7 +261,6 @@ public class GameLogic implements CollisionCallBack {
     }
 
     public void removeEntity(Entity entity) {
-        System.out.println("Entities: " + entities);
         if (entity instanceof Enemy) {
             enemies.remove(entity);
         }

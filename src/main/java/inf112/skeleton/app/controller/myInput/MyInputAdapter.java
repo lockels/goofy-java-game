@@ -28,7 +28,6 @@ public class MyInputAdapter extends InputAdapter {
      * @param gameLogic The game logic to manage the game's state.
      */
     public MyInputAdapter(Player player, GameLogic gameLogic) {
-        System.out.println("MyInputAdapter: Created");
         this.player = player;
         this.gameLogic = gameLogic;
     }

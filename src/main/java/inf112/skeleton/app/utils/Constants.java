@@ -81,6 +81,7 @@ public class Constants {
     public final static float METAL_KNOCKBACK = 100;
     public final static float METAL_STUN = 0.8f;
     public final static float METAL_COOLDOWN = 0.5f;
+    public final static int METAL_SWORD_COST = 500;
 
     // - Diamond Sword
     public final static String DIAMOND_SWORD_IMG = "DiamondSword";
@@ -92,6 +93,7 @@ public class Constants {
     public final static float DIAMOND_KNOCKBACK = 500;
     public final static float DIAMOND_STUN = 1.0f;
     public final static float DIAMOND_COOLDOWN = 0.1f;
+    public final static int DIAMOND_SWORD_COST = 1000;
 
     // Grid - PS: NOT CURRENTLY IN USE !!!
     public final static int NUM_ROWS = 50;

@@ -26,7 +26,7 @@ public class SoundController implements ISoundController {
 
         //initializeBackgroundMusic();
         // Map specific sounds to actio
-        loadSound("background", "sounds/background.wav");
+        loadSound("background", "/sounds/background.wav");
         loadSound("dogma", "/sounds/Dogma.wav");
         loadSound("beastGhostrise", "/sounds/Beast_ghostrise1.wav");
         loadSound("technologyShot", "/sounds/Technology_shot.wav");
@@ -49,8 +49,6 @@ public class SoundController implements ISoundController {
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clips.put(key, clip);
-            System.out.println("Loaded sound: " + key);
-
             // Close the stream after use
             audioStream.close();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {

@@ -169,7 +169,6 @@ public abstract class Entity {
      * Triggers the entity, logging a message indicating the entity has been triggered.
      */
     public void trigger() {
-        System.out.println(tag + " has been triggered!");
     }
 
     /**

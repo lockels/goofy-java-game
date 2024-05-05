@@ -25,3 +25,4 @@ Zelda rougelite inspirert av *the binding of isaac*
 ## Credits
 * `dungeon_sheet.png` from https://opengameart.org/content/a-blocky-dungeon (credit: http://blog-buch.rhcloud.com)
 * `16x16_dungeon_tiles.jpg` from https://opengameart.org/content/6-color-dungeon-16x16 (credit: HorusKDI, https://opengameart.org/users/horuskdi)
+* `coinSprite` from https://www.vecteezy.com/vector-art/9726817-pixel-art-gold-coin-vector-icon-for-8bit-game-on-white-background

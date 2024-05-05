@@ -1,26 +1,16 @@
 package inf112.skeleton.app.model;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
@@ -28,20 +18,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-import inf112.skeleton.app.model.entities.Coin;
 import inf112.skeleton.app.model.entities.Entity;
-import inf112.skeleton.app.model.entities.Player;
-import inf112.skeleton.app.model.entities.Spike;
 import inf112.skeleton.app.model.entities.enemies.Enemy;
 import inf112.skeleton.app.model.entities.enemies.Medium;
 import inf112.skeleton.app.model.entities.weapons.TreeSword;
-import inf112.skeleton.app.model.entities.weapons.Weapon;
 import inf112.skeleton.app.utils.Constants;
-import inf112.skeleton.app.utils.B2DPhysics.TiledObjectUtil;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.mock;
 
 public class GameLogicTest {
 
@@ -232,19 +213,6 @@ public class GameLogicTest {
         assertFalse(newDistance < initialDistance, "Enemy should move closer to the player");
     }
 
-    // @Test
-    // void testSetMap() {
-    //    TiledMap map = mock(TiledMap.class);
-    //    gameLogic.setMap(map);
-    //    assertEquals(map, gameLogic.getMap());
-    // }
-
-    // @Test
-    // void testGetMap() {
-    //    gameLogic.setMap(mock(TiledMap.class));
-    //    TiledMap map = gameLogic.getMap();
-    //    assertNotNull(map);
-    // }
 }
 
 

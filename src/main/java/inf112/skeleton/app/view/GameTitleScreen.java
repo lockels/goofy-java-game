@@ -20,8 +20,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
-import inf112.skeleton.app.controller.myInput.SoundController;
 
+/**
+ * The GameTitleScreen class is responsible for rendering the title screen.
+ * Extends {@link ScreenAdapter}.
+ * This class provides the main menu options to start the game, view help, or exit.
+ */
 public class GameTitleScreen extends ScreenAdapter {
     private GameRenderer game;
     private GameLogic gameLogic;
@@ -30,9 +34,14 @@ public class GameTitleScreen extends ScreenAdapter {
     private Stage stage;
     private Viewport viewport;
     private Button playButton, quitButton, helpButton;
-    
-    Viewport viewPort;
+    private Viewport viewPort;
 
+    /**
+     * Constructs a GameTitleScreen.
+     *
+     * @param game      The game renderer instance.
+     * @param gameLogic The game logic instance.
+     */
     public GameTitleScreen(GameRenderer game, GameLogic gameLogic) {
         this.game = game;
         this.gameLogic = gameLogic;

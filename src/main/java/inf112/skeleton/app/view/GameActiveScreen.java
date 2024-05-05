@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.entities.Entity;
-import inf112.skeleton.app.model.entities.enemies.Enemy;
 import inf112.skeleton.app.view.HUD.HUD;
 
 import com.badlogic.gdx.Gdx;
@@ -34,33 +33,34 @@ import static inf112.skeleton.app.utils.Constants.*;
 import static inf112.skeleton.app.model.GameState.*;
 
 /**
-     * The GameRenderer class is responsible for rendering the game.
-     * It manages the rendering of entities, HUD, and game UI elements.
-     */
+ * The GameActiveScreen class is responsible for rendering the game.
+ * Extends {@link ScreenAdapter}.
+ * This class manages the rendering of entities, HUD, and game UI elements.
+ */
 public class GameActiveScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private OrthographicCamera cam;
     private GameLogic gameLogic;
     private ArrayList<TextureRegion> entitySprites = new ArrayList<>();
-
     private Box2DDebugRenderer debugRenderer;
-
     private Texture spriteSheet;
     private BitmapFont font;
     private TiledMap map;
     private OrthogonalTiledMapRenderer tmr;
     private HUD hud;
     private MyInputAdapter inputAdapter;
-    // private Game game;
     private GameRenderer game;
     private Stage stage;
     private Button weaponSelectionButton;
 
     /**
-         * Constructs a GameActiveScreen.
-         *
-         * @param gameLogic the GameLogic instance to render
-         */
+     * Constructs a GameActiveScreen.
+     *
+     * @param game       The game instance to render.
+     * @param gameLogic  The GameLogic instance to render.
+     * @param batch      The sprite batch used for rendering.
+     * @param cam        The camera used to view the game world.
+     */
     public GameActiveScreen(GameRenderer game, GameLogic gameLogic, SpriteBatch batch, OrthographicCamera cam) {
         this.gameLogic = gameLogic;
         this.batch = batch;
@@ -69,12 +69,19 @@ public class GameActiveScreen extends ScreenAdapter {
     }
     
     /**
-     * Returns the stage
+     * Returns the stage for the game UI.
+     *
+     * @return The stage.
      */
     public Stage getStage() {
         return this.stage;
     }
 
+    /**
+     * Sets the stage for the game UI.
+     *
+     * @param stage The stage to set.
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -89,12 +96,9 @@ public class GameActiveScreen extends ScreenAdapter {
         cam.setToOrtho(false, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         font = new BitmapFont();
-        // Gdx.input.setInputProcessor(new MyInputAdapter(gameLogic.getPlayer()));
 
         map = new TmxMapLoader().load(MAP_IMG);
         tmr = new OrthogonalTiledMapRenderer(map);
-
-        // parseObjectLayers();
 
         Texture heartTexture = new Texture(HEART_IMG);
         hud = new HUD(heartTexture, gameLogic.getPlayer().getHealth(), 0, 0);
@@ -125,7 +129,7 @@ public class GameActiveScreen extends ScreenAdapter {
         weaponSelectionButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new WeaponSelection1(game, gameLogic) );
+                game.setScreen(new WeaponSelection1(game, gameLogic));
             }
         });
     }
@@ -162,7 +166,6 @@ public class GameActiveScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-        // spriteSheet.dispose();
         for (TextureRegion textureRegion : entitySprites) {
             textureRegion.getTexture().dispose();
         }
@@ -176,8 +179,7 @@ public class GameActiveScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
-    private void initiateGameOver()   {
-        // gameLogic.destroyInactiveEntities();
+    private void initiateGameOver() {
         game.setScreen(new GameOverScreen(game, gameLogic));
         gameLogic.getPlayer().setHealth(PLAYER_HEALTH);
     }
@@ -199,10 +201,10 @@ public class GameActiveScreen extends ScreenAdapter {
             float y = entity.getY();
             float angle = entity.getAngle();
             float heightOffset = entity.getOffset().y;
-            Vector2 offset = entity.trigVector(heightOffset,angle);
+            Vector2 offset = entity.trigVector(heightOffset, angle);
             Texture tex = new Texture("sprites/" + entity.getTextureId() + ".png");
             Sprite sprite = new Sprite(tex);
-            sprite.setScale(entity.getSpriteWidth()/tex.getWidth(), entity.getSpriteHeight()/tex.getHeight());
+            sprite.setScale(entity.getSpriteWidth() / tex.getWidth(), entity.getSpriteHeight() / tex.getHeight());
             sprite.setAlpha(entity.getOpacity());
             sprite.setRotation(angle);
             sprite.setX((x + offset.x * PPM) - sprite.getWidth() / 2);
@@ -229,19 +231,15 @@ public class GameActiveScreen extends ScreenAdapter {
         batch.setColor(1, 1, 1, 1);
     }
 
-    private TextureRegion getSpriteFromSheet(Texture spriteSheet, int x, int y, int width, int height) {
-        return new TextureRegion(spriteSheet, x, y, width, height);
-    }
-
     private Texture getSpriteSheet(String spriteSheet) {
         return new Texture(Gdx.files.internal(spriteSheet));
     }
 
-    public float getCameraX() {
+    private float getCameraX() {
         return this.cam.position.x;
     }
 
-    public float getCameraY() {
+    private float getCameraY() {
         return this.cam.position.y;
     }
 }

@@ -10,7 +10,6 @@ import static inf112.skeleton.app.utils.Constants.*;
 import java.util.List;
 import java.util.ArrayList;
 import inf112.skeleton.app.controller.myInput.SoundController;
-import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;

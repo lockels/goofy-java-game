@@ -22,15 +22,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import inf112.skeleton.app.model.GameLogic;
 import inf112.skeleton.app.model.GameState;
 
+/**
+ * The GameOverScreen class is responsible for rendering the game over screen.
+ * Extends {@link ScreenAdapter}.
+ */
 public class GameOverScreen extends ScreenAdapter {
-    GameRenderer game;
-    GameLogic gameLogic;
-    SpriteBatch batch;
-    OrthographicCamera cam;
-    Stage stage;
-    Viewport viewport;
-    Button yesButton, noButton;
+    private GameRenderer game;
+    private GameLogic gameLogic;
+    private SpriteBatch batch;
+    private OrthographicCamera cam;
+    private Stage stage;
+    private Viewport viewport;
+    private Button yesButton, noButton;
 
+    /**
+     * Constructs a GameOverScreen.
+     *
+     * @param game      The game renderer instance.
+     * @param gameLogic The game logic instance.
+     */
     public GameOverScreen(GameRenderer game, GameLogic gameLogic) {
         this.game = game;
         this.gameLogic = gameLogic;

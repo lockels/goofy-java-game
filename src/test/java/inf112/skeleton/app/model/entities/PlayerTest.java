@@ -5,7 +5,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Array;
 
-import inf112.skeleton.app.controller.myInput.MyInputAdapter;
 import inf112.skeleton.app.model.Direction;
 import inf112.skeleton.app.model.entities.enemies.Enemy;
 import inf112.skeleton.app.utils.Constants;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 import java.util.Map;

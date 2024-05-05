@@ -10,47 +10,55 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
+/**
+ * Controls sound effects and background music for the game.
+ * Implements the {@link ISoundController} interface.
+ */
 public class SoundController implements ISoundController {
+
     private HashMap<String, Clip> clips = new HashMap<>();
     private Music backgroundMusic;
+
+    /**
+     * Constructs a new SoundController and initializes the sounds.
+     */
     public SoundController() {
 
         //initializeBackgroundMusic();
         // Map specific sounds to actio
-        loadSound("background", "/sounds/background.wav");
+        loadSound("background", "sounds/background.wav");
         loadSound("dogma", "/sounds/Dogma.wav");
         loadSound("beastGhostrise", "/sounds/Beast_ghostrise1.wav");
-        loadSound("technologyShot", "/sounds/Technology_shot.wav");  // Check spelling if it's correct as 'Techonology' seems misspelled
+        loadSound("technologyShot", "/sounds/Technology_shot.wav");
         loadSound("damage", "/sounds/damageSound.wav");
         loadSound("death", "/sounds/Death_sound.wav");
         loadSound("isaacDeath", "/sounds/Isaac_dies.wav");
         loadSound("pestilence", "/sounds/Pestilence_spit_blob.wav");
-       
     }
- 
 
     private void loadSound(String key, String path) {
         try {
-            InputStream audioSrc = getClass().getResourceAsStream(path); // Get the raw input stream
+            InputStream audioSrc = getClass().getResourceAsStream(path);
             if (audioSrc == null) {
                 System.err.println("Resource not found: " + path);
                 return;
             }
             BufferedInputStream bufferedIn = new BufferedInputStream(audioSrc);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn); // Use the buffered stream
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
 
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clips.put(key, clip);
             System.out.println("Loaded sound: " + key);
-            
+
             // Close the stream after use
-            audioStream.close(); 
+            audioStream.close();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.err.println("Error loading sound: " + key + " - " + e);
         }
     }
 
+    @Override
     public void initializeBackgroundMusic() {
         playSound("background");
     }
@@ -84,6 +92,7 @@ public class SoundController implements ISoundController {
         playSound("move");
     }
 
+    
     @Override
     public void playCoinSound() {
         playSound("coin");
@@ -92,18 +101,19 @@ public class SoundController implements ISoundController {
     @Override
     public void playPestilenceSound() {
         playSound("pestilence");
-        
     }
 
     @Override
     public void playDamageSound() {
         playSound("damage");
     }
- 
+
+
     @Override
     public void playGameOverSound() {
         playSound("isaacDeath");
     }
+
     @Override
     public void playTechoShotSound() {
         playSound("technologyShot");
@@ -115,13 +125,15 @@ public class SoundController implements ISoundController {
             backgroundMusic.play();
         }
     }
+
     @Override
     public void stopBackgroundMusic() {
         if (backgroundMusic != null && backgroundMusic.isPlaying()) {
             backgroundMusic.stop();
         }
     }
- 
+
+
     @Override
     public void setMusicVolume(float volume) {
         if (backgroundMusic != null) {
@@ -129,11 +141,21 @@ public class SoundController implements ISoundController {
         }
     }
 
+    /**
+     * Gets the map of sound clips.
+     *
+     * @return The map of sound clips.
+     */
     public HashMap<String, Clip> getClips() {
-    return this.clips;
+        return this.clips;
     }
 
-    public Music getBackgroundMusic(){
+    /**
+     * Gets the background music.
+     *
+     * @return The background music.
+     */
+    public Music getBackgroundMusic() {
         return this.backgroundMusic;
     }
 }

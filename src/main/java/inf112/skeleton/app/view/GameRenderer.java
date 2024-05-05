@@ -17,38 +17,53 @@ import static inf112.skeleton.app.utils.Constants.*;
 
 /**
  * The GameRenderer class is responsible for rendering the game.
- * It manages the rendering of entities, HUD, and game UI elements.
+ * Extends {@link Game}.
+ * This class manages the rendering of entities, HUD, and game UI elements.
  */
 public class GameRenderer extends Game {
-
     SpriteBatch batch;
     ShapeRenderer shapeRenderer;
     BitmapFont font;
     GameLogic gameLogic;
     private TiledMap map;
     OrthographicCamera cam;
-    
     private MyInputAdapter inputAdapter;
 
-
-
-    public OrthographicCamera getCamera() {
-        return cam;
-    }
-
-    public GameLogic getGameLogic() {
-        return gameLogic;
-    }
-
-    public SpriteBatch getBatch() {
-        return batch;
-    }
-
+    /**
+     * Constructs a GameRenderer with the specified game logic.
+     *
+     * @param gameLogic The GameLogic instance to render.
+     */
     public GameRenderer(GameLogic gameLogic) {
         this.gameLogic = gameLogic;
     }
 
-    
+    /**
+     * Gets the camera used to view the game world.
+     *
+     * @return The camera.
+     */
+    public OrthographicCamera getCamera() {
+        return cam;
+    }
+
+    /**
+     * Gets the game logic controlling the game's state and flow.
+     *
+     * @return The game logic.
+     */
+    public GameLogic getGameLogic() {
+        return gameLogic;
+    }
+
+    /**
+     * Gets the sprite batch used for rendering.
+     *
+     * @return The sprite batch.
+     */
+    public SpriteBatch getBatch() {
+        return batch;
+    }
 
     @Override
     public void create() {
@@ -79,7 +94,6 @@ public class GameRenderer extends Game {
         batch.dispose();
         shapeRenderer.dispose();
         font.dispose();
-        
     }
 
     private void parseObjectLayers() {

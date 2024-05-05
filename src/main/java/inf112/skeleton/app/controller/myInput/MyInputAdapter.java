@@ -10,11 +10,23 @@ import inf112.skeleton.app.model.entities.Player;
 import static inf112.skeleton.app.model.Direction.*;
 import static inf112.skeleton.app.model.GameState.*;
 
+/**
+ * Handles player input and game state transitions.
+ * Extends {@link InputAdapter}.
+ * This class manages player movement and changes in game states based on key inputs.
+ */
 public class MyInputAdapter extends InputAdapter {
+
     private final Player player;
     private GameLogic gameLogic;
     private static boolean keyPressed = false;
 
+    /**
+     * Constructs a new MyInputAdapter.
+     *
+     * @param player    The player character to control.
+     * @param gameLogic The game logic to manage the game's state.
+     */
     public MyInputAdapter(Player player, GameLogic gameLogic) {
         System.out.println("MyInputAdapter: Created");
         this.player = player;
@@ -48,20 +60,21 @@ public class MyInputAdapter extends InputAdapter {
         return false;
     }
 
-    public static boolean keyPressed()    {
+    /**
+     * Checks if any key is currently pressed.
+     *
+     * @return True if any key is pressed, otherwise false.
+     */
+    public static boolean keyPressed() {
         return keyPressed;
     }
 
     private Direction getKeyDirection(int keycode) {
         return switch (keycode) {
-            case Keys.LEFT -> LEFT;
-            case Keys.A -> LEFT;
-            case Keys.RIGHT -> RIGHT;
-            case Keys.D -> RIGHT;
-            case Keys.UP -> UP;
-            case Keys.W -> UP;
-            case Keys.DOWN -> DOWN;
-            case Keys.S -> DOWN;
+            case Keys.LEFT, Keys.A -> LEFT;
+            case Keys.RIGHT, Keys.D -> RIGHT;
+            case Keys.UP, Keys.W -> UP;
+            case Keys.DOWN, Keys.S -> DOWN;
             default -> null;
         };
     }

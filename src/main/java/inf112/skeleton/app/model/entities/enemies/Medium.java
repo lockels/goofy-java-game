@@ -6,7 +6,17 @@ import inf112.skeleton.app.utils.B2DPhysics.PhysicsFactory;
 
 import static inf112.skeleton.app.utils.Constants.*;
 
+/**
+ * Represents a medium enemy in the game.
+ * Extends the {@link Enemy} class.
+ */
 public class Medium extends Enemy{
+
+    /**
+     * Constructs a new medium enemy with default parameters.
+     *
+     * @param world The Box2D {@link World} in which the medium enemy resides.
+     */
     public Medium(World world) {
         super(PhysicsFactory.createDynamicEntityBody(world,
                 new Vector2(),

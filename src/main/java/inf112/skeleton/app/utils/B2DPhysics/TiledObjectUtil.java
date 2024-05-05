@@ -5,18 +5,22 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.ChainShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import inf112.skeleton.app.model.entities.Spike;
 import static inf112.skeleton.app.utils.Constants.*;
 
+/**
+ * Utility class for creating Box2D shapes and bodies from tiled map objects.
+ * Provides methods for parsing layers, creating polygons, and creating spikes.
+ */
 public class TiledObjectUtil {
+
+    /**
+     * Parses a tiled object layer to create static Box2D bodies in the world.
+     *
+     * @param world   The Box2D world in which to create the bodies.
+     * @param objects The map objects representing the layer.
+     */
     public static void parseTiledObjectLayer(World world, MapObjects objects) {
         for (MapObject object : objects) {
             Shape shape;
@@ -36,7 +40,7 @@ public class TiledObjectUtil {
         }
     }
 
-	private static Shape createPolyLine(PolylineMapObject polyline) {
+    private static Shape createPolyLine(PolylineMapObject polyline) {
         float[] vertices = polyline.getPolyline().getTransformedVertices();
         Vector2[] worldVertices = new Vector2[vertices.length / 2];
         for (int i = 0; i < worldVertices.length; i++) {
@@ -60,6 +64,12 @@ public class TiledObjectUtil {
         return shape;
     }
 
+    /**
+     * Creates spike entities from polygon map objects.
+     *
+     * @param world   The Box2D world in which to create the spikes.
+     * @param objects The map objects representing the spikes.
+     */
     public static void createSpikes(World world, MapObjects objects) {
         for (MapObject object : objects) {
             if (object instanceof PolygonMapObject) {
@@ -75,7 +85,7 @@ public class TiledObjectUtil {
                 Fixture fixture = body.createFixture(fixtureDef);
                 shape.dispose();
 
-                Spike spike = new Spike(body, "", SPIKE_DAMAGE, 0 , 0);
+                Spike spike = new Spike(body, "", SPIKE_DAMAGE, 0, 0);
                 fixture.setUserData(spike);
             }
         }

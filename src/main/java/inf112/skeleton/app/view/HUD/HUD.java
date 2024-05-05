@@ -67,17 +67,12 @@ public class HUD {
      * Updates the hearts based on the current player health.
      *
      * @param currentHealth the current health of the player
-     * @param f       the screen X coordinate where the hearts should be
-     *                      displayed
-     * @param g       the screen Y coordinate where the hearts should be
-     *                      displayed
+     * @param f       the screen X coordinate where the hearts should be displayed
+     * @param g       the screen Y coordinate where the hearts should be displayed
      */
     public void updateHearts(int currentHealth, float f, float g) {
         this.screenX = f;
         this.screenY = g;
-        // System.out.println("HUD: updateHearts");
-        // System.out.println("currentHealth: " + currentHealth);
-        // System.out.println("Heart position (x, y): " + this.screenX + ", " + this.screenY);
         for (int i = 0; i < hearts.size(); i++) {
             float x = (this.screenX + i * HEART_PADDING) - CAMERA_OFFSET_X + HEART_PADDING; 
             float y = this.screenY - CAMERA_OFFSET_Y + HEART_PADDING;

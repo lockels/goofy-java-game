@@ -8,17 +8,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
-import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.SharedLibraryLoader;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3NativesLoader;
 
 import inf112.skeleton.app.model.entities.Spike;
 import inf112.skeleton.app.utils.Constants;

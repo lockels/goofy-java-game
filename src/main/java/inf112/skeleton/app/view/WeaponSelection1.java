@@ -2,11 +2,7 @@ package inf112.skeleton.app.view;
 
 import static inf112.skeleton.app.utils.Constants.BACK_TO_GAME_BUTTON;
 import static inf112.skeleton.app.utils.Constants.DIAMOND_SWORD_BUTTON;
-import static inf112.skeleton.app.utils.Constants.HELP_BUTTON;
-import static inf112.skeleton.app.utils.Constants.MENU;
 import static inf112.skeleton.app.utils.Constants.METAL_SWORD_BUTTON;
-import static inf112.skeleton.app.utils.Constants.PLAY_BUTTON;
-import static inf112.skeleton.app.utils.Constants.QUIT_BUTTON;
 import static inf112.skeleton.app.utils.Constants.TREE_SWORD_BUTTON;
 import static inf112.skeleton.app.utils.Constants.WEAPON_SELECTION;
 
@@ -29,6 +25,10 @@ import inf112.skeleton.app.model.entities.weapons.DiamondSword;
 import inf112.skeleton.app.model.entities.weapons.MetalSword;
 import inf112.skeleton.app.model.entities.weapons.TreeSword;
 
+/**
+ * The GameTitleScreen class is responsible for rendering the title screen.
+ * Extends {@link ScreenAdapter}.
+ */
 public class WeaponSelection1 extends ScreenAdapter{
     private GameRenderer game;
     private GameLogic gameLogic;
@@ -40,6 +40,12 @@ public class WeaponSelection1 extends ScreenAdapter{
     private Viewport viewport;
 
 
+    /**
+     * Constructs a WeaponSelection.
+     *
+     * @param game      The game renderer instance.
+     * @param gameLogic The game logic instance.
+     */
     public WeaponSelection1(GameRenderer game, GameLogic gameLogic) {
         this.game = game;
         this.gameLogic = gameLogic;
@@ -50,8 +56,7 @@ public class WeaponSelection1 extends ScreenAdapter{
 
         this.viewport = new ExtendViewport(800, 800, cam);
         this.stage = new Stage(viewport, batch);
-        
-
+    
         setupUi();
     }
 

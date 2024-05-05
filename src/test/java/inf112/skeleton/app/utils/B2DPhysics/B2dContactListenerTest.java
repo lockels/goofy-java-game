@@ -1,14 +1,10 @@
 package inf112.skeleton.app.utils.B2DPhysics;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import inf112.skeleton.app.model.entities.Player;
 import inf112.skeleton.app.model.entities.Spike;
 import inf112.skeleton.app.model.entities.enemies.Enemy;
-import inf112.skeleton.app.model.entities.weapons.DiamondSword;
 import inf112.skeleton.app.model.entities.weapons.MetalSword;
-import inf112.skeleton.app.model.entities.weapons.Weapon;
-import inf112.skeleton.app.utils.Constants;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

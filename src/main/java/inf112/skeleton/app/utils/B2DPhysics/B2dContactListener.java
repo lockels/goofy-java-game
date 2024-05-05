@@ -1,15 +1,22 @@
 package inf112.skeleton.app.utils.B2DPhysics;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import inf112.skeleton.app.model.entities.*;
 import inf112.skeleton.app.model.entities.enemies.Enemy;
 import inf112.skeleton.app.model.entities.weapons.Weapon;
 
-
+/**
+ * Handles collisions between entities in the game.
+ * Implements {@link ContactListener}.
+ */
 public class B2dContactListener implements ContactListener {
     private CollisionCallBack collisionCallBack;
 
+    /**
+     * Constructs a new B2dContactListener.
+     *
+     * @param collisionCallBack The callback interface for handling collision events.
+     */
     public B2dContactListener(CollisionCallBack collisionCallBack) {
         this.collisionCallBack = collisionCallBack;
     }
@@ -35,14 +42,22 @@ public class B2dContactListener implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse contactImpulse) {}
 
-    private void weaponAndEnemyContact(Fixture fA, Fixture fB){
-        if (isWeaponContact(fA, fB) && (isEnemyContact(fA, fB))) {
+    private void weaponAndEnemyContact(Fixture fA, Fixture fB) {
+        if (isWeaponContact(fA, fB) && isEnemyContact(fA, fB)) {
             Weapon weapon;
             Enemy enemy;
-            if (fA.getUserData() instanceof Weapon) { weapon = (Weapon) fA.getUserData(); enemy = (Enemy) fB.getUserData(); }
-            else                                    { weapon = (Weapon) fB.getUserData(); enemy = (Enemy) fA.getUserData(); }
+            if (fA.getUserData() instanceof Weapon) {
+                weapon = (Weapon) fA.getUserData();
+                enemy = (Enemy) fB.getUserData();
+            } else {
+                weapon = (Weapon) fB.getUserData();
+                enemy = (Enemy) fA.getUserData();
+            }
 
-            if (weapon.getCooldownTimer() <= 0) { enemy.hit(weapon.getDmg(), weapon.getKnockback(), weapon.getAngle(), weapon.getStun()); weapon.startCooldownTimer(); }
+            if (weapon.getCooldownTimer() <= 0) {
+                enemy.hit(weapon.getDmg(), weapon.getKnockback(), weapon.getAngle(), weapon.getStun());
+                weapon.startCooldownTimer();
+            }
         }
     }
 
@@ -72,10 +87,10 @@ public class B2dContactListener implements ContactListener {
     }
 
     private boolean isWeaponContact(Fixture fA, Fixture fB) {
-        return((fA.getUserData() instanceof Weapon)||(fB.getUserData() instanceof Weapon));
+        return (fA.getUserData() instanceof Weapon) || (fB.getUserData() instanceof Weapon);
     }
 
     private boolean isEnemyContact(Fixture fA, Fixture fB) {
-        return((fA.getUserData() instanceof Enemy)||(fB.getUserData() instanceof Enemy));
+        return (fA.getUserData() instanceof Enemy) || (fB.getUserData() instanceof Enemy);
     }
 }

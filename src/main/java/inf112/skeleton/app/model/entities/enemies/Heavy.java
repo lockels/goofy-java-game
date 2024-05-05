@@ -6,7 +6,17 @@ import inf112.skeleton.app.utils.B2DPhysics.PhysicsFactory;
 
 import static inf112.skeleton.app.utils.Constants.*;
 
-public class Heavy extends Enemy{
+/**
+ * Represents a heavy enemy in the game.
+ * Extends the {@link Enemy} class.
+ */
+public class Heavy extends Enemy {
+
+    /**
+     * Constructs a new Heavy enemy with default parameters.
+     *
+     * @param world The Box2D {@link World} in which the heavy enemy resides.
+     */
     public Heavy(World world) {
         super(PhysicsFactory.createDynamicEntityBody(world,
                 new Vector2(),

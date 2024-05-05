@@ -4,7 +4,6 @@ import static inf112.skeleton.app.utils.Constants.EXIT_BUTTON;
 import static inf112.skeleton.app.utils.Constants.HELP_SCREEN_BACKGROUND;
 
 import com.badlogic.gdx.Gdx;
-
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,17 +17,26 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import inf112.skeleton.app.model.GameLogic;
 
+/**
+ * The GameHelpScreen class is responsible for rendering the help screen.
+ * Extends {@link ScreenAdapter}.
+ */
 public class GameHelpScreen extends ScreenAdapter {
-    GameRenderer game;
-    GameLogic gameLogic;
-    SpriteBatch batch;
-    OrthographicCamera cam;
-    Stage stage;
-    Viewport viewport;
-    Button backButton;
+    private GameRenderer game;
+    private GameLogic gameLogic;
+    private SpriteBatch batch;
+    private OrthographicCamera cam;
+    private Stage stage;
+    private Viewport viewport;
+    private Button backButton;
+    private Viewport viewPort;
 
-    Viewport viewPort;
-
+    /**
+     * Constructs a GameHelpScreen.
+     *
+     * @param game      The game renderer instance.
+     * @param gameLogic The game logic instance.
+     */
     public GameHelpScreen(GameRenderer game, GameLogic gameLogic) {
         this.game = game;
         this.gameLogic = gameLogic;
@@ -50,12 +58,12 @@ public class GameHelpScreen extends ScreenAdapter {
         backgroundImage.setFillParent(true);
         stage.addActor(backgroundImage);
 
-        //Back Button
+        // Back Button
         backButton = new Button(new TextureRegionDrawable(new Texture(EXIT_BUTTON)));
         backButton.setPosition(700, 700);
         stage.addActor(backButton);
-
     }
+
 
     @Override
     public void show() {
@@ -68,7 +76,7 @@ public class GameHelpScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
-        if(backButton.isPressed()){
+        if (backButton.isPressed()) {
             game.setScreen(new GameTitleScreen(game, gameLogic));
         }
     }

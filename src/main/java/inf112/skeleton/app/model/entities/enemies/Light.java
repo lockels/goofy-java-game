@@ -6,7 +6,17 @@ import inf112.skeleton.app.utils.B2DPhysics.PhysicsFactory;
 
 import static inf112.skeleton.app.utils.Constants.*;
 
+/**
+ * Represents a light enemy in the game.
+ * Extends the {@link Enemy} class.
+ */
 public class Light extends Enemy{
+
+    /**
+     * Constructs a new light enemy with default parameters.
+     *
+     * @param world The Box2D {@link World} in which the light enemy resides.
+     */
     public Light(World world) {
         super(PhysicsFactory.createDynamicEntityBody(world,
                 new Vector2(),

@@ -6,7 +6,17 @@ import inf112.skeleton.app.utils.B2DPhysics.PhysicsFactory;
 
 import static inf112.skeleton.app.utils.Constants.*;
 
+/**
+ * Represents a Diamon Sword weapon in the game.
+ * Extends the {@link Weapon} class.
+ */
 public class DiamondSword extends Weapon {
+
+    /**
+     * Constructs a new Diamond Sword.
+     *
+     * @param world The Box2D {@link World} in which the Diamond Sword resides.
+     */
     public DiamondSword(World world) {
         super(PhysicsFactory.createEntityBody(world,
                 new Vector2(0, 0),

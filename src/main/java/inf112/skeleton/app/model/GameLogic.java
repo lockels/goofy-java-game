@@ -66,9 +66,7 @@ public class GameLogic implements CollisionCallBack {
         this.gameState = gameState;
         setWorld(new World(new Vector2(0, 0), true));
         world.setContactListener(new B2dContactListener(this));
-        if (this.gameState == GameState.GAME_TITLE) {
-            soundController.initializeBackgroundMusic();
-        }
+        soundController.initializeBackgroundMusic();
     }
 
     public void resetGame() {

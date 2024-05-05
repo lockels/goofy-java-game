@@ -17,7 +17,7 @@ public class SoundController implements ISoundController {
 
         //initializeBackgroundMusic();
         // Map specific sounds to actio
-        loadSound("background", "sounds/background.mp3");
+        loadSound("background", "/sounds/background.wav");
         loadSound("dogma", "/sounds/Dogma.wav");
         loadSound("beastGhostrise", "/sounds/Beast_ghostrise1.wav");
         loadSound("technologyShot", "/sounds/Technology_shot.wav");  // Check spelling if it's correct as 'Techonology' seems misspelled
@@ -52,16 +52,9 @@ public class SoundController implements ISoundController {
     }
 
     public void initializeBackgroundMusic() {
-        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
-        backgroundMusic.setLooping(true);
-        backgroundMusic.setVolume(0.5f);
-        backgroundMusic.play();
+        playSound("background");
     }
 
-    private void initializeSounds() {
-        initializeBackgroundMusic();
-        // Initialize other sounds similarly
-    }
     @Override
     public void playSound(String soundKey) {
         Clip clip = clips.get(soundKey);

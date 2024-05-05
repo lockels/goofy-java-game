@@ -353,23 +353,6 @@ public class GameLogic implements CollisionCallBack {
         return activeEntities;
     }
 
-    private void destroyInactiveEnemies() {
-        List<Enemy> activeEnemies = enemies;
-        Iterator<Enemy> iterator = getAllEnemies().iterator();
-        while (iterator.hasNext()) {
-            Enemy enemy = iterator.next();
-            if (!activeEnemies.contains(enemy)) {
-                if (!enemy.getIsDestroyed()) {
-                    enemy.setIsDestroyed(true);
-                    enemy.getBody().setTransform(0, 0, 0);
-                    world.destroyBody(enemy.getBody());
-                    playEnemyDeathSound(enemy);
-                    iterator.remove();
-                }
-            }
-        }
-    }
-
     private void destroyInactiveEntities() {
         List<Entity> activeEntities = getActiveEntities();
         List<Enemy> enemiesToRemove = new ArrayList<>();
@@ -378,6 +361,7 @@ public class GameLogic implements CollisionCallBack {
                 if (!entity.getIsDestroyed()) {
                     if (entity instanceof Enemy) {
                         enemiesToRemove.add((Enemy) entity);
+                        playEnemyDeathSound((Enemy) entity);
                     }
                 }
             }
@@ -390,11 +374,8 @@ public class GameLogic implements CollisionCallBack {
     private void playEnemyDeathSound(Enemy enemy) {
         if (enemy instanceof Light) {
             soundController.playTechoShotSound();
-            ;
-            ;
         } else if (enemy instanceof Medium) {
             soundController.playDamageSound();
-            ;
         } else if (enemy instanceof Heavy) {
             soundController.playPestilenceSound();
         }

@@ -198,7 +198,6 @@ public class GameLogic implements CollisionCallBack {
     }
 
     private void initializeEnemies() {
-        System.out.println("Initializing enemies");
         int num_enemies = NUM_STARTER_ENEMIES + 2 * this.wave;
         int num_heavy = (int) (num_enemies * 0.2f);
         int num_medium = (int) (num_enemies * 0.4f);

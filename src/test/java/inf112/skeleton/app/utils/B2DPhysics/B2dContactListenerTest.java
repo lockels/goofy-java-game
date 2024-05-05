@@ -108,4 +108,26 @@ class B2dContactListenerTest {
         listener.endContact(mockContact);
         verifyNoInteractions(mockPlayer);
     }
+
+    @Test
+    void testBeginContactWithOneNullUserData() {
+        when(fixtureA.getUserData()).thenReturn(mockPlayer);
+        when(fixtureB.getUserData()).thenReturn(null);
+
+        listener.beginContact(mockContact);
+
+        verifyNoInteractions(mockCallback);
+    }
+
+    @Test
+    void testEndContactWithNonSpike() {
+        when(fixtureA.getUserData()).thenReturn(mockPlayer);
+        when(fixtureB.getUserData()).thenReturn(new Object());  // Non-spike object
+
+        listener.endContact(mockContact);
+
+        verify(mockPlayer, never()).setInContactWithSpike(false);
+    }
+
+    
 }

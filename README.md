@@ -24,3 +24,4 @@ Zelda rougelite inspirert av *the binding of isaac*
 
 ## Credits
 * `dungeon_sheet.png` from https://opengameart.org/content/a-blocky-dungeon (credit: http://blog-buch.rhcloud.com)
+* `16x16_dungeon_tiles.jpg` from https://opengameart.org/content/6-color-dungeon-16x16 (credit: HorusKDI)

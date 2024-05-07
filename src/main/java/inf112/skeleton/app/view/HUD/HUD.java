@@ -44,7 +44,6 @@ public class HUD {
         for (int i = 0; i < maxHearts; i++) {
             float x = screenX + i * (HEART_WIDTH + HEART_HEIGHT);
             float y = screenY;
-            // System.out.println("Heart Pos: " + x + ", " + y);
             hearts.add(new Heart(heartTexture, x, y, HEART_WIDTH, HEART_HEIGHT, true));
         }
     }

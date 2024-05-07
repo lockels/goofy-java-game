@@ -336,16 +336,20 @@ public class GameLogic implements CollisionCallBack {
      * If a coin is collided with and not yet collected, it is marked as collected and its value is added to the player's score.
      */
     private void checkForCoinCollisions() {
+        List<Coin> coinsToRemove = new ArrayList<>();
         for (Coin coin : coins) {
             if (player.collidesWith(coin)) {
                 if (!coin.isCollected()) {
                     coin.setCollected();
                     coinValue += coin.getValue();
                     soundController.playCollectCoinSound();
+                    coinsToRemove.add(coin);
                 }
             }
         }
+        coins.removeAll(coinsToRemove);
     }
+
     /**
      * Determines if a given position is a legal spawn point for entities by checking if it overlaps
      * with any 'out-of-bounds' areas defined in the game map.
@@ -414,6 +418,7 @@ public class GameLogic implements CollisionCallBack {
         updateEnemyPositions();
         updateWeapon();
         updateWave();
+        updateCoins();
     }
     /**
      * Retrieves a list of all active entities in the game.
@@ -527,14 +532,17 @@ public class GameLogic implements CollisionCallBack {
         player.move();
     }
 
+    private void updateCoins() {
+        if (coins.size() == 0) {
+            initializeCoins();
+        }
+    }
+
     private void updateWave() {
         waveTimer += Gdx.graphics.getDeltaTime();
         if (enemies.size() == 0 && waveTimer >= waveDelay) {
             player.setHealth(PLAYER_HEALTH);
             initializeEnemies();
-            if (coins.size() == 0) {
-                initializeCoins();
-            }
             wave += 1;
             waveTimer = 0;
         }

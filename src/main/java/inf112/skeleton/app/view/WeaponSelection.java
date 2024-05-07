@@ -111,7 +111,6 @@ public class WeaponSelection extends ScreenAdapter{
             gameLogic.setWeapon(new TreeSword(gameLogic.getWorld()));
         }
         else if(metalSwordButton.isPressed()){
-            System.out.printf("num coins: %d", gameLogic.getCoinValue());
             if (gameLogic.getCoinValue() >= METAL_SWORD_COST) {
                 gameLogic.setGameState(GameState.GAME_ACTIVE);
                 game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam));
@@ -121,7 +120,6 @@ public class WeaponSelection extends ScreenAdapter{
             }
         }
         else if(diamondSwordButton.isPressed()){
-            System.out.printf("num coins: %d", gameLogic.getCoinValue());
             if (gameLogic.getCoinValue() >= DIAMOND_SWORD_COST) {
                 gameLogic.setGameState(GameState.GAME_ACTIVE);
                 game.setScreen(new GameActiveScreen(game, gameLogic, game.batch, game.cam));

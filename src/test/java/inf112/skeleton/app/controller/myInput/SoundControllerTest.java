@@ -64,14 +64,14 @@ void testGetClips() {
     @Test
     void testPlayBackgroundMusic() {
         when(backgroundMusic.isPlaying()).thenReturn(false);
-        soundController.playBackgroundMusic();
+        soundController.playBackgroundMusic(0.2f);
         verify(backgroundMusic).play();
     }
 
 
     @Test
     void testPlayCoinSound() {
-        soundController.playCoinSound();
+        soundController.playCollectCoinSound();
         verify(clip).start();
     }
 

@@ -14,6 +14,7 @@ public class Coin extends Entity {
     private int value;
     private boolean collected;
     
+    
     /**
      * Constructs a new Coin with the specified parameters.
      *
@@ -43,6 +44,7 @@ public class Coin extends Entity {
     public void setCollected() {
         super.setIsDestroyed(true);
         collected = true;
+        
     }
 
     /**
@@ -52,6 +54,8 @@ public class Coin extends Entity {
      */
     public boolean isCollected() {
         return collected;
+        
+        
     }
 }
 

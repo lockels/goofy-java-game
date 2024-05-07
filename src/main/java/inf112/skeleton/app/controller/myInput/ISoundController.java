@@ -11,7 +11,7 @@ public interface ISoundController {
     /**
      * Plays a sound for collecting a coin.
      */
-    void playCoinSound();
+    void playCollectCoinSound();
 
     /**
      * Plays a sound for taking damage.
@@ -21,13 +21,14 @@ public interface ISoundController {
     /**
      * Plays the background music if it's not already playing.
      */
-    void playBackgroundMusic();
-
+    void playBackgroundMusic(float volume);
+    
     /**
      * Stops the background music if it's playing.
      */
     void stopBackgroundMusic();
 
+    void spikeHurtSound();
     /**
      * Plays a sound for the Pestilence attack.
      */

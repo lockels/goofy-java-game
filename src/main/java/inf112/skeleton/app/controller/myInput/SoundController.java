@@ -27,13 +27,15 @@ public class SoundController implements ISoundController {
         //initializeBackgroundMusic();
         // Map specific sounds to actio
         loadSound("background", "/sounds/background.wav");
+        ///loadSound("background", "/sounds/battleBackground.wav");
         loadSound("dogma", "/sounds/Dogma.wav");
-        loadSound("beastGhostrise", "/sounds/Beast_ghostrise1.wav");
-        loadSound("technologyShot", "/sounds/Technology_shot.wav");
+        loadSound("technologyShot", "/sounds/simpleSwordHurt.wav");
         loadSound("damage", "/sounds/damageSound.wav");
         loadSound("death", "/sounds/Death_sound.wav");
-        loadSound("isaacDeath", "/sounds/Isaac_dies.wav");
-        loadSound("pestilence", "/sounds/Pestilence_spit_blob.wav");
+        loadSound("isaacDeath", "/sounds/isaacDies.wav");
+        loadSound("pestilence", "/sounds/dragonHurt.wav");
+        loadSound("collision", "/sounds/bellofDeath.wav");
+        loadSound("coin", "/sounds/collectCoinSound.wav");
     }
 
     private void loadSound(String key, String path) {
@@ -55,10 +57,13 @@ public class SoundController implements ISoundController {
             System.err.println("Error loading sound: " + key + " - " + e);
         }
     }
-
+    
     @Override
     public void initializeBackgroundMusic() {
         playSound("background");
+        setMusicVolume(0.2f); // Set to 20% volume; adjust as necessary
+    
+        
     }
 
     @Override
@@ -90,12 +95,6 @@ public class SoundController implements ISoundController {
         playSound("move");
     }
 
-    
-    @Override
-    public void playCoinSound() {
-        playSound("coin");
-    }
-
     @Override
     public void playPestilenceSound() {
         playSound("pestilence");
@@ -118,19 +117,30 @@ public class SoundController implements ISoundController {
     }
 
     @Override
-    public void playBackgroundMusic() {
-        if (backgroundMusic != null && !backgroundMusic.isPlaying()) {
-            backgroundMusic.play();
+    public void playCollectCoinSound() {
+        playSound("coin");
+    }
+    
+    @Override
+    public void playBackgroundMusic(float volume) {
+        if (backgroundMusic != null) {
+            backgroundMusic.setVolume(volume); // Set the volume
+            if (!backgroundMusic.isPlaying()) {
+                backgroundMusic.play();
+            }
         }
     }
+
 
     @Override
     public void stopBackgroundMusic() {
         if (backgroundMusic != null && backgroundMusic.isPlaying()) {
+            System.out.println("Stopping background music...");  // Debug log
             backgroundMusic.stop();
+        } else {
+            System.out.println("Background music was not playing or is null.");  // Debug log
         }
     }
-
 
     @Override
     public void setMusicVolume(float volume) {
@@ -155,5 +165,10 @@ public class SoundController implements ISoundController {
      */
     public Music getBackgroundMusic() {
         return this.backgroundMusic;
+    }
+
+    @Override
+    public void spikeHurtSound() {
+        playSound("collision");
     }
 }

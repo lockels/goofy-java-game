@@ -20,7 +20,14 @@ Zelda rougelite inspirert av *the binding of isaac*
 * Kompileres med `mvn compile`
 * Kjøres med `mvn exec:java`
 * Krever *Java 17* eller senere
-
+## Sounds
+* `coinSound`  free sounds from https://pixabay.com/sound-effects/search/coin/
+# `backgroundMusic` free sounds https://opengameart.org/content/actionadventurebattlefantasy-music
+# `bellofDeath` free sounds https://pixabay.com/sound-effects
+# `swordSound` free sounds https://pixabay.com/sound-effects
+# `isaacDies` free sounds https://opengameart.org/content/horror-sound-effects-library
+# `dragonHurt` free sounds https://opengameart.org/content/horror-sound-effects-library
+# `simpleSwordHurt` free sounds https://opengameart.org/content/horror-sound-effects-library
 
 ## Credits
 * `dungeon_sheet.png` from https://opengameart.org/content/a-blocky-dungeon (credit: http://blog-buch.rhcloud.com)

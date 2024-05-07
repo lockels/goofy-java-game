@@ -148,6 +148,7 @@ public class Constants {
     public final static String TREE_SWORD_BUTTON = "Tree_Sword_Button.png";
     public final static String METAL_SWORD_BUTTON = "Red_Sword_Button.png";
     public final static String DIAMOND_SWORD_BUTTON = "Green_Sword_Button.png";
+    
 
     // GameHelpScreen
     public final static String HELP_SCREEN_BACKGROUND = "src/main/resources/gamehelpscreen/helpbackground.png";

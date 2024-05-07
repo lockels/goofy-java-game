@@ -13,6 +13,7 @@ import static inf112.skeleton.app.utils.Constants.QUIT_BUTTON;
 import static inf112.skeleton.app.utils.Constants.TREE_SWORD_BUTTON;
 import static inf112.skeleton.app.utils.Constants.WEAPON_SELECTION;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -36,7 +37,7 @@ import inf112.skeleton.app.model.entities.weapons.TreeSword;
  * The GameTitleScreen class is responsible for rendering the title screen.
  * Extends {@link ScreenAdapter}.
  */
-public class WeaponSelection1 extends ScreenAdapter{
+public class WeaponSelection extends ScreenAdapter{
     private GameRenderer game;
     private GameLogic gameLogic;
     private OrthographicCamera cam;
@@ -53,7 +54,7 @@ public class WeaponSelection1 extends ScreenAdapter{
      * @param game      The game renderer instance.
      * @param gameLogic The game logic instance.
      */
-    public WeaponSelection1(GameRenderer game, GameLogic gameLogic) {
+    public WeaponSelection(GameRenderer game, GameLogic gameLogic) {
         this.game = game;
         this.gameLogic = gameLogic;
         this.batch = new SpriteBatch();

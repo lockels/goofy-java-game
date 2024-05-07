@@ -168,7 +168,7 @@ public class GameLogic implements CollisionCallBack {
     private void initializeEntities() {
         initializePlayer();
         initializeEnemies();
-        initializeWeapon(new MetalSword(world));
+        initializeWeapon(new TreeSword(world));
         initializeCoins();
     }
 

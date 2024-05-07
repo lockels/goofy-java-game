@@ -28,7 +28,6 @@ public class SoundController implements ISoundController {
         // Map specific sounds to actio
         loadSound("background", "/sounds/background.wav");
         ///loadSound("background", "/sounds/battleBackground.wav");
-        loadSound("dogma", "/sounds/Dogma.wav");
         loadSound("technologyShot", "/sounds/simpleSwordHurt.wav");
         loadSound("damage", "/sounds/damageSound.wav");
         loadSound("death", "/sounds/Death_sound.wav");
